@@ -22,6 +22,11 @@ RUN npm run build
 FROM python:3.11-slim
 WORKDIR /app
 
+# Configure resilient APT settings for network timeouts/retries
+RUN echo 'Acquire::Retries "5";' > /etc/apt/apt.conf.d/99network.conf && \
+    echo 'Acquire::http::Timeout "120";' >> /etc/apt/apt.conf.d/99network.conf && \
+    echo 'Acquire::https::Timeout "120";' >> /etc/apt/apt.conf.d/99network.conf
+
 # Install curl for health checks and bash
 RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
@@ -33,7 +38,7 @@ COPY --from=node:20-slim /usr/local/bin/node /usr/local/bin/node
 
 # Install Python backend dependencies
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --default-timeout=1000 --retries=10 -r requirements.txt
 RUN patchright install --with-deps chromium
 
 # Copy Next.js standalone build artifacts into /app/frontend
