@@ -4,6 +4,8 @@ import csv
 import json
 import logging
 import re
+import shutil
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
@@ -22,10 +24,11 @@ def sanitize_filename(name: str, max_length: int = 50) -> str:
 
 
 class LeadExporter:
-    """Exports prioritized CSV, individual per-lead JSON profiles, and error reports."""
+    """Exports prioritized CSV, individual per-lead JSON profiles, batch manifests, and audit files."""
 
     def __init__(self, output_base_dir: Path):
         self.output_base_dir = Path(output_base_dir)
+        self.output_base_dir.mkdir(parents=True, exist_ok=True)
 
     def get_batch_dir(self, batch_id: str) -> Path:
         """Get directory for a specific batch."""
@@ -40,7 +43,7 @@ class LeadExporter:
         errors: Optional[List[Dict[str, Any]]] = None,
         batch_metadata: Optional[Dict[str, Any]] = None,
     ) -> Dict[str, str]:
-        """Export all assets for a batch: CSV, profiles, errors, and manifest."""
+        """Export all assets for a batch: CSVs, profiles, JSONL logs, and manifest."""
         batch_dir = self.get_batch_dir(batch_id)
         profiles_dir = batch_dir / "profiles"
         profiles_dir.mkdir(parents=True, exist_ok=True)
@@ -52,8 +55,14 @@ class LeadExporter:
             except OSError:
                 pass
 
-        exported_profiles = []
+        exported_profiles: List[str] = []
         csv_rows: List[Dict[str, Any]] = []
+        outreach_ready_rows: List[Dict[str, Any]] = []
+        needs_review_rows: List[Dict[str, Any]] = []
+        jsonl_profiles: List[Dict[str, Any]] = []
+        all_sources: List[Dict[str, Any]] = []
+        all_claims: List[Dict[str, Any]] = []
+        input_snapshot_rows: List[Dict[str, Any]] = []
 
         # Sort leads primarily by numeric priority ascending (0, 1, 2)
         # Secondarily by score descending, then sources examined descending
@@ -66,22 +75,34 @@ class LeadExporter:
         sorted_items = sorted(leads_with_profiles, key=sort_key)
 
         for idx, (lead, profile) in enumerate(sorted_items, start=1):
-            # Stable safe filename: person_{idx:03d}_{lead_id}_{name_slug}.json
             name_slug = sanitize_filename(profile.identity.get("name") or "lead")
             filename = f"person_{idx:03d}_{sanitize_filename(lead.lead_id)}_{name_slug}.json"
             profile_file = profiles_dir / filename
 
-            # Write JSON atomically
+            profile_dict = profile.model_dump()
+            jsonl_profiles.append(profile_dict)
+
+            # Collect sources & claims
+            for s in profile.sources:
+                all_sources.append({"lead_id": lead.lead_id, **s.model_dump()})
+            for c in profile.claims:
+                all_claims.append({"lead_id": lead.lead_id, **c.model_dump()})
+
+            # Collect input snapshot
+            raw_snap = dict(lead.raw_data) if lead.raw_data else dict(lead.model_dump())
+            raw_snap["lead_id"] = lead.lead_id
+            input_snapshot_rows.append(raw_snap)
+
+            # Write JSON profile atomically
             temp_file = profiles_dir / f"{filename}.tmp"
             with open(temp_file, "w", encoding="utf-8") as f:
-                json.dump(profile.model_dump(), f, indent=2, ensure_ascii=False)
+                json.dump(profile_dict, f, indent=2, ensure_ascii=False)
             temp_file.replace(profile_file)
 
             exported_profiles.append(str(profile_file))
 
             # Build enriched CSV row preserving original fields
-            row_data = dict(lead.raw_data)
-            # Add/standardize required columns
+            row_data = dict(lead.raw_data) if lead.raw_data else {}
             row_data["lead_id"] = lead.lead_id
             row_data["name"] = profile.identity.get("name") or lead.name
             row_data["job_title"] = profile.identity.get("job_title") or lead.job_title or ""
@@ -96,156 +117,254 @@ class LeadExporter:
             row_data["profile_json_path"] = f"profiles/{filename}"
             row_data["research_status"] = profile.research_metadata.research_status
             row_data["last_researched_at"] = profile.research_metadata.last_research_timestamp
+            
+            # V2 columns
+            readiness_status = getattr(profile.contact_readiness, "status", "needs_research")
+            row_data["contact_readiness"] = readiness_status
+            row_data["icebreaker_text"] = profile.icebreaker.text or ""
+            row_data["icebreaker_type"] = profile.icebreaker.icebreaker_type or ""
+            row_data["icebreaker_status"] = profile.icebreaker.personalization_status
+            row_data["verification_confidence"] = profile.priority.confidence
 
             csv_rows.append(row_data)
 
-        # Write leads_prioritized.csv
+            # Categorize outreach readiness
+            if readiness_status == "ready":
+                outreach_ready_rows.append(row_data)
+            else:
+                needs_review_rows.append(row_data)
+
+        # 1. Write leads_prioritized.csv & leads_enriched.csv
         csv_path = batch_dir / "leads_prioritized.csv"
         self._write_csv(csv_path, csv_rows)
+        shutil.copy2(csv_path, batch_dir / "leads_enriched.csv")
 
-        # Write errors.csv
+        # 2. Write outreach_ready.csv
+        outreach_ready_path = batch_dir / "outreach_ready.csv"
+        self._write_csv(outreach_ready_path, outreach_ready_rows)
+
+        # 3. Write needs_review.csv
+        needs_review_path = batch_dir / "needs_review.csv"
+        self._write_csv(needs_review_path, needs_review_rows)
+
+        # 4. Write leads_input_snapshot.csv
+        input_snap_path = batch_dir / "leads_input_snapshot.csv"
+        self._write_csv(input_snap_path, input_snapshot_rows)
+
+        # 5. Write lead_profiles.jsonl
+        jsonl_path = batch_dir / "lead_profiles.jsonl"
+        with open(jsonl_path, "w", encoding="utf-8") as f:
+            for item in jsonl_profiles:
+                f.write(json.dumps(item, ensure_ascii=False) + "\n")
+
+        # 6. Write sources.jsonl & claims.jsonl
+        sources_jsonl = batch_dir / "sources.jsonl"
+        with open(sources_jsonl, "w", encoding="utf-8") as f:
+            for s in all_sources:
+                f.write(json.dumps(s, ensure_ascii=False) + "\n")
+
+        claims_jsonl = batch_dir / "claims.jsonl"
+        with open(claims_jsonl, "w", encoding="utf-8") as f:
+            for c in all_claims:
+                f.write(json.dumps(c, ensure_ascii=False) + "\n")
+
+        # 7. Write errors.csv & errors.jsonl
         errors_path = batch_dir / "errors.csv"
         error_rows = self._prepare_error_rows(errors or [], sorted_items)
         self._write_csv(errors_path, error_rows)
 
-        # Write manifest.json
+        errors_jsonl = batch_dir / "errors.jsonl"
+        with open(errors_jsonl, "w", encoding="utf-8") as f:
+            for err in (errors or []):
+                f.write(json.dumps(err, ensure_ascii=False) + "\n")
+
+        # 8. Compute Counts
+        completed_c = sum(1 for _, p in sorted_items if p.research_metadata.research_status == "completed")
+        partial_c = sum(1 for _, p in sorted_items if p.research_metadata.research_status == "partial")
+        failed_c = sum(1 for _, p in sorted_items if p.research_metadata.research_status == "failed")
+        outreach_ready_c = len(outreach_ready_rows)
+        needs_review_c = len(needs_review_rows)
+
+        # 9. Write summary.json
+        summary_path = batch_dir / "summary.json"
+        summary_data = {
+            "batch_id": batch_id,
+            "total_leads": len(leads_with_profiles),
+            "completed_count": completed_c,
+            "partial_count": partial_c,
+            "failed_count": failed_c,
+            "outreach_ready_count": outreach_ready_c,
+            "needs_review_count": needs_review_c,
+            "priority_counts": {
+                "0": sum(1 for _, p in sorted_items if p.priority.numeric_priority == 0),
+                "1": sum(1 for _, p in sorted_items if p.priority.numeric_priority == 1),
+                "2": sum(1 for _, p in sorted_items if p.priority.numeric_priority == 2),
+            },
+            "exported_at": datetime.now(timezone.utc).isoformat(),
+        }
+        with open(summary_path, "w", encoding="utf-8") as f:
+            json.dump(summary_data, f, indent=2)
+
+        # 10. Write manifest.json
         manifest_path = batch_dir / "manifest.json"
         manifest_data = {
             "batch_id": batch_id,
+            "schema_version": "2.0.0",
+            "pipeline_version": "2.0.0",
+            "started_at": (batch_metadata or {}).get("started_at") or datetime.now(timezone.utc).isoformat(),
+            "completed_at": datetime.now(timezone.utc).isoformat(),
+            "status": "completed",
+            "input_file": (batch_metadata or {}).get("input_filename") or "leads_input_snapshot.csv",
+            "input_sha256": (batch_metadata or {}).get("input_sha256") or "",
             "total_processed": len(leads_with_profiles),
+            "counts": {
+                "total": len(leads_with_profiles),
+                "processed": len(leads_with_profiles),
+                "completed": completed_c,
+                "partial": partial_c,
+                "failed": failed_c,
+                "outreach_ready": outreach_ready_c,
+                "needs_review": needs_review_c,
+                "identity_conflicts": sum(1 for _, p in sorted_items if "identity_not_verified" in p.contact_readiness.blockers),
+            },
             "priority_distribution": {
                 "0": sum(1 for _, p in sorted_items if p.priority.numeric_priority == 0),
                 "1": sum(1 for _, p in sorted_items if p.priority.numeric_priority == 1),
                 "2": sum(1 for _, p in sorted_items if p.priority.numeric_priority == 2),
             },
             "research_status_distribution": {
-                "completed": sum(1 for _, p in sorted_items if p.research_metadata.research_status == "completed"),
-                "partial": sum(1 for _, p in sorted_items if p.research_metadata.research_status == "partial"),
-                "failed": sum(1 for _, p in sorted_items if p.research_metadata.research_status == "failed"),
+                "completed": completed_c,
+                "partial": partial_c,
+                "failed": failed_c,
+            },
+            "contact_readiness_distribution": {
+                "ready": outreach_ready_c,
+                "needs_review": needs_review_c,
             },
             "csv_path": str(csv_path),
             "errors_path": str(errors_path),
             "profiles_count": len(exported_profiles),
+            "files": {
+                "leads_prioritized_csv": str(csv_path),
+                "outreach_ready_csv": str(outreach_ready_path),
+                "needs_review_csv": str(needs_review_path),
+                "input_snapshot_csv": str(input_snap_path),
+                "lead_profiles_jsonl": str(jsonl_path),
+                "sources_jsonl": str(sources_jsonl),
+                "claims_jsonl": str(claims_jsonl),
+                "errors_csv": str(errors_path),
+                "manifest_json": str(manifest_path),
+                "summary_json": str(summary_path),
+            },
             "metadata": batch_metadata or {},
         }
         with open(manifest_path, "w", encoding="utf-8") as f:
             json.dump(manifest_data, f, indent=2)
 
-        # Mirror outputs to top-level output directory
+        # 11. Atomic latest.json update
+        latest_data = {
+            "batch_id": batch_id,
+            "manifest_path": str(manifest_path),
+            "summary": summary_data,
+            "updated_at": datetime.now(timezone.utc).isoformat(),
+        }
         try:
-            root_output = self.output_base_dir.parent / "output"
-            root_output.mkdir(parents=True, exist_ok=True)
-            import shutil
-            shutil.copy2(csv_path, root_output / "leads_prioritized.csv")
-            shutil.copy2(manifest_path, root_output / "manifest.json")
-            if errors_path.exists():
-                shutil.copy2(errors_path, root_output / "errors.csv")
-            log_path = batch_dir / "scraping.log"
-            if log_path.exists():
-                shutil.copy2(log_path, root_output / "scraping.log")
-            root_profiles = root_output / "profiles"
-            root_profiles.mkdir(parents=True, exist_ok=True)
-            for old_f in root_profiles.glob("person_lead_*.json"):
-                try:
-                    old_f.unlink()
-                except OSError:
-                    pass
-            for p_file in profiles_dir.glob("*.json"):
-                shutil.copy2(p_file, root_profiles / p_file.name)
+            # Under output base dir (e.g. data/output/latest.json or data/batches/latest.json)
+            targets = [self.output_base_dir / "latest.json"]
+            if self.output_base_dir.parent.exists():
+                targets.append(self.output_base_dir.parent / "latest.json")
 
-            # Also mirror to workspace root output/ if present
+            for t in targets:
+                tmp_t = t.parent / f"{t.name}.tmp"
+                with open(tmp_t, "w", encoding="utf-8") as f:
+                    json.dump(latest_data, f, indent=2)
+                tmp_t.replace(t)
+        except Exception as l_err:
+            logger.debug(f"Notice writing latest.json: {l_err}")
+
+        # 12. Backward-compatible top-level mirroring if needed for legacy paths
+        try:
             alt_root = Path("output")
-            if alt_root.resolve() != root_output.resolve():
+            if alt_root.resolve() != batch_dir.resolve():
                 alt_root.mkdir(parents=True, exist_ok=True)
                 shutil.copy2(csv_path, alt_root / "leads_prioritized.csv")
                 shutil.copy2(manifest_path, alt_root / "manifest.json")
                 if errors_path.exists():
                     shutil.copy2(errors_path, alt_root / "errors.csv")
-                if log_path.exists():
-                    shutil.copy2(log_path, alt_root / "scraping.log")
                 alt_profiles = alt_root / "profiles"
                 alt_profiles.mkdir(parents=True, exist_ok=True)
-                for old_f in alt_profiles.glob("person_lead_*.json"):
-                    try:
-                        old_f.unlink()
-                    except OSError:
-                        pass
                 for p_file in profiles_dir.glob("*.json"):
                     shutil.copy2(p_file, alt_profiles / p_file.name)
         except Exception as copy_err:
-            logger.warning(f"Failed mirroring to root output directory: {copy_err}")
+            logger.debug(f"Notice on legacy output mirror: {copy_err}")
 
         return {
+            "batch_dir": str(batch_dir),
             "csv_path": str(csv_path),
+            "outreach_ready_path": str(outreach_ready_path),
+            "needs_review_path": str(needs_review_path),
             "errors_path": str(errors_path),
             "manifest_path": str(manifest_path),
+            "summary_path": str(summary_path),
             "profiles_dir": str(profiles_dir),
+            "jsonl_path": str(jsonl_path),
         }
+
+    def _write_csv(self, file_path: Path, rows: List[Dict[str, Any]]) -> None:
+        """Write CSV atomically with UTF-8 encoding."""
+        if not rows:
+            with open(file_path, "w", newline="", encoding="utf-8") as f:
+                f.write("lead_id,name,company,job_title,status\n")
+            return
+
+        # Determine all unique fieldnames preserving first seen order
+        fieldnames: List[str] = []
+        for r in rows:
+            for k in r.keys():
+                if k not in fieldnames:
+                    fieldnames.append(k)
+
+        temp_path = file_path.parent / f"{file_path.name}.tmp"
+        with open(temp_path, "w", newline="", encoding="utf-8") as f:
+            writer = csv.DictWriter(f, fieldnames=fieldnames, extrasaction="ignore")
+            writer.writeheader()
+            for row in rows:
+                cleaned_row = {
+                    k: (str(v) if v is not None else "") for k, v in row.items()
+                }
+                writer.writerow(cleaned_row)
+
+        temp_path.replace(file_path)
 
     def _prepare_error_rows(
         self,
         validation_errors: List[Dict[str, Any]],
-        processed_items: List[Tuple[LeadInput, LeadProfile]],
+        leads_with_profiles: List[Tuple[LeadInput, LeadProfile]],
     ) -> List[Dict[str, Any]]:
-        """Consolidate validation and scraping errors."""
-        rows: List[Dict[str, Any]] = []
+        """Combine CSV import validation errors and research errors into single report."""
+        error_rows: List[Dict[str, Any]] = []
 
-        # From import validation errors
-        for err in validation_errors:
-            rows.append({
-                "lead_id": err.get("lead_id", ""),
-                "name": err.get("raw_row", {}).get("Full Name") or err.get("raw_row", {}).get("Name", ""),
-                "company": err.get("raw_row", {}).get("Company Name") or err.get("raw_row", {}).get("Company", ""),
-                "professional_email": err.get("raw_row", {}).get("Email", ""),
-                "error_type": err.get("type", "validation_error"),
-                "error_message": err.get("error", "Invalid or malformed lead"),
-                "actionable_recommendation": "Check row fields or deduplicate records before import",
+        for ve in validation_errors:
+            error_rows.append({
+                "source": "import_validation",
+                "row_index": ve.get("row_index", ""),
+                "lead_id": ve.get("lead_id", ""),
+                "name": ve.get("name", ""),
+                "error_type": ve.get("type", "validation_error"),
+                "description": ve.get("error", "Malformed or incomplete row"),
             })
 
-        # From research failures
-        for lead, profile in processed_items:
-            if profile.research_metadata.research_status in ("partial", "failed") and profile.research_metadata.errors_and_limitations:
-                for limit in profile.research_metadata.errors_and_limitations:
-                    rows.append({
+        for lead, profile in leads_with_profiles:
+            meta = profile.research_metadata
+            if meta.research_status == "failed" or meta.errors_and_limitations:
+                for limitation in meta.errors_and_limitations:
+                    error_rows.append({
+                        "source": "research_pipeline",
+                        "row_index": "",
                         "lead_id": lead.lead_id,
                         "name": lead.name,
-                        "company": lead.company or "",
-                        "professional_email": lead.professional_email or "",
-                        "error_type": "research_limitation",
-                        "error_message": limit,
-                        "actionable_recommendation": "Verify company domain accessibility or verify direct email manually",
+                        "error_type": meta.research_status,
+                        "description": limitation,
                     })
 
-        return rows
-
-    def _write_csv(self, file_path: Path, rows: List[Dict[str, Any]]) -> None:
-        """Write rows to CSV atomically with UTF-8 encoding."""
-        if not rows:
-            # Create empty file with empty headers
-            with open(file_path, "w", encoding="utf-8", newline="") as f:
-                f.write("lead_id,name,priority,error_message\n")
-            return
-
-        # Canonical key order
-        core_keys = [
-            "lead_id", "name", "job_title", "company", "industry",
-            "linkedin_url", "company_website", "professional_email",
-            "priority", "priority_reason", "relevance_evidence",
-            "profile_json_path", "research_status", "last_researched_at"
-        ]
-        # Include any extra keys
-        all_keys = list(core_keys)
-        for r in rows:
-            for k in r.keys():
-                if k not in all_keys:
-                    all_keys.append(k)
-
-        # Write to temporary file first
-        temp_path = file_path.with_suffix(".tmp")
-        with open(temp_path, "w", encoding="utf-8", newline="") as f:
-            writer = csv.DictWriter(f, fieldnames=all_keys, extrasaction="ignore")
-            writer.writeheader()
-            for r in rows:
-                writer.writerow(r)
-
-        temp_path.replace(file_path)
+        return error_rows

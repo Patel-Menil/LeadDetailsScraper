@@ -32,11 +32,14 @@ logger = logging.getLogger("lead_research.server")
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 DATA_DIR = Path(os.getenv("DATA_DIR", BASE_DIR / "data"))
 UPLOADS_DIR = DATA_DIR / "uploads"
-BATCHES_DIR = DATA_DIR / "batches"
+OUTPUT_DIR = DATA_DIR / "output"
+BATCHES_DIR = OUTPUT_DIR / "batches"
+LEGACY_BATCHES_DIR = DATA_DIR / "batches"
 STATIC_DIR = BASE_DIR / "static"
 
 UPLOADS_DIR.mkdir(parents=True, exist_ok=True)
 BATCHES_DIR.mkdir(parents=True, exist_ok=True)
+LEGACY_BATCHES_DIR.mkdir(parents=True, exist_ok=True)
 STATIC_DIR.mkdir(parents=True, exist_ok=True)
 
 app = FastAPI(
@@ -69,60 +72,88 @@ class StartBatchRequest(BaseModel):
     tor_proxy: Optional[str] = None
 
 
+def resolve_batch_dir(batch_id: str) -> Path:
+    """Resolve directory in canonical data/output/batches/ or legacy data/batches/."""
+    clean_id = sanitize_filename(batch_id)
+    v2_dir = BATCHES_DIR / clean_id
+    if v2_dir.exists():
+        return v2_dir
+    legacy_dir = LEGACY_BATCHES_DIR / clean_id
+    if legacy_dir.exists():
+        return legacy_dir
+    return v2_dir
+
+
 def load_all_batches_metadata() -> List[Dict[str, Any]]:
-    """Scan batches directory and return summary for all batches."""
+    """Scan batches directories and return summary for all batches."""
     batches = []
-    for b_dir in BATCHES_DIR.iterdir():
-        if not b_dir.is_dir():
+    seen_ids = set()
+
+    for b_parent in [BATCHES_DIR, LEGACY_BATCHES_DIR]:
+        if not b_parent.exists():
             continue
-        batch_id = b_dir.name
-        manifest_file = b_dir / "manifest.json"
-        metadata: Dict[str, Any] = {
-            "batch_id": batch_id,
-            "status": "completed",
-            "total_leads": 0,
-            "completed_count": 0,
-            "partial_count": 0,
-            "failed_count": 0,
-            "priority_counts": {"0": 0, "1": 0, "2": 0},
-            "created_at": datetime.fromtimestamp(b_dir.stat().st_ctime, timezone.utc).isoformat(),
-            "csv_exists": (b_dir / "leads_prioritized.csv").exists(),
-            "errors_exists": (b_dir / "errors.csv").exists(),
-            "profiles_count": len(list((b_dir / "profiles").glob("*.json"))) if (b_dir / "profiles").exists() else 0,
-        }
+        for b_dir in b_parent.iterdir():
+            if not b_dir.is_dir() or b_dir.name in seen_ids:
+                continue
+            seen_ids.add(b_dir.name)
+            batch_id = b_dir.name
+            manifest_file = b_dir / "manifest.json"
+            metadata: Dict[str, Any] = {
+                "batch_id": batch_id,
+                "status": "completed",
+                "total_leads": 0,
+                "completed_count": 0,
+                "partial_count": 0,
+                "failed_count": 0,
+                "outreach_ready_count": 0,
+                "needs_review_count": 0,
+                "priority_counts": {"0": 0, "1": 0, "2": 0},
+                "created_at": datetime.fromtimestamp(b_dir.stat().st_ctime, timezone.utc).isoformat(),
+                "csv_exists": (b_dir / "leads_prioritized.csv").exists(),
+                "outreach_ready_exists": (b_dir / "outreach_ready.csv").exists(),
+                "needs_review_exists": (b_dir / "needs_review.csv").exists(),
+                "errors_exists": (b_dir / "errors.csv").exists(),
+                "profiles_count": len(list((b_dir / "profiles").glob("*.json"))) if (b_dir / "profiles").exists() else 0,
+            }
 
-        if manifest_file.exists():
-            try:
-                with open(manifest_file, "r", encoding="utf-8") as f:
-                    m_data = json.load(f)
-                    metadata.update({
-                        "total_leads": m_data.get("total_processed", 0),
-                        "priority_counts": m_data.get("priority_distribution", {"0": 0, "1": 0, "2": 0}),
-                        "status_distribution": m_data.get("research_status_distribution", {}),
-                        "input_filename": m_data.get("metadata", {}).get("input_filename", "Uploaded File"),
-                    })
-                    s_dist = m_data.get("research_status_distribution", {})
-                    metadata["completed_count"] = s_dist.get("completed", 0)
-                    metadata["partial_count"] = s_dist.get("partial", 0)
-                    metadata["failed_count"] = s_dist.get("failed", 0)
-            except Exception as e:
-                logger.warning(f"Error reading manifest for {batch_id}: {e}")
+            if manifest_file.exists():
+                try:
+                    with open(manifest_file, "r", encoding="utf-8") as f:
+                        m_data = json.load(f)
+                        counts = m_data.get("counts", {})
+                        s_dist = m_data.get("research_status_distribution", {})
+                        c_dist = m_data.get("contact_readiness_distribution", {})
+                        metadata.update({
+                            "total_leads": counts.get("total", m_data.get("total_processed", 0)),
+                            "completed_count": counts.get("completed", s_dist.get("completed", 0)),
+                            "partial_count": counts.get("partial", s_dist.get("partial", 0)),
+                            "failed_count": counts.get("failed", s_dist.get("failed", 0)),
+                            "outreach_ready_count": counts.get("outreach_ready", c_dist.get("ready", 0)),
+                            "needs_review_count": counts.get("needs_review", c_dist.get("needs_review", 0)),
+                            "priority_counts": m_data.get("priority_distribution", {"0": 0, "1": 0, "2": 0}),
+                            "status_distribution": s_dist,
+                            "input_filename": m_data.get("metadata", {}).get("input_filename", m_data.get("input_file", "Uploaded File")),
+                        })
+                except Exception as e:
+                    logger.warning(f"Error reading manifest for {batch_id}: {e}")
 
-        # If batch is currently running in memory, override with live state
-        if batch_id in active_batches:
-            live = active_batches[batch_id]
-            metadata.update({
-                "status": live.status,
-                "total_leads": live.total_leads,
-                "processed_leads": live.processed_leads,
-                "completed_count": live.completed_count,
-                "partial_count": live.partial_count,
-                "failed_count": live.failed_count,
-                "priority_counts": live.priority_counts,
-                "updated_at": live.updated_at,
-            })
+            # If batch is currently running in memory, override with live state
+            if batch_id in active_batches:
+                live = active_batches[batch_id]
+                metadata.update({
+                    "status": live.status,
+                    "total_leads": live.total_leads,
+                    "processed_leads": live.processed_leads,
+                    "completed_count": live.completed_count,
+                    "partial_count": live.partial_count,
+                    "failed_count": live.failed_count,
+                    "outreach_ready_count": live.outreach_ready_count,
+                    "needs_review_count": live.needs_review_count,
+                    "priority_counts": live.priority_counts,
+                    "updated_at": live.updated_at,
+                })
 
-        batches.append(metadata)
+            batches.append(metadata)
 
     batches.sort(key=lambda b: b.get("created_at", ""), reverse=True)
     return batches
@@ -322,7 +353,7 @@ def get_batch_status(batch_id: str):
     if batch_id in active_batches:
         return active_batches[batch_id].model_dump()
 
-    b_dir = BATCHES_DIR / clean_id
+    b_dir = resolve_batch_dir(clean_id)
     if not b_dir.exists():
         raise HTTPException(status_code=404, detail="Batch not found")
 
@@ -399,7 +430,7 @@ def delete_batch(batch_id: str):
     if clean_id in active_batches:
         del active_batches[clean_id]
 
-    b_dir = BATCHES_DIR / clean_id
+    b_dir = resolve_batch_dir(clean_id)
     if b_dir.exists():
         shutil.rmtree(b_dir, ignore_errors=True)
 
@@ -415,18 +446,20 @@ def delete_batch(batch_id: str):
 
 @app.delete("/api/batches")
 def clear_all_batches():
-    """Clear all batch records, profiles, and history."""
+    """Clear all batch records, profiles, and history across V2 and legacy stores."""
     active_batches.clear()
 
-    # Wipe batches directory
-    for item in BATCHES_DIR.iterdir():
-        if item.is_dir():
-            shutil.rmtree(item, ignore_errors=True)
-        else:
-            try:
-                item.unlink()
-            except OSError:
-                pass
+    # Wipe batches directories
+    for b_parent in [BATCHES_DIR, LEGACY_BATCHES_DIR]:
+        if b_parent.exists():
+            for item in b_parent.iterdir():
+                if item.is_dir():
+                    shutil.rmtree(item, ignore_errors=True)
+                else:
+                    try:
+                        item.unlink()
+                    except OSError:
+                        pass
 
     # Wipe uploads directory
     for item in UPLOADS_DIR.iterdir():
@@ -451,7 +484,7 @@ def get_batch_leads(
     page_size: int = Query(25, ge=1, le=200),
 ):
     """Retrieve prioritized leads from the generated leads_prioritized.csv."""
-    b_dir = BATCHES_DIR / sanitize_filename(batch_id)
+    b_dir = resolve_batch_dir(batch_id)
     csv_path = b_dir / "leads_prioritized.csv"
 
     if not csv_path.exists():
@@ -510,7 +543,7 @@ def get_batch_leads(
 @app.get("/api/batches/{batch_id}/leads/{lead_id}/profile")
 def get_lead_profile(batch_id: str, lead_id: str):
     """Retrieve full JSON research profile for an individual person."""
-    b_dir = BATCHES_DIR / sanitize_filename(batch_id)
+    b_dir = resolve_batch_dir(batch_id)
     profiles_dir = b_dir / "profiles"
 
     if not profiles_dir.exists():
@@ -635,10 +668,27 @@ def get_lead_profile_direct(lead_id: str, batch_id: Optional[str] = None):
     raise HTTPException(status_code=404, detail=f"Profile for lead '{lead_id}' not found across any batches.")
 
 
+@app.get("/api/batches/latest")
+def get_latest_batch_info():
+    """Retrieve metadata about the latest completed batch."""
+    latest_file = OUTPUT_DIR / "latest.json"
+    if not latest_file.exists():
+        latest_file = DATA_DIR / "latest.json"
+
+    if not latest_file.exists():
+        batches = load_all_batches_metadata()
+        if batches:
+            return {"latest_batch": batches[0]}
+        raise HTTPException(status_code=404, detail="No completed batches found")
+
+    with open(latest_file, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
 @app.get("/api/batches/{batch_id}/exports/manifest.json")
 def download_manifest_json(batch_id: str):
     """Download manifest.json for a batch."""
-    b_dir = BATCHES_DIR / sanitize_filename(batch_id)
+    b_dir = resolve_batch_dir(batch_id)
     manifest_path = b_dir / "manifest.json"
     if not manifest_path.exists():
         raise HTTPException(status_code=404, detail="manifest.json not found")
@@ -650,10 +700,25 @@ def download_manifest_json(batch_id: str):
     )
 
 
+@app.get("/api/batches/{batch_id}/exports/summary.json")
+def download_summary_json(batch_id: str):
+    """Download summary.json for a batch."""
+    b_dir = resolve_batch_dir(batch_id)
+    summary_path = b_dir / "summary.json"
+    if not summary_path.exists():
+        raise HTTPException(status_code=404, detail="summary.json not found")
+
+    return FileResponse(
+        summary_path,
+        media_type="application/json",
+        filename=f"{batch_id}_summary.json",
+    )
+
+
 @app.get("/api/batches/{batch_id}/exports/prioritized.csv")
 def download_prioritized_csv(batch_id: str):
     """Download leads_prioritized.csv."""
-    b_dir = BATCHES_DIR / sanitize_filename(batch_id)
+    b_dir = resolve_batch_dir(batch_id)
     csv_path = b_dir / "leads_prioritized.csv"
     if not csv_path.exists():
         raise HTTPException(status_code=404, detail="leads_prioritized.csv not found")
@@ -665,10 +730,40 @@ def download_prioritized_csv(batch_id: str):
     )
 
 
+@app.get("/api/batches/{batch_id}/exports/outreach_ready.csv")
+def download_outreach_ready_csv(batch_id: str):
+    """Download outreach_ready.csv containing only outreach-ready leads."""
+    b_dir = resolve_batch_dir(batch_id)
+    csv_path = b_dir / "outreach_ready.csv"
+    if not csv_path.exists():
+        raise HTTPException(status_code=404, detail="outreach_ready.csv not found for this batch")
+
+    return FileResponse(
+        csv_path,
+        media_type="text/csv",
+        filename=f"{batch_id}_outreach_ready.csv",
+    )
+
+
+@app.get("/api/batches/{batch_id}/exports/needs_review.csv")
+def download_needs_review_csv(batch_id: str):
+    """Download needs_review.csv containing leads requiring review or research."""
+    b_dir = resolve_batch_dir(batch_id)
+    csv_path = b_dir / "needs_review.csv"
+    if not csv_path.exists():
+        raise HTTPException(status_code=404, detail="needs_review.csv not found for this batch")
+
+    return FileResponse(
+        csv_path,
+        media_type="text/csv",
+        filename=f"{batch_id}_needs_review.csv",
+    )
+
+
 @app.get("/api/batches/{batch_id}/exports/errors.csv")
 def download_errors_csv(batch_id: str):
     """Download errors.csv."""
-    b_dir = BATCHES_DIR / sanitize_filename(batch_id)
+    b_dir = resolve_batch_dir(batch_id)
     errors_path = b_dir / "errors.csv"
     if not errors_path.exists():
         raise HTTPException(status_code=404, detail="errors.csv not found")
@@ -683,7 +778,7 @@ def download_errors_csv(batch_id: str):
 @app.get("/api/batches/{batch_id}/exports/scraping.log")
 def download_scraping_log(batch_id: str):
     """Download scraping.log containing granular web research logs."""
-    b_dir = BATCHES_DIR / sanitize_filename(batch_id)
+    b_dir = resolve_batch_dir(batch_id)
     log_path = b_dir / "scraping.log"
     if not log_path.exists():
         for alt in [Path("output/scraping.log"), Path("data/output/scraping.log")]:
@@ -705,7 +800,7 @@ def download_scraping_log(batch_id: str):
 def download_single_profile(batch_id: str, filename: str):
     """Download a single JSON profile securely."""
     safe_fn = sanitize_filename(Path(filename).stem) + ".json"
-    b_dir = BATCHES_DIR / sanitize_filename(batch_id)
+    b_dir = resolve_batch_dir(batch_id)
     profile_path = b_dir / "profiles" / safe_fn
 
     if not profile_path.exists():
@@ -721,7 +816,7 @@ def download_single_profile(batch_id: str, filename: str):
 @app.get("/api/batches/{batch_id}/exports/zip")
 def download_batch_zip(batch_id: str):
     """Create and stream a ZIP archive of all batch assets."""
-    b_dir = BATCHES_DIR / sanitize_filename(batch_id)
+    b_dir = resolve_batch_dir(batch_id)
     if not b_dir.exists():
         raise HTTPException(status_code=404, detail="Batch directory not found")
 

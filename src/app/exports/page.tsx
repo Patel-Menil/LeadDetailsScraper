@@ -111,12 +111,70 @@ export default function ExportCenterPage() {
       {/* Download Deliverables Cards */}
       {selectedBatchId && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          {/* Outreach-Ready CSV */}
+          <Card hoverEffect className="border-emerald-500/30">
+            <CardContent className="p-5 flex items-start justify-between">
+              <div className="space-y-2 pr-4">
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="w-5 h-5 text-emerald-400" />
+                  <span className="font-semibold text-white text-sm">Outreach-Ready Lead CSV</span>
+                </div>
+                <p className="text-xs text-slate-400 leading-relaxed">
+                  Only leads that pass the strict verification policy: verified identity, verified role, usable contact channel, and evidence-grounded icebreaker.
+                </p>
+                <div className="text-[11px] font-mono text-emerald-400/80">
+                  Filename: outreach_ready.csv
+                </div>
+              </div>
+
+              <a
+                href={api.getOutreachReadyCsvUrl(selectedBatchId)}
+                download
+                className="shrink-0"
+              >
+                <Button size="sm" variant="primary" className="gap-1.5 text-xs bg-emerald-600 hover:bg-emerald-500">
+                  <Download className="w-3.5 h-3.5" />
+                  <span>Download</span>
+                </Button>
+              </a>
+            </CardContent>
+          </Card>
+
+          {/* Needs-Review CSV */}
+          <Card hoverEffect className="border-amber-500/30">
+            <CardContent className="p-5 flex items-start justify-between">
+              <div className="space-y-2 pr-4">
+                <div className="flex items-center gap-2">
+                  <AlertTriangle className="w-5 h-5 text-amber-400" />
+                  <span className="font-semibold text-white text-sm">Needs-Review Lead CSV</span>
+                </div>
+                <p className="text-xs text-slate-400 leading-relaxed">
+                  Leads with identity ambiguity, unverified claims, missing professional contact channels, or icebreakers requiring human review.
+                </p>
+                <div className="text-[11px] font-mono text-amber-400/80">
+                  Filename: needs_review.csv
+                </div>
+              </div>
+
+              <a
+                href={api.getNeedsReviewCsvUrl(selectedBatchId)}
+                download
+                className="shrink-0"
+              >
+                <Button size="sm" variant="outline" className="gap-1.5 text-xs text-amber-300 border-amber-500/40 hover:bg-amber-500/10">
+                  <Download className="w-3.5 h-3.5" />
+                  <span>Download</span>
+                </Button>
+              </a>
+            </CardContent>
+          </Card>
+
           {/* Prioritized CSV */}
           <Card hoverEffect>
             <CardContent className="p-5 flex items-start justify-between">
               <div className="space-y-2 pr-4">
                 <div className="flex items-center gap-2">
-                  <FileSpreadsheet className="w-5 h-5 text-emerald-400" />
+                  <FileSpreadsheet className="w-5 h-5 text-blue-400" />
                   <span className="font-semibold text-white text-sm">Prioritized Lead CSV</span>
                 </div>
                 <p className="text-xs text-slate-400 leading-relaxed">
@@ -132,7 +190,7 @@ export default function ExportCenterPage() {
                 download
                 className="shrink-0"
               >
-                <Button size="sm" variant="primary" className="gap-1.5 text-xs">
+                <Button size="sm" variant="secondary" className="gap-1.5 text-xs">
                   <Download className="w-3.5 h-3.5" />
                   <span>Download</span>
                 </Button>
@@ -145,7 +203,7 @@ export default function ExportCenterPage() {
             <CardContent className="p-5 flex items-start justify-between">
               <div className="space-y-2 pr-4">
                 <div className="flex items-center gap-2">
-                  <FolderArchive className="w-5 h-5 text-blue-400" />
+                  <FolderArchive className="w-5 h-5 text-purple-400" />
                   <span className="font-semibold text-white text-sm">Complete Batch ZIP Archive</span>
                 </div>
                 <p className="text-xs text-slate-400 leading-relaxed">
@@ -162,8 +220,37 @@ export default function ExportCenterPage() {
                 className="shrink-0"
               >
                 <Button size="sm" variant="secondary" className="gap-1.5 text-xs">
-                  <Download className="w-3.5 h-3.5 text-blue-400" />
+                  <Download className="w-3.5 h-3.5 text-purple-400" />
                   <span>Download ZIP</span>
+                </Button>
+              </a>
+            </CardContent>
+          </Card>
+
+          {/* Batch Summary JSON */}
+          <Card hoverEffect>
+            <CardContent className="p-5 flex items-start justify-between">
+              <div className="space-y-2 pr-4">
+                <div className="flex items-center gap-2">
+                  <FileText className="w-5 h-5 text-sky-400" />
+                  <span className="font-semibold text-white text-sm">Batch Summary Report</span>
+                </div>
+                <p className="text-xs text-slate-400 leading-relaxed">
+                  Aggregated statistics, conversion rates, priority breakdowns, execution duration, and audit totals in JSON format.
+                </p>
+                <div className="text-[11px] font-mono text-slate-500">
+                  Filename: summary.json
+                </div>
+              </div>
+
+              <a
+                href={api.getSummaryUrl(selectedBatchId)}
+                download
+                className="shrink-0"
+              >
+                <Button size="sm" variant="outline" className="gap-1.5 text-xs text-sky-300 border-sky-500/40 hover:bg-sky-500/10">
+                  <Download className="w-3.5 h-3.5" />
+                  <span>Summary</span>
                 </Button>
               </a>
             </CardContent>

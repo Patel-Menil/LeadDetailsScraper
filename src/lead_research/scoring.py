@@ -1,8 +1,23 @@
-"""Deterministic, reproducible priority scoring model for SealAPI leads."""
+"""Deterministic, reproducible priority scoring model for SealAPI leads.
+
+Decouples:
+1. Lead Fit Score (0-100): Measures potential fit for SealAPI's value propositions.
+2. Verification Confidence (0.0-1.0): Measures reliability of evidence and identity.
+3. Contact Readiness: Assesses whether the lead is outreach-ready or requires review.
+"""
 
 import re
-from typing import Any, Dict, List, Tuple
-from .schemas import LeadInput, PriorityInfo, ProfessionalContext, SourceEvidence
+from typing import Any, Dict, List, Optional, Tuple
+
+from .schemas import (
+    ContactReadiness,
+    Icebreaker,
+    LeadInput,
+    PriorityInfo,
+    ProfessionalContext,
+    ScoringBreakdown,
+    SourceEvidence,
+)
 
 
 HIGH_FIT_ROLES = [
@@ -20,6 +35,13 @@ HIGH_FIT_ROLES = [
     r"\bcpo\b",
     r"\bhead of security\b",
     r"\bdirector of security\b",
+    r"\bvp of infrastructure\b",
+    r"\bvp infrastructure\b",
+    r"\bhead of infrastructure\b",
+    r"\bdirector of infrastructure\b",
+    r"\bhead of platform\b",
+    r"\bvp of platform\b",
+    r"\bvp platform\b",
 ]
 
 MODERATE_FIT_ROLES = [
@@ -68,15 +90,20 @@ TECH_SECURITY_KEYWORDS = [
 
 
 class LeadScorer:
-    """Calculates deterministic 0/1/2 priority and provides explainable evidence."""
+    """Calculates decoupled Lead Fit, Verification Confidence, and Contact Readiness."""
 
-    def calculate_priority(
+    def evaluate_lead(
         self,
         lead: LeadInput,
         prof_context: ProfessionalContext,
         sources: List[SourceEvidence],
-        researched_text: str = ""
-    ) -> PriorityInfo:
+        identity_score: float = 0.8,
+        icebreaker: Optional[Icebreaker] = None,
+        researched_text: str = "",
+    ) -> Tuple[PriorityInfo, ScoringBreakdown, ContactReadiness]:
+        """
+        Produce deterministic Lead Fit, Verification Confidence, and Contact Readiness evaluations.
+        """
         role_text = (lead.job_title or "").lower()
         industry_text = (lead.industry or "").lower()
         company_text = (lead.company or "").lower()
@@ -85,8 +112,8 @@ class LeadScorer:
 
         supporting_evidence: List[str] = []
 
-        # 1. Role Score (0 to 35)
-        role_score = 0.0
+        # 1. Role Fit Score (0 to 35)
+        role_score = 5.0
         role_matched = False
         for pattern in HIGH_FIT_ROLES:
             if re.search(pattern, role_text):
@@ -104,14 +131,14 @@ class LeadScorer:
                     break
 
         if not role_matched:
-            if "engineer" in role_text or "developer" in role_text or "architect" in role_text:
+            if any(k in role_text for k in ["engineer", "developer", "architect"]):
                 role_score = 15.0
                 supporting_evidence.append(f"Technical role: '{lead.job_title}'")
             else:
                 role_score = 5.0
                 supporting_evidence.append(f"Non-technical or unverified role: '{lead.job_title}'")
 
-        # 2. Industry / Company Fit Score (0 to 30)
+        # 2. Industry / Vertical Fit Score (0 to 30)
         industry_score = 5.0
         for ind in HIGH_FIT_INDUSTRIES:
             if ind in industry_text:
@@ -126,8 +153,8 @@ class LeadScorer:
                     supporting_evidence.append(f"Adjacent vertical: '{ind}'")
                     break
 
-        # 3. Technical / Security / AI Need Evidence (0 to 25)
-        tech_score = 0.0
+        # 3. Technical / AI / API Need Evidence (0 to 25)
+        tech_score = 2.0
         matched_keywords = [kw for kw in TECH_SECURITY_KEYWORDS if kw in combined_text]
         if len(matched_keywords) >= 4:
             tech_score = 25.0
@@ -146,29 +173,86 @@ class LeadScorer:
             tech_score = 2.0
             supporting_evidence.append("Minimal technical/security keywords detected")
 
-        # 4. Data Completeness & Verification Confidence (0 to 10)
-        verification_score = 0.0
-        if lead.professional_email and "@" in lead.professional_email:
-            verification_score += 5.0
-            supporting_evidence.append(f"Verified business email domain: {lead.professional_email}")
+        # 4. Organization Fit (0 to 10)
+        org_fit = 0.0
         if lead.company_website:
-            verification_score += 5.0
+            org_fit += 5.0
+        if lead.company:
+            org_fit += 5.0
 
-        total_score = round(role_score + industry_score + tech_score + verification_score, 1)
+        lead_fit_score = round(role_score + industry_score + tech_score + org_fit, 1)
 
-        # Confidence calculation
-        sources_count = len(sources)
-        confidence = min(1.0, 0.4 + (sources_count * 0.15) + (0.2 if lead.professional_email else 0.0))
-        confidence = round(confidence, 2)
+        # 5. Verification Confidence (0.0 to 1.0)
+        # Based on identity match quality, official domain verification, and independent corroboration
+        has_official_source = any(s.source_type in ("company_website", "official_company") for s in sources)
+        has_public_bio = any(s.source_type in ("public_professional_profile", "public_web_bio") for s in sources)
 
-        # Classification Rule: Exactly 0, 1, or 2
-        if total_score >= 70.0 and role_score >= 25.0 and industry_score >= 18.0 and tech_score >= 15.0:
+        base_conf = max(0.2, identity_score * 0.6)
+        if has_official_source:
+            base_conf += 0.25
+        if has_public_bio:
+            base_conf += 0.15
+
+        verification_conf = min(1.0, round(base_conf, 2))
+
+        # 6. Contact Readiness Classification
+        blockers: List[str] = []
+        has_name = bool(lead.name and len(lead.name.strip()) > 1)
+        has_verified_role = bool(lead.job_title and role_score >= 15.0)
+        has_company_ctx = bool(lead.company and lead.company_website)
+        has_usable_channel = bool(
+            (lead.professional_email and "@" in lead.professional_email) or
+            (lead.linkedin_url and "linkedin.com/in/" in lead.linkedin_url)
+        )
+        has_evidence_icebreaker = bool(icebreaker and icebreaker.personalization_status == "ready")
+
+        if identity_score < 0.60:
+            blockers.append("identity_not_verified")
+        if not has_company_ctx:
+            blockers.append("company_not_verified")
+        if not has_usable_channel:
+            blockers.append("no_usable_contact_channel")
+        if icebreaker and icebreaker.personalization_status == "needs_review":
+            blockers.append("icebreaker_needs_review")
+
+        if not blockers:
+            readiness_status = "ready"
+        elif has_usable_channel and identity_score >= 0.50:
+            readiness_status = "ready_with_caveat"
+        elif identity_score < 0.40:
+            readiness_status = "not_ready"
+        else:
+            readiness_status = "needs_research"
+
+        readiness = ContactReadiness(
+            status=readiness_status,
+            has_name=has_name,
+            has_verified_role=has_verified_role,
+            has_company_context=has_company_ctx,
+            has_usable_contact_channel=has_usable_channel,
+            has_evidence_based_icebreaker=has_evidence_icebreaker,
+            blockers=blockers,
+        )
+
+        scoring_breakdown = ScoringBreakdown(
+            lead_fit_score=lead_fit_score,
+            role_fit_score=role_score,
+            industry_fit_score=industry_score,
+            technical_need_score=tech_score,
+            verification_confidence=verification_conf,
+            readiness_status=readiness_status,
+            explanations=supporting_evidence,
+        )
+
+        # 7. Deterministic Numeric Priority (0, 1, 2)
+        # Priority 0: Decision maker in regulated/tech vertical with real technical need AND verified identity
+        if lead_fit_score >= 70.0 and role_score >= 25.0 and industry_score >= 18.0 and tech_score >= 15.0 and identity_score >= 0.60:
             numeric_priority = 0
             reason = (
                 f"Priority 0 (Highest Fit): {lead.job_title or 'Executive'} at {lead.company or 'Target Account'} "
-                f"matches core decision-maker criteria in a regulated/tech-driven industry with active AI/API needs."
+                f"matches core decision-maker criteria in a target vertical with active AI/API needs."
             )
-        elif total_score >= 45.0:
+        elif lead_fit_score >= 45.0:
             numeric_priority = 1
             reason = (
                 f"Priority 1 (Medium Fit): {lead.job_title or 'Contact'} at {lead.company or 'Company'} "
@@ -180,10 +264,29 @@ class LeadScorer:
                 f"Priority 2 (Lowest Fit): Limited evidence of immediate relevance to SealAPI's secure AI and API governance platform."
             )
 
-        return PriorityInfo(
+        priority_info = PriorityInfo(
             numeric_priority=numeric_priority,
             reason=reason,
-            score=total_score,
-            confidence=confidence,
-            supporting_evidence=supporting_evidence
+            score=lead_fit_score,
+            confidence=verification_conf,
+            supporting_evidence=supporting_evidence,
         )
+
+        return priority_info, scoring_breakdown, readiness
+
+    def calculate_priority(
+        self,
+        lead: LeadInput,
+        prof_context: ProfessionalContext,
+        sources: List[SourceEvidence],
+        researched_text: str = "",
+    ) -> PriorityInfo:
+        """Backward-compatible entry point returning PriorityInfo."""
+        p_info, _, _ = self.evaluate_lead(
+            lead=lead,
+            prof_context=prof_context,
+            sources=sources,
+            identity_score=0.8,
+            researched_text=researched_text,
+        )
+        return p_info

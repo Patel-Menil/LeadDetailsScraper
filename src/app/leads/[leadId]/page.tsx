@@ -21,12 +21,16 @@ import {
   Sparkles,
   Info,
   CheckCircle2,
+  XCircle,
+  MessageSquare,
+  Send,
+  HelpCircle,
 } from "lucide-react";
 import { api } from "@/lib/api";
 import { LeadProfile } from "@/types";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
-import { PriorityBadge, StatusBadge } from "@/components/ui/Badge";
+import { PriorityBadge, StatusBadge, ReadinessBadge, Badge } from "@/components/ui/Badge";
 import { formatDateTime } from "@/lib/utils";
 
 function LeadProfileContent() {
@@ -45,8 +49,9 @@ function LeadProfileContent() {
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<"overview" | "evidence" | "email" | "json">("overview");
-  const [copied, setCopied] = useState(false);
+  const [activeTab, setActiveTab] = useState<"overview" | "icebreaker" | "claims" | "evidence" | "json">("overview");
+  const [copiedJson, setCopiedJson] = useState(false);
+  const [copiedDraft, setCopiedDraft] = useState(false);
 
   useEffect(() => {
     if (!leadId) return;
@@ -68,8 +73,8 @@ function LeadProfileContent() {
   const handleCopyJson = () => {
     if (!profileData?.profile) return;
     navigator.clipboard.writeText(JSON.stringify(profileData.profile, null, 2));
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    setCopiedJson(true);
+    setTimeout(() => setCopiedJson(false), 2000);
   };
 
   const handleDownloadJson = () => {
@@ -84,6 +89,12 @@ function LeadProfileContent() {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
+  };
+
+  const handleCopyDraft = (text: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedDraft(true);
+    setTimeout(() => setCopiedDraft(false), 2000);
   };
 
   if (loading) {
@@ -118,6 +129,11 @@ function LeadProfileContent() {
   const { profile } = profileData;
   const identity = profile.identity || {};
   const prio = profile.priority || { numeric_priority: 2, score: 0, reason: "", confidence: 0 };
+  const scoring = profile.scoring;
+  const readiness = profile.contact_readiness;
+  const icebreaker = profile.icebreaker;
+  const claims = profile.claims || [];
+  const sources = profile.sources || [];
   const context = profile.professional_context || {
     responsibilities: [],
     technical_interests: [],
@@ -132,8 +148,18 @@ function LeadProfileContent() {
     claims_to_avoid: [],
     missing_verification_points: [],
   };
-  const sources = profile.sources || [];
-  const meta = profile.research_metadata || { research_status: "unknown", sources_examined: 0, errors_and_limitations: [] };
+  const meta = profile.research_metadata || {
+    research_status: "unknown",
+    sources_examined: 0,
+    errors_and_limitations: [],
+  };
+
+  // Determine scores and confidence
+  const leadFitScore = scoring?.lead_fit_score ?? prio.score ?? 0;
+  const verificationConfidence = scoring?.verification_confidence ?? prio.confidence ?? 0;
+  const draftBody =
+    icebreaker?.outreach_draft?.full_body ||
+    `Hi ${identity.first_name || identity.name},\n\n${icebreaker?.text || emailContext.suggested_call_to_action}\n\n${icebreaker?.why_it_matters || ""}\n\n${icebreaker?.conversation_question || "Would you be open to exchanging thoughts on this?"}\n\nBest regards,\n[Your Name]`;
 
   return (
     <div className="space-y-6 max-w-6xl mx-auto">
@@ -151,8 +177,8 @@ function LeadProfileContent() {
 
         <div className="flex items-center gap-2">
           <Button size="sm" variant="secondary" onClick={handleCopyJson} className="gap-1.5 text-xs">
-            {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-            <span>{copied ? "Copied JSON" : "Copy JSON"}</span>
+            {copiedJson ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+            <span>{copiedJson ? "Copied JSON" : "Copy JSON"}</span>
           </Button>
 
           <Button size="sm" variant="outline" onClick={handleDownloadJson} className="gap-1.5 text-xs">
@@ -167,10 +193,11 @@ function LeadProfileContent() {
         <CardContent className="p-6">
           <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
             <div className="space-y-3">
-              <div className="flex items-center gap-3">
+              <div className="flex flex-wrap items-center gap-2.5">
                 <h1 className="text-2xl font-bold text-white tracking-tight">{identity.name}</h1>
                 <PriorityBadge priority={prio.numeric_priority} />
                 <StatusBadge status={meta.research_status} />
+                {readiness && <ReadinessBadge readiness={readiness.status} />}
               </div>
 
               <div className="flex flex-wrap items-center gap-y-2 gap-x-5 text-sm text-slate-300">
@@ -220,27 +247,53 @@ function LeadProfileContent() {
               </div>
             </div>
 
-            {/* Score & Confidence Widget */}
-            <div className="p-4 rounded-xl bg-[#0e1320] border border-[#1c2438] min-w-[200px] text-right space-y-2">
-              <div className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
-                SealAPI Score
+            {/* Decoupled Score, Confidence & Readiness Widget */}
+            <div className="p-4 rounded-xl bg-[#0e1320] border border-[#1c2438] min-w-[220px] text-right space-y-2.5">
+              <div>
+                <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">
+                  Lead-Fit Score
+                </div>
+                <div className="text-2xl font-extrabold text-blue-400 font-mono">
+                  {leadFitScore.toFixed(1)} <span className="text-xs text-slate-500">/ 100</span>
+                </div>
               </div>
-              <div className="text-3xl font-extrabold text-blue-400 font-mono">
-                {prio.score.toFixed(1)} <span className="text-xs text-slate-500">/ 100</span>
+              <div className="pt-2 border-t border-[#1c2438]/80 text-xs text-slate-400 flex justify-between items-center">
+                <span>Verification Conf:</span>
+                <span className="font-semibold text-emerald-400 font-mono">
+                  {(verificationConfidence * 100).toFixed(0)}%
+                </span>
               </div>
-              <div className="text-xs text-slate-400">
-                Confidence: <span className="font-semibold text-white">{(prio.confidence * 100).toFixed(0)}%</span>
-              </div>
+              {readiness && (
+                <div className="text-xs text-slate-400 flex justify-between items-center">
+                  <span>Contact Readiness:</span>
+                  <span className="font-semibold text-white uppercase text-[10px] tracking-wide font-mono">
+                    {readiness.status.replace(/_/g, " ")}
+                  </span>
+                </div>
+              )}
             </div>
           </div>
+
+          {/* Blockers Alert if any */}
+          {readiness && readiness.blockers && readiness.blockers.length > 0 && (
+            <div className="mt-4 p-3 rounded-lg border border-amber-500/30 bg-amber-500/10 text-amber-300 text-xs flex items-start gap-2">
+              <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5 text-amber-400" />
+              <div>
+                <span className="font-semibold">Contact Readiness Blockers: </span>
+                <span className="text-amber-200">
+                  {readiness.blockers.map((b) => b.replace(/_/g, " ")).join(", ")}
+                </span>
+              </div>
+            </div>
+          )}
         </CardContent>
       </Card>
 
       {/* Tabs Navigation */}
-      <div className="flex border-b border-[#1c2438] gap-6 text-sm font-medium">
+      <div className="flex border-b border-[#1c2438] gap-6 text-sm font-medium overflow-x-auto">
         <button
           onClick={() => setActiveTab("overview")}
-          className={`pb-3 transition-colors relative ${
+          className={`pb-3 transition-colors relative whitespace-nowrap ${
             activeTab === "overview"
               ? "text-blue-400 border-b-2 border-blue-400 font-semibold"
               : "text-slate-400 hover:text-slate-200"
@@ -249,8 +302,30 @@ function LeadProfileContent() {
           Overview & Relevance
         </button>
         <button
+          onClick={() => setActiveTab("icebreaker")}
+          className={`pb-3 transition-colors relative whitespace-nowrap flex items-center gap-1.5 ${
+            activeTab === "icebreaker"
+              ? "text-blue-400 border-b-2 border-blue-400 font-semibold"
+              : "text-slate-400 hover:text-slate-200"
+          }`}
+        >
+          <Sparkles className="w-3.5 h-3.5 text-purple-400" />
+          <span>Icebreaker & Outreach</span>
+        </button>
+        <button
+          onClick={() => setActiveTab("claims")}
+          className={`pb-3 transition-colors relative whitespace-nowrap flex items-center gap-1.5 ${
+            activeTab === "claims"
+              ? "text-blue-400 border-b-2 border-blue-400 font-semibold"
+              : "text-slate-400 hover:text-slate-200"
+          }`}
+        >
+          <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+          <span>Verified Claims ({claims.length})</span>
+        </button>
+        <button
           onClick={() => setActiveTab("evidence")}
-          className={`pb-3 transition-colors relative ${
+          className={`pb-3 transition-colors relative whitespace-nowrap ${
             activeTab === "evidence"
               ? "text-blue-400 border-b-2 border-blue-400 font-semibold"
               : "text-slate-400 hover:text-slate-200"
@@ -259,18 +334,8 @@ function LeadProfileContent() {
           Source Evidence ({sources.length})
         </button>
         <button
-          onClick={() => setActiveTab("email")}
-          className={`pb-3 transition-colors relative ${
-            activeTab === "email"
-              ? "text-blue-400 border-b-2 border-blue-400 font-semibold"
-              : "text-slate-400 hover:text-slate-200"
-          }`}
-        >
-          Cold Outreach Context
-        </button>
-        <button
           onClick={() => setActiveTab("json")}
-          className={`pb-3 transition-colors relative ${
+          className={`pb-3 transition-colors relative whitespace-nowrap ${
             activeTab === "json"
               ? "text-blue-400 border-b-2 border-blue-400 font-semibold"
               : "text-slate-400 hover:text-slate-200"
@@ -283,17 +348,19 @@ function LeadProfileContent() {
       {/* Tab 1: Overview & SealAPI Relevance */}
       {activeTab === "overview" && (
         <div className="space-y-6">
-          {/* Priority Rationale Banner */}
+          {/* Priority & Fit Rationale */}
           <Card>
             <CardHeader>
               <CardTitle className="text-sm uppercase tracking-wider text-slate-400 flex items-center gap-2">
                 <ShieldCheck className="w-4 h-4 text-blue-400" />
-                <span>Deterministic Priority Rationale</span>
+                <span>Deterministic Scoring Breakdown</span>
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
               <p className="text-sm text-slate-200 leading-relaxed font-medium">
-                {prio.reason || "No priority explanation recorded."}
+                {scoring?.explanations?.length
+                  ? scoring.explanations.join(" ")
+                  : prio.reason || "No scoring explanation recorded."}
               </p>
               {prio.supporting_evidence && prio.supporting_evidence.length > 0 && (
                 <ul className="space-y-1.5 pt-2 border-t border-[#1c2438]">
@@ -412,7 +479,228 @@ function LeadProfileContent() {
         </div>
       )}
 
-      {/* Tab 2: Source Evidence */}
+      {/* Tab 2: Icebreaker & Outreach */}
+      {activeTab === "icebreaker" && (
+        <div className="space-y-6">
+          {/* Evidence-Based Icebreaker Card */}
+          <Card>
+            <CardHeader className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div>
+                <CardTitle className="text-white flex items-center gap-2">
+                  <Sparkles className="w-4 h-4 text-purple-400" />
+                  <span>Evidence-Grounded Icebreaker</span>
+                </CardTitle>
+                <CardDescription>
+                  Grounded in verifiable public signals; no fabricated projects or hardcoded dates
+                </CardDescription>
+              </div>
+
+              {icebreaker && (
+                <div className="flex items-center gap-2">
+                  <span className="text-[11px] font-mono text-slate-400">
+                    Type: <span className="text-white">{icebreaker.icebreaker_type || "general"}</span>
+                  </span>
+                  <Badge
+                    variant={
+                      icebreaker.personalization_status === "ready"
+                        ? "success"
+                        : icebreaker.personalization_status === "needs_review"
+                        ? "warning"
+                        : "neutral"
+                    }
+                  >
+                    {icebreaker.personalization_status || "needs_review"}
+                  </Badge>
+                </div>
+              )}
+            </CardHeader>
+
+            <CardContent className="space-y-4">
+              <div className="p-4 rounded-xl bg-[#0e1320] border border-[#1c2438] space-y-3">
+                <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                  Conversation Opener
+                </div>
+                <p className="text-sm text-slate-200 font-medium leading-relaxed italic">
+                  "{icebreaker?.text || "No custom icebreaker generated."}"
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {/* Why It Matters */}
+                <div className="p-3.5 rounded-lg bg-[#0e1320] border border-[#1c2438] space-y-1.5">
+                  <span className="text-[11px] font-semibold text-blue-400 uppercase tracking-wider block">
+                    Strategic Context
+                  </span>
+                  <p className="text-xs text-slate-300 leading-relaxed">
+                    {icebreaker?.why_it_matters || "Identified from public company domain context."}
+                  </p>
+                </div>
+
+                {/* Potential Pain Point Hypothesis */}
+                <div className="p-3.5 rounded-lg bg-[#0e1320] border border-[#1c2438] space-y-1.5">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[11px] font-semibold text-amber-400 uppercase tracking-wider">
+                      Pain Point Hypothesis
+                    </span>
+                    <span className="text-[10px] text-slate-500 font-mono">(Hypothesis, Not Fact)</span>
+                  </div>
+                  <p className="text-xs text-slate-300 leading-relaxed">
+                    {icebreaker?.potential_pain_point || "Need for enterprise API security and guardrails."}
+                  </p>
+                </div>
+              </div>
+
+              {/* Thoughtful Low-Pressure Question */}
+              {icebreaker?.conversation_question && (
+                <div className="p-3.5 rounded-lg bg-purple-500/10 border border-purple-500/20 text-purple-200 space-y-1">
+                  <span className="text-[11px] font-semibold text-purple-300 uppercase tracking-wider block">
+                    Low-Pressure Conversation Question
+                  </span>
+                  <p className="text-xs font-medium">{icebreaker.conversation_question}</p>
+                </div>
+              )}
+
+              {/* Supporting Sources for Icebreaker */}
+              {icebreaker?.source_ids && icebreaker.source_ids.length > 0 && (
+                <div className="text-xs text-slate-400 flex items-center gap-2 pt-1 font-mono">
+                  <span>Supporting Sources:</span>
+                  <span className="text-blue-400 font-semibold">{icebreaker.source_ids.join(", ")}</span>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+
+          {/* First-Contact Outreach Email Draft */}
+          <Card>
+            <CardHeader className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div>
+                <CardTitle className="text-white flex items-center gap-2">
+                  <Send className="w-4 h-4 text-emerald-400" />
+                  <span>Outreach Email Draft</span>
+                </CardTitle>
+                <CardDescription>
+                  Personalized, evidence-backed email draft ready for review and transmission
+                </CardDescription>
+              </div>
+
+              <Button
+                size="sm"
+                variant="primary"
+                onClick={() => handleCopyDraft(draftBody)}
+                className="gap-1.5 text-xs bg-emerald-600 hover:bg-emerald-500"
+              >
+                {copiedDraft ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+                <span>{copiedDraft ? "Copied Draft!" : "Copy Full Email"}</span>
+              </Button>
+            </CardHeader>
+
+            <CardContent className="space-y-4">
+              {icebreaker?.outreach_draft?.subject && (
+                <div className="p-3 rounded-lg bg-[#0e1320] border border-[#1c2438] flex items-center gap-2">
+                  <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Subject:</span>
+                  <span className="text-xs text-white font-medium">{icebreaker.outreach_draft.subject}</span>
+                </div>
+              )}
+
+              <div className="p-4 rounded-xl bg-[#0a0d14] border border-[#1c2438] text-slate-200 text-xs font-mono leading-relaxed whitespace-pre-line">
+                {draftBody}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Claims to Avoid Guardrails */}
+          {emailContext.claims_to_avoid?.length > 0 && (
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-sm font-semibold text-rose-400 flex items-center gap-2">
+                  <AlertTriangle className="w-4 h-4" />
+                  <span>Outreach Guardrails & Claims to Avoid</span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-1.5">
+                  {emailContext.claims_to_avoid.map((c, i) => (
+                    <li key={i} className="text-xs text-rose-300 flex items-start gap-2">
+                      <span className="text-rose-400 font-bold">&times;</span>
+                      <span>{c}</span>
+                    </li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
+          )}
+        </div>
+      )}
+
+      {/* Tab 3: Verified Claims */}
+      {activeTab === "claims" && (
+        <div className="space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-white">Claim-Level Verification Trail</CardTitle>
+              <CardDescription>
+                Auditable evidence trail linking each profile attribute to supporting public source IDs
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              {claims.length === 0 ? (
+                <div className="p-8 text-center text-slate-500 text-xs">
+                  No individual claim records generated for this profile.
+                </div>
+              ) : (
+                <div className="overflow-x-auto">
+                  <table className="w-full text-xs text-left">
+                    <thead className="bg-[#0e1320] text-slate-400 uppercase font-mono border-b border-[#1c2438]">
+                      <tr>
+                        <th className="py-2.5 px-3">Field</th>
+                        <th className="py-2.5 px-3">Value</th>
+                        <th className="py-2.5 px-3">Status</th>
+                        <th className="py-2.5 px-3">Confidence</th>
+                        <th className="py-2.5 px-3">Supporting Source IDs</th>
+                        <th className="py-2.5 px-3">Review Notes</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-[#1c2438]">
+                      {claims.map((claim, idx) => (
+                        <tr key={idx} className="hover:bg-[#0e1320]/50 transition">
+                          <td className="py-2.5 px-3 font-semibold text-white font-mono">{claim.field}</td>
+                          <td className="py-2.5 px-3 text-slate-300 max-w-xs truncate">{claim.value || "-"}</td>
+                          <td className="py-2.5 px-3">
+                            <span
+                              className={`px-2 py-0.5 rounded text-[10px] font-mono uppercase font-semibold ${
+                                claim.status === "verified"
+                                  ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/30"
+                                  : claim.status === "partially_verified"
+                                  ? "bg-blue-500/10 text-blue-400 border border-blue-500/30"
+                                  : claim.status === "conflicting"
+                                  ? "bg-rose-500/10 text-rose-400 border border-rose-500/30"
+                                  : "bg-amber-500/10 text-amber-400 border border-amber-500/30"
+                              }`}
+                            >
+                              {claim.status}
+                            </span>
+                          </td>
+                          <td className="py-2.5 px-3 font-mono text-slate-300">
+                            {(claim.confidence * 100).toFixed(0)}%
+                          </td>
+                          <td className="py-2.5 px-3 font-mono text-blue-400">
+                            {claim.source_ids?.length > 0 ? claim.source_ids.join(", ") : "-"}
+                          </td>
+                          <td className="py-2.5 px-3 text-slate-400 italic">
+                            {claim.review_reason || "-"}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </div>
+      )}
+
+      {/* Tab 4: Source Evidence */}
       {activeTab === "evidence" && (
         <div className="space-y-4">
           <Card>
@@ -438,6 +726,11 @@ function LeadProfileContent() {
                   >
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                       <div className="flex items-center gap-2">
+                        {src.source_id && (
+                          <span className="px-1.5 py-0.5 rounded bg-slate-800 text-slate-300 font-mono text-[10px]">
+                            {src.source_id}
+                          </span>
+                        )}
                         <span className="px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 border border-blue-500/20 text-[10px] font-mono uppercase">
                           {src.source_type}
                         </span>
@@ -456,6 +749,16 @@ function LeadProfileContent() {
                         {formatDateTime(src.retrieval_timestamp)}
                       </div>
                     </div>
+
+                    {src.title && (
+                      <div className="text-xs text-white font-medium">{src.title}</div>
+                    )}
+
+                    {src.relevant_excerpt && (
+                      <div className="p-2.5 rounded bg-[#0a0d14] border border-[#1c2438]/80 text-xs text-slate-300 italic">
+                        "{src.relevant_excerpt}"
+                      </div>
+                    )}
 
                     {src.facts_supported && src.facts_supported.length > 0 && (
                       <div className="pt-2 border-t border-[#1c2438]/60 space-y-1">
@@ -480,100 +783,7 @@ function LeadProfileContent() {
         </div>
       )}
 
-      {/* Tab 3: Cold-Email Context */}
-      {activeTab === "email" && (
-        <div className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            {/* Personalization Points */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-sm font-semibold text-emerald-400 flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4" />
-                  <span>Verified Personalization Hooks</span>
-                </CardTitle>
-                <CardDescription>Only verified from public sources; no hallucinated claims</CardDescription>
-              </CardHeader>
-              <CardContent>
-                {emailContext.verified_personalization_points?.length > 0 ? (
-                  <ul className="space-y-2">
-                    {emailContext.verified_personalization_points.map((pt, i) => (
-                      <li key={i} className="text-xs text-slate-200 p-2 rounded bg-[#0e1320] border border-[#1c2438]">
-                        {pt}
-                      </li>
-                    ))}
-                  </ul>
-                ) : (
-                  <p className="text-xs text-slate-500">No specific personalization points generated.</p>
-                )}
-              </CardContent>
-            </Card>
-
-            {/* Suggested Value Propositions */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-sm font-semibold text-blue-400 flex items-center gap-2">
-                  <Sparkles className="w-4 h-4" />
-                  <span>Suggested Value Propositions</span>
-                </CardTitle>
-                <CardDescription>Directly mapped to SealAPI security & AI guardrails</CardDescription>
-              </CardHeader>
-              <CardContent>
-                {emailContext.suggested_value_propositions?.length > 0 ? (
-                  <ul className="space-y-2">
-                    {emailContext.suggested_value_propositions.map((vp, i) => (
-                      <li key={i} className="text-xs text-slate-200 p-2 rounded bg-[#0e1320] border border-[#1c2438]">
-                        {vp}
-                      </li>
-                    ))}
-                  </ul>
-                ) : (
-                  <p className="text-xs text-slate-500">No value propositions available.</p>
-                )}
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Suggested CTA & Claims to Avoid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-sm font-semibold text-white">Suggested Call to Action</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-xs text-slate-300 italic p-3 rounded bg-[#0e1320] border border-[#1c2438]">
-                  "{emailContext.suggested_call_to_action || "Brief 15-minute briefing on securing AI endpoints."}"
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-sm font-semibold text-rose-400 flex items-center gap-2">
-                  <AlertTriangle className="w-4 h-4" />
-                  <span>Claims to Avoid</span>
-                </CardTitle>
-                <CardDescription>Guardrails against unverified outreach claims</CardDescription>
-              </CardHeader>
-              <CardContent>
-                {emailContext.claims_to_avoid?.length > 0 ? (
-                  <ul className="space-y-1.5">
-                    {emailContext.claims_to_avoid.map((c, i) => (
-                      <li key={i} className="text-xs text-rose-300 flex items-start gap-2">
-                        <span className="text-rose-400 font-bold">&times;</span>
-                        <span>{c}</span>
-                      </li>
-                    ))}
-                  </ul>
-                ) : (
-                  <p className="text-xs text-slate-500">No negative claims flagged.</p>
-                )}
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      )}
-
-      {/* Tab 4: Formatted Raw JSON */}
+      {/* Tab 5: Formatted Raw JSON */}
       {activeTab === "json" && (
         <Card>
           <CardHeader className="flex-row items-center justify-between">
@@ -587,8 +797,8 @@ function LeadProfileContent() {
 
             <div className="flex items-center gap-2">
               <Button size="sm" variant="outline" onClick={handleCopyJson} className="gap-1.5 text-xs">
-                {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-                <span>{copied ? "Copied" : "Copy"}</span>
+                {copiedJson ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                <span>{copiedJson ? "Copied" : "Copy"}</span>
               </Button>
               <Button size="sm" variant="outline" onClick={handleDownloadJson} className="gap-1.5 text-xs">
                 <Download className="w-3.5 h-3.5" />

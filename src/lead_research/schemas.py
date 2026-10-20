@@ -1,21 +1,109 @@
-"""Data schemas and Pydantic models for SealAPI Lead Research Pipeline."""
+"""Data schemas and Pydantic models for SealAPI Lead Research Pipeline (V2 Architecture).
+
+Provides versioned models separating:
+- Input snapshot (immutable original data)
+- Observed source evidence (with provenance and quality)
+- Grounded claims (with verification status and source references)
+- Inferences & hypotheses (clearly distinguished from verified facts)
+- Contact readiness (actionable outreach qualification)
+- Lead fit & scoring breakdown (decoupled fit vs confidence)
+- Evidence-based icebreakers and outreach drafts
+- Backwards compatibility with V1 fields for existing API & UI
+"""
 
 from datetime import datetime, timezone
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Literal, Optional
 from pydantic import BaseModel, Field
+
+
+VerificationStatus = Literal[
+    "verified",
+    "partially_verified",
+    "unverified",
+    "conflicting",
+    "needs_review",
+]
 
 
 class SourceEvidence(BaseModel):
     """Source provenance and verifiable facts."""
+    source_id: str = Field(default_factory=lambda: f"src_{datetime.now(timezone.utc).strftime('%H%M%S%f')[:10]}")
     source_url: str
     source_type: str = Field(
         ...,
-        description="Type of source: company_website, leadership_page, profile_page, tech_blog, input_data"
+        description="Type: official_company, company_website, public_professional_profile, public_web_bio, tech_blog, news, job_posting, user_input, other_public",
     )
+    title: Optional[str] = None
+    publisher: Optional[str] = None
     retrieval_timestamp: str = Field(
         default_factory=lambda: datetime.now(timezone.utc).isoformat()
     )
+    published_at: Optional[str] = None
+    relevant_excerpt: Optional[str] = None
+    evidence_quality: float = Field(default=0.5, ge=0.0, le=1.0)
+    supports_claim_ids: List[str] = Field(default_factory=list)
+    # Backward compatibility with v1
     facts_supported: List[str] = Field(default_factory=list)
+
+
+class LeadClaim(BaseModel):
+    """Specific claim verified against supporting source evidence."""
+    claim_id: str
+    field: str
+    value: Optional[str] = None
+    status: VerificationStatus = "unverified"
+    source_ids: List[str] = Field(default_factory=list)
+    confidence: float = Field(default=0.0, ge=0.0, le=1.0)
+    last_verified_at: Optional[str] = None
+    review_reason: Optional[str] = None
+
+
+class ContactReadiness(BaseModel):
+    """Deterministic readiness assessment for outreach."""
+    status: Literal["ready", "ready_with_caveat", "needs_research", "not_ready"] = "needs_research"
+    has_name: bool = False
+    has_verified_role: bool = False
+    has_company_context: bool = False
+    has_usable_contact_channel: bool = False
+    has_evidence_based_icebreaker: bool = False
+    blockers: List[str] = Field(default_factory=list)
+
+
+class PublicSignal(BaseModel):
+    """Verifiable public signal related to the person or company."""
+    signal_id: str
+    signal_type: str = "general_activity"  # product_launch, technical_work, public_interview, hiring_signal, company_positioning
+    headline: str
+    summary: str
+    source_ids: List[str] = Field(default_factory=list)
+    published_date: Optional[str] = None
+    relevance_to_lead: str = ""
+    verification_status: VerificationStatus = "unverified"
+    confidence: float = 0.5
+
+
+class Icebreaker(BaseModel):
+    """Evidence-grounded personalized opener."""
+    text: Optional[str] = None
+    icebreaker_type: Optional[str] = None  # technical_work, company_launch, public_interview, product_integration, hiring_signal, company_positioning, general_question
+    source_ids: List[str] = Field(default_factory=list)
+    confidence: float = Field(default=0.0, ge=0.0, le=1.0)
+    why_it_matters: Optional[str] = None
+    potential_pain_point: Optional[str] = None
+    conversation_question: Optional[str] = None
+    personalization_status: Literal["ready", "needs_review", "generic_fallback"] = "needs_review"
+    outreach_draft: Optional[Dict[str, str]] = None
+
+
+class ScoringBreakdown(BaseModel):
+    """Decoupled scoring distinguishing Lead Fit from Verification Confidence."""
+    lead_fit_score: float = Field(default=0.0, ge=0.0, le=100.0)
+    role_fit_score: float = 0.0
+    industry_fit_score: float = 0.0
+    technical_need_score: float = 0.0
+    verification_confidence: float = Field(default=0.0, ge=0.0, le=1.0)
+    readiness_status: str = "needs_research"
+    explanations: List[str] = Field(default_factory=list)
 
 
 class SealAPIRelevance(BaseModel):
@@ -54,25 +142,39 @@ class ColdEmailContext(BaseModel):
 
 class ResearchMetadata(BaseModel):
     """Research status, execution timestamps, and operational limitations."""
-    research_status: str = Field(
-        default="pending",
-        description="completed, partial, failed, skipped"
-    )
-    last_research_timestamp: str = Field(
-        default_factory=lambda: datetime.now(timezone.utc).isoformat()
-    )
-    sources_examined: int = 0
+    schema_version: str = "2.0.0"
+    batch_id: str = ""
+    pipeline_version: str = "2.0.0"
+    researched_at: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
+    execution_status: Literal["completed", "partial", "failed"] = "partial"
+    verification_status: VerificationStatus = "unverified"
+    source_count: int = 0
+    review_required: bool = False
+    cache_fingerprint: Optional[str] = None
     errors_and_limitations: List[str] = Field(default_factory=list)
+    
+    # Backward compatibility with v1
+    research_status: str = Field(default="pending")
+    last_research_timestamp: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
+    sources_examined: int = 0
 
 
 class LeadProfile(BaseModel):
-    """Versioned research profile for an individual lead."""
+    """Versioned research profile for an individual lead (V2 with V1 backwards compatibility)."""
     schema_version: str = "1.0.0"
     lead_id: str
+    input_snapshot: Dict[str, Any] = Field(default_factory=dict)
     identity: Dict[str, Any]
+    contact: Dict[str, Any] = Field(default_factory=dict)
+    company: Dict[str, Any] = Field(default_factory=dict)
     professional_context: ProfessionalContext = Field(default_factory=ProfessionalContext)
     priority: PriorityInfo
     sources: List[SourceEvidence] = Field(default_factory=list)
+    claims: List[LeadClaim] = Field(default_factory=list)
+    public_signals: List[PublicSignal] = Field(default_factory=list)
+    icebreaker: Icebreaker = Field(default_factory=Icebreaker)
+    scoring: ScoringBreakdown = Field(default_factory=ScoringBreakdown)
+    contact_readiness: ContactReadiness = Field(default_factory=ContactReadiness)
     cold_email_context: ColdEmailContext = Field(default_factory=ColdEmailContext)
     research_metadata: ResearchMetadata = Field(default_factory=ResearchMetadata)
 
@@ -118,6 +220,8 @@ class BatchProgress(BaseModel):
     completed_count: int = 0
     partial_count: int = 0
     failed_count: int = 0
+    outreach_ready_count: int = 0
+    needs_review_count: int = 0
     priority_counts: Dict[str, int] = Field(default_factory=lambda: {"0": 0, "1": 0, "2": 0})
     current_lead_name: Optional[str] = None
     recent_logs: List[str] = Field(default_factory=list)

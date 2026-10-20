@@ -1,17 +1,24 @@
-"""Core lead research engine extracting verifiable facts, SealAPI relevance, and profiles."""
+"""Core lead research engine extracting verifiable facts, claims, SealAPI relevance, and profiles."""
 
 import logging
 import re
 from datetime import datetime, timezone
 from typing import Any, Callable, Dict, List, Optional
 
+from .icebreaker import build_icebreaker, extract_public_signals
+from .identity import build_targeted_queries, extract_domain, identity_match_score, is_abbreviated_name
 from .schemas import (
     ColdEmailContext,
+    ContactReadiness,
+    Icebreaker,
+    LeadClaim,
     LeadInput,
     LeadProfile,
     PriorityInfo,
     ProfessionalContext,
+    PublicSignal,
     ResearchMetadata,
+    ScoringBreakdown,
     SealAPIRelevance,
     SourceEvidence,
 )
@@ -22,7 +29,7 @@ logger = logging.getLogger("lead_research.research")
 
 
 class LeadResearcher:
-    """Researches professional data and produces traceable lead profiles."""
+    """Researches professional data and produces traceable, grounded lead profiles."""
 
     def __init__(self, scraper: Optional[ScraplingScraper] = None, scorer: Optional[LeadScorer] = None):
         self.scraper = scraper or ScraplingScraper()
@@ -36,55 +43,101 @@ class LeadResearcher:
     ) -> LeadProfile:
         """Conduct comprehensive public-web research and compile a validated LeadProfile."""
         sources: List[SourceEvidence] = []
+        claims: List[LeadClaim] = []
         limitations: List[str] = []
-        verified_facts: List[str] = []
         researched_snippets: List[str] = []
+        candidate_bio_snippets: List[Dict[str, str]] = []
 
         now_iso = datetime.now(timezone.utc).isoformat()
         if log_fn:
             log_fn(f"🎯 Target: {lead.name} ({lead.job_title or 'Leadership'}) @ {lead.company}")
 
-        # 1. Baseline source from verified import data
+        # 1. Baseline source from imported input record (isolated from verified research)
+        input_src_id = f"src_input_{lead.lead_id[:8]}"
         input_facts = []
         if lead.name:
-            input_facts.append(f"Verified Name: {lead.name}")
+            input_facts.append(f"Imported Name: {lead.name}")
         if lead.job_title:
-            input_facts.append(f"Declared Job Title: {lead.job_title}")
+            input_facts.append(f"Imported Job Title: {lead.job_title}")
         if lead.company:
-            input_facts.append(f"Company: {lead.company}")
+            input_facts.append(f"Imported Company: {lead.company}")
         if lead.industry:
-            input_facts.append(f"Industry: {lead.industry}")
+            input_facts.append(f"Imported Industry: {lead.industry}")
         if lead.professional_email:
-            input_facts.append(f"Verified Professional Email: {lead.professional_email}")
-        if lead.city or lead.country:
-            loc = f"{lead.city or ''}, {lead.state or ''}, {lead.country or ''}".strip(", ")
-            input_facts.append(f"Reported Location: {loc}")
-
-        raw_keywords = str(lead.raw_data.get("Keywords", "")).strip()
-        if raw_keywords:
-            input_facts.append(f"Company Keywords: {raw_keywords[:180]}")
+            input_facts.append(f"Imported Professional Email: {lead.professional_email}")
+        if lead.company_website:
+            input_facts.append(f"Imported Company Website: {lead.company_website}")
 
         sources.append(
             SourceEvidence(
+                source_id=input_src_id,
                 source_url="lead_import_record",
-                source_type="input_data",
+                source_type="user_input",
                 retrieval_timestamp=now_iso,
+                evidence_quality=0.60,
                 facts_supported=input_facts,
             )
         )
-        verified_facts.extend(input_facts)
 
-        # 2. LinkedIn access limitation check
-        if lead.linkedin_url:
-            limitations.append(
-                f"LinkedIn profile ({lead.linkedin_url}) is behind an authentication wall; public domain records used for verified evidence."
+        # Base Claims from Input
+        claims.append(
+            LeadClaim(
+                claim_id="clm_name",
+                field="name",
+                value=lead.name,
+                status="partially_verified" if is_abbreviated_name(lead.name) else "verified",
+                source_ids=[input_src_id],
+                confidence=0.75 if not is_abbreviated_name(lead.name) else 0.50,
+                review_reason="Surname is abbreviated; requires full name evidence" if is_abbreviated_name(lead.name) else None,
+            )
+        )
+        claims.append(
+            LeadClaim(
+                claim_id="clm_company",
+                field="company",
+                value=lead.company,
+                status="partially_verified" if lead.company else "unverified",
+                source_ids=[input_src_id],
+                confidence=0.70 if lead.company else 0.0,
+            )
+        )
+        if lead.job_title:
+            claims.append(
+                LeadClaim(
+                    claim_id="clm_title",
+                    field="job_title",
+                    value=lead.job_title,
+                    status="partially_verified",
+                    source_ids=[input_src_id],
+                    confidence=0.65,
+                )
+            )
+        if lead.professional_email:
+            claims.append(
+                LeadClaim(
+                    claim_id="clm_email",
+                    field="professional_email",
+                    value=lead.professional_email,
+                    status="unverified",
+                    source_ids=[input_src_id],
+                    confidence=0.50,
+                    review_reason="Syntax valid from import; deliverability probe not performed",
+                )
             )
 
-        # 3. Public web research via Scrapling
-        scrape_success = False
+        # 2. LinkedIn access limitation notice
+        if lead.linkedin_url:
+            limitations.append(
+                f"LinkedIn URL ({lead.linkedin_url}) is behind an authentication wall; public domain records used for verified evidence."
+            )
+
+        # 3. Company Website Extraction
         company_site_url = lead.company_website or ""
         if company_site_url and not company_site_url.startswith(("http://", "https://")):
             company_site_url = f"https://{company_site_url}"
+
+        company_site_fetched = False
+        company_src_id = f"src_web_{lead.lead_id[:8]}"
 
         if company_site_url and not skip_web_scrape:
             try:
@@ -92,33 +145,55 @@ class LeadResearcher:
                     log_fn(f"🌐 [Web Scraper] Fetching company website: {company_site_url}")
                 res: ScrapeResult = self.scraper.fetch_url(company_site_url)
                 if res.success:
-                    scrape_success = True
+                    company_site_fetched = True
                     web_facts: List[str] = []
                     if res.title:
                         web_facts.append(f"Website Title: {res.title}")
                     if res.meta_description:
-                        web_facts.append(f"Company Mission/Description: {res.meta_description}")
+                        web_facts.append(f"Company Mission: {res.meta_description}")
                     if res.headings:
-                        web_facts.append(f"Core Offerings: {', '.join(res.headings[:4])}")
+                        web_facts.append(f"Core Capabilities: {', '.join(res.headings[:4])}")
 
                     researched_snippets.append(res.extracted_text)
 
                     sources.append(
                         SourceEvidence(
+                            source_id=company_src_id,
                             source_url=res.url,
-                            source_type="company_website",
+                            source_type="official_company",
+                            title=res.title,
                             retrieval_timestamp=res.timestamp,
+                            evidence_quality=0.90,
+                            relevant_excerpt=res.meta_description or res.extracted_text[:400],
                             facts_supported=web_facts,
                         )
                     )
-                    verified_facts.extend(web_facts)
+
+                    # Update company claim with authoritative source
+                    for clm in claims:
+                        if clm.field == "company":
+                            clm.status = "verified"
+                            clm.confidence = 0.95
+                            clm.source_ids.append(company_src_id)
+
+                    claims.append(
+                        LeadClaim(
+                            claim_id="clm_website",
+                            field="company_website",
+                            value=res.url,
+                            status="verified",
+                            source_ids=[company_src_id],
+                            confidence=0.95,
+                        )
+                    )
+
                     if log_fn:
                         t_preview = f' "{res.title[:45]}..."' if res.title else ""
                         log_fn(f"   ↳ [Status {res.status_code}] Extracted content from {res.url}{t_preview} ({res.engine})")
                 else:
-                    limitations.append(f"Company website research notice for {company_site_url}: {res.error}")
+                    limitations.append(f"Company website notice for {company_site_url}: {res.error}")
                     if log_fn:
-                        log_fn(f"   ↳ [Notice] Company website notice: {res.error[:60]}")
+                        log_fn(f"   ↳ [Notice] Company website response: {res.error[:60]}")
             except Exception as e:
                 limitations.append(f"Exception during web research on {company_site_url}: {str(e)}")
                 if log_fn:
@@ -126,65 +201,117 @@ class LeadResearcher:
         elif not company_site_url:
             limitations.append("No company website URL provided in lead record.")
 
-        # 3b. Public web intelligence on the person via Scrapling
+        # 4. Identity-Filtered Targeted Public Search
+        max_identity_score = 0.40
         if not skip_web_scrape and lead.name and lead.company:
             try:
+                # Build targeted queries
+                queries = build_targeted_queries(lead)
+                primary_query = queries[0] if queries else f"{lead.name} {lead.company}"
+
                 if log_fn:
-                    log_fn(f"🧅 [Tor + DuckDuckGo] Searching '{lead.name} {lead.company}' via Tor SOCKS5...")
-                person_results = self.scraper.search_person(lead.name, lead.company)
+                    log_fn(f"🧅 [Tor + DuckDuckGo] Searching '{primary_query}' via Tor SOCKS5...")
+
+                raw_candidates = self.scraper.search_person(lead.name, lead.company, custom_query=primary_query)
+
+                matched_candidates = []
+                for cand in raw_candidates:
+                    # Identity resolution check
+                    m_score = identity_match_score(lead, cand)
+                    if m_score >= 0.50:
+                        matched_candidates.append((cand, m_score))
+                        if m_score > max_identity_score:
+                            max_identity_score = m_score
+                    else:
+                        logger.debug(f"Rejected candidate '{cand.get('title')}' for {lead.name}: score={m_score}")
+
                 if log_fn:
-                    log_fn(f"   ↳ [Tor Results] Found {len(person_results)} search results for '{lead.name}'")
-                for pr in person_results:
-                    scrape_success = True
+                    log_fn(f"   ↳ [Tor Results] Found {len(raw_candidates)} results, {len(matched_candidates)} verified matches")
+
+                for idx, (cand, cand_score) in enumerate(matched_candidates[:4], 1):
+                    src_id = f"src_bio_{lead.lead_id[:6]}_{idx}"
                     p_facts = [
-                        f"Public Profile: {pr['title']}",
-                        f"Verified Career & Background: {pr['snippet'][:300]}",
+                        f"Public Reference: {cand['title']}",
+                        f"Contextual Snippet: {cand['snippet'][:250]}",
                     ]
                     sources.append(
                         SourceEvidence(
-                            source_url=pr["url"],
+                            source_id=src_id,
+                            source_url=cand["url"],
                             source_type="public_web_bio",
+                            title=cand["title"],
                             retrieval_timestamp=datetime.now(timezone.utc).isoformat(),
+                            evidence_quality=min(0.85, cand_score),
+                            relevant_excerpt=cand["snippet"],
                             facts_supported=p_facts,
                         )
                     )
-                    verified_facts.extend(p_facts)
-                    researched_snippets.append(pr["snippet"])
-                if person_results and log_fn:
-                    top_title = person_results[0]['title'][:50]
-                    log_fn(f"   ↳ Top Bio: {top_title}")
+                    researched_snippets.append(cand["snippet"])
+                    candidate_bio_snippets.append({
+                        "source_id": src_id,
+                        "title": cand["title"],
+                        "url": cand["url"],
+                        "snippet": cand["snippet"],
+                    })
+
+                if matched_candidates and log_fn:
+                    top_cand, top_score = matched_candidates[0]
+                    log_fn(f"   ↳ Top Match ({top_score:.2f}): {top_cand['title'][:45]}")
+
             except Exception as e:
                 logger.debug(f"Public person search notice for {lead.name}: {e}")
                 if log_fn:
                     log_fn(f"   ↳ [Search notice] {lead.name}: {str(e)[:50]}")
 
-        # Determine research status
-        if scrape_success:
-            research_status = "completed"
-        elif len(verified_facts) > 2:
-            research_status = "partial"
-        else:
-            research_status = "failed"
+        # If official company site was confirmed, identity match score gets a boost
+        if company_site_fetched:
+            max_identity_score = max(max_identity_score, 0.70)
+        elif not is_abbreviated_name(lead.name) and lead.company:
+            max_identity_score = max(max_identity_score, 0.55)
 
-        # 4. Synthesize Professional Context
-        prof_context = self._synthesize_professional_context(
-            lead, verified_facts, researched_snippets
+        # 5. Public Signals & Icebreaker Synthesis
+        public_signals = extract_public_signals(
+            lead=lead,
+            fetched_sources=sources,
+            candidate_bio_snippets=candidate_bio_snippets,
         )
 
-        # 5. Deterministic Priority Scoring
-        priority_info = self.scorer.calculate_priority(
+        identity_verified = max_identity_score >= 0.65
+        icebreaker = build_icebreaker(
+            lead=lead,
+            signals=public_signals,
+            sources=sources,
+            identity_verified=identity_verified,
+        )
+
+        # 6. Synthesize Grounded Professional Context
+        prof_context = self._synthesize_professional_context(
+            lead=lead,
+            sources=sources,
+            snippets=researched_snippets,
+            signals=public_signals,
+        )
+
+        # 7. Decoupled Scoring & Contact Readiness
+        priority_info, scoring_breakdown, readiness = self.scorer.evaluate_lead(
             lead=lead,
             prof_context=prof_context,
             sources=sources,
+            identity_score=max_identity_score,
+            icebreaker=icebreaker,
             researched_text=" ".join(researched_snippets),
         )
+
         if log_fn:
-            log_fn(f"⭐ [Scoring] {lead.name} -> Priority {priority_info.numeric_priority} (Score: {priority_info.score:.0f}, Sources: {len(sources)})")
+            log_fn(
+                f"⭐ [Scoring] {lead.name} -> Priority {priority_info.numeric_priority} "
+                f"(Fit: {scoring_breakdown.lead_fit_score:.0f}, Readiness: {readiness.status})"
+            )
 
-        # 6. Cold Email Context Synthesis (Fact-traceable only)
-        cold_email = self._synthesize_cold_email_context(lead, prof_context, priority_info, sources)
+        # 8. Cold Email Context (No hardcoded Tuesday dates, fact-grounded only)
+        cold_email = self._synthesize_cold_email_context(lead, icebreaker, prof_context)
 
-        # 7. Identity mapping
+        # 9. Clean Identity Snapshot & Contact Record
         identity = {
             "name": lead.name,
             "first_name": lead.first_name,
@@ -200,45 +327,84 @@ class LeadResearcher:
             "country": lead.country,
         }
 
-        # 8. Research Metadata
+        contact = {
+            "email": lead.professional_email,
+            "email_type": "work" if lead.professional_email and not any(f in lead.professional_email for f in ["@gmail.", "@yahoo.", "@hotmail."]) else "generic",
+            "email_verification_status": "syntax_valid_unprobed",
+            "linkedin_url": lead.linkedin_url,
+            "contact_channel_status": "available" if (lead.professional_email or lead.linkedin_url) else "missing",
+        }
+
+        company_dict = {
+            "name": lead.company,
+            "website": company_site_url,
+            "domain": extract_domain(company_site_url),
+            "industry": lead.industry,
+            "verified": company_site_fetched,
+        }
+
+        # 10. Honest Research & Execution Metadata
+        if company_site_fetched and len(sources) >= 2:
+            exec_status = "completed"
+            verif_status = "verified" if max_identity_score >= 0.70 else "partially_verified"
+        elif len(sources) > 1:
+            exec_status = "partial"
+            verif_status = "partially_verified"
+        else:
+            exec_status = "partial"
+            verif_status = "unverified"
+
         metadata = ResearchMetadata(
-            research_status=research_status,
+            schema_version="2.0.0",
+            pipeline_version="2.0.0",
+            researched_at=now_iso,
+            execution_status=exec_status,
+            verification_status=verif_status,
+            source_count=len(sources),
+            review_required=bool(readiness.status in ("needs_research", "not_ready") or readiness.blockers),
+            errors_and_limitations=limitations,
+            research_status=exec_status,
             last_research_timestamp=now_iso,
             sources_examined=len(sources),
-            errors_and_limitations=limitations,
         )
 
         return LeadProfile(
             schema_version="1.0.0",
             lead_id=lead.lead_id,
+            input_snapshot=lead.raw_data or dict(lead.model_dump()),
             identity=identity,
+            contact=contact,
+            company=company_dict,
             professional_context=prof_context,
             priority=priority_info,
             sources=sources,
+            claims=claims,
+            public_signals=public_signals,
+            icebreaker=icebreaker,
+            scoring=scoring_breakdown,
+            contact_readiness=readiness,
             cold_email_context=cold_email,
             research_metadata=metadata,
         )
 
     def _synthesize_professional_context(
-        self, lead: LeadInput, verified_facts: List[str], snippets_or_text: Any
+        self,
+        lead: LeadInput,
+        sources: List[SourceEvidence],
+        snippets: List[str],
+        signals: List[PublicSignal],
     ) -> ProfessionalContext:
-        """Derive concrete responsibilities, tech interests, and SealAPI relevance."""
-        if isinstance(snippets_or_text, list):
-            snippets = snippets_or_text
-            text = " ".join(snippets)
-        else:
-            text = str(snippets_or_text)
-            snippets = [text]
-
+        """Derive grounded responsibilities, tech interests, and SealAPI relevance."""
         title = (lead.job_title or "").lower()
         industry = (lead.industry or "").lower()
         comp = lead.company or "the organization"
+        combined_text = f"{title} {industry} {' '.join(snippets)}".lower()
 
         responsibilities = []
         if any(k in title for k in ["cto", "chief technology officer", "head of ai", "chief ai officer"]):
             responsibilities.append(f"Architecting and directing AI strategy and core engineering infrastructure at {comp}")
             responsibilities.append("Evaluating enterprise technology vendors, API architectures, and data integrations")
-        elif "ciso" in title or "security" in title:
+        elif any(k in title for k in ["ciso", "security"]):
             responsibilities.append(f"Enforcing cybersecurity, data compliance, and API security policies across {comp}")
             responsibilities.append("Safeguarding sensitive data and managing third-party vendor access risk")
         elif any(k in title for k in ["ceo", "founder"]):
@@ -246,31 +412,26 @@ class LeadResearcher:
         else:
             responsibilities.append(f"Managing technology operations and solution architecture at {comp}")
 
-        # Extract biographical highlights from verified web snippets
-        recent_devs = [f"Active technical and executive oversight at {comp}"]
-        for snip in snippets:
-            sentences = [s.strip() for s in snip.split(".") if len(s.strip()) > 25]
-            for s in sentences:
-                if any(w in s.lower() for w in ["previously", "founded", "degree", "experience", "building", "leads", "architect"]):
-                    clean_s = s.replace("\n", " ").strip()
-                    if clean_s not in recent_devs and len(recent_devs) < 4:
-                        recent_devs.append(clean_s)
+        # Highlights from verified public signals
+        recent_devs = []
+        for sig in signals:
+            recent_devs.append(f"{sig.headline}: {sig.summary}")
+        if not recent_devs:
+            recent_devs.append(f"Active technical and executive oversight at {comp}")
 
         # Technical interests
         tech_interests = []
-        combined = f"{title} {industry} {lead.raw_data.get('Keywords', '')} {text}".lower()
-        if "ai" in combined or "machine learning" in combined or "llm" in combined:
+        if any(k in combined_text for k in ["ai", "machine learning", "llm", "agent", "generative"]):
             tech_interests.append("Generative AI & LLM Infrastructure")
-        if "api" in combined or "cloud" in combined or "software" in combined:
+        if any(k in combined_text for k in ["api", "cloud", "software", "microservices"]):
             tech_interests.append("API Security & Microservices")
-        if "hipaa" in combined or "health" in combined:
+        if any(k in combined_text for k in ["hipaa", "health", "hospital"]):
             tech_interests.append("Healthcare Data Privacy (HIPAA) & Safe Exchange")
-        if "finance" in combined or "fintech" in combined or "banking" in combined:
+        if any(k in combined_text for k in ["finance", "fintech", "banking"]):
             tech_interests.append("Financial Data Governance & Compliance")
         if not tech_interests:
             tech_interests.append("Enterprise Cloud Systems & Platform Scalability")
 
-        # Public projects
         public_projects = []
         if lead.company:
             public_projects.append(f"Platform development and operations for {lead.company}")
@@ -281,11 +442,11 @@ class LeadResearcher:
 
         if any(k in title for k in ["ai", "cto", "ciso"]):
             use_cases.append("Secure AI Integration & LLM Guardrails")
-            evidence_points.append(f"Role '{lead.job_title}' makes key architecture decisions for emerging AI capabilities")
+            evidence_points.append(f"Role '{lead.job_title}' makes architecture decisions for emerging AI capabilities")
 
         if any(ind in industry for ind in ["health", "hospital", "financial", "banking", "insurance"]):
             use_cases.append("Privacy-Preserving Data Exchange & Compliance")
-            evidence_points.append(f"Regulated domain '{lead.industry}' mandates strict API access controls and audited data flow")
+            evidence_points.append(f"Regulated vertical '{lead.industry}' mandates strict API access controls and audited data flow")
 
         if not use_cases:
             use_cases.append("Zero-Trust API Gateway & Enterprise Infrastructure Protection")
@@ -300,7 +461,7 @@ class LeadResearcher:
             responsibilities=responsibilities,
             technical_interests=tech_interests,
             public_projects=public_projects,
-            recent_developments=recent_devs,
+            recent_developments=recent_devs[:4],
             sealapi_relevance=SealAPIRelevance(
                 summary=summary,
                 relevant_use_cases=use_cases,
@@ -311,36 +472,37 @@ class LeadResearcher:
     def _synthesize_cold_email_context(
         self,
         lead: LeadInput,
+        icebreaker: Icebreaker,
         prof: ProfessionalContext,
-        p_info: PriorityInfo,
-        sources: List[SourceEvidence],
     ) -> ColdEmailContext:
-        """Create fact-grounded personalization hooks and value propositions."""
+        """Create fact-grounded personalization hooks and value propositions without fake dates."""
         comp = lead.company or "your team"
         role = lead.job_title or "leadership"
 
         personalization = [
             f"Acknowledging leadership as {role} at {comp}.",
-            f"Focus on {', '.join(prof.technical_interests[:2])}."
+            f"Focus on {', '.join(prof.technical_interests[:2])}.",
         ]
-        if len(prof.recent_developments) > 1:
-            personalization.append(f"Background: {prof.recent_developments[1][:120]}...")
+        if icebreaker.text:
+            personalization.append(f"Evidence-based opener: {icebreaker.text}")
 
         value_props = [
-            f"SealAPI provides automated security guardrails for AI models and API gateways.",
+            "SealAPI provides automated security guardrails for AI models and API gateways.",
             f"Enables privacy-preserving data exchange tailored for {lead.industry or 'enterprise applications'}.",
-            f"Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+            "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity.",
         ]
 
+        # Natural, low-pressure ask (NO fixed dates)
         cta = (
-            f"Would you be open to a 10-minute technical exchange next Tuesday to explore how "
-            f"SealAPI shields AI and API endpoints for teams like {comp}?"
+            icebreaker.conversation_question
+            or f"Would you be open to a brief conversation to explore how SealAPI shields AI and API endpoints for teams like {comp}?"
         )
 
         claims_to_avoid = [
             "Do not claim existing commercial relationship or prior unrecorded discussions.",
             "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
-            "Do not state specific private tech stack components that were not verified publicly."
+            "Do not state specific private tech stack components that were not verified publicly.",
+            "Do not assume delivered email address guarantees personal inbox delivery without validation.",
         ]
 
         missing = []
@@ -348,6 +510,8 @@ class LeadResearcher:
             missing.append("Verified email address pending confirmation.")
         if not lead.company_website:
             missing.append("Direct company domain needs manual review.")
+        if icebreaker.personalization_status != "ready":
+            missing.append(f"Icebreaker status: {icebreaker.personalization_status} (human review recommended).")
 
         return ColdEmailContext(
             verified_personalization_points=personalization,

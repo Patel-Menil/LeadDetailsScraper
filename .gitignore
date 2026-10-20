@@ -49,3 +49,5 @@ Thumbs.db
 # Project data batches/uploads (excluding temporary caches)
 data/batches/
 data/uploads/
+data/output/
+output/

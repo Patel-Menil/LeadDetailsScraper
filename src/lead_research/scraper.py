@@ -1,9 +1,11 @@
 """Web extraction engine using Scrapling browser automation (StealthyFetcher) with Tor and DuckDuckGo."""
 
+import ipaddress
 import logging
 import re
+import socket
 import time
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 from urllib.parse import parse_qs, quote_plus, unquote, urljoin, urlparse
 
 from scrapling import Fetcher, Selector
@@ -65,6 +67,35 @@ class ScrapeResult:
             "engine": self.engine,
             "timestamp": self.timestamp,
         }
+
+
+def is_safe_url(url: str) -> Tuple[bool, str]:
+    """
+    SSRF Protection: Block private, link-local, loopback, or reserved destinations.
+    """
+    if not url or not url.startswith(("http://", "https://")):
+        return False, "Invalid or missing HTTP/HTTPS scheme"
+
+    try:
+        parsed = urlparse(url)
+        hostname = parsed.hostname
+        if not hostname:
+            return False, "Missing hostname in URL"
+
+        # Check raw IP literals
+        try:
+            ip = ipaddress.ip_address(hostname)
+            if ip.is_private or ip.is_loopback or ip.is_link_local or ip.is_reserved or ip.is_multicast:
+                return False, f"SSRF Protection: Access to private/reserved IP {hostname} is blocked."
+        except ValueError:
+            # Not an IP literal; check hostname keywords
+            lower_host = hostname.lower()
+            if lower_host in ("localhost", "127.0.0.1", "::1", "metadata.google.internal") or lower_host.endswith(".local") or lower_host.endswith(".internal"):
+                return False, f"SSRF Protection: Access to local/internal host '{hostname}' is blocked."
+
+        return True, ""
+    except Exception as e:
+        return False, f"Malformed URL: {e}"
 
 
 def decode_ddg_url(raw_url: str) -> str:
@@ -193,9 +224,11 @@ class ScraplingScraper:
         )
 
     def fetch_url(self, url: str) -> ScrapeResult:
-        """Fetch and extract page contents using Scrapling StealthyFetcher (browser) with Fetcher fallback."""
-        if not url or not url.startswith(("http://", "https://")):
-            return ScrapeResult(url=url, error="Invalid or missing HTTP/HTTPS URL")
+        """Fetch and extract page contents using Scrapling StealthyFetcher with Fetcher fallback and SSRF protection."""
+        # 1. SSRF Safety Check
+        safe, reason = is_safe_url(url)
+        if not safe:
+            return ScrapeResult(url=url, status_code=400, success=False, error=reason)
 
         parsed = urlparse(url)
         domain = parsed.netloc.lower()
@@ -211,28 +244,48 @@ class ScraplingScraper:
 
         self._respect_rate_limit(domain)
 
-        # 1. Fast direct HTTP via Fetcher.get (no proxy, 0 retries on dead sites)
         headers = {
             "User-Agent": self.user_agent,
             "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
             "Accept-Language": "en-US,en;q=0.9",
         }
-        try:
-            response = Fetcher.get(
-                url,
-                headers=headers,
-                timeout=8,
-                follow_redirects=True,
-                retries=0,
-            )
-            if response and getattr(response, "status", 200) < 400:
-                res = self._extract_page_metadata(response, url)
-                res.engine = "scrapling_fetcher"
-                return res
-        except Exception as exc:
-            logger.debug(f"Direct HTTP fetch notice for {url}: {exc}")
 
-        # 2. Browser-based Scraping with StealthyFetcher for anti-bot or JS-heavy sites
+        # 2. HTTP Fetch with bounded retry loop
+        last_error = ""
+        attempts = self.max_retries + 1
+        for attempt in range(attempts):
+            try:
+                response = Fetcher.get(
+                    url,
+                    headers=headers,
+                    timeout=min(self.timeout, 10),
+                    follow_redirects=True,
+                    retries=0,
+                )
+                if response and getattr(response, "status", 200) < 400:
+                    res = self._extract_page_metadata(response, url)
+                    res.engine = "scrapling_fetcher"
+                    return res
+                elif response:
+                    status = getattr(response, "status", 500)
+                    last_error = f"HTTP {status}"
+            except Exception as exc:
+                last_error = str(exc)
+                logger.debug(f"Fetch attempt {attempt + 1}/{attempts} failed for {url}: {exc}")
+
+            if attempt < attempts - 1:
+                time.sleep(0.25 * (attempt + 1))
+
+        # 3. If direct HTTP failed due to connection/DNS resolution, do NOT hit with browser
+        if "connection" in last_error.lower() or "dns" in last_error.lower() or "resolve" in last_error.lower():
+            return ScrapeResult(
+                url=url,
+                status_code=500,
+                success=False,
+                error=f"Request failed after {attempts} attempts: {last_error}",
+            )
+
+        # 4. Optional Browser-based Scraping with StealthyFetcher for anti-bot or JS-heavy sites
         if self.use_browser:
             try:
                 logger.info(f"Scrapling StealthyFetcher browser fetching: {url}")
@@ -248,20 +301,21 @@ class ScraplingScraper:
                 return self._extract_page_metadata(response, url)
             except Exception as exc:
                 logger.warning(f"Browser scrape attempt failed for {url}: {exc}")
+                last_error = str(exc)
 
         return ScrapeResult(
             url=url,
             status_code=504,
             success=False,
-            error=f"Website could not be reached via HTTP or Browser."
+            error=f"Website could not be reached via HTTP or Browser. Last error: {last_error}",
         )
 
-    def search_person(self, name: str, company: str) -> List[Dict[str, str]]:
+    def search_person(self, name: str, company: str, custom_query: Optional[str] = None) -> List[Dict[str, str]]:
         """Search DuckDuckGo using Scrapling browser with Tor proxy for professional background."""
-        if not name or not company:
+        query = custom_query or f"{name} {company}"
+        if not query.strip():
             return []
 
-        query = f"{name} {company}"
         encoded_q = quote_plus(query)
         ddg_html_url = f"https://html.duckduckgo.com/html/?q={encoded_q}"
         results: List[Dict[str, str]] = []

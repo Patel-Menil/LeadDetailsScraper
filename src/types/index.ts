@@ -17,11 +17,15 @@ export interface BatchSummary {
   completed_count: number;
   partial_count: number;
   failed_count: number;
+  outreach_ready_count?: number;
+  needs_review_count?: number;
   priority_counts: { [key: string]: number };
   created_at: string;
   updated_at?: string;
   input_filename?: string;
   csv_exists?: boolean;
+  outreach_ready_exists?: boolean;
+  needs_review_exists?: boolean;
   errors_exists?: boolean;
   profiles_count?: number;
 }
@@ -37,6 +41,8 @@ export interface BatchProgress {
   completed_count: number;
   partial_count: number;
   failed_count: number;
+  outreach_ready_count?: number;
+  needs_review_count?: number;
   priority_counts: { [key: string]: number };
   current_lead_name?: string;
   recent_logs: string[];
@@ -77,14 +83,74 @@ export interface PrioritizedLead {
   profile_json_path: string;
   research_status: string;
   last_researched_at: string;
+  contact_readiness?: string;
+  icebreaker_text?: string;
+  icebreaker_type?: string;
+  icebreaker_status?: string;
+  verification_confidence?: number;
   [key: string]: any;
 }
 
 export interface SourceEvidence {
+  source_id?: string;
   source_url: string;
   source_type: string;
+  title?: string;
   retrieval_timestamp: string;
+  evidence_quality?: number;
+  relevant_excerpt?: string;
   facts_supported: string[];
+}
+
+export interface LeadClaim {
+  claim_id: string;
+  field: string;
+  value?: string | null;
+  status: "verified" | "partially_verified" | "unverified" | "conflicting" | "needs_review";
+  source_ids: string[];
+  confidence: number;
+  last_verified_at?: string | null;
+  review_reason?: string | null;
+}
+
+export interface ContactReadiness {
+  status: "ready" | "ready_with_caveat" | "needs_research" | "not_ready";
+  has_name: bool_or_boolean;
+  has_verified_role: bool_or_boolean;
+  has_company_context: bool_or_boolean;
+  has_usable_contact_channel: bool_or_boolean;
+  has_evidence_based_icebreaker: bool_or_boolean;
+  blockers: string[];
+}
+type bool_or_boolean = boolean;
+
+export interface Icebreaker {
+  text?: string | null;
+  icebreaker_type?: string | null;
+  source_ids: string[];
+  confidence: number;
+  why_it_matters?: string | null;
+  potential_pain_point?: string | null;
+  conversation_question?: string | null;
+  personalization_status: "ready" | "needs_review" | "generic_fallback";
+  outreach_draft?: {
+    subject?: string;
+    greeting?: string;
+    opener?: string;
+    sealapi_connection?: string;
+    low_pressure_ask?: string;
+    full_body?: string;
+  } | null;
+}
+
+export interface ScoringBreakdown {
+  lead_fit_score: number;
+  role_fit_score?: number;
+  industry_fit_score?: number;
+  technical_need_score?: number;
+  verification_confidence: number;
+  readiness_status: string;
+  explanations: string[];
 }
 
 export interface SealAPIRelevance {
@@ -118,15 +184,21 @@ export interface ColdEmailContext {
 }
 
 export interface ResearchMetadata {
+  schema_version?: string;
+  batch_id?: string;
+  pipeline_version?: string;
   research_status: string;
+  verification_status?: string;
   last_research_timestamp: string;
   sources_examined: number;
   errors_and_limitations: string[];
+  cache_fingerprint?: string | null;
 }
 
 export interface LeadProfile {
   schema_version: string;
   lead_id: string;
+  input_snapshot?: Record<string, any>;
   identity: {
     name: string;
     first_name?: string;
@@ -141,9 +213,15 @@ export interface LeadProfile {
     state?: string;
     country?: string;
   };
+  contact?: Record<string, any>;
+  company?: Record<string, any>;
   professional_context: ProfessionalContext;
   priority: PriorityInfo;
   sources: SourceEvidence[];
+  claims?: LeadClaim[];
+  icebreaker?: Icebreaker;
+  scoring?: ScoringBreakdown;
+  contact_readiness?: ContactReadiness;
   cold_email_context: ColdEmailContext;
   research_metadata: ResearchMetadata;
 }

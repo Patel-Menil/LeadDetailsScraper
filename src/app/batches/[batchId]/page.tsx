@@ -222,7 +222,7 @@ export default function BatchDetailsPage() {
       </Card>
 
       {/* Metrics Row */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
         <div className="p-4 rounded-xl bg-[#101522] border border-[#232c45]">
           <div className="text-xs font-semibold text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
             <CheckCircle2 className="w-3.5 h-3.5" />
@@ -248,18 +248,36 @@ export default function BatchDetailsPage() {
         </div>
 
         <div className="p-4 rounded-xl bg-[#101522] border border-[#232c45]">
+          <div className="text-xs font-semibold text-emerald-400 uppercase tracking-wider font-mono">
+            Outreach Ready
+          </div>
+          <div className="text-2xl font-bold text-emerald-400 mt-2 font-mono">
+            {batch.outreach_ready_count ?? 0}
+          </div>
+        </div>
+
+        <div className="p-4 rounded-xl bg-[#101522] border border-[#232c45]">
+          <div className="text-xs font-semibold text-amber-400 uppercase tracking-wider font-mono">
+            Needs Review
+          </div>
+          <div className="text-2xl font-bold text-amber-400 mt-2 font-mono">
+            {batch.needs_review_count ?? 0}
+          </div>
+        </div>
+
+        <div className="p-4 rounded-xl bg-[#101522] border border-[#232c45]">
           <div className="text-xs font-semibold text-blue-400 uppercase tracking-wider font-mono">
             Priority Tiers
           </div>
-          <div className="text-xs font-mono text-slate-300 mt-2 space-y-1">
+          <div className="text-xs font-mono text-slate-300 mt-2 space-y-0.5">
             <div>
-              P0 High: <span className="font-bold text-red-400">{pCounts["0"] ?? 0}</span>
+              P0: <span className="font-bold text-red-400">{pCounts["0"] ?? 0}</span>
             </div>
             <div>
-              P1 Med: <span className="font-bold text-blue-400">{pCounts["1"] ?? 0}</span>
+              P1: <span className="font-bold text-blue-400">{pCounts["1"] ?? 0}</span>
             </div>
             <div>
-              P2 Low: <span className="font-bold text-slate-400">{pCounts["2"] ?? 0}</span>
+              P2: <span className="font-bold text-slate-400">{pCounts["2"] ?? 0}</span>
             </div>
           </div>
         </div>
@@ -373,55 +391,89 @@ export default function BatchDetailsPage() {
           <CardDescription>Download research artifacts and audit deliverables generated for this batch</CardDescription>
         </CardHeader>
 
-        <CardContent className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <CardContent className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           <a
-            href={api.getPrioritizedCsvUrl(batch.batch_id)}
+            href={api.getOutreachReadyCsvUrl(batch.batch_id)}
             download
-            className="p-4 rounded-lg bg-[#0e1320] border border-[#1c2438] hover:border-emerald-500/40 hover:bg-[#131929] transition block space-y-2 group"
+            className="p-4 rounded-lg bg-[#0e1320] border border-emerald-500/40 hover:border-emerald-500 hover:bg-[#131929] transition block space-y-2 group"
           >
             <div className="flex items-center justify-between text-xs font-semibold text-white">
               <span className="flex items-center gap-1.5">
-                <FileSpreadsheet className="w-4 h-4 text-emerald-400 group-hover:scale-110 transition" />
-                <span>leads_prioritized.csv</span>
+                <CheckCircle2 className="w-4 h-4 text-emerald-400 group-hover:scale-110 transition" />
+                <span>outreach_ready.csv</span>
               </span>
               <Download className="w-3.5 h-3.5 text-slate-400 group-hover:text-emerald-400 transition" />
             </div>
             <p className="text-[11px] text-slate-400">
-              Sorted enriched spreadsheet with numeric priorities (0, 1, 2)
+              Only verified leads satisfying strict outreach-readiness policy
             </p>
           </a>
 
           <a
-            href={api.getScrapingLogUrl(batch.batch_id)}
+            href={api.getNeedsReviewCsvUrl(batch.batch_id)}
             download
-            className="p-4 rounded-lg bg-[#0e1320] border border-[#1c2438] hover:border-cyan-500/40 hover:bg-[#131929] transition block space-y-2 group"
+            className="p-4 rounded-lg bg-[#0e1320] border border-amber-500/40 hover:border-amber-500 hover:bg-[#131929] transition block space-y-2 group"
           >
             <div className="flex items-center justify-between text-xs font-semibold text-white">
               <span className="flex items-center gap-1.5">
-                <FileText className="w-4 h-4 text-cyan-400 group-hover:scale-110 transition" />
-                <span>scraping.log</span>
+                <AlertTriangle className="w-4 h-4 text-amber-400 group-hover:scale-110 transition" />
+                <span>needs_review.csv</span>
               </span>
-              <Download className="w-3.5 h-3.5 text-slate-400 group-hover:text-cyan-400 transition" />
+              <Download className="w-3.5 h-3.5 text-slate-400 group-hover:text-amber-400 transition" />
             </div>
             <p className="text-[11px] text-slate-400">
-              Full trace of all websites visited, Tor queries, and HTTP status codes
+              Leads with identity ambiguity, missing channels, or caveats
+            </p>
+          </a>
+
+          <a
+            href={api.getPrioritizedCsvUrl(batch.batch_id)}
+            download
+            className="p-4 rounded-lg bg-[#0e1320] border border-[#1c2438] hover:border-blue-500/40 hover:bg-[#131929] transition block space-y-2 group"
+          >
+            <div className="flex items-center justify-between text-xs font-semibold text-white">
+              <span className="flex items-center gap-1.5">
+                <FileSpreadsheet className="w-4 h-4 text-blue-400 group-hover:scale-110 transition" />
+                <span>leads_prioritized.csv</span>
+              </span>
+              <Download className="w-3.5 h-3.5 text-slate-400 group-hover:text-blue-400 transition" />
+            </div>
+            <p className="text-[11px] text-slate-400">
+              Full enriched dataset with Lead-Fit scores and priorities
             </p>
           </a>
 
           <a
             href={api.getBatchZipUrl(batch.batch_id)}
             download
-            className="p-4 rounded-lg bg-[#0e1320] border border-[#1c2438] hover:border-blue-500/40 hover:bg-[#131929] transition block space-y-2 group"
+            className="p-4 rounded-lg bg-[#0e1320] border border-[#1c2438] hover:border-purple-500/40 hover:bg-[#131929] transition block space-y-2 group"
           >
             <div className="flex items-center justify-between text-xs font-semibold text-white">
               <span className="flex items-center gap-1.5">
-                <FolderArchive className="w-4 h-4 text-blue-400 group-hover:scale-110 transition" />
+                <FolderArchive className="w-4 h-4 text-purple-400 group-hover:scale-110 transition" />
                 <span>Complete Batch ZIP</span>
               </span>
-              <Download className="w-3.5 h-3.5 text-slate-400 group-hover:text-blue-400 transition" />
+              <Download className="w-3.5 h-3.5 text-slate-400 group-hover:text-purple-400 transition" />
             </div>
             <p className="text-[11px] text-slate-400">
-              Archive containing CSV, manifest, and all individual person JSON profiles
+              Archive containing CSVs, JSONL profiles, sources, and manifest
+            </p>
+          </a>
+
+          <a
+            href={api.getSummaryUrl(batch.batch_id)}
+            download
+            className="p-4 rounded-lg bg-[#0e1320] border border-[#1c2438] hover:border-sky-500/40 hover:bg-[#131929] transition block space-y-2 group"
+          >
+            <div className="flex items-center justify-between text-xs font-semibold text-white">
+              <span className="flex items-center gap-1.5">
+                <FileText className="w-4 h-4 text-sky-400 group-hover:scale-110 transition" />
+                <span>summary.json</span>
+              </span>
+              <Download className="w-3.5 h-3.5 text-slate-400 group-hover:text-sky-400 transition" />
+            </div>
+            <p className="text-[11px] text-slate-400">
+              Aggregated batch statistics, conversion rates, and audit totals
             </p>
           </a>
 

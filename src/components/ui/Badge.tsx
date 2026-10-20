@@ -70,3 +70,18 @@ export function StatusBadge({ status }: { status: string }) {
   }
   return <Badge variant="neutral">{status}</Badge>;
 }
+
+export function ReadinessBadge({ readiness }: { readiness?: string }) {
+  const r = (readiness || "").toLowerCase().trim();
+  if (r === "ready") {
+    return <Badge variant="success">Outreach Ready</Badge>;
+  } else if (r === "ready_with_caveat") {
+    return <Badge variant="warning">Ready (Caveat)</Badge>;
+  } else if (r === "needs_research") {
+    return <Badge variant="info">Needs Research</Badge>;
+  } else if (r === "not_ready") {
+    return <Badge variant="danger">Not Ready</Badge>;
+  }
+  return <Badge variant="neutral">{readiness || "Unassessed"}</Badge>;
+}
+

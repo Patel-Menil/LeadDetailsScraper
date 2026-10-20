@@ -182,4 +182,20 @@ export const api = {
   getProfileJsonUrl(batchId: string, filename: string): string {
     return `/api/batches/${encodeURIComponent(batchId)}/exports/profiles/${encodeURIComponent(filename)}`;
   },
+
+  getOutreachReadyCsvUrl(batchId: string): string {
+    return `/api/batches/${encodeURIComponent(batchId)}/exports/outreach_ready.csv`;
+  },
+
+  getNeedsReviewCsvUrl(batchId: string): string {
+    return `/api/batches/${encodeURIComponent(batchId)}/exports/needs_review.csv`;
+  },
+
+  getSummaryUrl(batchId: string): string {
+    return `/api/batches/${encodeURIComponent(batchId)}/exports/summary.json`;
+  },
+
+  async getLatestBatch(): Promise<any> {
+    return request("/api/batches/latest");
+  },
 };

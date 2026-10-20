@@ -1,14 +1,14 @@
-"""Batch pipeline orchestrator with concurrency, resume support, and progress tracking."""
+"""Orchestrates end-to-end lead research batches with concurrency, fingerprinting, and resume support."""
 
 import concurrent.futures
+from datetime import datetime, timezone
 import json
 import logging
-import time
-from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable, Dict, List, Optional, Tuple
 
-from .exporter import LeadExporter, sanitize_filename
+from .exporter import LeadExporter
+from .fingerprint import compute_file_sha256, create_batch_id, research_fingerprint
 from .importer import LeadImporter
 from .research import LeadResearcher
 from .schemas import BatchProgress, LeadInput, LeadProfile
@@ -17,7 +17,7 @@ logger = logging.getLogger("lead_research.pipeline")
 
 
 class ResearchPipeline:
-    """Orchestrates end-to-end lead research batches with concurrency and resume support."""
+    """Orchestrates end-to-end lead research batches with concurrency, fingerprint validation, and resume support."""
 
     def __init__(
         self,
@@ -34,8 +34,8 @@ class ResearchPipeline:
 
     def run_batch(
         self,
-        batch_id: str,
-        input_file: Path,
+        batch_id: str = "",
+        input_file: Path = Path(""),
         mapping_override: Optional[Dict[str, str]] = None,
         max_leads: Optional[int] = None,
         dry_run: bool = False,
@@ -45,8 +45,12 @@ class ResearchPipeline:
         tor_proxy: Optional[str] = None,
         progress_callback: Optional[Callable[[BatchProgress], None]] = None,
     ) -> Tuple[BatchProgress, Dict[str, str]]:
-        """Execute a full lead research batch."""
+        """Execute a full lead research batch with verifiable provenance."""
         from .scraper import ScraplingScraper
+
+        # Generate unique batch ID if not provided
+        batch_id = batch_id.strip() if batch_id else create_batch_id()
+
         self.researcher = LeadResearcher(
             scraper=ScraplingScraper(
                 use_browser=use_browser,
@@ -62,13 +66,16 @@ class ResearchPipeline:
             max_leads=max_leads,
         )
 
+        input_sha256 = compute_file_sha256(input_file) if input_file.exists() else ""
+        started_at = datetime.now(timezone.utc).isoformat()
+
         progress = BatchProgress(
             batch_id=batch_id,
             filename=input_file.name,
             status="processing",
             total_leads=len(leads),
-            created_at=datetime.now(timezone.utc).isoformat(),
-            updated_at=datetime.now(timezone.utc).isoformat(),
+            created_at=started_at,
+            updated_at=started_at,
         )
 
         if progress_callback:
@@ -96,22 +103,37 @@ class ResearchPipeline:
         results: List[Tuple[LeadInput, LeadProfile]] = []
         leads_to_process: List[LeadInput] = []
 
-        # Separate leads already cached
+        # Separate leads already cached with fingerprint validation
         for lead in leads:
-            if resume and lead.lead_id in existing_profiles:
-                results.append((lead, existing_profiles[lead.lead_id]))
-                p_prof = existing_profiles[lead.lead_id]
-                progress.processed_leads += 1
-                if p_prof.research_metadata.research_status == "completed":
-                    progress.completed_count += 1
-                elif p_prof.research_metadata.research_status == "partial":
-                    progress.partial_count += 1
-                else:
-                    progress.failed_count += 1
-                p_key = str(p_prof.priority.numeric_priority)
-                progress.priority_counts[p_key] = progress.priority_counts.get(p_key, 0) + 1
-            else:
-                leads_to_process.append(lead)
+            lead_raw = lead.raw_data or dict(lead.model_dump())
+            expected_fp = research_fingerprint(lead_raw, research_config={"dry_run": dry_run})
+
+            cached_prof = existing_profiles.get(lead.lead_id) if resume else None
+
+            # Only reuse cache if fingerprint matches (or legacy profile exists without breaking changes)
+            if cached_prof:
+                cached_fp = getattr(cached_prof.research_metadata, "cache_fingerprint", None)
+                if cached_fp is None or cached_fp == expected_fp:
+                    results.append((lead, cached_prof))
+                    progress.processed_leads += 1
+                    status = cached_prof.research_metadata.research_status
+                    if status == "completed":
+                        progress.completed_count += 1
+                    elif status == "partial":
+                        progress.partial_count += 1
+                    else:
+                        progress.failed_count += 1
+
+                    if cached_prof.contact_readiness.status == "ready":
+                        progress.outreach_ready_count += 1
+                    else:
+                        progress.needs_review_count += 1
+
+                    p_key = str(cached_prof.priority.numeric_priority)
+                    progress.priority_counts[p_key] = progress.priority_counts.get(p_key, 0) + 1
+                    continue
+
+            leads_to_process.append(lead)
 
         import threading
         log_lock = threading.Lock()
@@ -143,6 +165,12 @@ class ResearchPipeline:
                 skip_web_scrape=dry_run,
                 log_fn=log_event,
             )
+            # Tag batch_id and fingerprint
+            lead_raw = lead.raw_data or dict(lead.model_dump())
+            profile.research_metadata.batch_id = batch_id
+            profile.research_metadata.cache_fingerprint = research_fingerprint(
+                lead_raw, research_config={"dry_run": dry_run}
+            )
             return (lead, profile)
 
         # Process with ThreadPoolExecutor
@@ -164,6 +192,11 @@ class ResearchPipeline:
                             progress.partial_count += 1
                         else:
                             progress.failed_count += 1
+
+                        if profile_res.contact_readiness.status == "ready":
+                            progress.outreach_ready_count += 1
+                        else:
+                            progress.needs_review_count += 1
 
                         p_key = str(profile_res.priority.numeric_priority)
                         progress.priority_counts[p_key] = progress.priority_counts.get(p_key, 0) + 1
@@ -201,6 +234,8 @@ class ResearchPipeline:
             errors=summary.validation_errors,
             batch_metadata={
                 "input_filename": input_file.name,
+                "input_sha256": input_sha256,
+                "started_at": started_at,
                 "dry_run": dry_run,
                 "resume": resume,
                 "total_input_rows": summary.total_input_rows,
