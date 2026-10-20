@@ -11,7 +11,7 @@ from .exporter import LeadExporter
 from .fingerprint import compute_file_sha256, create_batch_id, research_fingerprint
 from .importer import LeadImporter
 from .research import LeadResearcher
-from .schemas import BatchProgress, LeadInput, LeadProfile
+from .schemas import BatchProgress, ContactReadiness, LeadInput, LeadProfile, PriorityInfo, ResearchMetadata
 
 logger = logging.getLogger("lead_research.pipeline")
 
@@ -110,10 +110,10 @@ class ResearchPipeline:
 
             cached_prof = existing_profiles.get(lead.lead_id) if resume else None
 
-            # Only reuse cache if fingerprint matches (or legacy profile exists without breaking changes)
+            # Only reuse cache if fingerprint matches exactly (legacy profiles without fingerprint are invalidated)
             if cached_prof:
                 cached_fp = getattr(cached_prof.research_metadata, "cache_fingerprint", None)
-                if cached_fp is None or cached_fp == expected_fp:
+                if cached_fp is not None and cached_fp == expected_fp:
                     results.append((lead, cached_prof))
                     progress.processed_leads += 1
                     status = cached_prof.research_metadata.research_status
@@ -174,6 +174,7 @@ class ResearchPipeline:
             return (lead, profile)
 
         # Process with ThreadPoolExecutor
+        worker_errors: List[Dict[str, Any]] = []
         if leads_to_process:
             workers = 1 if dry_run else self.concurrency
             with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as executor:
@@ -220,24 +221,92 @@ class ResearchPipeline:
                     except Exception as exc:
                         logger.error(f"Failed processing lead {lead_item.lead_id}: {exc}")
                         progress.failed_count += 1
-                        progress.errors.append(f"Lead {lead_item.name} error: {str(exc)}")
-                        log_event(f"❌ Lead error ({lead_item.name}): {str(exc)[:60]}")
+                        progress.processed_leads += 1
+                        err_msg = str(exc)[:250]
+                        progress.errors.append(f"Lead {lead_item.name} error: {err_msg}")
+                        progress.needs_review_count += 1
+                        log_event(f"❌ Lead error ({lead_item.name}): {err_msg[:60]}")
+
+                        worker_errors.append({
+                            "lead_id": lead_item.lead_id,
+                            "lead_name": lead_item.name,
+                            "company": lead_item.company,
+                            "stage": "research_worker",
+                            "error_category": "worker_exception",
+                            "error": err_msg,
+                            "timestamp": datetime.now(timezone.utc).isoformat(),
+                        })
+
+                        # Construct explicit failed profile so lead is not dropped from outcome accounting
+                        failed_profile = LeadProfile(
+                            schema_version="2.0.0",
+                            lead_id=lead_item.lead_id,
+                            input_snapshot=lead_item.raw_data or dict(lead_item.model_dump()),
+                            identity={
+                                "name": lead_item.name,
+                                "first_name": lead_item.first_name,
+                                "last_name": lead_item.last_name,
+                                "job_title": lead_item.job_title,
+                                "company": lead_item.company,
+                                "industry": lead_item.industry,
+                                "linkedin_url": lead_item.linkedin_url,
+                                "company_website": lead_item.company_website,
+                                "professional_email": lead_item.professional_email,
+                            },
+                            priority=PriorityInfo(
+                                numeric_priority=2,
+                                reason=f"Research failed due to worker error: {err_msg}",
+                                score=0.0,
+                                confidence=0.0,
+                                supporting_evidence=[f"Worker error: {err_msg}"],
+                            ),
+                            contact_readiness=ContactReadiness(
+                                status="not_ready",
+                                has_name=bool(lead_item.name),
+                                has_verified_role=False,
+                                has_company_context=bool(lead_item.company),
+                                has_usable_contact_channel=bool(lead_item.professional_email or lead_item.linkedin_url),
+                                has_evidence_based_icebreaker=False,
+                                blockers=["research_worker_exception"],
+                            ),
+                            research_metadata=ResearchMetadata(
+                                schema_version="2.0.0",
+                                batch_id=batch_id,
+                                pipeline_version="2.0.0",
+                                execution_status="failed",
+                                verification_status="unverified",
+                                research_status="failed",
+                                errors_and_limitations=[f"Worker error: {err_msg}"],
+                            ),
+                        )
+                        results.append((lead_item, failed_profile))
 
                     progress.updated_at = datetime.now(timezone.utc).isoformat()
                     if progress_callback:
                         progress_callback(progress)
 
+        # Determine overall batch status
+        if progress.failed_count == progress.total_leads and progress.total_leads > 0:
+            overall_status = "failed"
+        elif progress.failed_count > 0:
+            overall_status = "partial"
+        else:
+            overall_status = "completed"
+
+        combined_errors = list(summary.validation_errors) + worker_errors
+
         # Export outputs
         export_paths = self.exporter.export_batch(
             batch_id=batch_id,
             leads_with_profiles=results,
-            errors=summary.validation_errors,
+            errors=combined_errors,
             batch_metadata={
                 "input_filename": input_file.name,
                 "input_sha256": input_sha256,
                 "started_at": started_at,
                 "dry_run": dry_run,
                 "resume": resume,
+                "status": overall_status,
                 "total_input_rows": summary.total_input_rows,
                 "duplicate_records": summary.duplicate_records,
                 "malformed_rows": summary.malformed_rows,
@@ -249,9 +318,9 @@ class ResearchPipeline:
             import shutil
             shutil.rmtree(checkpoints_dir, ignore_errors=True)
 
-        progress.status = "completed"
+        progress.status = overall_status
         progress.updated_at = datetime.now(timezone.utc).isoformat()
-        log_event("🏁 Batch completed successfully. All research profiles and exports generated.")
+        log_event(f"🏁 Batch finished with status '{overall_status}'. Research profiles and exports generated.")
         if progress_callback:
             progress_callback(progress)
 

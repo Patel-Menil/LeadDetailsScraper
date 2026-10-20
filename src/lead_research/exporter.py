@@ -178,17 +178,28 @@ class LeadExporter:
             for err in (errors or []):
                 f.write(json.dumps(err, ensure_ascii=False) + "\n")
 
-        # 8. Compute Counts
+        # 8. Compute Counts and Dynamic Batch Status
         completed_c = sum(1 for _, p in sorted_items if p.research_metadata.research_status == "completed")
         partial_c = sum(1 for _, p in sorted_items if p.research_metadata.research_status == "partial")
         failed_c = sum(1 for _, p in sorted_items if p.research_metadata.research_status == "failed")
         outreach_ready_c = len(outreach_ready_rows)
         needs_review_c = len(needs_review_rows)
 
+        meta_status = (batch_metadata or {}).get("status")
+        if meta_status:
+            batch_status = meta_status
+        elif failed_c == len(leads_with_profiles) and len(leads_with_profiles) > 0:
+            batch_status = "failed"
+        elif failed_c > 0:
+            batch_status = "partial"
+        else:
+            batch_status = "completed"
+
         # 9. Write summary.json
         summary_path = batch_dir / "summary.json"
         summary_data = {
             "batch_id": batch_id,
+            "status": batch_status,
             "total_leads": len(leads_with_profiles),
             "completed_count": completed_c,
             "partial_count": partial_c,
@@ -213,7 +224,7 @@ class LeadExporter:
             "pipeline_version": "2.0.0",
             "started_at": (batch_metadata or {}).get("started_at") or datetime.now(timezone.utc).isoformat(),
             "completed_at": datetime.now(timezone.utc).isoformat(),
-            "status": "completed",
+            "status": batch_status,
             "input_file": (batch_metadata or {}).get("input_filename") or "leads_input_snapshot.csv",
             "input_sha256": (batch_metadata or {}).get("input_sha256") or "",
             "total_processed": len(leads_with_profiles),

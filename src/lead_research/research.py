@@ -79,16 +79,16 @@ class LeadResearcher:
             )
         )
 
-        # Base Claims from Input
+        # Base Claims from Input (Provenance: imported facts are not independently web-verified)
         claims.append(
             LeadClaim(
                 claim_id="clm_name",
                 field="name",
                 value=lead.name,
-                status="partially_verified" if is_abbreviated_name(lead.name) else "verified",
+                status="needs_review" if is_abbreviated_name(lead.name) else "input_provided",
                 source_ids=[input_src_id],
-                confidence=0.75 if not is_abbreviated_name(lead.name) else 0.50,
-                review_reason="Surname is abbreviated; requires full name evidence" if is_abbreviated_name(lead.name) else None,
+                confidence=0.50 if not is_abbreviated_name(lead.name) else 0.30,
+                review_reason="Surname is abbreviated; requires full name evidence" if is_abbreviated_name(lead.name) else "Imported from input dataset; web verification pending",
             )
         )
         claims.append(
@@ -96,9 +96,10 @@ class LeadResearcher:
                 claim_id="clm_company",
                 field="company",
                 value=lead.company,
-                status="partially_verified" if lead.company else "unverified",
+                status="input_provided" if lead.company else "unverified",
                 source_ids=[input_src_id],
-                confidence=0.70 if lead.company else 0.0,
+                confidence=0.50 if lead.company else 0.0,
+                review_reason="Imported from input dataset",
             )
         )
         if lead.job_title:
@@ -107,9 +108,10 @@ class LeadResearcher:
                     claim_id="clm_title",
                     field="job_title",
                     value=lead.job_title,
-                    status="partially_verified",
+                    status="input_provided",
                     source_ids=[input_src_id],
-                    confidence=0.65,
+                    confidence=0.50,
+                    review_reason="Imported from input dataset",
                 )
             )
         if lead.professional_email:
@@ -118,7 +120,7 @@ class LeadResearcher:
                     claim_id="clm_email",
                     field="professional_email",
                     value=lead.professional_email,
-                    status="unverified",
+                    status="input_provided",
                     source_ids=[input_src_id],
                     confidence=0.50,
                     review_reason="Syntax valid from import; deliverability probe not performed",
@@ -137,6 +139,7 @@ class LeadResearcher:
             company_site_url = f"https://{company_site_url}"
 
         company_site_fetched = False
+        company_mentions_person = False
         company_src_id = f"src_web_{lead.lead_id[:8]}"
 
         if company_site_url and not skip_web_scrape:
@@ -153,6 +156,22 @@ class LeadResearcher:
                         web_facts.append(f"Company Mission: {res.meta_description}")
                     if res.headings:
                         web_facts.append(f"Core Capabilities: {', '.join(res.headings[:4])}")
+
+                    # Check if company homepage explicitly mentions the target person
+                    if lead.name and len(lead.name) > 3 and lead.name.lower() in res.extracted_text.lower():
+                        company_mentions_person = True
+                        web_facts.append(f"Confirmed team member mention on company site: {lead.name}")
+                        for clm in claims:
+                            if clm.field == "name":
+                                clm.status = "verified"
+                                clm.confidence = 0.95
+                                if company_src_id not in clm.source_ids:
+                                    clm.source_ids.append(company_src_id)
+                            elif clm.field == "job_title":
+                                clm.status = "verified"
+                                clm.confidence = 0.90
+                                if company_src_id not in clm.source_ids:
+                                    clm.source_ids.append(company_src_id)
 
                     researched_snippets.append(res.extracted_text)
 
@@ -203,6 +222,7 @@ class LeadResearcher:
 
         # 4. Identity-Filtered Targeted Public Search
         max_identity_score = 0.40
+        matched_candidates = []
         if not skip_web_scrape and lead.name and lead.company:
             try:
                 # Build targeted queries
@@ -214,7 +234,6 @@ class LeadResearcher:
 
                 raw_candidates = self.scraper.search_person(lead.name, lead.company, custom_query=primary_query)
 
-                matched_candidates = []
                 for cand in raw_candidates:
                     # Identity resolution check
                     m_score = identity_match_score(lead, cand)
@@ -231,17 +250,17 @@ class LeadResearcher:
                 for idx, (cand, cand_score) in enumerate(matched_candidates[:4], 1):
                     src_id = f"src_bio_{lead.lead_id[:6]}_{idx}"
                     p_facts = [
-                        f"Public Reference: {cand['title']}",
+                        f"Search Snippet: {cand['title']}",
                         f"Contextual Snippet: {cand['snippet'][:250]}",
                     ]
                     sources.append(
                         SourceEvidence(
                             source_id=src_id,
                             source_url=cand["url"],
-                            source_type="public_web_bio",
+                            source_type="search_snippet",
                             title=cand["title"],
                             retrieval_timestamp=datetime.now(timezone.utc).isoformat(),
-                            evidence_quality=min(0.85, cand_score),
+                            evidence_quality=min(0.65, cand_score),
                             relevant_excerpt=cand["snippet"],
                             facts_supported=p_facts,
                         )
@@ -254,6 +273,20 @@ class LeadResearcher:
                         "snippet": cand["snippet"],
                     })
 
+                    # If candidate strongly matched the person and company, update claim provenance
+                    if cand_score >= 0.70:
+                        for clm in claims:
+                            if clm.field == "name" and clm.status in ("input_provided", "unverified"):
+                                clm.status = "partially_verified"
+                                clm.confidence = max(clm.confidence, cand_score)
+                                if src_id not in clm.source_ids:
+                                    clm.source_ids.append(src_id)
+                            elif clm.field == "job_title" and clm.status in ("input_provided", "unverified"):
+                                clm.status = "partially_verified"
+                                clm.confidence = max(clm.confidence, cand_score)
+                                if src_id not in clm.source_ids:
+                                    clm.source_ids.append(src_id)
+
                 if matched_candidates and log_fn:
                     top_cand, top_score = matched_candidates[0]
                     log_fn(f"   ↳ Top Match ({top_score:.2f}): {top_cand['title'][:45]}")
@@ -263,11 +296,12 @@ class LeadResearcher:
                 if log_fn:
                     log_fn(f"   ↳ [Search notice] {lead.name}: {str(e)[:50]}")
 
-        # If official company site was confirmed, identity match score gets a boost
-        if company_site_fetched:
-            max_identity_score = max(max_identity_score, 0.70)
-        elif not is_abbreviated_name(lead.name) and lead.company:
-            max_identity_score = max(max_identity_score, 0.55)
+        # Removed company-fetch identity shortcut: fetching company website alone does NOT verify person
+        if company_site_fetched and company_mentions_person:
+            max_identity_score = max(max_identity_score, 0.85)
+        elif not matched_candidates:
+            # No web evidence corroborated this person
+            max_identity_score = min(max_identity_score, 0.40)
 
         # 5. Public Signals & Icebreaker Synthesis
         public_signals = extract_public_signals(
@@ -369,7 +403,7 @@ class LeadResearcher:
         )
 
         return LeadProfile(
-            schema_version="1.0.0",
+            schema_version="2.0.0",
             lead_id=lead.lead_id,
             input_snapshot=lead.raw_data or dict(lead.model_dump()),
             identity=identity,

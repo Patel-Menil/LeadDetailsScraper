@@ -17,6 +17,7 @@ from pydantic import BaseModel, Field
 
 
 VerificationStatus = Literal[
+    "input_provided",
     "verified",
     "partially_verified",
     "unverified",
@@ -161,7 +162,7 @@ class ResearchMetadata(BaseModel):
 
 class LeadProfile(BaseModel):
     """Versioned research profile for an individual lead (V2 with V1 backwards compatibility)."""
-    schema_version: str = "1.0.0"
+    schema_version: str = "2.0.0"
     lead_id: str
     input_snapshot: Dict[str, Any] = Field(default_factory=dict)
     identity: Dict[str, Any]
@@ -226,3 +227,45 @@ class BatchProgress(BaseModel):
     current_lead_name: Optional[str] = None
     recent_logs: List[str] = Field(default_factory=list)
     errors: List[str] = Field(default_factory=list)
+
+
+def migrate_profile_v1_to_v2(data: Dict[str, Any]) -> Dict[str, Any]:
+    """
+    Ensure a legacy V1 profile or incomplete dictionary conforms to V2 structure.
+    Preserves existing fields while initializing missing V2 fields cleanly.
+    """
+    migrated = dict(data)
+    migrated["schema_version"] = "2.0.0"
+
+    # Ensure research_metadata is consistent
+    meta = migrated.get("research_metadata") or {}
+    meta["schema_version"] = "2.0.0"
+    if "pipeline_version" not in meta:
+        meta["pipeline_version"] = "2.0.0"
+    if "verification_status" not in meta:
+        meta["verification_status"] = "partially_verified" if migrated.get("sources") else "unverified"
+    migrated["research_metadata"] = meta
+
+    # Ensure claims list exists
+    if "claims" not in migrated or not migrated["claims"]:
+        migrated["claims"] = []
+
+    # Ensure contact_readiness exists
+    if "contact_readiness" not in migrated or not migrated["contact_readiness"]:
+        has_channel = bool(
+            migrated.get("contact", {}).get("email") or
+            migrated.get("contact", {}).get("linkedin_url") or
+            migrated.get("identity", {}).get("professional_email") or
+            migrated.get("identity", {}).get("linkedin_url")
+        )
+        migrated["contact_readiness"] = {
+            "status": "ready_with_caveat" if has_channel else "needs_research",
+            "has_name": bool(migrated.get("identity", {}).get("name")),
+            "has_verified_role": False,
+            "has_company_context": bool(migrated.get("company", {}).get("name")),
+            "has_usable_contact_channel": has_channel,
+            "has_evidence_based_icebreaker": bool(migrated.get("icebreaker", {}).get("text")),
+            "blockers": [] if has_channel else ["no_usable_contact_channel"],
+        }
+
+    return migrated

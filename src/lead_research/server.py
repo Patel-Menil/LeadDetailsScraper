@@ -20,6 +20,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 from .exporter import LeadExporter, sanitize_filename
+from .fingerprint import create_batch_id
 from .importer import LeadImporter
 from .pipeline import ResearchPipeline
 from .schemas import BatchProgress, LeadProfile
@@ -229,8 +230,8 @@ async def upload_leads_file(file: UploadFile = File(...)):
             detail=f"Unsupported file type '{ext}'. Please upload a .csv or .xlsx file."
         )
 
-    # Save to uploads directory
-    batch_id = f"batch_{int(time.time())}_{sanitize_filename(Path(filename).stem)[:15]}"
+    # Save to uploads directory using collision-resistant batch ID
+    batch_id = create_batch_id()
     saved_path = UPLOADS_DIR / f"{batch_id}{ext}"
 
     content = await file.read()
@@ -313,6 +314,23 @@ def start_research_batch(batch_id: str, req: StartBatchRequest):
         raise HTTPException(status_code=404, detail=f"No uploaded file found for batch '{batch_id}'")
 
     input_file = matches[0]
+
+    # Check if this batch is already completed and cannot be silently restarted without resume=True
+    batch_dir = get_batch_directory(batch_id)
+    manifest_file = batch_dir / "manifest.json"
+    if manifest_file.exists() and not req.resume:
+        try:
+            with open(manifest_file, "r", encoding="utf-8") as mf:
+                m_info = json.load(mf)
+                if m_info.get("status") == "completed":
+                    raise HTTPException(
+                        status_code=409,
+                        detail=f"Batch '{batch_id}' is already completed. Please upload a new batch or set resume=true.",
+                    )
+        except HTTPException:
+            raise
+        except Exception as e:
+            logger.debug(f"Manifest check notice: {e}")
 
     # Prevent duplicate submission
     if batch_id in active_batches and active_batches[batch_id].status == "processing":

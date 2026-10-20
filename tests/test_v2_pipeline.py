@@ -10,11 +10,14 @@
 import json
 from pathlib import Path
 import re
+from unittest.mock import MagicMock, patch
 import pytest
 
 from src.lead_research.exporter import LeadExporter
 from src.lead_research.fingerprint import create_batch_id, research_fingerprint
 from src.lead_research.icebreaker import build_icebreaker, extract_public_signals
+from src.lead_research.pipeline import ResearchPipeline
+from src.lead_research.research import LeadResearcher
 from src.lead_research.schemas import (
     ContactReadiness,
     Icebreaker,
@@ -27,9 +30,10 @@ from src.lead_research.schemas import (
     ResearchMetadata,
     SealAPIRelevance,
     SourceEvidence,
+    migrate_profile_v1_to_v2,
 )
 from src.lead_research.scoring import LeadScorer
-from src.lead_research.scraper import is_safe_url
+from src.lead_research.scraper import ScrapeResult, is_safe_url
 
 
 def test_ssrf_protection_blocks_private_and_loopback():
@@ -281,3 +285,197 @@ def test_exporter_batch_isolation_and_atomic_latest(tmp_path: Path):
         content = f.read()
         assert "Alice Wonderland" in content
         assert "alice@wonderland.io" in content
+
+
+def test_input_provided_facts_are_not_verified_by_default():
+    lead = LeadInput(
+        lead_id="person_input_01",
+        name="Morgan Freeman",
+        first_name="Morgan",
+        last_name="Freeman",
+        job_title="VP of Product",
+        company="Horizon Labs",
+        company_website="https://horizonlabs.io",
+        professional_email="morgan@horizonlabs.io",
+    )
+    researcher = LeadResearcher()
+    profile = researcher.research_lead(lead, skip_web_scrape=True)
+
+    # Input-provided claims must never be automatically labeled "verified"
+    for claim in profile.claims:
+        assert claim.status in ("input_provided", "needs_review", "unverified"), (
+            f"Claim for {claim.field} has status '{claim.status}', but input claims must not be verified by default"
+        )
+        assert claim.confidence <= 0.50
+
+    # Abbreviated names get needs_review and lower confidence
+    lead_abbr = LeadInput(
+        lead_id="person_abbr_01",
+        name="Jon B.",
+        company="Horizon Labs",
+    )
+    profile_abbr = researcher.research_lead(lead_abbr, skip_web_scrape=True)
+    name_claims = [c for c in profile_abbr.claims if c.field == "name"]
+    assert len(name_claims) == 1
+    assert name_claims[0].status == "needs_review"
+    assert name_claims[0].confidence <= 0.30
+
+
+def test_company_homepage_fetch_does_not_verify_person_identity():
+    lead = LeadInput(
+        lead_id="person_no_mention_01",
+        name="Arthur Dent",
+        first_name="Arthur",
+        last_name="Dent",
+        job_title="Head of Safety",
+        company="Megadodo Publications",
+        company_website="https://megadodo.com",
+    )
+    mock_scraper = MagicMock()
+    # Mock company page fetch returning company info without mentioning Arthur Dent
+    mock_scraper.fetch_url.return_value = ScrapeResult(
+        success=True,
+        url="https://megadodo.com",
+        title="Megadodo Publications - Galactic Guides",
+        meta_description="Publishers of the Hitchhiker's Guide and digital encyclopedias.",
+        extracted_text="Megadodo Publications produces galaxy-wide guidebooks and digital APIs. Our leadership team is based in Ursa Minor.",
+        status_code=200,
+        engine="test_engine",
+    )
+    mock_scraper.search_public_person.return_value = []
+
+    researcher = LeadResearcher(scraper=mock_scraper)
+    profile = researcher.research_lead(lead)
+
+    # Company claim should be verified
+    company_claim = next(c for c in profile.claims if c.field == "company")
+    assert company_claim.status == "verified"
+    assert company_claim.confidence >= 0.90
+
+    # Person claims must NOT be verified because company page does not mention Arthur Dent
+    name_claim = next(c for c in profile.claims if c.field == "name")
+    assert name_claim.status != "verified"
+    title_claim = next(c for c in profile.claims if c.field == "job_title")
+    assert title_claim.status != "verified"
+
+
+def test_ai_capability_vs_product_launch_signal_distinction():
+    lead = LeadInput(
+        lead_id="test_lead_signals",
+        name="Ada Lovelace",
+        company="Analytical Engine Co",
+        company_website="https://analytical.org",
+    )
+    # 1. Company with AI/platform keywords but no announcement/launch terms -> ai_capability
+    cap_source = SourceEvidence(
+        source_id="src_cap_01",
+        source_url="https://analytical.org",
+        source_type="company_website",
+        title="Analytical Engine Co - AI Workflows",
+        relevant_excerpt="We provide an AI platform and automation API for algorithmic analysis and data pipelines.",
+        evidence_quality=0.9,
+    )
+    cap_signals = extract_public_signals(lead=lead, fetched_sources=[cap_source], candidate_bio_snippets=[])
+    assert len(cap_signals) >= 1
+    assert cap_signals[0].signal_type == "ai_capability"
+    assert cap_signals[0].signal_type != "product_launch"
+
+    # 2. Company explicitly announcing/introducing a new launch -> product_launch
+    launch_source = SourceEvidence(
+        source_id="src_launch_01",
+        source_url="https://analytical.org/news",
+        source_type="company_blog",
+        title="Analytical Engine Co - News",
+        relevant_excerpt="Today we are thrilled to announce and introduce our new autonomous security agent platform.",
+        evidence_quality=0.9,
+    )
+    launch_signals = extract_public_signals(lead=lead, fetched_sources=[launch_source], candidate_bio_snippets=[])
+    assert len(launch_signals) >= 1
+    assert any(s.signal_type == "product_launch" for s in launch_signals)
+
+
+def test_legacy_profile_without_fingerprint_rejected_on_resume(tmp_path: Path):
+    pipeline = ResearchPipeline(output_dir=tmp_path / "output", concurrency=1)
+
+    legacy_profile_dict = {
+        "lead_id": "lead_legacy_01",
+        "identity": {"name": "Test User", "company": "Legacy Corp"},
+        "professional_context": {},
+        "priority": {"numeric_priority": 2, "reason": "Legacy", "score": 10.0, "confidence": 0.5},
+        "sources": [],
+        "claims": [],
+        "contact_readiness": {"status": "needs_research"},
+        "research_metadata": {
+            "schema_version": "1.0.0",
+            "pipeline_version": "1.0.0",
+            "research_fingerprint": None,
+        },
+    }
+
+    checkpoints_dir = tmp_path / "output" / "batches" / "batch_resume_test" / "checkpoints"
+    checkpoints_dir.mkdir(parents=True, exist_ok=True)
+    checkpoint_file = checkpoints_dir / "lead_legacy_01.json"
+    checkpoint_file.write_text(json.dumps(legacy_profile_dict), encoding="utf-8")
+
+    lead_input = LeadInput(
+        lead_id="lead_legacy_01",
+        name="Test User",
+        company="Legacy Corp",
+    )
+    expected_fp = research_fingerprint(lead_input.model_dump(), pipeline_version="2.0.0", schema_version="2.0.0")
+
+    with open(checkpoint_file, "r", encoding="utf-8") as f:
+        cached_data = json.load(f)
+    cached_fp = cached_data.get("research_metadata", {}).get("research_fingerprint")
+    assert cached_fp is None
+    assert cached_fp != expected_fp
+
+
+def test_schema_migration_v1_to_v2():
+    v1_data = {
+        "lead_id": "legacy_v1_lead",
+        "identity": {"name": "Grace Hopper", "job_title": "Admiral"},
+        "contact": {"email": "grace@navy.mil"},
+        "company": {"name": "US Navy"},
+        "sources": [],
+    }
+    migrated = migrate_profile_v1_to_v2(v1_data)
+
+    assert migrated["schema_version"] == "2.0.0"
+    assert migrated["research_metadata"]["schema_version"] == "2.0.0"
+    assert migrated["research_metadata"]["pipeline_version"] == "2.0.0"
+    assert isinstance(migrated["claims"], list)
+    assert migrated["contact_readiness"]["has_name"] is True
+    assert migrated["contact_readiness"]["has_usable_contact_channel"] is True
+
+
+def test_worker_exception_handled_as_failed_profile_in_pipeline(tmp_path: Path):
+    input_csv = tmp_path / "error_leads.csv"
+    input_csv.write_text(
+        "Full Name,Company Name,Email\n"
+        "Broken Worker,CrashCorp,crash@crashcorp.io\n",
+        encoding="utf-8"
+    )
+    pipeline = ResearchPipeline(output_dir=tmp_path / "output", concurrency=1)
+
+    with patch.object(LeadResearcher, "research_lead", side_effect=RuntimeError("Simulated worker network failure")):
+        progress, paths = pipeline.run_batch(
+            batch_id="batch_worker_err_01",
+            input_file=input_csv,
+            dry_run=False,
+        )
+
+    assert progress.status == "failed"
+    assert progress.failed_count == 1
+    assert progress.total_leads == 1
+
+    batch_dir = tmp_path / "output" / "batch_worker_err_01"
+    assert (batch_dir / "errors.csv").exists()
+    assert (batch_dir / "errors.jsonl").exists()
+
+    errors_csv_content = (batch_dir / "errors.csv").read_text(encoding="utf-8")
+    assert "Simulated worker network failure" in errors_csv_content
+
+    lead_profiles_jsonl = (batch_dir / "lead_profiles.jsonl").read_text(encoding="utf-8")
+    assert "Simulated worker network failure" in lead_profiles_jsonl
+    assert "Broken Worker" in lead_profiles_jsonl

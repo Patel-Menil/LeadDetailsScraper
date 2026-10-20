@@ -33,22 +33,37 @@ def extract_public_signals(
 
     # 1. Company Website Signals (Product Launches, Platform Capabilities)
     for src in fetched_sources:
-        if src.source_type in ("company_website", "official_company"):
+        if src.source_type in ("company_website", "official_company", "company_blog", "official_company_blog"):
             text = (src.relevant_excerpt or " ".join(src.facts_supported)).lower()
             title = src.title or ""
 
-            # Check for AI agent / LLM integration signal
-            if any(k in text for k in ["agent", "agents", "llm", "generative ai", "copilot", "chatgpt"]):
+            # Launch / announcement indicators
+            launch_keywords = ["announc", "launch", "introduc", "unveil", "release", "new feature", "now available"]
+            has_launch_event = any(lk in text for lk in launch_keywords)
+
+            # Check for AI / agent / LLM integration signal
+            if re.search(r"\b(ai|agent|agents|llm|llms|generative ai|copilot|chatgpt|artificial intelligence|machine learning)\b", text):
+                sig_type = "product_launch" if has_launch_event else "ai_capability"
+                headline = (
+                    f"Public announcement of AI capabilities at {comp}"
+                    if has_launch_event
+                    else f"AI and agentic capabilities on {comp}'s platform"
+                )
+                summary = (
+                    f"{comp} publicly announced or introduced AI-driven features ('{title[:60]}')."
+                    if has_launch_event
+                    else f"{comp}'s official portal details AI-driven features and agent workflows ('{title[:60]}')."
+                )
                 signals.append(
                     PublicSignal(
                         signal_id=f"sig_{len(signals)+1}",
-                        signal_type="product_launch",
-                        headline=f"AI and agentic capabilities on {comp}'s platform",
-                        summary=f"{comp}'s official portal highlights AI-driven features and agent workflows ('{title[:60]}').",
+                        signal_type=sig_type,
+                        headline=headline,
+                        summary=summary,
                         source_ids=[src.source_id],
                         relevance_to_lead="Architecture and secure API access for AI workflows",
                         verification_status="verified",
-                        confidence=0.90,
+                        confidence=0.90 if has_launch_event else 0.85,
                     )
                 )
 
@@ -122,16 +137,22 @@ def build_icebreaker(
     eligible_signals = [s for s in signals if s.source_ids and s.verification_status in ("verified", "partially_verified")]
 
     if eligible_signals and identity_verified:
-        # Prioritize product_launch > product_integration > technical_work > company_positioning
-        priority_order = {"product_launch": 4, "product_integration": 3, "technical_work": 2, "company_positioning": 1}
+        # Prioritize product_launch > ai_capability > product_integration > technical_work > company_positioning
+        priority_order = {
+            "product_launch": 5,
+            "ai_capability": 4,
+            "product_integration": 3,
+            "technical_work": 2,
+            "company_positioning": 1,
+        }
         best_signal = max(eligible_signals, key=lambda s: (priority_order.get(s.signal_type, 0), s.confidence))
 
         if best_signal.signal_type == "product_launch":
             text = (
-                f"I noticed {comp}'s public announcements around AI agent workflows and platform capabilities."
+                f"I noticed {comp}'s recent announcement regarding new AI and platform capabilities."
             )
             why_it_matters = (
-                f"Teams expanding AI agents that call APIs often face new challenges managing tool access, "
+                f"Teams expanding AI capabilities often face new operational challenges managing tool access, "
                 f"session tokens, and data boundaries."
             )
             pain_point = (
@@ -141,6 +162,21 @@ def build_icebreaker(
                 "How is your team thinking about credential isolation and access control as these AI capabilities expand?"
             )
             icebreaker_type = "product_launch"
+
+        elif best_signal.signal_type == "ai_capability":
+            text = (
+                f"I noticed {comp}'s focus on AI agents and platform workflows."
+            )
+            why_it_matters = (
+                "Integrating AI agents with production APIs creates new requirements around token scoping and runtime guardrails."
+            )
+            pain_point = (
+                "Hypothesis: Balancing developer velocity with strict zero-trust boundaries for agentic workflows."
+            )
+            question = (
+                "How is your team approaching tool permissioning and secure API access for those AI workflows?"
+            )
+            icebreaker_type = "ai_capability"
 
         elif best_signal.signal_type == "product_integration":
             text = (

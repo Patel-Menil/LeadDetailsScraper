@@ -159,19 +159,19 @@ class LeadScorer:
         if len(matched_keywords) >= 4:
             tech_score = 25.0
             supporting_evidence.append(
-                f"Strong verified AI/API security need (matched signals: {', '.join(matched_keywords[:6])})"
+                f"Multiple AI/API technical signals detected in profile keywords (intent unverified: {', '.join(matched_keywords[:6])})"
             )
         elif len(matched_keywords) >= 2:
             tech_score = 15.0
             supporting_evidence.append(
-                f"Moderate AI/API infrastructure signals: {', '.join(matched_keywords[:4])}"
+                f"Moderate AI/API infrastructure signals in profile context: {', '.join(matched_keywords[:4])} (buying intent unverified)"
             )
         elif len(matched_keywords) == 1:
             tech_score = 8.0
-            supporting_evidence.append(f"Limited technical keywords: {matched_keywords[0]}")
+            supporting_evidence.append(f"Limited technical keywords in profile: {matched_keywords[0]} (buying intent unknown)")
         else:
             tech_score = 2.0
-            supporting_evidence.append("Minimal technical/security keywords detected")
+            supporting_evidence.append("Minimal technical/security keywords detected; technical buying intent unknown")
 
         # 4. Organization Fit (0 to 10)
         org_fit = 0.0

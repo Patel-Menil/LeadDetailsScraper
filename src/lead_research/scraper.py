@@ -69,9 +69,10 @@ class ScrapeResult:
         }
 
 
-def is_safe_url(url: str) -> Tuple[bool, str]:
+def is_safe_url(url: str, resolve_dns: bool = True) -> Tuple[bool, str]:
     """
-    SSRF Protection: Block private, link-local, loopback, or reserved destinations.
+    SSRF Protection: Block private, link-local, loopback, or reserved destinations,
+    including DNS resolution checks and redirect validation.
     """
     if not url or not url.startswith(("http://", "https://")):
         return False, "Invalid or missing HTTP/HTTPS scheme"
@@ -87,11 +88,29 @@ def is_safe_url(url: str) -> Tuple[bool, str]:
             ip = ipaddress.ip_address(hostname)
             if ip.is_private or ip.is_loopback or ip.is_link_local or ip.is_reserved or ip.is_multicast:
                 return False, f"SSRF Protection: Access to private/reserved IP {hostname} is blocked."
+            return True, ""
         except ValueError:
-            # Not an IP literal; check hostname keywords
-            lower_host = hostname.lower()
-            if lower_host in ("localhost", "127.0.0.1", "::1", "metadata.google.internal") or lower_host.endswith(".local") or lower_host.endswith(".internal"):
-                return False, f"SSRF Protection: Access to local/internal host '{hostname}' is blocked."
+            pass
+
+        # Not an IP literal; check hostname keywords and internal TLDs
+        lower_host = hostname.lower()
+        if lower_host in ("localhost", "127.0.0.1", "::1", "metadata.google.internal") or lower_host.endswith((".local", ".internal", ".lan", ".localhost")):
+            return False, f"SSRF Protection: Access to local/internal host '{hostname}' is blocked."
+
+        # DNS resolution check for non-literal hostnames
+        if resolve_dns:
+            try:
+                addr_info = socket.getaddrinfo(hostname, None, socket.AF_UNSPEC, socket.SOCK_STREAM)
+                for family, socktype, proto, canonname, sockaddr in addr_info:
+                    ip_str = sockaddr[0]
+                    resolved_ip = ipaddress.ip_address(ip_str)
+                    if resolved_ip.is_private or resolved_ip.is_loopback or resolved_ip.is_link_local or resolved_ip.is_reserved or resolved_ip.is_multicast:
+                        return False, f"SSRF Protection: Hostname '{hostname}' resolves to private/reserved IP {ip_str}."
+            except socket.gaierror:
+                # DNS failure can be handled gracefully during fetch
+                pass
+            except Exception as dns_err:
+                logger.debug(f"DNS check notice for {hostname}: {dns_err}")
 
         return True, ""
     except Exception as e:
@@ -263,7 +282,17 @@ class ScraplingScraper:
                     retries=0,
                 )
                 if response and getattr(response, "status", 200) < 400:
-                    res = self._extract_page_metadata(response, url)
+                    resp_url = getattr(response, "url", url) or url
+                    if resp_url != url:
+                        safe_redir, redir_reason = is_safe_url(resp_url)
+                        if not safe_redir:
+                            return ScrapeResult(
+                                url=url,
+                                status_code=400,
+                                success=False,
+                                error=f"Redirect destination blocked by SSRF protection: {redir_reason}",
+                            )
+                    res = self._extract_page_metadata(response, resp_url)
                     res.engine = "scrapling_fetcher"
                     return res
                 elif response:

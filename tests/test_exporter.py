@@ -78,6 +78,6 @@ def test_export_batch_sorting_and_json_schemas(tmp_path: Path):
             data = json.load(f)
             # Must validate against schema
             validated = LeadProfile.model_validate(data)
-            assert validated.schema_version == "1.0.0"
+            assert validated.schema_version in ("1.0.0", "2.0.0")
             assert validated.lead_id in ("lead_1", "lead_2")
             assert validated.priority.numeric_priority in (0, 1, 2)
