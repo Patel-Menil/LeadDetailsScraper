@@ -1,0 +1,168 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_8719676eb351",
+  "identity": {
+    "name": "Dalia Powers",
+    "first_name": "Dalia",
+    "last_name": "Powers",
+    "job_title": "CTO & EVP of Engineering",
+    "company": "FINRA",
+    "industry": "financial services,capital markets",
+    "linkedin_url": "http://www.linkedin.com/in/daliapowers",
+    "company_website": "https://finra.org",
+    "professional_email": "dalia.powers@finra.org",
+    "city": "Dallas",
+    "state": "Texas",
+    "country": "United States"
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at FINRA",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Generative AI & LLM Infrastructure",
+      "API Security & Microservices",
+      "Financial Data Governance & Compliance"
+    ],
+    "public_projects": [
+      "Platform development and operations for FINRA"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at FINRA",
+      "Login  to DR PORTAL Need Help?  |  Check System Status Log In to other FINRA systems Rules & Guidance R&G Section 1 FINRA Manual Updates Interpreting the Rules Notices Guidance Frequently Asked Questions Key Topics Interpretive Questions R&G Section 2 The Rulemaking Process Rule Filings Rule Filing Status Report Requests for Comments Regulatory Policy Agenda Rulebook Consolidation R&G Section 3 Adjudications & Decisions National Adjudicatory Council (NAC) Office of Hearing Officers (OHO) R&G Section 4 Enforcement Disciplinary Actions Online Monthly Disciplinary Actions Sanction Guidelines Individuals Barred by FINRA Registration, Exams & CE Registration section 1 Registration Broker Dealers Capital Acquisition Brokers Funding Portals Individuals Registration Section 2 Qualification Exams Securities Industry Essentials Exam (SIE) Series 7 Continuing Education (CE) View a Regulatory Element Learning Plan Registration Section 3 Registration Systems Classic CRD Financial Professional Gateway (FinPro) Financial Industry Networking Directory (FIND) Events & Training Events & Training Section 1 Upcoming Events On-Demand Education FINRA Crypto and Blockchain Education Program FINRA Certified Regulatory and Compliance Professional (CRCP)® Program Financial Learning Experience (FLEX) Technical & Navigational Webinars Filing & Reporting Filing & Reporting Section 1 FINRA Gateway Systems Status Entitlement Program Financial Intelligence Fusion Center (FIFC) Market Transparency Reporting Tools Regulatory Filing Systems Data Transfer Tools E-Bill Compliance Tools Compliance Tools Section 1 Anti-Money Laundering Template Cybersecurity Checklist Compliance Calendar Weekly Update Email Archive Membership Application Program (MAP) Tools Report Center For Investors For Investors Section 1 Investor Insights Tools & Calculators Investing Investing Basics Investment Accounts Investment Products Investment Strategies Working With an Investment Professional For Investors Section 2 Protect Your Money Check Registration Avoid Fraud Watch for Red Flags Safeguard Your Identity Financial Industry Investor Resources For Investors Section 3 For the Military Need Help? File a Complaint FINRA Securities Helpline for Seniors Dispute Resolution Services SIPC Protection Avenues for Recovery of Losses FINRA Utility Menu About Us Careers BrokerCheck Data Media Center For Firms For the Public FINRA DATA FINRA Data provides non-commercial use of data, specifically the ability to save data views and create and manage a Bond Watchlist",
+      "Find contacts: direct phone number, email address, work experience",
+      "FINRA  named  Dalia Powers , formerly of Humana, CBRE, USAA, and Capital One, as its new Chief Technology Officer to rebuild its surveillance and data infrastructure on cloud-native, AI-ready architecture"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Dalia Powers (CTO & EVP of Engineering at FINRA) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails",
+        "Privacy-Preserving Data Exchange & Compliance"
+      ],
+      "evidence_points": [
+        "Role 'CTO & EVP of Engineering' makes key architecture decisions for emerging AI capabilities",
+        "Regulated domain 'financial services,capital markets' mandates strict API access controls and audited data flow"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 0,
+    "reason": "Priority 0 (Highest Fit): CTO & EVP of Engineering at FINRA matches core decision-maker criteria in a regulated/tech-driven industry with active AI/API needs.",
+    "score": 100.0,
+    "confidence": 1.0,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'CTO & EVP of Engineering'",
+      "Target enterprise vertical matching SealAPI: 'financial services'",
+      "Strong verified AI/API security need (matched signals: ai, machine learning, api, security, compliance, cloud)",
+      "Verified business email domain: dalia.powers@finra.org"
+    ]
+  },
+  "sources": [
+    {
+      "source_url": "lead_import_record",
+      "source_type": "input_data",
+      "retrieval_timestamp": "2026-10-10T19:22:27.208682+00:00",
+      "facts_supported": [
+        "Verified Name: Dalia Powers",
+        "Declared Job Title: CTO & EVP of Engineering",
+        "Company: FINRA",
+        "Industry: financial services,capital markets",
+        "Verified Professional Email: dalia.powers@finra.org",
+        "Reported Location: Dallas, Texas, United States",
+        "Company Keywords: regulatory compliance monitoring,market surveillance analytics,compliance enforcement,market monitoring technology,regulatory enforcement tools,investor education digital platforms"
+      ]
+    },
+    {
+      "source_url": "https://finra.org",
+      "source_type": "company_website",
+      "retrieval_timestamp": "2026-10-10T19:22:33Z",
+      "facts_supported": [
+        "Website Title: A vibrant market is at its best when it works for everyone | FINRA.org",
+        "Company Mission/Description: A vibrant market is at its best when it works for everyone. Join the Industry or Take an Exam Register Have Questions or Concerns? Contact Us Look up FINRA Disciplinary Actions Search Cases Research a Broker or Firm Search Brokercheck Featured Report / Study 2026 Industry Snapshot In an effort to increase public awareness and understanding about the broad range of FINRA-registered firms and individuals, FINRA shares an annual snapshot of some of the data collected in the course of our work. Read More Report / Study 2026 FINRA Annual Regulatory Oversight Report The 2026 FINRA Annual Regulatory Oversight",
+        "Core Offerings: FINRA Utility Menu, FINRA Manual, Interpreting the Rules, The Rulemaking Process"
+      ]
+    },
+    {
+      "source_url": "https://www.linkedin.com/in/daliapowers",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:22:37.983901+00:00",
+      "facts_supported": [
+        "Public Profile: Dalia Powers - CTO & EVP of Engineering at FINRA - LinkedIn",
+        "Verified Career & Background: Dalia\nPowers\n CTO & EVP of Engineering at \nFINRA\n | Fortune 50 CIO | CTO | Digital Transformer | Top 75 AI Innovators | ORBIEE Award CIO | Top 50 CIOs | Top Women in Data | Board Member, ex-Capital ..."
+      ]
+    },
+    {
+      "source_url": "https://www.cdomagazine.tech/leadership-moves/finra-names-dalia-powers-cto-and-evp-of-engineering",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:22:37.983936+00:00",
+      "facts_supported": [
+        "Public Profile: FINRA Names Dalia Powers CTO and EVP of Engineering",
+        "Verified Career & Background: FINRA\n names \nDalia\nPowers\n Chief Technology Officer and EVP of Engineering to lead digital, cloud-native, data, and AI platform strategy."
+      ]
+    },
+    {
+      "source_url": "https://www.signalhire.com/profiles/dalia-powers%27s-email/2304703",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:22:37.983941+00:00",
+      "facts_supported": [
+        "Public Profile: Find Dalia Powers's email & phone number - SignalHire",
+        "Verified Career & Background: View \nDalia\n Powers's email address: p**********a@finra.org & phone: +1-***-***-0044's profile as CTO and EVP of Engineering at \nFINRA\n, located in Dallas-Fort Worth Metroplex, United States. Find contacts: direct phone number, email address, work experience."
+      ]
+    },
+    {
+      "source_url": "https://www.linkedin.com/posts/daliapowers_finrafam-finra-activity-7503119647085490176-GxNS",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:22:37.983946+00:00",
+      "facts_supported": [
+        "Public Profile: #finrafam #finra | Dalia Powers | 53 comments - LinkedIn",
+        "Verified Career & Background: I'm thrilled to share that I joined \nFINRA\n as CTO and EVP of Engineering! I'm excited to be part of an outstanding team that collaborates and innovates to deliver on our clear mission of ..."
+      ]
+    },
+    {
+      "source_url": "https://bruno.digital/news/your-regulator-just-hired-a-cloud-native-cto-from-humana-and-that-should-worry-your-compliance-team",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:22:37.983952+00:00",
+      "facts_supported": [
+        "Public Profile: Your Regulator Just Hired a Cloud-Native CTO From Humana, and That ...",
+        "Verified Career & Background: FINRA\n named \nDalia\nPowers\n, formerly of Humana, CBRE, USAA, and Capital One, as its new Chief Technology Officer to rebuild its surveillance and data infrastructure on cloud-native, AI-ready architecture. A faster, smarter regulator changes what broker-dealer technology teams can get away with."
+      ]
+    },
+    {
+      "source_url": "https://www.linkedin.com/posts/executive-women-of-dallas_executivewomenofdallas-ewd-womeninleadership-activity-7503448854189608961-3cXz",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:22:37.983956+00:00",
+      "facts_supported": [
+        "Public Profile: #executivewomenofdallas #ewd #womeninleadership #womenintechnology # ...",
+        "Verified Career & Background: 🎉 Congratulations to EWD member \nDalia\nPowers\n on her new leadership role at \nFINRA\n! We're proud to celebrate \nDalia\n as she steps into her new role as Chief Technology Officer and EVP of ..."
+      ]
+    }
+  ],
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as CTO & EVP of Engineering at FINRA.",
+      "Focus on Generative AI & LLM Infrastructure, API Security & Microservices.",
+      "Background: Login  to DR PORTAL Need Help?  |  Check System Status Log In to other FINRA systems Rules & Guidance R&G Section 1 FINR..."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for financial services,capital markets.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "Would you be open to a 10-minute technical exchange next Tuesday to explore how SealAPI shields AI and API endpoints for teams like FINRA?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly."
+    ],
+    "missing_verification_points": []
+  },
+  "research_metadata": {
+    "research_status": "completed",
+    "last_research_timestamp": "2026-10-10T19:22:27.208682+00:00",
+    "sources_examined": 8,
+    "errors_and_limitations": [
+      "LinkedIn profile (http://www.linkedin.com/in/daliapowers) is behind an authentication wall; public domain records used for verified evidence."
+    ]
+  }
+}

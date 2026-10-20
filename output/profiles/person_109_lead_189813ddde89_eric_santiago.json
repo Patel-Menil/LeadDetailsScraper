@@ -1,0 +1,163 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_189813ddde89",
+  "identity": {
+    "name": "Eric Santiago",
+    "first_name": "Eric",
+    "last_name": "Santiago",
+    "job_title": "Chief Technology Officer & CISO",
+    "company": "Clinical Care Medical Centers",
+    "industry": "hospital & health care",
+    "linkedin_url": "http://www.linkedin.com/in/eric-santiago-cisa-cdpse-062aa2b",
+    "company_website": "https://clinicalcaremc.com",
+    "professional_email": "eric.santiago@clinicalcaremc.com",
+    "city": "Miami",
+    "state": "Florida",
+    "country": "United States"
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at Clinical Care Medical Centers",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Generative AI & LLM Infrastructure",
+      "Healthcare Data Privacy (HIPAA) & Safe Exchange"
+    ],
+    "public_projects": [
+      "Platform development and operations for Clinical Care Medical Centers"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at Clinical Care Medical Centers",
+      "Experience Chief Technology Officer & CISO  Clinical Care Medical Centers  Sep 2023 - Present 3 years 2 months Miami, Florida, United States",
+      "Previously,  Eric  was the Chief Technology Officer at  Clinical Care Medical Centers  and also held positions at Heico Companies, MedOptions, Evidera, CorVel",
+      "Eric Santiago  brings experience from previous roles at Cano Health, HEICO, Med-Options Inc"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Eric Santiago (Chief Technology Officer & CISO at Clinical Care Medical Centers) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails",
+        "Privacy-Preserving Data Exchange & Compliance"
+      ],
+      "evidence_points": [
+        "Role 'Chief Technology Officer & CISO' makes key architecture decisions for emerging AI capabilities",
+        "Regulated domain 'hospital & health care' mandates strict API access controls and audited data flow"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 1,
+    "reason": "Priority 1 (Medium Fit): Chief Technology Officer & CISO at Clinical Care Medical Centers is in a relevant role or vertical, but requires further qualification of immediate security/AI deployment urgency.",
+    "score": 83.0,
+    "confidence": 1.0,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'Chief Technology Officer & CISO'",
+      "Target enterprise vertical matching SealAPI: 'hospital & health care'",
+      "Limited technical keywords: ai",
+      "Verified business email domain: eric.santiago@clinicalcaremc.com"
+    ]
+  },
+  "sources": [
+    {
+      "source_url": "lead_import_record",
+      "source_type": "input_data",
+      "retrieval_timestamp": "2026-10-10T19:21:31.149027+00:00",
+      "facts_supported": [
+        "Verified Name: Eric Santiago",
+        "Declared Job Title: Chief Technology Officer & CISO",
+        "Company: Clinical Care Medical Centers",
+        "Industry: hospital & health care",
+        "Verified Professional Email: eric.santiago@clinicalcaremc.com",
+        "Reported Location: Miami, Florida, United States",
+        "Company Keywords: managed network,patient transportation,primary care,internal medicine,telehealth,pharmacy,diagnostic testing,ultrasound,cardiology,psychiatry,optometry,dental,podiatry,nutritionist"
+      ]
+    },
+    {
+      "source_url": "https://clinicalcaremc.com",
+      "source_type": "company_website",
+      "retrieval_timestamp": "2026-10-10T19:21:35Z",
+      "facts_supported": []
+    },
+    {
+      "source_url": "https://www.linkedin.com/in/eric-santiago-cisa-cdpse-062aa2b",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:21:39.740692+00:00",
+      "facts_supported": [
+        "Public Profile: Eric Santiago, CISA,CDPSE - Chief Technology Officer | LinkedIn",
+        "Verified Career & Background: Experience Chief Technology Officer & CISO \nClinical\nCare\nMedical\nCenters\n Sep 2023 - Present 3 years 2 months Miami, Florida, United States"
+      ]
+    },
+    {
+      "source_url": "https://www.zoominfo.com/p/Eric-Santiago/1929145521",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:21:39.740736+00:00",
+      "facts_supported": [
+        "Public Profile: Chief Technology Officer at Clinical Care Medical Centers",
+        "Verified Career & Background: Eric\nSantiago\n is the Chief Technology Officer at Cano Health based in Miami, Florida. Previously, \nEric\n was the Chief Technology Officer at \nClinical\nCare\nMedical\nCenters\n and also held positions at Heico Companies, MedOptions, Evidera, CorVel."
+      ]
+    },
+    {
+      "source_url": "https://rocketreach.co/eric-santiago-email_368290890",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:21:39.740744+00:00",
+      "facts_supported": [
+        "Public Profile: Eric Santiago Email & Phone Number | Clinical Care Medical Centers ...",
+        "Verified Career & Background: Eric\nSantiago\n, based in Miami, FL, US, is currently a Chief Technology Officer and CISO at \nClinical\nCare\nMedical\nCenters\n. \nEric\nSantiago\n brings experience from previous roles at Cano Health, HEICO, Med-Options Inc. and MEDIMIX International."
+      ]
+    },
+    {
+      "source_url": "https://prospeo.io/p/eric-santiago-email-and-phone",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:21:39.740753+00:00",
+      "facts_supported": [
+        "Public Profile: Eric Santiago Email & Phone Number",
+        "Verified Career & Background: Summary \nEric\nSantiago\n, based in Miami, Florida, United States, is currently a Chief Technology Officer & CISO at \nClinical\nCare\nMedical\nCenters\n. \nEric\nSantiago\n brings experience from previous roles at Cano Health, HEICO, LiveTracker® and CorVel Corporation. \nEric\nSantiago\n has been working in th"
+      ]
+    },
+    {
+      "source_url": "https://www.linkedin.com/company/clinicalcaremedicalcenters",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:21:39.740760+00:00",
+      "facts_supported": [
+        "Public Profile: Clinical Care Medical Centers - LinkedIn",
+        "Verified Career & Background: About us \nClinical\nCare's\n full service \nmedical\n and wellness \ncenters\n improve the quality of life for each patient through tailored \ncare\n management with a holistic approach."
+      ]
+    },
+    {
+      "source_url": "https://www.datanyze.com/companies/mb-medical-operations/371606455",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:21:39.740837+00:00",
+      "facts_supported": [
+        "Public Profile: MB Medical Operations Company Profile | Management and ... - Datanyze",
+        "Verified Career & Background: MB \nMedical\n Operations Profile and History \nClinical\nCare\n is a top-ranked provider of multi-specialty \nmedical\ncare\n for seniors in Florida, offering a wide range of services including primary \ncare\n, cardiology, dental, and more. The company focuses on improving the quality of life for its patien"
+      ]
+    }
+  ],
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as Chief Technology Officer & CISO at Clinical Care Medical Centers.",
+      "Focus on Generative AI & LLM Infrastructure, Healthcare Data Privacy (HIPAA) & Safe Exchange.",
+      "Background: Experience Chief Technology Officer & CISO  Clinical Care Medical Centers  Sep 2023 - Present 3 years 2 months Miami, Fl..."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for hospital & health care.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "Would you be open to a 10-minute technical exchange next Tuesday to explore how SealAPI shields AI and API endpoints for teams like Clinical Care Medical Centers?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly."
+    ],
+    "missing_verification_points": []
+  },
+  "research_metadata": {
+    "research_status": "completed",
+    "last_research_timestamp": "2026-10-10T19:21:31.149027+00:00",
+    "sources_examined": 8,
+    "errors_and_limitations": [
+      "LinkedIn profile (http://www.linkedin.com/in/eric-santiago-cisa-cdpse-062aa2b) is behind an authentication wall; public domain records used for verified evidence."
+    ]
+  }
+}

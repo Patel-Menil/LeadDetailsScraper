@@ -1,0 +1,3 @@
+# SealAPI Lead Research Engine
+User-agent: *
+Disallow: /

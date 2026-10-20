@@ -1,0 +1,154 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_f0485cbdee5b",
+  "identity": {
+    "name": "Monica Rysavy",
+    "first_name": "Monica",
+    "last_name": "Rysavy",
+    "job_title": "Founder, CEO, & Chief AI Officer",
+    "company": "Systematic You",
+    "industry": "management consulting",
+    "linkedin_url": "http://www.linkedin.com/in/monicarysavy",
+    "company_website": "http://www.systematicyou.notion.site",
+    "professional_email": "monica@systematicyou.com",
+    "city": "Philadelphia",
+    "state": "Pennsylvania",
+    "country": "United States"
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at Systematic You",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Generative AI & LLM Infrastructure"
+    ],
+    "public_projects": [
+      "Platform development and operations for Systematic You"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at Systematic You",
+      "I've also earned a few degrees along the way",
+      "Rysavy , with 20+ years of experience in"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Monica Rysavy (Founder, CEO, & Chief AI Officer at Systematic You) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails"
+      ],
+      "evidence_points": [
+        "Role 'Founder, CEO, & Chief AI Officer' makes key architecture decisions for emerging AI capabilities"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 1,
+    "reason": "Priority 1 (Medium Fit): Founder, CEO, & Chief AI Officer at Systematic You is in a relevant role or vertical, but requires further qualification of immediate security/AI deployment urgency.",
+    "score": 71.0,
+    "confidence": 1.0,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'Founder, CEO, & Chief AI Officer'",
+      "Adjacent vertical: 'management consulting'",
+      "Limited technical keywords: ai",
+      "Verified business email domain: monica@systematicyou.com"
+    ]
+  },
+  "sources": [
+    {
+      "source_url": "lead_import_record",
+      "source_type": "input_data",
+      "retrieval_timestamp": "2026-10-10T19:19:37.737911+00:00",
+      "facts_supported": [
+        "Verified Name: Monica Rysavy",
+        "Declared Job Title: Founder, CEO, & Chief AI Officer",
+        "Company: Systematic You",
+        "Industry: management consulting",
+        "Verified Professional Email: monica@systematicyou.com",
+        "Reported Location: Philadelphia, Pennsylvania, United States",
+        "Company Keywords: fractional operations support,virtual assistant services,business operations,course design,community management,instructional design,book launch support,email marketing automation,"
+      ]
+    },
+    {
+      "source_url": "https://systematicyou.com/",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:19:44.506749+00:00",
+      "facts_supported": [
+        "Public Profile: Systematic You - Dr. Monica Rysavy | AI strategy, speaking, and writing",
+        "Verified Career & Background: Dr. \nMonica\nRysavy\n helps business owners and their teams hand AI the prep work and keep the decisions for themselves."
+      ]
+    },
+    {
+      "source_url": "https://systematicyou.com/about",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:19:44.506795+00:00",
+      "facts_supported": [
+        "Public Profile: About Dr. Monica Rysavy | Systematic You",
+        "Verified Career & Background: About Hi, I'm Dr. \nMonica\nRysavy\n. I've been a high school teacher, a professor, a COO, and a Chief AI Officer. I've also earned a few degrees along the way. Now I help founder-led businesses sort out what a human should decide and what AI can support. See how I work with founders Book me to speak"
+      ]
+    },
+    {
+      "source_url": "https://www.youtube.com/@SystematicYou",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:19:44.506801+00:00",
+      "facts_supported": [
+        "Public Profile: Systematic You by Dr. Monica Rysavy - YouTube",
+        "Verified Career & Background: Welcome to \nSystematic\nYou\n - where entrepreneurs and business owners turn chaotic operations into streamlined, scalable systems. I'm Dr. \nMonica\n D.T. \nRysavy\n, with 20+ years of experience in ..."
+      ]
+    },
+    {
+      "source_url": "http://systematicyouniversity.com/",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:19:44.506808+00:00",
+      "facts_supported": [
+        "Public Profile: Systematic Youniversity | Master COO-Level Operational Skills",
+        "Verified Career & Background: Meet Dr. \nMonica\n Rysavy—Fractional COO & operations expert who builds resilient systems that work on your worst day, not just your best."
+      ]
+    },
+    {
+      "source_url": "https://www.linkedin.com/in/monicarysavy",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:19:44.506814+00:00",
+      "facts_supported": [
+        "Public Profile: Monica Rysavy, J.D., Ph.D., Ed.D. - LinkedIn",
+        "Verified Career & Background: Monica\nRysavy\n, J.D., Ph.D., Ed.D. I help authors, coaches, and consultants hand AI the prep work and keep the decisions | AI strategy, speaking, and writing | Founder, \nSystematic\nYou"
+      ]
+    },
+    {
+      "source_url": "https://www.notion.com/@systematicyou",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:19:44.506824+00:00",
+      "facts_supported": [
+        "Public Profile: Systematic You Templates by Dr. Monica D.T. Rysavy",
+        "Verified Career & Background: Systematic\nYou\n Templates by Dr. \nMonica\n D.T. \nRysavy\n @\nsystematicyou\n 👩‍🦰 Expert in EdTech & Course Design 🍎 COO for an Online Edu Biz 📌 Former Higher Ed 👩‍🏫 Passionate about PKM & Lifelong Learning 📚 1L @ UNH Law I help you conquer digital defeat and emerge as an everyday knowledge warrior with "
+      ]
+    }
+  ],
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as Founder, CEO, & Chief AI Officer at Systematic You.",
+      "Focus on Generative AI & LLM Infrastructure.",
+      "Background: I've also earned a few degrees along the way..."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for management consulting.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "Would you be open to a 10-minute technical exchange next Tuesday to explore how SealAPI shields AI and API endpoints for teams like Systematic You?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly."
+    ],
+    "missing_verification_points": []
+  },
+  "research_metadata": {
+    "research_status": "completed",
+    "last_research_timestamp": "2026-10-10T19:19:37.737911+00:00",
+    "sources_examined": 7,
+    "errors_and_limitations": [
+      "LinkedIn profile (http://www.linkedin.com/in/monicarysavy) is behind an authentication wall; public domain records used for verified evidence.",
+      "Company website research notice for http://www.systematicyou.notion.site: Website could not be reached via HTTP or Browser."
+    ]
+  }
+}

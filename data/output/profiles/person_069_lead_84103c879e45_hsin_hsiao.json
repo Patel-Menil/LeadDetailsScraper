@@ -1,0 +1,166 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_84103c879e45",
+  "identity": {
+    "name": "Hsin Hsiao",
+    "first_name": "Hsin",
+    "last_name": "Hsiao",
+    "job_title": "Ceo/cto",
+    "company": "應援科技 OenTech",
+    "industry": "information technology & services",
+    "linkedin_url": "http://www.linkedin.com/in/hsin-hsiao-1a43551b",
+    "company_website": "https://oen.tw",
+    "professional_email": "hsin@oen.tw",
+    "city": "New York",
+    "state": "New York",
+    "country": "United States"
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at 應援科技 OenTech",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Generative AI & LLM Infrastructure",
+      "API Security & Microservices",
+      "Financial Data Governance & Compliance"
+    ],
+    "public_projects": [
+      "Platform development and operations for 應援科技 OenTech"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at 應援科技 OenTech",
+      "· Experience:  應援科技 OenTech  · Education: University of California, Los Angeles · Location: New York · 500+ connections on LinkedIn",
+      "Hsin Hsiao  (蕭新晟), co-founder and CEO of  OenTech , went from theoretical physics and civic-tech activism to building the payment platform behind Taiwan's supporter economy",
+      "Hsin -Chen  Hsiao  (aka  Hsiao  a) Leads the team in making complex payment and product services more trustworthy and usable"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Hsin Hsiao (Ceo/cto at 應援科技 OenTech) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails"
+      ],
+      "evidence_points": [
+        "Role 'Ceo/cto' makes key architecture decisions for emerging AI capabilities"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 0,
+    "reason": "Priority 0 (Highest Fit): Ceo/cto at 應援科技 OenTech matches core decision-maker criteria in a regulated/tech-driven industry with active AI/API needs.",
+    "score": 100.0,
+    "confidence": 1.0,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'Ceo/cto'",
+      "Target enterprise vertical matching SealAPI: 'information technology'",
+      "Strong verified AI/API security need (matched signals: ai, api, apis, security, compliance, saas)",
+      "Verified business email domain: hsin@oen.tw"
+    ]
+  },
+  "sources": [
+    {
+      "source_url": "lead_import_record",
+      "source_type": "input_data",
+      "retrieval_timestamp": "2026-10-10T19:22:46.484929+00:00",
+      "facts_supported": [
+        "Verified Name: Hsin Hsiao",
+        "Declared Job Title: Ceo/cto",
+        "Company: 應援科技 OenTech",
+        "Industry: information technology & services",
+        "Verified Professional Email: hsin@oen.tw",
+        "Reported Location: New York, New York, United States",
+        "Company Keywords: software development,payment security,digital payments,security testing,pci dss level 1,security solutions,security policies,web security,financial transactions processing, reserve"
+      ]
+    },
+    {
+      "source_url": "https://oen.tw",
+      "source_type": "company_website",
+      "retrieval_timestamp": "2026-10-10T19:22:46Z",
+      "facts_supported": [
+        "Website Title: OEN — 金流 × CRM 最強數位支持系統",
+        "Company Mission/Description: 募款、售票、商城、到會員經營一站完成，讓每一筆支持都被好好珍惜。",
+        "Core Offerings: 一站整合募款、商城、活動與會員經營, 應援產品服務, 一站式雲端數位總部, 最低費率最高效率"
+      ]
+    },
+    {
+      "source_url": "https://www.linkedin.com/in/hsin-hsiao-1a43551b",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:22:50.619211+00:00",
+      "facts_supported": [
+        "Public Profile: Hsin Hsiao - CEO/CTO at Oen Tech focused on product ... - LinkedIn",
+        "Verified Career & Background: · Experience: \n應援科技\nOenTech\n · Education: University of California, Los Angeles · Location: New York · 500+ connections on LinkedIn. View \nHsin\nHsiao's\n profile on LinkedIn, a ..."
+      ]
+    },
+    {
+      "source_url": "https://yespress.io/hsin-hsiao",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:22:50.619257+00:00",
+      "facts_supported": [
+        "Public Profile: Hsin Hsiao - The Physicist Building Taiwan's Payment Trust Layer",
+        "Verified Career & Background: Hsin\nHsiao\n (蕭新晟), co-founder and CEO of \nOenTech\n, went from theoretical physics and civic-tech activism to building the payment platform behind Taiwan's supporter economy."
+      ]
+    },
+    {
+      "source_url": "https://hsiaoa.oen.tw/",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:22:50.619265+00:00",
+      "facts_supported": [
+        "Public Profile: Oen - hsiaoa",
+        "Verified Career & Background: : 1982年台南出生，2000離家前往美國求學，在學時想當物理學家，金融海嘯後離開學術圈，待過金融、網路新創以及公民科技圈。2018年返台投入社會運動及政治，數位治理、開放政府、開放國會等倡議，並在2020重新投入創業發起應援科技平台。我的興趣廣泛，科學、工程、法律政治、文化歷史都稍有 ..."
+      ]
+    },
+    {
+      "source_url": "https://zh.wikipedia.org/zh-tw/%E8%95%AD%E6%96%B0%E6%99%9F",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:22:50.619271+00:00",
+      "facts_supported": [
+        "Public Profile: 蕭新晟 - 維基百科，自由的百科全書",
+        "Verified Career & Background: 蕭新晟 （英語： \nHsiao\nHsin\n-cheng，1982年12月9日—），物理研究員、臺灣軟體工程師、公民科技倡議者、政治人物與企業家，為「國家寶藏」專案、「立法院開放國會」 [1] 發起人之一、曾參選2018年台北市議員 [2] 、亦曾任開放政府民間委員 [3]，並為軟體新創應援科技（Oen Tech）共同創辦人暨執行長 [4 ..."
+      ]
+    },
+    {
+      "source_url": "https://www.oen.tw/about?lng=en-US",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:22:50.619279+00:00",
+      "facts_supported": [
+        "Public Profile: OEN — About OEN Tech | Payment × CRM Digital Support System",
+        "Verified Career & Background: Hsin\n-Chen \nHsiao\n (aka \nHsiao\n a) Leads the team in making complex payment and product services more trustworthy and usable."
+      ]
+    },
+    {
+      "source_url": "https://www.facebook.com/oentech/posts/%E5%A1%9E%E6%8E%90sidechathsin-hsiao-%E8%95%AD%E6%96%B0%E6%99%9F%E6%87%89%E6%8F%B4%E7%A7%91%E6%8A%80-oentech-%E5%89%B5%E8%BE%A6%E4%BA%BA%E5%BE%9E%E7%AC%AC%E4%B8%89%E6%96%B9%E6%94%AF%E4%BB%98%E5%88%B0%E7%A5%A8%E5%88%B8%E8%88%87%E5%91%A8%E9%82%8A%E9%87%91%E6%B5%81%E5%89%B5%E6%A5%AD%E6%80%8E%E9%BA%BC%E5%9E%82%E7%9B%B4%E6%95%B4%E5%90%88%E6%87%89%E6%8F%B4%E7%A7%91%E6%8A%80%E5%85%B1%E5%90%8C%E5%89%B5%E8%BE%A6%E4%BA%BA%E6%9A%A8%E5%9F%B7%E8%A1%8C%E9%95%B7%E8%95%AD%E6%96%B0%E6%99%9F%E5%88%86%E4%BA%AB/878905838019878/",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:22:50.619286+00:00",
+      "facts_supported": [
+        "Public Profile: 應援科技 - 【#塞掐SideChat】Hsin Hsiao 蕭新晟：應援科技 OenTech... | Facebook",
+        "Verified Career & Background: 【#塞掐SideChat】Hsin \nHsiao\n 蕭新晟：應援科技 \nOenTech\n 創辦人｜從第三方支付到票券與周邊，金流創業怎麼垂直整合？ 應援科技共同創辦人暨執行長蕭新晟，分享他從物理博士肄業、闖蕩華爾街，到回台投身 Fintech..."
+      ]
+    }
+  ],
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as Ceo/cto at 應援科技 OenTech.",
+      "Focus on Generative AI & LLM Infrastructure, API Security & Microservices.",
+      "Background: · Experience:  應援科技 OenTech  · Education: University of California, Los Angeles · Location: New York · 500+ connections ..."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for information technology & services.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "Would you be open to a 10-minute technical exchange next Tuesday to explore how SealAPI shields AI and API endpoints for teams like 應援科技 OenTech?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly."
+    ],
+    "missing_verification_points": []
+  },
+  "research_metadata": {
+    "research_status": "completed",
+    "last_research_timestamp": "2026-10-10T19:22:46.484929+00:00",
+    "sources_examined": 8,
+    "errors_and_limitations": [
+      "LinkedIn profile (http://www.linkedin.com/in/hsin-hsiao-1a43551b) is behind an authentication wall; public domain records used for verified evidence."
+    ]
+  }
+}

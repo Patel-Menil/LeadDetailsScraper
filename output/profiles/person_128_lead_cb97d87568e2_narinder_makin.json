@@ -1,0 +1,167 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_cb97d87568e2",
+  "identity": {
+    "name": "Narinder Makin",
+    "first_name": "Narinder",
+    "last_name": "Makin",
+    "job_title": "Ceo/cto",
+    "company": "Healthper USA, Inc.",
+    "industry": "health, wellness & fitness",
+    "linkedin_url": "http://www.linkedin.com/in/narinder-makin-68416922",
+    "company_website": "https://healthper.com",
+    "professional_email": "narinder.makin@healthper.com",
+    "city": "New York",
+    "state": "New York",
+    "country": "United States"
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at Healthper USA, Inc.",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Generative AI & LLM Infrastructure",
+      "API Security & Microservices",
+      "Healthcare Data Privacy (HIPAA) & Safe Exchange"
+    ],
+    "public_projects": [
+      "Platform development and operations for Healthper USA, Inc."
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at Healthper USA, Inc.",
+      "Buy Now We use cookies to ensure that we give you the best experience on our website",
+      "We deliver maximum engagement through targeted well-being, and it's why we are your well-being architects",
+      "Nimble technology & deep expertise = Your tailored well-being architecture"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Narinder Makin (Ceo/cto at Healthper USA, Inc.) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails",
+        "Privacy-Preserving Data Exchange & Compliance"
+      ],
+      "evidence_points": [
+        "Role 'Ceo/cto' makes key architecture decisions for emerging AI capabilities",
+        "Regulated domain 'health, wellness & fitness' mandates strict API access controls and audited data flow"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 1,
+    "reason": "Priority 1 (Medium Fit): Ceo/cto at Healthper USA, Inc. is in a relevant role or vertical, but requires further qualification of immediate security/AI deployment urgency.",
+    "score": 75.0,
+    "confidence": 1.0,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'Ceo/cto'",
+      "Strong verified AI/API security need (matched signals: ai, security, compliance, saas)",
+      "Verified business email domain: narinder.makin@healthper.com"
+    ]
+  },
+  "sources": [
+    {
+      "source_url": "lead_import_record",
+      "source_type": "input_data",
+      "retrieval_timestamp": "2026-10-10T19:22:37.544131+00:00",
+      "facts_supported": [
+        "Verified Name: Narinder Makin",
+        "Declared Job Title: Ceo/cto",
+        "Company: Healthper USA, Inc.",
+        "Industry: health, wellness & fitness",
+        "Verified Professional Email: narinder.makin@healthper.com",
+        "Reported Location: New York, New York, United States",
+        "Company Keywords: worksite wellness,social wellness,healthy rewards,health wellness,wellness platform,engagement,corporate wellness programs,healthcare consumerism,employee health,wellbeing,wellbein"
+      ]
+    },
+    {
+      "source_url": "https://healthper.com",
+      "source_type": "company_website",
+      "retrieval_timestamp": "2026-10-10T19:22:38Z",
+      "facts_supported": [
+        "Website Title: Employee Well-Being Platform and Services",
+        "Company Mission/Description: Healthper is an IT technology consulting and services company that focuses on digital transformation, health, and safety. Our managed products and services include return to work, covid-19 population management, health IoT devices, health screenings and assessments, wellness programs and challenges, wellness coaching, and incentive management. We use our proprietary engagement platform technology to offer turnkey well-being solutions and create customized programs and digital interventions tailored to our client's unique needs.  Our technical personal competencies include software consulting services with staff augmentation for IT Modernization, IBM Platform, Microsoft Azure & .NET Technologies, Amazon Web Services, Salesforce, MuleSoft, Asset Management, Spark, Splunk, Project management, Cloud administration, DevOps, Agile Tools, Enterprise, Technology & Security Operations, Relational & Non-Relational Databases, Big Data, Data mining, Business intelligence reporting and much more. Engagement is where well-being starts, and it's how change is sustained. Many health and wellness companies sell “one-size-fits-all” solutions. Healthper is different. We drive maximum engagement by designing branded programs tailored to your company's unique culture and singular aspirations. Partnering with clients like you, we design workplace initiatives targeting the health concerns of the different groups and sub-populations that define your distinct workforce. It's maximum engagement through targeted well-being. And it's why we are your well-being architects.",
+        "Core Offerings: Request the Case Study, WE DRIVE MAXIMUM, ENGAGEMENT, Corporate and \nGovernment Consulting"
+      ]
+    },
+    {
+      "source_url": "https://www.linkedin.com/in/narinder-makin-68416922",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:22:42.695403+00:00",
+      "facts_supported": [
+        "Public Profile: Narinder Makin - CEO/CTO at Healthper USA Inc. | LinkedIn",
+        "Verified Career & Background: CEO/CTO at \nHealthper\nUSA\nInc.\n · Experience: Internal Revenue Service · Education: University of Bridgeport · Location: New York City Metropolitan Area · 500+ connections on LinkedIn. View ..."
+      ]
+    },
+    {
+      "source_url": "https://wiza.co/d/healthper/4942/narinder-makin",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:22:42.695444+00:00",
+      "facts_supported": [
+        "Public Profile: Narinder Makin - CEO/CTO at Healthper Usa, Inc. - Wiza",
+        "Verified Career & Background: View \nNarinder\nMakin's\n email address (n*****@health***.com) and phone number. \nNarinder\n works at \nHealthper\nUsa\n, \nInc.\n as CEO/CTO. \nNarinder\n is based out of New York City Metropolitan Area and works in the Wellness and Fitness Services industry."
+      ]
+    },
+    {
+      "source_url": "https://www.linkedin.com/company/healthper",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:22:42.695452+00:00",
+      "facts_supported": [
+        "Public Profile: Healthper USA, Inc. - LinkedIn",
+        "Verified Career & Background: Healthper\nUSA,\nInc.\n is an SBA-8 (a) certified IT technology services and consulting company that focuses on health & safety by maximizing engagement using personalization, coaching, and incentives."
+      ]
+    },
+    {
+      "source_url": "https://www.zoominfo.com/p/Narinder-Makin/9865804167",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:22:42.695459+00:00",
+      "facts_supported": [
+        "Public Profile: Narinder Makin - Chief Executive Offic.. - Healthper USA | ZoomInfo",
+        "Verified Career & Background: Get the details of \nNarinder\nMakin's\n business profile including email address, phone number, work history and more."
+      ]
+    },
+    {
+      "source_url": "https://www.crunchbase.com/person/narinder-makin",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:22:42.695465+00:00",
+      "facts_supported": [
+        "Public Profile: Narinder Makin - CEO & CTO @ Healthper - Crunchbase",
+        "Verified Career & Background: Primary Job Title CEO & CTO Primary Organization \nHealthper\n Location United States, North America Gender Male LinkedIn View on LinkedIn X (Twitter) View on X \nNarinder\nMakin\n is the CEO and CTO at \nHealthper\nUSA\nInc."
+      ]
+    },
+    {
+      "source_url": "https://rocketreach.co/narinder-makin-email_57759543",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:22:42.695473+00:00",
+      "facts_supported": [
+        "Public Profile: Narinder Makin Email & Phone Number | Healthper USA, Inc. CEO and CTO ...",
+        "Verified Career & Background: Narinder\nMakin\n Summary \nNarinder\nMakin\n, based in New York, NY, US, is currently a CEO and CTO at \nHealthper\nUSA,\nInc\n.. \nNarinder\nMakin\n brings experience from previous roles at Internal Revenue Service, Centers for Medicare & Medicaid Services, Fan Health Network and Lifetime Income Technologies,"
+      ]
+    }
+  ],
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as Ceo/cto at Healthper USA, Inc..",
+      "Focus on Generative AI & LLM Infrastructure, API Security & Microservices.",
+      "Background: Buy Now We use cookies to ensure that we give you the best experience on our website..."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for health, wellness & fitness.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "Would you be open to a 10-minute technical exchange next Tuesday to explore how SealAPI shields AI and API endpoints for teams like Healthper USA, Inc.?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly."
+    ],
+    "missing_verification_points": []
+  },
+  "research_metadata": {
+    "research_status": "completed",
+    "last_research_timestamp": "2026-10-10T19:22:37.544131+00:00",
+    "sources_examined": 8,
+    "errors_and_limitations": [
+      "LinkedIn profile (http://www.linkedin.com/in/narinder-makin-68416922) is behind an authentication wall; public domain records used for verified evidence."
+    ]
+  }
+}

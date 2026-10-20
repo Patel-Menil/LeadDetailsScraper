@@ -1,0 +1,169 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_0ad984c90386",
+  "identity": {
+    "name": "Roy Timor",
+    "first_name": "Roy",
+    "last_name": "Timor",
+    "job_title": "Head of AI & Incubation fractional-CTO",
+    "company": "25madison",
+    "industry": "venture capital & private equity,financial services",
+    "linkedin_url": "http://www.linkedin.com/in/roy-timor-63628326",
+    "company_website": "https://25madison.com",
+    "professional_email": "roy.timor@25madison.com",
+    "city": "New York",
+    "state": "New York",
+    "country": "United States"
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at 25madison",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Generative AI & LLM Infrastructure",
+      "API Security & Microservices",
+      "Healthcare Data Privacy (HIPAA) & Safe Exchange",
+      "Financial Data Governance & Compliance"
+    ],
+    "public_projects": [
+      "Platform development and operations for 25madison"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at 25madison",
+      "com © 2025 25madison LLC |  Privacy Building tomorrow's market leaders",
+      "I specialize in building and deploying end-to-end AI agents in production, transforming complex workflows into fully automated systems",
+      "Experience:  25madison  · Education: Universitat Ben Gurion Ba-Negev · Location: New York City Metropolitan Area · 500+ connections on LinkedIn"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Roy Timor (Head of AI & Incubation fractional-CTO at 25madison) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails",
+        "Privacy-Preserving Data Exchange & Compliance"
+      ],
+      "evidence_points": [
+        "Role 'Head of AI & Incubation fractional-CTO' makes key architecture decisions for emerging AI capabilities",
+        "Regulated domain 'venture capital & private equity,financial services' mandates strict API access controls and audited data flow"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 0,
+    "reason": "Priority 0 (Highest Fit): Head of AI & Incubation fractional-CTO at 25madison matches core decision-maker criteria in a regulated/tech-driven industry with active AI/API needs.",
+    "score": 100.0,
+    "confidence": 1.0,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'Head of AI & Incubation fractional-CTO'",
+      "Target enterprise vertical matching SealAPI: 'financial services'",
+      "Strong verified AI/API security need (matched signals: ai, genai, api, security, compliance)",
+      "Verified business email domain: roy.timor@25madison.com"
+    ]
+  },
+  "sources": [
+    {
+      "source_url": "lead_import_record",
+      "source_type": "input_data",
+      "retrieval_timestamp": "2026-10-10T19:20:57.062332+00:00",
+      "facts_supported": [
+        "Verified Name: Roy Timor",
+        "Declared Job Title: Head of AI & Incubation fractional-CTO",
+        "Company: 25madison",
+        "Industry: venture capital & private equity,financial services",
+        "Verified Professional Email: roy.timor@25madison.com",
+        "Reported Location: New York, New York, United States",
+        "Company Keywords: entrepreneurship,venture capital,technology,b2b software,business services,brexperience design,industrials,health,private equity,venture capital & private equity principals,busines"
+      ]
+    },
+    {
+      "source_url": "https://25madison.com",
+      "source_type": "company_website",
+      "retrieval_timestamp": "2026-10-10T19:20:58Z",
+      "facts_supported": [
+        "Website Title: 25madison - Bringing Applied AI to Legacy Industries",
+        "Company Mission/Description: 25madison builds and invests in businesses through studio, venture and buyout strategies. We focus on AI modernization of legacy companies.",
+        "Core Offerings: We harness the power of AI to modernize legacy businesses., Early-Stage Venture, >, Transformation Buyouts"
+      ]
+    },
+    {
+      "source_url": "https://www.25madison.com/teammembers/roy-timor",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:21:02.775090+00:00",
+      "facts_supported": [
+        "Public Profile: 25madison Team Member | Roy Timor",
+        "Verified Career & Background: Principal AI Engineering Manager I am a technical leader with a deep track record in AI productization, including early work on the Waze app and at Google DeepMind. I specialize in building and deploying end-to-end AI agents in production, transforming complex workflows into fully automated systems."
+      ]
+    },
+    {
+      "source_url": "https://www.linkedin.com/in/roy-timor-63628326",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:21:02.775174+00:00",
+      "facts_supported": [
+        "Public Profile: Roy Timor - 25madison | LinkedIn",
+        "Verified Career & Background: Experience: \n25madison\n · Education: Universitat Ben Gurion Ba-Negev · Location: New York City Metropolitan Area · 500+ connections on LinkedIn. View \nRoy\nTimor's\n profile on LinkedIn, a ..."
+      ]
+    },
+    {
+      "source_url": "https://www.25madison.com/team",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:21:02.775190+00:00",
+      "facts_supported": [
+        "Public Profile: Team - 25madison",
+        "Verified Career & Background: 25madison\n builds and invests in businesses through studio, venture and buyout strategies. We focus on AI modernization of legacy companies."
+      ]
+    },
+    {
+      "source_url": "https://www.linkedin.com/pub/dir/roy/timor",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:21:02.775200+00:00",
+      "facts_supported": [
+        "Public Profile: 4 \"Roy Timor\" profiles | LinkedIn",
+        "Verified Career & Background: Roy\nTimor\n CTO, GenAI and ML leadership New York City Metropolitan Area \n25madison\n, +6 more Universitat Ben Gurion Ba-Negev"
+      ]
+    },
+    {
+      "source_url": "https://www.investing.com/news/company-news/biomx-appoints-roy-timorrousso-as-chief-business-officer-93CH-4712522",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:21:02.775212+00:00",
+      "facts_supported": [
+        "Public Profile: BiomX appoints Roy Timor-Rousso as chief business officer",
+        "Verified Career & Background: NETANYA, Israel - BiomX Inc. (NYSE American:PHGE) announced today the appointment of \nRoy\nTimor\n-Rousso as Chief Business Officer as the company expands its focus on defense and security technologies."
+      ]
+    },
+    {
+      "source_url": "https://www.datanyze.com/companies/25madison/458733653",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:21:02.775224+00:00",
+      "facts_supported": [
+        "Public Profile: 25Madison Company Profile | Management and Employees List - Datanyze",
+        "Verified Career & Background: 25Madison\n Profile and History \n25madison\n is a New York City-based venture platform that connects innovative founders with experienced business leaders, focusing on transforming unique ideas into significant economic value. The company specializes in incubating and investing in technology-enabled b"
+      ]
+    }
+  ],
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as Head of AI & Incubation fractional-CTO at 25madison.",
+      "Focus on Generative AI & LLM Infrastructure, API Security & Microservices.",
+      "Background: com © 2025 25madison LLC |  Privacy Building tomorrow's market leaders..."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for venture capital & private equity,financial services.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "Would you be open to a 10-minute technical exchange next Tuesday to explore how SealAPI shields AI and API endpoints for teams like 25madison?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly."
+    ],
+    "missing_verification_points": []
+  },
+  "research_metadata": {
+    "research_status": "completed",
+    "last_research_timestamp": "2026-10-10T19:20:57.062332+00:00",
+    "sources_examined": 8,
+    "errors_and_limitations": [
+      "LinkedIn profile (http://www.linkedin.com/in/roy-timor-63628326) is behind an authentication wall; public domain records used for verified evidence."
+    ]
+  }
+}

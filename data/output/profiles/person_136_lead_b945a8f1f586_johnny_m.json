@@ -1,0 +1,162 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_b945a8f1f586",
+  "identity": {
+    "name": "Johnny M",
+    "first_name": "Johnny",
+    "last_name": "M",
+    "job_title": "Founder, CEO, CTO",
+    "company": "Monsarrat - Can You Come Out to Play?",
+    "industry": "computer games",
+    "linkedin_url": "",
+    "company_website": "http://www.monsarrat.com",
+    "professional_email": "jmonsarrat@monsarrat.com",
+    "city": "Los Angeles",
+    "state": "California",
+    "country": "United States"
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at Monsarrat - Can You Come Out to Play?",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Generative AI & LLM Infrastructure",
+      "API Security & Microservices",
+      "Healthcare Data Privacy (HIPAA) & Safe Exchange"
+    ],
+    "public_projects": [
+      "Platform development and operations for Monsarrat - Can You Come Out to Play?"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at Monsarrat - Can You Come Out to Play?",
+      "Dialog window X Be The First To Know Get feature alerts and inside access to our test community! Success! Email SIGN UP HOME VISION TEAM NEWS JOIN CONTACT Makes Any Park a Theme Park While we’re building our future full game, try our demo! Landing Party is  the world’s first Outdoor Roleplaying Game",
+      "The Future of AR Gaming Our CEO, Johnny Monsarrat, previously co-invented MMO gaming as Founder of Turbine, which made Asheron’s Call, Dungeons & Dragons Online, and Lord of the Rings Online",
+      "We’re making the world’s first outdoor roleplaying game!  Johnny Monsarrat, CEO Was Founder & CEO, Turbine Brian Sullivan, CCO Co-Founded Age of Empires Jack Tretton, Advisor Was CEO, Sony PlayStation Mike Ybarra, Advisor Was President, Blizzard Jenna Seiden, Advisor Was VP BusDev, Niantic David Anderman, Advisor Was Lucasfilm COO, SpaceX GC Stephen Saltzman, Advisor Was Managing Dir, Intel Capital Sandy Climan, Advisor Was EVP, Universal Studios Craig Kornblau, Advisor Was President, Universal Home Entertainment OUR VISION OUR TEAM Praise for Our Demo Game Watch our game walkthroughs and see reactions from fans and press"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Johnny M (Founder, CEO, CTO at Monsarrat - Can You Come Out to Play?) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails"
+      ],
+      "evidence_points": [
+        "Role 'Founder, CEO, CTO' makes key architecture decisions for emerging AI capabilities"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 1,
+    "reason": "Priority 1 (Medium Fit): Founder, CEO, CTO at Monsarrat - Can You Come Out to Play? is in a relevant role or vertical, but requires further qualification of immediate security/AI deployment urgency.",
+    "score": 65.0,
+    "confidence": 1.0,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'Founder, CEO, CTO'",
+      "Moderate AI/API infrastructure signals: ai, api",
+      "Verified business email domain: jmonsarrat@monsarrat.com"
+    ]
+  },
+  "sources": [
+    {
+      "source_url": "lead_import_record",
+      "source_type": "input_data",
+      "retrieval_timestamp": "2026-10-10T19:20:40.974741+00:00",
+      "facts_supported": [
+        "Verified Name: Johnny M",
+        "Declared Job Title: Founder, CEO, CTO",
+        "Company: Monsarrat - Can You Come Out to Play?",
+        "Industry: computer games",
+        "Verified Professional Email: jmonsarrat@monsarrat.com",
+        "Reported Location: Los Angeles, California, United States",
+        "Company Keywords: videogames,software,augmented reality,mmo,mobile gaming,mobile apps,game development,mmorpg,gaming,game,mobile games,ar,ar games,esports,video games,mapping,maps,developer tools,ga"
+      ]
+    },
+    {
+      "source_url": "http://www.monsarrat.com",
+      "source_type": "company_website",
+      "retrieval_timestamp": "2026-10-10T19:20:44Z",
+      "facts_supported": [
+        "Website Title: Monsarrat | Games for Life. Your Real Life.",
+        "Core Offerings: Be The First To Know, Success!, Makes Any Park a Theme Park, \"The next evolution of outdoor gaming\""
+      ]
+    },
+    {
+      "source_url": "https://monsarrat.com/",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:20:49.113191+00:00",
+      "facts_supported": [
+        "Public Profile: Monsarrat | Games for Life. Your Real Life.",
+        "Verified Career & Background: What kind of fantasy world can you put on a pinpoint? Instead, we lay out game world across your back yard, a local park, any small space. Then you walk through it to \nplay\n, like the Holodeck on Star Trek. Solve the mystery, get your steps in, and save the day! It's a sci-fi adventure with 12 missi"
+      ]
+    },
+    {
+      "source_url": "https://monsarrat.com/vision/",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:20:49.113242+00:00",
+      "facts_supported": [
+        "Public Profile: Vision | Monsarrat",
+        "Verified Career & Background: How can you shoot enemies through a military base (action) or explore a fantasy world (roleplaying) on a pinpoint? Our technology is different. We lay out a contiguous game world across your back yard or any small space. Then you walk through it to \nplay\n, like the Holodeck on Star Trek."
+      ]
+    },
+    {
+      "source_url": "https://www.linkedin.com/company/monsarrat",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:20:49.113250+00:00",
+      "facts_supported": [
+        "Public Profile: Monsarrat - Can You Come Out to Play? - LinkedIn",
+        "Verified Career & Background: Monsarrat\n is already doing it. Our 6 patents lay a 3D fantasy world across a real world space, which you walk through to \nplay\n like the Holodeck on Star Trek."
+      ]
+    },
+    {
+      "source_url": "https://www.linkedin.com/posts/monsarrat_ar-argaming-argames-activity-7377043647277707264-6RGc",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:20:49.113258+00:00",
+      "facts_supported": [
+        "Public Profile: Monsarrat - Can You Come Out to Play? - LinkedIn",
+        "Verified Career & Background: Then you walk through to \nplay\n like the Holodeck on Star Trek. Former PlayStation, Blizzard, Niantic, and Lucasfilm CXOs advise us. We're building a B2C game and a B2B game development platform."
+      ]
+    },
+    {
+      "source_url": "https://yespress.io/monsarrat-can-you-come-out-to-play",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:20:49.113263+00:00",
+      "facts_supported": [
+        "Public Profile: Monsarrat: The Studio Turning Your Local Park Into an RPG",
+        "Verified Career & Background: Can\nYou\nCome\nOut\nto\nPlay?\nMonsarrat\n wants to turn the park at the end of your street into a fantasy world you walk through."
+      ]
+    },
+    {
+      "source_url": "https://monsarrat.com/worlds-first-outdoor-rpg-launches-at-augmented-world-expo/",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:20:49.113270+00:00",
+      "facts_supported": [
+        "Public Profile: World's First Outdoor RPG Launches at Augmented World Expo",
+        "Verified Career & Background: June 14, 2026 - \nMonsarrat\n, a Los Angeles startup, today launched Landing Party, the world's first Outdoor Roleplaying Game, as part of attending Augmented World Expo, the world's largest augmented reality trade show."
+      ]
+    }
+  ],
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as Founder, CEO, CTO at Monsarrat - Can You Come Out to Play?.",
+      "Focus on Generative AI & LLM Infrastructure, API Security & Microservices.",
+      "Background: Dialog window X Be The First To Know Get feature alerts and inside access to our test community! Success! Email SIGN UP ..."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for computer games.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "Would you be open to a 10-minute technical exchange next Tuesday to explore how SealAPI shields AI and API endpoints for teams like Monsarrat - Can You Come Out to Play??",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly."
+    ],
+    "missing_verification_points": []
+  },
+  "research_metadata": {
+    "research_status": "completed",
+    "last_research_timestamp": "2026-10-10T19:20:40.974741+00:00",
+    "sources_examined": 8,
+    "errors_and_limitations": []
+  }
+}

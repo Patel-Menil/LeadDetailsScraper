@@ -1,0 +1,166 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_860029fb6708",
+  "identity": {
+    "name": "Simon L",
+    "first_name": "Simon",
+    "last_name": "L",
+    "job_title": "VP of Engineering & CISO",
+    "company": "M1",
+    "industry": "financial services",
+    "linkedin_url": "",
+    "company_website": "https://m1.com",
+    "professional_email": "s.lam@m1finance.com",
+    "city": "Chicago",
+    "state": "Illinois",
+    "country": "United States"
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Enforcing cybersecurity, data compliance, and API security policies across M1",
+      "Safeguarding sensitive data and managing third-party vendor access risk"
+    ],
+    "technical_interests": [
+      "Generative AI & LLM Infrastructure",
+      "API Security & Microservices",
+      "Financial Data Governance & Compliance"
+    ],
+    "public_projects": [
+      "Platform development and operations for M1"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at M1",
+      "Hello, I&#39;m  Simon ! 👋 I am an engineering leader with more than a decade of… · Experience:  M1  · Education: University of Illinois Urbana-Champaign · Location: Chicago · 500+ connections",
+      "Prior to my time at  M1 , I worked as a consultant for many years, building bespoke technical systems for clients",
+      "is currently the VP of Engineering at  M1 , where he leads teams and thrives on problem-solving"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Simon L (VP of Engineering & CISO at M1) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails",
+        "Privacy-Preserving Data Exchange & Compliance"
+      ],
+      "evidence_points": [
+        "Role 'VP of Engineering & CISO' makes key architecture decisions for emerging AI capabilities",
+        "Regulated domain 'financial services' mandates strict API access controls and audited data flow"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 0,
+    "reason": "Priority 0 (Highest Fit): VP of Engineering & CISO at M1 matches core decision-maker criteria in a regulated/tech-driven industry with active AI/API needs.",
+    "score": 100.0,
+    "confidence": 1.0,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'VP of Engineering & CISO'",
+      "Target enterprise vertical matching SealAPI: 'financial services'",
+      "Strong verified AI/API security need (matched signals: ai, api, security, cloud, infrastructure)",
+      "Verified business email domain: s.lam@m1finance.com"
+    ]
+  },
+  "sources": [
+    {
+      "source_url": "lead_import_record",
+      "source_type": "input_data",
+      "retrieval_timestamp": "2026-10-10T19:21:27.037006+00:00",
+      "facts_supported": [
+        "Verified Name: Simon L",
+        "Declared Job Title: VP of Engineering & CISO",
+        "Company: M1",
+        "Industry: financial services",
+        "Verified Professional Email: s.lam@m1finance.com",
+        "Reported Location: Chicago, Illinois, United States",
+        "Company Keywords: financial technology,investing,investments,fintech,automation,personal finance,financial services,banking,brokerage,app,savings,stocks,etfs,crypto,spend,credit card,borrow,personal"
+      ]
+    },
+    {
+      "source_url": "https://m1.com",
+      "source_type": "company_website",
+      "retrieval_timestamp": "2026-10-10T19:21:27Z",
+      "facts_supported": [
+        "Website Title: M1: Your AI wealth management platform",
+        "Company Mission/Description: Welcome to M1, where long-term wealth-builders invest, save, and borrow with built-in fiduciary advice from M1 Advisor.",
+        "Core Offerings: Save and earn 3.35%  APY\n1\n on your uninvested cash, Invest in your future with automation and built-in advice, Borrow instantly with margin built into your account, Get fiduciary AI financial advice alongside your accounts"
+      ]
+    },
+    {
+      "source_url": "https://www.linkedin.com/in/simonlam1",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:21:31.476075+00:00",
+      "facts_supported": [
+        "Public Profile: Simon L. - M1 | LinkedIn",
+        "Verified Career & Background: Hello, I&#39;m \nSimon\n! 👋 I am an engineering leader with more than a decade of… · Experience: \nM1\n · Education: University of Illinois Urbana-Champaign · Location: Chicago · 500+ connections ..."
+      ]
+    },
+    {
+      "source_url": "https://simonlam.com/",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:21:31.476127+00:00",
+      "facts_supported": [
+        "Public Profile: Simon Lam",
+        "Verified Career & Background: Prior to my time at \nM1\n, I worked as a consultant for many years, building bespoke technical systems for clients. I value meaningful connections and am always eager to connect and hear your story."
+      ]
+    },
+    {
+      "source_url": "https://me.sh/profile/simon-l",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:21:31.476135+00:00",
+      "facts_supported": [
+        "Public Profile: Simon L. - LinkedIn",
+        "Verified Career & Background: Simon\nL\n. is currently the VP of Engineering at \nM1\n, where he leads teams and thrives on problem-solving. Having a background in consulting and founding engineering, \nSimon\n is a versatile generalist with a passion for developing bespoke technical systems. He holds a BS in Computer Engineering from"
+      ]
+    },
+    {
+      "source_url": "https://theorg.com/org/m1-finance/org-chart/simon-l",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:21:31.476142+00:00",
+      "facts_supported": [
+        "Public Profile: Simon L. - VP Of Engineering at M1 Finance | The Org",
+        "Verified Career & Background: Simon\nL\n. has over a decade of experience in software engineering and technical consulting, currently serving as VP of Engineering at \nM1\n since June 2015, where responsibilities include architecting and supporting backend microservices."
+      ]
+    },
+    {
+      "source_url": "https://m1.com/blog/aapi-heritage-month-simon-lam/",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:21:31.476149+00:00",
+      "facts_supported": [
+        "Public Profile: AAPI Heritage Month Spotlight: Simon Lam, VP of Platform Engineering - M1",
+        "Verified Career & Background: Interviewed by Chandra Jong, Project Coordinator at \nM1\n In honor of Asian American & Pacific Islander Heritage Month at \nM1\n, we sat down with \nSimon\n Lam,"
+      ]
+    },
+    {
+      "source_url": "https://www.theofficialboard.com/biography/simon-lam-d2104",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:21:31.476155+00:00",
+      "facts_supported": [
+        "Public Profile: Simon Lam Bio - M1 Finance Engineering & CISO - The Official Board",
+        "Verified Career & Background: Learn about the role of \nSimon\n Lam, Vice President of Engineering and Chief Information Security Officer at \nM1\n Finance. Full bio on The Official Board."
+      ]
+    }
+  ],
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as VP of Engineering & CISO at M1.",
+      "Focus on Generative AI & LLM Infrastructure, API Security & Microservices.",
+      "Background: Hello, I&#39;m  Simon ! 👋 I am an engineering leader with more than a decade of… · Experience:  M1  · Education: Univers..."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for financial services.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "Would you be open to a 10-minute technical exchange next Tuesday to explore how SealAPI shields AI and API endpoints for teams like M1?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly."
+    ],
+    "missing_verification_points": []
+  },
+  "research_metadata": {
+    "research_status": "completed",
+    "last_research_timestamp": "2026-10-10T19:21:27.037006+00:00",
+    "sources_examined": 8,
+    "errors_and_limitations": []
+  }
+}

@@ -1,0 +1,162 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_051dd289a2b5",
+  "identity": {
+    "name": "Shideh G",
+    "first_name": "Shideh",
+    "last_name": "G",
+    "job_title": "Founder and Ceo| Fractional Cto/cio | Chief AI Officer",
+    "company": "SMG Solutions LLC",
+    "industry": "information technology & services",
+    "linkedin_url": "",
+    "company_website": "http://www.smgsolutionsllc.com",
+    "professional_email": "sghajar@smgsolutionsllc.com",
+    "city": "San Francisco",
+    "state": "California",
+    "country": "United States"
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at SMG Solutions LLC",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Generative AI & LLM Infrastructure",
+      "API Security & Microservices"
+    ],
+    "public_projects": [
+      "Platform development and operations for SMG Solutions LLC"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at SMG Solutions LLC",
+      "As a strategic partner, we help organizations streamline operations, accelerate revenue growth, and improve customer experience through intelligent automation, data-driven insights, and practical execution",
+      "Our consultants bring deep platform expertise and a practical, results-driven approach focused on delivering measurable outcomes and a high-quality customer experience",
+      "Book a Strategy Call How can we help you? Book a Strategy Call About We deliver enterprise-grade digital transformation that drives growth, improves ROI, and elevates customer experience through Salesforce and AI-powered solutions"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Shideh G (Founder and Ceo| Fractional Cto/cio | Chief AI Officer at SMG Solutions LLC) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails"
+      ],
+      "evidence_points": [
+        "Role 'Founder and Ceo| Fractional Cto/cio | Chief AI Officer' makes key architecture decisions for emerging AI capabilities"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 0,
+    "reason": "Priority 0 (Highest Fit): Founder and Ceo| Fractional Cto/cio | Chief AI Officer at SMG Solutions LLC matches core decision-maker criteria in a regulated/tech-driven industry with active AI/API needs.",
+    "score": 90.0,
+    "confidence": 1.0,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'Founder and Ceo| Fractional Cto/cio | Chief AI Officer'",
+      "Target enterprise vertical matching SealAPI: 'information technology'",
+      "Moderate AI/API infrastructure signals: ai, cloud",
+      "Verified business email domain: sghajar@smgsolutionsllc.com"
+    ]
+  },
+  "sources": [
+    {
+      "source_url": "lead_import_record",
+      "source_type": "input_data",
+      "retrieval_timestamp": "2026-10-10T19:19:36.148613+00:00",
+      "facts_supported": [
+        "Verified Name: Shideh G",
+        "Declared Job Title: Founder and Ceo| Fractional Cto/cio | Chief AI Officer",
+        "Company: SMG Solutions LLC",
+        "Industry: information technology & services",
+        "Verified Professional Email: sghajar@smgsolutionsllc.com",
+        "Reported Location: San Francisco, California, United States",
+        "Company Keywords: it services & it consulting,consulting,services,information technology & services"
+      ]
+    },
+    {
+      "source_url": "http://www.smgsolutionsllc.com",
+      "source_type": "company_website",
+      "retrieval_timestamp": "2026-10-10T19:19:38Z",
+      "facts_supported": [
+        "Website Title: SMG Solutions LLC – Salesforce & AI  Consulting Services",
+        "Core Offerings: Salesforce & AI Automation Solutions That Drive Scalable Growth, As a trusted partner, we help organizations modernize sales, marketing, and operations with Salesforce and AI-powered automation., Core Services, What we do"
+      ]
+    },
+    {
+      "source_url": "https://smgsolutionsllc.com/about/",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:19:42.423082+00:00",
+      "facts_supported": [
+        "Public Profile: About - SMG Solutions LLC",
+        "Verified Career & Background: About Us Our Story \nSMG\nSolutions\nLLC\n was founded in 2001 by \nShideh\n Ghajar, a technology and business operations leader with over 30 years of experience delivering scalable, results-driven \nsolutions\n in complex enterprise environments."
+      ]
+    },
+    {
+      "source_url": "https://www.linkedin.com/in/sghajar",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:19:42.423392+00:00",
+      "facts_supported": [
+        "Public Profile: Shideh Ghajar - FOUNDER AND CEO| FRACTIONAL CTO/CIO - LinkedIn",
+        "Verified Career & Background: FOUNDER AND CEO| FRACTIONAL CTO/CIO | CHIEF AI OFFICER at \nSMG\nSolutions\nLLC\n · I am a Digital &amp; AI Transformation, Business Operations, and PMO Executive with 20+ years of experience leading ..."
+      ]
+    },
+    {
+      "source_url": "https://www.bizprofile.net/ca/walnut-creek/smg-solutions-llc",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:19:42.423402+00:00",
+      "facts_supported": [
+        "Public Profile: Smg Solutions LLC Walnut Creek, CA - filing information",
+        "Verified Career & Background: Smg\nSolutions\nLLC\n is a Walnut Creek, CA based company incorporated on January 23, 2001. Filing details extracted from the California Secretary of State's Registry as of 7/15/2025."
+      ]
+    },
+    {
+      "source_url": "https://www.bizapedia.com/ca/smg-solutions-llc.html",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:19:42.423408+00:00",
+      "facts_supported": [
+        "Public Profile: SMG SOLUTIONS LLC in Walnut Creek, CA | Company Info & Reviews - Bizapedia",
+        "Verified Career & Background: Discover Company Info on \nSMG\nSOLUTIONS\nLLC\n in Walnut Creek, CA, such as Contacts, Addresses, Reviews, and Registered Agent."
+      ]
+    },
+    {
+      "source_url": "https://www.linkedin.com/company/smgsolutionsllc",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:19:42.423414+00:00",
+      "facts_supported": [
+        "Public Profile: SMG Solutions LLC - LinkedIn",
+        "Verified Career & Background: SMG\nSolutions\n, \nLLC\n is the leading Salesforce consulting firm specializing in implementation of Cloud-based Salesforce platform, \nsolutions\n and best practices to transform and automate marketing ..."
+      ]
+    },
+    {
+      "source_url": "https://www.linkedin.com/pub/dir/Shideh/Ghajar+%E2%9C%85",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:19:42.423419+00:00",
+      "facts_supported": [
+        "Public Profile: 3 \"Shideh Ghajar \" profiles | LinkedIn",
+        "Verified Career & Background: Shideh\n Ghajar FOUNDER AND CEO| FRACTIONAL CTO/CIO | CHIEF AI OFFICER at \nSMG\nSolutions\nLLC\n San Francisco Bay Area \nSMG\nSolutions\nLLC\n, +11 more George Mason University"
+      ]
+    }
+  ],
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as Founder and Ceo| Fractional Cto/cio | Chief AI Officer at SMG Solutions LLC.",
+      "Focus on Generative AI & LLM Infrastructure, API Security & Microservices.",
+      "Background: As a strategic partner, we help organizations streamline operations, accelerate revenue growth, and improve customer exp..."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for information technology & services.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "Would you be open to a 10-minute technical exchange next Tuesday to explore how SealAPI shields AI and API endpoints for teams like SMG Solutions LLC?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly."
+    ],
+    "missing_verification_points": []
+  },
+  "research_metadata": {
+    "research_status": "completed",
+    "last_research_timestamp": "2026-10-10T19:19:36.148613+00:00",
+    "sources_examined": 8,
+    "errors_and_limitations": []
+  }
+}

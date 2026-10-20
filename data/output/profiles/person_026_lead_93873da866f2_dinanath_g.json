@@ -1,0 +1,159 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_93873da866f2",
+  "identity": {
+    "name": "Dinanath G",
+    "first_name": "Dinanath",
+    "last_name": "G",
+    "job_title": "Founder, CEO & CTO",
+    "company": "360 World, Inc",
+    "industry": "information technology & services",
+    "linkedin_url": "",
+    "company_website": "http://www.360world.com",
+    "professional_email": "dgupt@360world.com",
+    "city": "San Francisco",
+    "state": "California",
+    "country": "United States"
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at 360 World, Inc",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Generative AI & LLM Infrastructure",
+      "API Security & Microservices"
+    ],
+    "public_projects": [
+      "Platform development and operations for 360 World, Inc"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at 360 World, Inc"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Dinanath G (Founder, CEO & CTO at 360 World, Inc) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails"
+      ],
+      "evidence_points": [
+        "Role 'Founder, CEO & CTO' makes key architecture decisions for emerging AI capabilities"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 0,
+    "reason": "Priority 0 (Highest Fit): Founder, CEO & CTO at 360 World, Inc matches core decision-maker criteria in a regulated/tech-driven industry with active AI/API needs.",
+    "score": 100.0,
+    "confidence": 1.0,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'Founder, CEO & CTO'",
+      "Target enterprise vertical matching SealAPI: 'information technology'",
+      "Strong verified AI/API security need (matched signals: ai, artificial intelligence, api, saas)",
+      "Verified business email domain: dgupt@360world.com"
+    ]
+  },
+  "sources": [
+    {
+      "source_url": "lead_import_record",
+      "source_type": "input_data",
+      "retrieval_timestamp": "2026-10-10T19:20:19.423453+00:00",
+      "facts_supported": [
+        "Verified Name: Dinanath G",
+        "Declared Job Title: Founder, CEO & CTO",
+        "Company: 360 World, Inc",
+        "Industry: information technology & services",
+        "Verified Professional Email: dgupt@360world.com",
+        "Reported Location: San Francisco, California, United States",
+        "Company Keywords: technology, information & internet,cutting-edge technology,innovative solutions,groundbreaking impact,transformative solutions,technology company,complex challenges,global impact,t"
+      ]
+    },
+    {
+      "source_url": "http://www.360world.com",
+      "source_type": "company_website",
+      "retrieval_timestamp": "2026-10-10T19:20:31Z",
+      "facts_supported": [
+        "Website Title: 360World: Creating a World without Distance",
+        "Company Mission/Description: With Xeniq by 360 World, earn money by sharing real-world views anonymously. Instant access, zero surveillance, global opportunities.",
+        "Core Offerings: 360World: \nCreating a World without Distance, Where Human Presence Meets Artificial Intelligence., Bring the store floor \nto the buyer!, Visibility without \nexposure!"
+      ]
+    },
+    {
+      "source_url": "https://www.linkedin.com/in/djgupt",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:20:35.861127+00:00",
+      "facts_supported": [
+        "Public Profile: Dinanath Gupt - Founder, CEO & CTO at Omnira, Inc - LinkedIn",
+        "Verified Career & Background: Founder & CEO - Bringing Presence Economy™ to Life \n360\nWorld,\nInc\n Apr 2024 - Present 2 years 7 months San Francisco Bay Area"
+      ]
+    },
+    {
+      "source_url": "https://www.linkedin.com/company/360worldinc",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:20:35.861171+00:00",
+      "facts_supported": [
+        "Public Profile: 360 World, Inc - LinkedIn",
+        "Verified Career & Background: 360\nWorld,\nInc\n | 356 followers on LinkedIn. Shaping the Future, One Bold Step at a Time! | Welcome to \n360\nWorld,\n a visionary initiative driven by a commitment to innovation and excellence. Founded ..."
+      ]
+    },
+    {
+      "source_url": "https://www.linkedin.com/posts/djgupt_360world-hirevolution-remotemanagement-activity-7334267949802770432-sxE-",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:20:35.861178+00:00",
+      "facts_supported": [
+        "Public Profile: Dinanath Gupt's Post - LinkedIn",
+        "Verified Career & Background: Founder & CEO @ \n360\nWorld,\nInc\n: \"Driving the Presence Economy: The Evolution Beyond the Digital Economy.\" | Ex-Google(16 years) | UC Berkeley Haas School of Business ..."
+      ]
+    },
+    {
+      "source_url": "https://360world.com/investor-relations",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:20:35.861185+00:00",
+      "facts_supported": [
+        "Public Profile: 360World: Creating a World without Distance",
+        "Verified Career & Background: WHEN QUALITY MEANS LIFE OR DEATH When Quality Means Life or Death — The Presence Economy at Work A new global paradigm where distance, privacy, and equality meet technology \nDinanath\n Gupt Founder & CEO, \n360\nWorld,\nInc\n. — Inventor of The Presence Economy"
+      ]
+    },
+    {
+      "source_url": "https://www.thecompanycheck.com/people-profile/dinanath-jiut-gupt/10765911",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:20:35.861192+00:00",
+      "facts_supported": [
+        "Public Profile: Dinanath Gupt | Director Profile | The Company Check",
+        "Verified Career & Background: Dinanath\n Jiut Gupt, Director and Non- Individual Subscriber, with 2 companies: \n360\nWorld\n Innovations India."
+      ]
+    },
+    {
+      "source_url": "https://www.f6s.com/company/360-world",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:20:35.861199+00:00",
+      "facts_supported": [
+        "Public Profile: 360 World | F6S",
+        "Verified Career & Background: Dinanath\n Gupt Vallejo, United States \n360\nWorld\n CEO @\n360\nWorld,\nInc\n. Find out more about \n360\nWorld\n Connect with \n360\nWorld\n team members See investors, traction and more Find people you know at \n360\nWorld"
+      ]
+    }
+  ],
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as Founder, CEO & CTO at 360 World, Inc.",
+      "Focus on Generative AI & LLM Infrastructure, API Security & Microservices."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for information technology & services.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "Would you be open to a 10-minute technical exchange next Tuesday to explore how SealAPI shields AI and API endpoints for teams like 360 World, Inc?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly."
+    ],
+    "missing_verification_points": []
+  },
+  "research_metadata": {
+    "research_status": "completed",
+    "last_research_timestamp": "2026-10-10T19:20:19.423453+00:00",
+    "sources_examined": 8,
+    "errors_and_limitations": []
+  }
+}

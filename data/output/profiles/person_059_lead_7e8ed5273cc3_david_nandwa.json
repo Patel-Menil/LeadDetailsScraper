@@ -1,0 +1,168 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_7e8ed5273cc3",
+  "identity": {
+    "name": "David Nandwa",
+    "first_name": "David",
+    "last_name": "Nandwa",
+    "job_title": "Chief Executive Officer & CTO, Founder",
+    "company": "HoneyCoin",
+    "industry": "financial services,computer software,banking,information technology & services",
+    "linkedin_url": "http://www.linkedin.com/in/david-n-528283132",
+    "company_website": "https://honeycoin.app",
+    "professional_email": "david@honeycoin.app",
+    "city": "Middletown",
+    "state": "Delaware",
+    "country": "United States"
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at HoneyCoin",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Generative AI & LLM Infrastructure",
+      "API Security & Microservices",
+      "Financial Data Governance & Compliance"
+    ],
+    "public_projects": [
+      "Platform development and operations for HoneyCoin"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at HoneyCoin",
+      "Of course, that accomplishment is remarkable, but what is most striking is how he leads: with integrity, patience, and a calm confidence rare for any founder, let alone one his age",
+      "I spend most of my time building products for things I want to see in the world or… · Experience:  HoneyCoin  · Location: Middletown · 500+ connections on LinkedIn",
+      "HoneyCoin , founded by  David Nandwa , is building financial infrastructure connecting African payment rails with stablecoins and global finance"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for David Nandwa (Chief Executive Officer & CTO, Founder at HoneyCoin) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails",
+        "Privacy-Preserving Data Exchange & Compliance"
+      ],
+      "evidence_points": [
+        "Role 'Chief Executive Officer & CTO, Founder' makes key architecture decisions for emerging AI capabilities",
+        "Regulated domain 'financial services,computer software,banking,information technology & services' mandates strict API access controls and audited data flow"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 0,
+    "reason": "Priority 0 (Highest Fit): Chief Executive Officer & CTO, Founder at HoneyCoin matches core decision-maker criteria in a regulated/tech-driven industry with active AI/API needs.",
+    "score": 100.0,
+    "confidence": 1.0,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'Chief Executive Officer & CTO, Founder'",
+      "Target enterprise vertical matching SealAPI: 'information technology'",
+      "Strong verified AI/API security need (matched signals: ai, api, security, compliance, saas, infrastructure)",
+      "Verified business email domain: david@honeycoin.app"
+    ]
+  },
+  "sources": [
+    {
+      "source_url": "lead_import_record",
+      "source_type": "input_data",
+      "retrieval_timestamp": "2026-10-10T19:22:06.396163+00:00",
+      "facts_supported": [
+        "Verified Name: David Nandwa",
+        "Declared Job Title: Chief Executive Officer & CTO, Founder",
+        "Company: HoneyCoin",
+        "Industry: financial services,computer software,banking,information technology & services",
+        "Verified Professional Email: david@honeycoin.app",
+        "Reported Location: Middletown, Delaware, United States",
+        "Company Keywords: fintech,online banking,mobile money,mpesa,wire transfers,crossborder payments,international payments,credit cards,banking,card issuing,android,ios,web,services,stablecoins,currency"
+      ]
+    },
+    {
+      "source_url": "https://honeycoin.app",
+      "source_type": "company_website",
+      "retrieval_timestamp": "2026-10-10T19:22:07Z",
+      "facts_supported": [
+        "Website Title: HoneyCoin for Businesses | Global Payments & Treasury",
+        "Company Mission/Description: One platform for cross-border payments, multi-currency wallets, virtual cards, stablecoin minting, and treasury management. Trusted by fast-growing finance teams across 22+ markets.",
+        "Core Offerings: The future of \n international \n                            \n\n                            finance., Trusted by fast-growing finance teams · Licensed partners and local rails · Developer SDKs ready, Everything you need to power your business, Send and receive across borders, simply"
+      ]
+    },
+    {
+      "source_url": "https://top40.businessdailyafrica.com/candidates/david-nandwa/",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:22:11.568282+00:00",
+      "facts_supported": [
+        "Public Profile: David Nandwa - Business Daily - Top 40 Under 40",
+        "Verified Career & Background: David\n is widely admired for how quickly he has scaled \nHoneyCoin\n across 15 African markets. Of course, that accomplishment is remarkable, but what is most striking is how he leads: with integrity, patience, and a calm confidence rare for any founder, let alone one his age. He credits his courage t"
+      ]
+    },
+    {
+      "source_url": "https://blog.honeycoin.app/david-nandwa",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:22:11.568323+00:00",
+      "facts_supported": [
+        "Public Profile: David Nandwa - CEO/CTO of HoneyCoin.",
+        "Verified Career & Background: David\nNandwa\n is Founder, CEO, & CTO of \nHoneyCoin\n, a blockchain company making payments on the African continent fast, accessible, and affordable."
+      ]
+    },
+    {
+      "source_url": "https://www.linkedin.com/in/david-n-528283132",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:22:11.568331+00:00",
+      "facts_supported": [
+        "Public Profile: David N. - HoneyCoin | LinkedIn",
+        "Verified Career & Background: I spend most of my time building products for things I want to see in the world or… · Experience: \nHoneyCoin\n · Location: Middletown · 500+ connections on LinkedIn. View \nDavid\n N.'s profile on ..."
+      ]
+    },
+    {
+      "source_url": "https://africa.businessinsider.com/local/leaders/paypal-froze-his-dollar5000-now-hes-raised-nearly-dollar6million-to-expand-stablecoin/djkx2n3?op=1",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:22:11.568337+00:00",
+      "facts_supported": [
+        "Public Profile: PayPal froze his $5,000. Now he's raised nearly $6million to expand ...",
+        "Verified Career & Background: At 19, \nDavid\n Makuku \nNandwa\n had a $5,000 payment frozen by PayPal. That frustration became fuel. Months later, he launched \nHoneycoin\n, a fintech bridging blockchain and traditional finance across Africa. Today, it processes over $150 million monthly in 40 markets, backed by nearly $6 million in "
+      ]
+    },
+    {
+      "source_url": "https://heroes.kenyanism.com/honorable-mention/david-nandwa/",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:22:11.568342+00:00",
+      "facts_supported": [
+        "Public Profile: David Nandwa - Kenyan Heroes",
+        "Verified Career & Background: At 24, \nDavid\nNandwa\n was leading \nHoneyCoin\n, one of East Africa's fastest-growing fintechs, backed by $6 million in venture capital. In a sector often marked by hype, he stands out for his clarity of purpose—seeing technology not as a trophy, but as a tool to expand access and opportunity."
+      ]
+    },
+    {
+      "source_url": "https://zealnews.africa/en/post/at-19-david-nandwa-saw-a-payment-problem-what-is-honeycoin-building-0wv3Q",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:22:11.568348+00:00",
+      "facts_supported": [
+        "Public Profile: At 19, David Nandwa Saw a Payment Problem. What Is HoneyCoin Building ...",
+        "Verified Career & Background: HoneyCoin\n, founded by \nDavid\nNandwa\n, is building financial infrastructure connecting African payment rails with stablecoins and global finance."
+      ]
+    }
+  ],
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as Chief Executive Officer & CTO, Founder at HoneyCoin.",
+      "Focus on Generative AI & LLM Infrastructure, API Security & Microservices.",
+      "Background: Of course, that accomplishment is remarkable, but what is most striking is how he leads: with integrity, patience, and a..."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for financial services,computer software,banking,information technology & services.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "Would you be open to a 10-minute technical exchange next Tuesday to explore how SealAPI shields AI and API endpoints for teams like HoneyCoin?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly."
+    ],
+    "missing_verification_points": []
+  },
+  "research_metadata": {
+    "research_status": "completed",
+    "last_research_timestamp": "2026-10-10T19:22:06.396163+00:00",
+    "sources_examined": 8,
+    "errors_and_limitations": [
+      "LinkedIn profile (http://www.linkedin.com/in/david-n-528283132) is behind an authentication wall; public domain records used for verified evidence."
+    ]
+  }
+}

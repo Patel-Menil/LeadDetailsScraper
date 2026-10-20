@@ -1,0 +1,162 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_bbd5fdd40179",
+  "identity": {
+    "name": "Andrew R",
+    "first_name": "Andrew",
+    "last_name": "R",
+    "job_title": "CTO, Head of AI",
+    "company": "Upwork",
+    "industry": "information technology & services",
+    "linkedin_url": "",
+    "company_website": "http://www.upwork.com",
+    "professional_email": "andrewrabinovich@upwork.com",
+    "city": "San Francisco",
+    "state": "California",
+    "country": "United States"
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at Upwork",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Generative AI & LLM Infrastructure",
+      "API Security & Microservices",
+      "Financial Data Governance & Compliance"
+    ],
+    "public_projects": [
+      "Platform development and operations for Upwork"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at Upwork",
+      "Expert in designing large-scale data processing systems with emphasis on real time… · Experience:  Upwork  · Education: UC San Diego · Location: San Francisco · 500+ connections on LinkedIn"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Andrew R (CTO, Head of AI at Upwork) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails"
+      ],
+      "evidence_points": [
+        "Role 'CTO, Head of AI' makes key architecture decisions for emerging AI capabilities"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 0,
+    "reason": "Priority 0 (Highest Fit): CTO, Head of AI at Upwork matches core decision-maker criteria in a regulated/tech-driven industry with active AI/API needs.",
+    "score": 100.0,
+    "confidence": 1.0,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'CTO, Head of AI'",
+      "Target enterprise vertical matching SealAPI: 'information technology'",
+      "Strong verified AI/API security need (matched signals: ai, machine learning, api, security, compliance)",
+      "Verified business email domain: andrewrabinovich@upwork.com"
+    ]
+  },
+  "sources": [
+    {
+      "source_url": "lead_import_record",
+      "source_type": "input_data",
+      "retrieval_timestamp": "2026-10-10T19:19:14.245570+00:00",
+      "facts_supported": [
+        "Verified Name: Andrew R",
+        "Declared Job Title: CTO, Head of AI",
+        "Company: Upwork",
+        "Industry: information technology & services",
+        "Verified Professional Email: andrewrabinovich@upwork.com",
+        "Reported Location: San Francisco, California, United States",
+        "Company Keywords: freelancers agencies,edp services,technology,software development,talent sourcing,graphic design,freelancer ratings,ai-driven freelancer ratings,ai for freelancer engagement,busine"
+      ]
+    },
+    {
+      "source_url": "http://www.upwork.com",
+      "source_type": "company_website",
+      "retrieval_timestamp": "2026-10-10T19:19:17Z",
+      "facts_supported": [
+        "Website Title: Upwork | Hire Top Freelance Talent with Confidence",
+        "Company Mission/Description: Upwork is the world’s largest human and AI-powered freelance marketplace to hire top talent—trusted by businesses and professionals worldwide.",
+        "Core Offerings: Drive larger-scale work, Learn about Upwork, Work at the speed of your ambition, Find freelancers for every type of work"
+      ]
+    },
+    {
+      "source_url": "https://www.upwork.com/freelancers/andrewrandolph",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:19:21.535806+00:00",
+      "facts_supported": [
+        "Public Profile: Andrew R. - Expert Blue Prism RPA Developer - Upwork",
+        "Verified Career & Background: View \nAndrew\nR\n. profile on \nUpwork\n, the world's work marketplace. \nAndrew\n has completed 86 jobs on \nUpwork\n. Check out the complete profile and discover more professionals with the skills you need."
+      ]
+    },
+    {
+      "source_url": "https://www.upwork.com/freelancers/~01f364c71d21a12a20",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:19:21.535888+00:00",
+      "facts_supported": [
+        "Public Profile: Andrew R. - Devops and python engineer, lifelong tech tinkerer - Upwork",
+        "Verified Career & Background: View \nAndrew\nR\n. profile on \nUpwork\n, the world's work marketplace. \nAndrew\n is here to help: Devops and python engineer, lifelong tech tinkerer. Check out the complete profile and discover more professionals with the skills you need."
+      ]
+    },
+    {
+      "source_url": "https://www.upwork.com/freelancers/arayner",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:19:21.535899+00:00",
+      "facts_supported": [
+        "Public Profile: Andrew R. - Senior Developer - Upwork",
+        "Verified Career & Background: View \nAndrew\nR\n. profile on \nUpwork\n, the world's work marketplace. \nAndrew\n has completed 38 jobs on \nUpwork\n. Check out the complete profile and discover more professionals with the skills you need."
+      ]
+    },
+    {
+      "source_url": "https://www.linkedin.com/in/andrew-rabinovich-28556014",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:19:21.535908+00:00",
+      "facts_supported": [
+        "Public Profile: Andrew Rabinovich - Upwork | LinkedIn",
+        "Verified Career & Background: Expert in designing large-scale data processing systems with emphasis on real time… · Experience: \nUpwork\n · Education: UC San Diego · Location: San Francisco · 500+ connections on LinkedIn ..."
+      ]
+    },
+    {
+      "source_url": "https://www.upwork.com/freelancers/~01c69154c530697ce0/",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:19:21.535914+00:00",
+      "facts_supported": [
+        "Public Profile: Andrew R. - Professional Copywriter and Editor - Upwork",
+        "Verified Career & Background: View \nAndrew\nR\n. profile on \nUpwork\n, the world's work marketplace. \nAndrew\n has completed 2 jobs on \nUpwork\n. Check out the complete profile and discover more professionals with the skills you need."
+      ]
+    },
+    {
+      "source_url": "https://www.upwork.com/services/consultation/development-it-andrew-1582804100363042816",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:19:21.535923+00:00",
+      "facts_supported": [
+        "Public Profile: Book a Development & IT Consultation with Andrew R. | Upwork",
+        "Verified Career & Background: Get Development & IT Consultation from Top rated \nUpwork\n Freelancer \nAndrew\nR\n with 100% job success rate."
+      ]
+    }
+  ],
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as CTO, Head of AI at Upwork.",
+      "Focus on Generative AI & LLM Infrastructure, API Security & Microservices.",
+      "Background: Expert in designing large-scale data processing systems with emphasis on real time… · Experience:  Upwork  · Education: ..."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for information technology & services.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "Would you be open to a 10-minute technical exchange next Tuesday to explore how SealAPI shields AI and API endpoints for teams like Upwork?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly."
+    ],
+    "missing_verification_points": []
+  },
+  "research_metadata": {
+    "research_status": "completed",
+    "last_research_timestamp": "2026-10-10T19:19:14.245570+00:00",
+    "sources_examined": 8,
+    "errors_and_limitations": []
+  }
+}

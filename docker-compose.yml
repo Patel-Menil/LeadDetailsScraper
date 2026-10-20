@@ -1,0 +1,29 @@
+services:
+  sealapi-lead-research:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: sealapi-lead-research:latest
+    container_name: sealapi_lead_research_app
+    restart: unless-stopped
+    ports:
+      - "${HOST_IP:-127.0.0.1}:${FRONTEND_PORT:-3000}:3000"
+      - "${HOST_IP:-127.0.0.1}:${BACKEND_PORT:-8000}:8000"
+    environment:
+      - DATA_DIR=/app/data
+      - PORT=3000
+      - BACKEND_API_URL=http://127.0.0.1:8000
+      - CONCURRENCY=${CONCURRENCY:-2}
+      - SCRAPER_TIMEOUT=${SCRAPER_TIMEOUT:-25}
+      - TOR_PROXY=${TOR_PROXY:-socks5://host.docker.internal:9050}
+      - USER_AGENT=${USER_AGENT:-"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36 SealAPIResearchBot/1.0"}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - ./data:/app/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:8000/api/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 10s

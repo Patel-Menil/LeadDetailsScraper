@@ -1,0 +1,164 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_79a085724c50",
+  "identity": {
+    "name": "Jason S",
+    "first_name": "Jason",
+    "last_name": "S",
+    "job_title": "Head of Product and Chief AI Officer",
+    "company": "Midi Health",
+    "industry": "hospital & health care,medical practice",
+    "linkedin_url": "",
+    "company_website": "https://joinmidi.com",
+    "professional_email": "jstrober@joinmidi.com",
+    "city": "Menlo Park",
+    "state": "California",
+    "country": "United States"
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at Midi Health",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Generative AI & LLM Infrastructure",
+      "API Security & Microservices",
+      "Healthcare Data Privacy (HIPAA) & Safe Exchange"
+    ],
+    "public_projects": [
+      "Platform development and operations for Midi Health"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at Midi Health",
+      "Experience:  Midi Health  · Education: Stanford University · Location: Manhattan Beach · 500+ connections on LinkedIn"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Jason S (Head of Product and Chief AI Officer at Midi Health) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails",
+        "Privacy-Preserving Data Exchange & Compliance"
+      ],
+      "evidence_points": [
+        "Role 'Head of Product and Chief AI Officer' makes key architecture decisions for emerging AI capabilities",
+        "Regulated domain 'hospital & health care,medical practice' mandates strict API access controls and audited data flow"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 0,
+    "reason": "Priority 0 (Highest Fit): Head of Product and Chief AI Officer at Midi Health matches core decision-maker criteria in a regulated/tech-driven industry with active AI/API needs.",
+    "score": 90.0,
+    "confidence": 1.0,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'Head of Product and Chief AI Officer'",
+      "Target enterprise vertical matching SealAPI: 'hospital & health care'",
+      "Moderate AI/API infrastructure signals: ai, artificial intelligence, saas",
+      "Verified business email domain: jstrober@joinmidi.com"
+    ]
+  },
+  "sources": [
+    {
+      "source_url": "lead_import_record",
+      "source_type": "input_data",
+      "retrieval_timestamp": "2026-10-10T19:21:13.420215+00:00",
+      "facts_supported": [
+        "Verified Name: Jason S",
+        "Declared Job Title: Head of Product and Chief AI Officer",
+        "Company: Midi Health",
+        "Industry: hospital & health care,medical practice",
+        "Verified Professional Email: jstrober@joinmidi.com",
+        "Reported Location: Menlo Park, California, United States",
+        "Company Keywords: hospitals & health care,b2c,symptom tracking,menopause sleep solutions,cancer survivorship care,mental health support,d2c,metabolism boosting supplements,diagnostic testing support"
+      ]
+    },
+    {
+      "source_url": "https://joinmidi.com",
+      "source_type": "company_website",
+      "retrieval_timestamp": "2026-10-10T19:21:14Z",
+      "facts_supported": [
+        "Website Title: Meet Midi: Insurance-Covered Care from Women's Health Specialists | Midi Health",
+        "Company Mission/Description: Meet Midi: The virtual care clinic created by specialists in perimenopause and menopause. Covered by insurance.",
+        "Core Offerings: THE CARE YOU DESERVE, Expert care, in-network with most major insurance providers, Midi is your map, Life is a journey"
+      ]
+    },
+    {
+      "source_url": "https://joinmidi.com/leadership",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:21:19.060486+00:00",
+      "facts_supported": [
+        "Public Profile: Leadership Team | Midi Health",
+        "Verified Career & Background: Meet the leadership team behind \nMidi\nHealth\n, expanding expert care, clinical guidance, and products designed for women's \nhealth\n."
+      ]
+    },
+    {
+      "source_url": "https://www.linkedin.com/in/jstrober",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:21:19.060579+00:00",
+      "facts_supported": [
+        "Public Profile: Jason Strober - Head of Product and Chief AI Officer at Midi Health ...",
+        "Verified Career & Background: Head of Product and Chief AI Officer at \nMidi\nHealth\n, Inc. · \nJason\n is the founding head of product and Chief AI Officer at \nMidi\nHealth\n, the largest virtual healthcare company focusing on women's ..."
+      ]
+    },
+    {
+      "source_url": "https://www.joinmidi.com/",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:21:19.060590+00:00",
+      "facts_supported": [
+        "Public Profile: Meet Midi: Insurance-Covered Care from Women's Health Specialists",
+        "Verified Career & Background: Meet \nMidi\n: The virtual care clinic created by specialists in perimenopause and menopause. Covered by insurance."
+      ]
+    },
+    {
+      "source_url": "https://www.jasonhealth.com/",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:21:19.060601+00:00",
+      "facts_supported": [
+        "Public Profile: Walk-in Blood Tests in a Lab Near You - Order Online - Jason Health",
+        "Verified Career & Background: About us \nJason\nHealth\n provides a convenient, confidential and reliable way for to get lab tests without visiting a doctor. Our 2,300 labs are convenient and located in every major city. Receive your results online in 1-3 days. Medical laboratory testing is a valuable and effective tool for prevent"
+      ]
+    },
+    {
+      "source_url": "https://www.linkedin.com/in/jasonswheeler",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:21:19.060613+00:00",
+      "facts_supported": [
+        "Public Profile: Jason Wheeler - Midi Health | LinkedIn",
+        "Verified Career & Background: Experience: \nMidi\nHealth\n · Education: Stanford University · Location: Manhattan Beach · 500+ connections on LinkedIn. View \nJason\n Wheeler's profile on LinkedIn, a professional community of 1 ..."
+      ]
+    },
+    {
+      "source_url": "https://www.theofficialboard.com/biography/jason-strober-36g96",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:21:19.060620+00:00",
+      "facts_supported": [
+        "Public Profile: Jason Strober Bio - Midi Health Product & AI - The Official Board",
+        "Verified Career & Background: Learn about the role of \nJason\n Strober, Head of Product and Chief Artificial Intelligence Officer at \nMidi\nHealth\n. Full bio on The Official Board."
+      ]
+    }
+  ],
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as Head of Product and Chief AI Officer at Midi Health.",
+      "Focus on Generative AI & LLM Infrastructure, API Security & Microservices.",
+      "Background: Experience:  Midi Health  · Education: Stanford University · Location: Manhattan Beach · 500+ connections on LinkedIn..."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for hospital & health care,medical practice.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "Would you be open to a 10-minute technical exchange next Tuesday to explore how SealAPI shields AI and API endpoints for teams like Midi Health?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly."
+    ],
+    "missing_verification_points": []
+  },
+  "research_metadata": {
+    "research_status": "completed",
+    "last_research_timestamp": "2026-10-10T19:21:13.420215+00:00",
+    "sources_examined": 8,
+    "errors_and_limitations": []
+  }
+}

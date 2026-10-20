@@ -1,0 +1,156 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_66971ab170f8",
+  "identity": {
+    "name": "Gabriel Sanchez",
+    "first_name": "Gabriel",
+    "last_name": "Sanchez",
+    "job_title": "Chief Executive Officer | Chief Technology Officer",
+    "company": "Multikrd",
+    "industry": "financial services,information technology & services",
+    "linkedin_url": "http://www.linkedin.com/in/gabriel-sanchez-iniesta",
+    "company_website": "https://multikrd.com",
+    "professional_email": "gsanchez@multikrd.com",
+    "city": "Spring",
+    "state": "Texas",
+    "country": "United States"
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at Multikrd",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Generative AI & LLM Infrastructure",
+      "API Security & Microservices",
+      "Financial Data Governance & Compliance"
+    ],
+    "public_projects": [
+      "Platform development and operations for Multikrd"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at Multikrd",
+      "Technology leader transforming IT operations in the banking sector · C-level technology and operations professional with deep experience in financial services and retail banking systems, IT",
+      "Gabriel Sanchez  brings experience from previous roles at MUFG and BBVA in the USA"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Gabriel Sanchez (Chief Executive Officer | Chief Technology Officer at Multikrd) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Privacy-Preserving Data Exchange & Compliance"
+      ],
+      "evidence_points": [
+        "Regulated domain 'financial services,information technology & services' mandates strict API access controls and audited data flow"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 0,
+    "reason": "Priority 0 (Highest Fit): Chief Executive Officer | Chief Technology Officer at Multikrd matches core decision-maker criteria in a regulated/tech-driven industry with active AI/API needs.",
+    "score": 90.0,
+    "confidence": 1.0,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'Chief Executive Officer | Chief Technology Officer'",
+      "Target enterprise vertical matching SealAPI: 'information technology'",
+      "Moderate AI/API infrastructure signals: ai, saas",
+      "Verified business email domain: gsanchez@multikrd.com"
+    ]
+  },
+  "sources": [
+    {
+      "source_url": "lead_import_record",
+      "source_type": "input_data",
+      "retrieval_timestamp": "2026-10-10T19:22:34.438244+00:00",
+      "facts_supported": [
+        "Verified Name: Gabriel Sanchez",
+        "Declared Job Title: Chief Executive Officer | Chief Technology Officer",
+        "Company: Multikrd",
+        "Industry: financial services,information technology & services",
+        "Verified Professional Email: gsanchez@multikrd.com",
+        "Reported Location: Spring, Texas, United States",
+        "Company Keywords: earned wage access,ondemand pay,financialwellness,employee wellness,employee benefits,financial wellness,prepaid card,international remittances,b2b,b2b2c,fintech,saas,finance techn"
+      ]
+    },
+    {
+      "source_url": "https://www.linkedin.com/in/gabriel-sanchez-iniesta/en",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:22:41.868022+00:00",
+      "facts_supported": [
+        "Public Profile: Gabriel Sanchez - Technology leader transforming IT ... - LinkedIn",
+        "Verified Career & Background: Technology leader transforming IT operations in the banking sector · C-level technology and operations professional with deep experience in financial services and retail banking systems, IT ..."
+      ]
+    },
+    {
+      "source_url": "https://www.crunchbase.com/person/gabriel-sanchez-2d53",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:22:41.868068+00:00",
+      "facts_supported": [
+        "Public Profile: Gabriel Sanchez - Chief Executive Officer & Chief Technology Officer ...",
+        "Verified Career & Background: Gabriel\nSanchez\n is the Chief Executive Officer and Chief Technology Officer of \nMultikrd\n. \nGabriel\nSanchez\n attended the Autonomous University of Madrid."
+      ]
+    },
+    {
+      "source_url": "https://www.zoominfo.com/p/Gabriel-Sanchez-iniesta/1957335191",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:22:41.868075+00:00",
+      "facts_supported": [
+        "Public Profile: Gabriel Sanchez-Iniesta - Chief Executive O.. - Multikrd | ZoomInfo",
+        "Verified Career & Background: View \nGabriel\nSanchez\n-Iniesta's business profile as Chief Executive Officer & Chief Technology Officer at \nMultikrd\n. Find contact's direct phone number, email address, work history, and more."
+      ]
+    },
+    {
+      "source_url": "https://rocketreach.co/multikrd-de-mexico-sa-de-cv-management_b41ceddbff6f9405",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:22:41.868082+00:00",
+      "facts_supported": [
+        "Public Profile: Multikrd de México, S.A. de C.V. Management Team | Org Chart",
+        "Verified Career & Background: Multikrd\n de México, S.A. de C.V. employs 15 employees. The \nMultikrd\n de México, S.A. de C.V. management team includes \nGabriel\nSanchez\n (Chief Executive Officer | Chief Technology Officer), Monica Von Bertrab (Management Accountant), and Matilde Aragón (Director of Business Development)."
+      ]
+    },
+    {
+      "source_url": "https://rocketreach.co/gabriel-sanchez-email_234636367",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:22:41.868089+00:00",
+      "facts_supported": [
+        "Public Profile: Gabriel Sanchez Email & Phone Number | Multikrd LLC Chief Executive ...",
+        "Verified Career & Background: Gabriel\nSanchez\n, based in Spring, TX, US, is currently a Chief Executive Officer | Chief Technology Officer at \nMultikrd\n LLC. \nGabriel\nSanchez\n brings experience from previous roles at MUFG and BBVA in the USA."
+      ]
+    },
+    {
+      "source_url": "https://www.linkedin.com/company/multikrd-llc",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:22:41.868094+00:00",
+      "facts_supported": [
+        "Public Profile: Multikrd - LinkedIn",
+        "Verified Career & Background: Multikrd\n helps companies boost retention, increase productivity, and enhance employee satisfaction by offering financial benefits that matter."
+      ]
+    }
+  ],
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as Chief Executive Officer | Chief Technology Officer at Multikrd.",
+      "Focus on Generative AI & LLM Infrastructure, API Security & Microservices.",
+      "Background: Technology leader transforming IT operations in the banking sector · C-level technology and operations professional with..."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for financial services,information technology & services.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "Would you be open to a 10-minute technical exchange next Tuesday to explore how SealAPI shields AI and API endpoints for teams like Multikrd?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly."
+    ],
+    "missing_verification_points": []
+  },
+  "research_metadata": {
+    "research_status": "completed",
+    "last_research_timestamp": "2026-10-10T19:22:34.438244+00:00",
+    "sources_examined": 7,
+    "errors_and_limitations": [
+      "LinkedIn profile (http://www.linkedin.com/in/gabriel-sanchez-iniesta) is behind an authentication wall; public domain records used for verified evidence.",
+      "Company website research notice for https://multikrd.com: Website could not be reached via HTTP or Browser."
+    ]
+  }
+}

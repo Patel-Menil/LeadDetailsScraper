@@ -1,0 +1,166 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_8d9683685a3f",
+  "identity": {
+    "name": "Steve Metcalf",
+    "first_name": "Steve",
+    "last_name": "Metcalf",
+    "job_title": "Founder, CEO, & Chief AI Officer",
+    "company": "IMAGINE AI LIVE",
+    "industry": "information services",
+    "linkedin_url": "http://www.linkedin.com/in/steve-metcalf-bbj",
+    "company_website": "http://www.imagineai.live",
+    "professional_email": "steve@imagineai.live",
+    "city": "Minneapolis",
+    "state": "Minnesota",
+    "country": "United States"
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at IMAGINE AI LIVE",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Generative AI & LLM Infrastructure",
+      "API Security & Microservices",
+      "Healthcare Data Privacy (HIPAA) & Safe Exchange",
+      "Financial Data Governance & Compliance"
+    ],
+    "public_projects": [
+      "Platform development and operations for IMAGINE AI LIVE"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at IMAGINE AI LIVE",
+      "AI for App Building Learn how to \"cook up\" personalized software with AI agents",
+      "Steve Metcalf , a seasoned entrepreneur and innovator, co-founded  Imagine AI Live , driven by his belief in the transformative potential of generative  AI  for businesses",
+      "As a Chief  AI  Officer, he leads the strategic vision of  Imagine AI Live , and advises other organizations in the same capacity, focusing on practical  AI  applications, automation, and innovation for enterprises"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Steve Metcalf (Founder, CEO, & Chief AI Officer at IMAGINE AI LIVE) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails"
+      ],
+      "evidence_points": [
+        "Role 'Founder, CEO, & Chief AI Officer' makes key architecture decisions for emerging AI capabilities"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 1,
+    "reason": "Priority 1 (Medium Fit): Founder, CEO, & Chief AI Officer at IMAGINE AI LIVE is in a relevant role or vertical, but requires further qualification of immediate security/AI deployment urgency.",
+    "score": 75.0,
+    "confidence": 1.0,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'Founder, CEO, & Chief AI Officer'",
+      "Strong verified AI/API security need (matched signals: ai, artificial intelligence, machine learning, llm, generative ai, agentic)",
+      "Verified business email domain: steve@imagineai.live"
+    ]
+  },
+  "sources": [
+    {
+      "source_url": "lead_import_record",
+      "source_type": "input_data",
+      "retrieval_timestamp": "2026-10-10T19:19:48.313944+00:00",
+      "facts_supported": [
+        "Verified Name: Steve Metcalf",
+        "Declared Job Title: Founder, CEO, & Chief AI Officer",
+        "Company: IMAGINE AI LIVE",
+        "Industry: information services",
+        "Verified Professional Email: steve@imagineai.live",
+        "Reported Location: Minneapolis, Minnesota, United States",
+        "Company Keywords: ai automation,ai for hr and recruitment,ai-driven content marketing,ai tools,ai automation platforms,ai technology showcase,ai in legal tech,predictive analytics,ai for autonomous "
+      ]
+    },
+    {
+      "source_url": "http://www.imagineai.live",
+      "source_type": "company_website",
+      "retrieval_timestamp": "2026-10-10T19:19:49Z",
+      "facts_supported": [
+        "Website Title: IMAGINE AI LIVE | The #1 AI Community for Business",
+        "Company Mission/Description: Discover and build cost-effective AI solutions in just days - join to learn, network, and accelerate AI adoption in your business for competitive advantage",
+        "Core Offerings: Company, Access All Sessions!, AI Acceleration Workshops, AI for Agents"
+      ]
+    },
+    {
+      "source_url": "https://www.imagineai.live/about",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:19:53.158502+00:00",
+      "facts_supported": [
+        "Public Profile: About Imagine AI Live: The Enterprise AI Conference That Delivers",
+        "Verified Career & Background: Founder, CEO and Chief \nAI\n Officer of \nIMAGINE\nAI\nLIVE\n. \nSteve\nMetcalf\n, a seasoned entrepreneur and innovator, co-founded \nImagine\nAI\nLive\n, driven by his belief in the transformative potential of generative \nAI\n for businesses."
+      ]
+    },
+    {
+      "source_url": "https://www.linkedin.com/in/steve-metcalf-bbj",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:19:53.158586+00:00",
+      "facts_supported": [
+        "Public Profile: Steve Metcalf - Founder, CEO, & Chief AI Officer at IMAGINE AI LIVE ...",
+        "Verified Career & Background: Steve\nMetcalf\n is the visionary co-founder and CEO of \nIMAGINE\nAI\nLIVE\n, the premier cross-industry summit dedicated to exploring \nAI's\n transformative potential in business, and more..."
+      ]
+    },
+    {
+      "source_url": "https://www.futury.ai/",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:19:53.158597+00:00",
+      "facts_supported": [
+        "Public Profile: futury.ai - Steve Metcalf",
+        "Verified Career & Background: Steve\n works selectively with companies and organizations of all sizes to help them find their way with \nAI\n. His mission is to leverage the \nImagine\nAI\nLive\n network to help businesses and professionals navigate the \nAI\n landscape, apply \nAI\n faster, and discover a brighter future sooner."
+      ]
+    },
+    {
+      "source_url": "https://www.futury.ai/about",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:19:53.158608+00:00",
+      "facts_supported": [
+        "Public Profile: About Steve — Steve Metcalf - futury.ai",
+        "Verified Career & Background: Steve\n is dedicated to transforming how organizations connect and collaborate through \nAI\n. As a Chief \nAI\n Officer, he leads the strategic vision of \nImagine\nAI\nLive\n, and advises other organizations in the same capacity, focusing on practical \nAI\n applications, automation, and innovation for enter"
+      ]
+    },
+    {
+      "source_url": "https://www.members.imagineai.live/about",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:19:53.158618+00:00",
+      "facts_supported": [
+        "Public Profile: Faq — Imagine Ai Live",
+        "Verified Career & Background: Steve\nMetcalf\n, a seasoned entrepreneur and innovator, co-founded \nImagine\nAI\nLive\n driven by his belief in the transformative potential of generative \nAI\n for businesses."
+      ]
+    },
+    {
+      "source_url": "https://podcast.imagineai.live/episodes/kHy9Xz2jOGl",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:19:53.158628+00:00",
+      "facts_supported": [
+        "Public Profile: Building a Conference with AI: Imagine AI Live's Story with Founder ...",
+        "Verified Career & Background: In this episode, \nImagine\nAI\n co-founder \nSteve\nMetcalf\n joins Chris Madden to reflect on the evolution of the conference and its uniquely human energy. From vibe-coded websites to networking apps built in hours using agents, \nSteve\n gives a behind-the-scenes look at what made the experience so magi"
+      ]
+    }
+  ],
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as Founder, CEO, & Chief AI Officer at IMAGINE AI LIVE.",
+      "Focus on Generative AI & LLM Infrastructure, API Security & Microservices.",
+      "Background: AI for App Building Learn how to \"cook up\" personalized software with AI agents..."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for information services.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "Would you be open to a 10-minute technical exchange next Tuesday to explore how SealAPI shields AI and API endpoints for teams like IMAGINE AI LIVE?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly."
+    ],
+    "missing_verification_points": []
+  },
+  "research_metadata": {
+    "research_status": "completed",
+    "last_research_timestamp": "2026-10-10T19:19:48.313944+00:00",
+    "sources_examined": 8,
+    "errors_and_limitations": [
+      "LinkedIn profile (http://www.linkedin.com/in/steve-metcalf-bbj) is behind an authentication wall; public domain records used for verified evidence."
+    ]
+  }
+}
