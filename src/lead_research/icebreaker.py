@@ -38,12 +38,14 @@ def extract_public_signals(
             title = src.title or ""
             url_lower = src.source_url.lower()
 
-            # Robust launch / announcement patterns (avoid matching generic words like 'release notes' or 'introduce')
-            launch_pattern = r"\b(announc(ing|ed|ement)|launch(ed|ing|es)?\s+of|now\s+available|unveil(ed|ing|s)?|introducing\s+our\s+new|press\s+release)\b"
-            has_launch_event = bool(
+            # Check if source is static API or developer documentation
+            is_static_docs = any(d in url_lower for d in ["/docs", "/documentation", "/api-docs", "/api/docs", "/reference", "/developer", "/manual"]) or any(d in text for d in ["api documentation", "api reference", "sdk reference", "endpoint list"])
+
+            # Robust launch / announcement patterns require inspected content (a URL path alone is never proof of launch)
+            launch_pattern = r"\b(announc(e|ing|ed|ement|es)?|launch(ed|ing|es)?(\s+of)?|now\s+available|unveil(ed|ing|s)?|introduc(e|ing|ed|es)\s+our\s+new|press\s+release)\b"
+            has_launch_event = not is_static_docs and bool(
                 re.search(launch_pattern, text) or
-                re.search(launch_pattern, title.lower()) or
-                any(k in url_lower for k in ["/news", "/press", "/announcements", "/releases"])
+                re.search(launch_pattern, title.lower())
             )
 
             # Check for AI / agent / LLM integration signal

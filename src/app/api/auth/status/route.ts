@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { getSessionSecret, verifySessionToken } from "@/lib/auth";
 
 export async function GET(request: NextRequest) {
   const serverApiKey = process.env.API_SECRET_KEY || "";
@@ -12,12 +13,12 @@ export async function GET(request: NextRequest) {
   }
 
   const sessionCookie = request.cookies.get("sealapi_session")?.value;
-  const isAuthenticated = Boolean(
-    sessionCookie && serverApiKey && sessionCookie === serverApiKey
-  );
+  const sessionSecret = getSessionSecret();
+  const sessionCheck = await verifySessionToken(sessionCookie, sessionSecret);
 
   return NextResponse.json({
-    authenticated: isAuthenticated,
+    authenticated: sessionCheck.valid,
     mode: isProduction ? "production" : "development",
   });
 }
+

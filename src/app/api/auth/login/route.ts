@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { createSessionToken, getSessionSecret } from "@/lib/auth";
 
 export async function POST(request: NextRequest) {
   try {
@@ -31,7 +32,10 @@ export async function POST(request: NextRequest) {
       message: "Authenticated successfully.",
     });
 
-    response.cookies.set("sealapi_session", serverApiKey, {
+    const sessionSecret = getSessionSecret();
+    const sessionToken = await createSessionToken(sessionSecret, 60 * 60 * 24 * 7);
+
+    response.cookies.set("sealapi_session", sessionToken, {
       httpOnly: true,
       secure: isProduction,
       sameSite: "lax",

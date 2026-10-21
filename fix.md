@@ -1,712 +1,558 @@
-# LeadDetailsScraper — Residual Critical Fixes and Production Hardening
+# LeadDetailsScraper — Final Residual Fixes, Security Hardening, and Verification
 
-**Repository:** `https://github.com/Patel-Menil/LeadDetailsScraper/`  
+**Repository:** https://github.com/Patel-Menil/LeadDetailsScraper/  
 **Branch:** `main`  
-**Starting commit to inspect:** `46433aae92ce50b53132c275d4382f8b56f4a8a2`  
-**Primary objective:** Fix the remaining identity-verification, company verification, evidence-grounding, API authorization, browser SSRF, cache invalidation, and batch-immutability defects in the existing implementation.
+**Latest reviewed commit:** `4a84a2ed29708fdd032e99e95f0c381a8d2769c8`
 
-This is an implementation task. Inspect the current repository, modify the actual code, add regression tests, run the tests, and report verified results. Do not stop after producing an audit, plan, or list of recommendations.
+## Objective
 
-The previous implementation added meaningful safeguards, and the current GitHub Actions CI passes. However, tests passing does not establish that the research claims are correct or that the production security boundaries are effective. Fix the specific failure modes below and demonstrate the fixes with targeted tests.
+Implement the remaining fixes identified in the latest repository review. Focus on:
 
-## 1. Non-negotiable constraints
+1. Claim-specific person, role, company, and domain verification.
+2. Evidence-grounded personalization and truthful outreach readiness.
+3. Complete authorization for sensitive API reads and exports.
+4. Production authentication and Docker Compose configuration.
+5. SSRF protection for browser redirects, subresources, and outbound requests.
+6. Race-safe batch immutability and atomic finalization.
+7. Regression tests proving each fix.
+8. Consistency across profile data, exports, manifests, API responses, and frontend status displays.
 
-### Preserve all existing review data
+**Do not rewrite the application from scratch. Implement the changes in the existing Next.js, FastAPI, Scrapling, and Docker architecture. Do not stop after producing an audit or plan.**
 
-The files under `data/` were intentionally committed so that the scraped results can be inspected and reviewed.
-
-**Do not delete, untrack, rename, relocate, anonymize, or rewrite any existing files under `data/`. Do not change `.gitignore` rules that intentionally retain this data. Do not rewrite Git history, force-push, or reset the branch.**
-
-Preserve the existing application architecture, useful functionality, frontend workflows, API contracts wherever compatible with the security requirements, and historical research artifacts.
-
-Do not automatically run the full real-lead dataset through the modified research pipeline. Use synthetic fixtures and temporary output directories for tests. Do not print real contact details or full lead records into CI logs.
-
-Do not modify historical output files just to make their schema or manifest appear current. Any new validation run must produce a separate batch in a temporary directory or a new explicitly created batch.
-
-### Working method
-
-1. Fetch and inspect the current branch and working tree.
-2. Read the current code, tests, configuration, and the previous implementation commit.
-3. Map each defect below to the actual functions responsible for it.
-4. Implement the fix in the existing architecture.
-5. Add a regression test that fails against the current defective behavior.
-6. Run targeted tests, then the full backend and frontend CI checks.
-7. Review the final diff for unintended changes to tracked data, secrets, configuration, or unrelated features.
-
-Do not discard unrelated working-tree changes. Do not claim a safeguard works merely because the code contains a corresponding helper function.
+The latest CI passed, but important correctness and security gaps remain. Passing existing tests does not mean those gaps are resolved. Implement code-level corrections and tests that reproduce the identified failure modes.
 
 ---
 
-# 2. P0 — Eliminate false person-identity verification
+# 1. Non-negotiable constraints
+
+## 1.1 Preserve the historical review datasets
+
+The files under `data/` were intentionally committed to make scraped results easier to inspect.
+
+**Do not delete, untrack, rename, move, anonymize, rewrite, or regenerate existing files under `data/`. Do not change `.gitignore` rules that intentionally retain these review files.**
+
+Also:
+
+- Do not rewrite Git history.
+- Do not reset the branch or discard unrelated work.
+- Do not force-push.
+- Do not run the entire real-lead dataset automatically.
+- Do not change historical profile statuses merely to make them appear compatible with the latest code.
+- Use synthetic identities and temporary output directories for automated tests.
+- Do not expose real names, emails, or complete lead records in test logs.
+
+A new validation run must use a separate temporary location or a newly created batch and must not overwrite the existing review artifacts.
+
+## 1.2 Inspect before implementing
+
+Read the current versions of the relevant source files, tests, deployment configuration, and frontend API routing. Do not assume the previous review or the instructions in this prompt perfectly describe every implementation detail.
+
+Identify the actual execution paths first, then implement each fix where the security or correctness rule must be enforced. Use a consistent policy throughout the system, not just at one endpoint.
+
+---
+
+# 2. P0 — Fix claim-specific identity, role, company, and domain verification
 
 **Primary file:** `src/lead_research/research.py`  
 **Related files:** `src/lead_research/identity.py`, `src/lead_research/schemas.py`, `src/lead_research/scoring.py`
 
-## 2.1 Remove the remaining identity-confidence shortcut
+The current research logic still uses name occurrence, page-path keywords, page titles, and string matching to determine whether a person or job title has been verified. It also marks company and website claims verified after a successful fetch without adequately establishing the destination's identity.
 
-The current research flow contains logic equivalent to:
+## 2.1 Remove remaining verification shortcuts
 
-- Fetch the company's homepage.
-- Check whether the person's name appears somewhere in the extracted text.
-- If the name appears, set `company_mentions_person`.
-- Raise `max_identity_score` to a high value such as `0.85`.
+Remove every rule that treats any of the following, by itself, as proof of identity or a current role:
 
-This is an invalid identity-verification shortcut. A name can appear in an acknowledgement, customer testimonial, article, old announcement, footer, unrelated list, or other context that does not establish employment or the person's current role.
+- A person's name appearing anywhere in company-page text.
+- A URL containing `/team`, `/leadership`, `/people`, `/about`, or related path segments.
+- A page title containing a leadership-related keyword.
+- A job-title substring appearing somewhere in an extracted page.
+- A high candidate-match score.
+- An exact search-result title or snippet.
+- A successful HTTP response.
+- A plausible LinkedIn URL or professional email format.
 
-Remove this shortcut completely.
+Do not replace one shortcut with a different score threshold.
 
-A homepage mention must not independently:
+Keep these concepts separate:
 
-- Verify the person's identity.
-- Verify the person's employer.
-- Verify their current job title.
-- Raise a candidate-ranking score into a verified-identity state.
-- Enable person-specific icebreaker generation.
-- Make the contact outreach-ready.
+1. **Candidate match:** Whether the result is worth investigating.
+2. **Person identity:** Whether inspected evidence supports that the source refers to the intended person.
+3. **Employment relationship:** Whether the source establishes that the person works for the target organization.
+4. **Current role:** Whether the evidence supports the particular role and its current relevance.
+5. **Company/domain identity:** Whether the destination actually belongs to the named company.
+6. **Contact verification:** Whether the particular contact field has been independently corroborated.
 
-Keep the actual evidence and its interpretation separate. Do not replace the removed shortcut with another threshold-based shortcut.
+A high match score can prioritize a research candidate, but cannot replace independent verification.
 
-## 2.2 Separate three different concepts
+## 2.2 Verify a person and role from actual evidence
 
-Implement and enforce three separate values or concepts throughout the pipeline:
+Use the existing claim schema and statuses wherever possible, including `input_provided`, `unverified`, `partially_verified`, `verified`, `conflicting`, and `needs_review`, as supported by the models.
 
-1. **Candidate-match score:** How promising a discovered search result appears and whether it should be inspected further.
-2. **Verified-identity state:** Whether appropriate inspected evidence corroborates the specific person and employer.
-3. **Claim-level verification:** Whether the evidence supports a particular field, such as current job title, company, or professional email.
+For each verified person-related claim, record supporting source IDs and enough source context to explain the decision.
 
-These must not be interchangeable.
+A current-role claim must have source evidence that establishes the intended person's association with the specific role and employer. Prefer inspected official person-specific biographies, leadership/team profiles, or other reliable sources that directly support the claim.
 
-`identity_match_score()` may continue to rank search candidates using name, company, title, and URL signals. However, its numerical result alone must never establish a verified identity.
+Do not verify a role merely because the title exists on the page without an explicit relationship to the target individual.
 
-Only eligible evidence from an inspected destination page, or another explicitly supported reliable source, may establish identity verification. Search snippets may guide discovery, but they must not independently create verified person claims.
+A person can have a verified name but an unverified role. A verified company profile does not automatically verify its employees. Keep the statuses independent.
 
-A high candidate-match score must not override absent evidence, identity conflicts, abbreviated-name ambiguity, or a source that does not support the proposed claim.
+For an abbreviated name such as a first name followed by a last initial:
 
-## 2.3 Verify each person-related claim separately
+- Preserve the original imported value.
+- Do not expand the name through guesswork.
+- Require adequate evidence of the expanded identity and employer relationship.
+- Otherwise mark it for review.
 
-Implement a clear verification policy for at least:
+## 2.3 Verify company and domain independently
 
-- Person name.
-- Current job title.
-- Employer/company association.
-- Company identity and official website/domain.
-- Professional email.
-- LinkedIn or other professional profile.
+A successful fetch demonstrates reachability, not company identity.
 
-Use the existing schema and statuses wherever possible. Preserve the distinction among `input_provided`, `unverified`, `partially_verified`, `verified`, `conflicting`, and `needs_review`, depending on the statuses the current models support.
+Before marking the company or supplied website verified, inspect available page evidence such as:
 
-### Name verification
+- Company name and brand identity.
+- Page title and relevant content.
+- Domain consistency.
+- Any redirect or host change.
+- Whether the destination is plausibly an official company site rather than an unrelated or similarly named organization.
 
-A company page that mentions a name is not sufficient by itself to establish that the target lead is the person described in the imported record.
+Do not automatically trust a redirected destination merely because it was reached from the imported URL. Record the original URL and final URL where supported and assess their relationship.
 
-Use context that establishes the person's identity and, where necessary, their relationship to the target organization. An ambiguous name should remain in review.
+A company site may support company-level product and capability facts while providing no support for the target person's identity or role.
 
-Do not expand an abbreviated name such as a first name plus last initial unless reliable evidence corroborates the expansion and the employer association.
+## 2.4 Validate claim provenance
 
-### Current-role verification
+Ensure each verified claim:
 
-Do not verify a title merely because:
+- References existing source IDs.
+- Is supported by relevant evidence, rather than merely a source that exists.
+- Has a status that matches the actual source content.
+- Preserves conflicts and unresolved uncertainty.
+- Does not treat `search_snippet` as independent proof of a person's current title.
 
-- The title appears somewhere on the page.
-- The page title contains a generic term such as `team`, `about`, or `leadership`.
-- The URL contains `/team`, `/about`, `/people`, or similar text.
-- The search result has the exact name, employer, and title.
-- A company homepage mentions both the person's name and the title without connecting them.
-- A fetched page returned HTTP 200.
+When a source does not adequately establish a claim, keep the imported value available for review but do not promote its verification status.
 
-A current job title must be supported by evidence that actually connects the intended person to the specific role and employer.
+Add appropriate validation so an unsupported verified claim is rejected or downgraded before it reaches profile output, scoring, or exports.
 
-Prefer a directly relevant official leadership biography, team profile, or other reliable person-specific source. Check whether the name, role, employer, and page context support the claim. Do not treat substring overlap as an adequate relationship check.
+## 2.5 Required tests
 
-If evidence establishes the person's name but not the current role, verify only what the evidence supports and leave the role unresolved.
+Add mocked regression tests proving that:
 
-### Company verification
+- A company homepage mentioning a person in an acknowledgement does not verify current employment or title.
+- A team page containing a name but not the person's supplied role does not verify that role.
+- A generic leadership URL does not prove the individual's identity.
+- A search snippet with the exact person, company, and title cannot independently verify the role.
+- A similarly named individual is not attached to the target record.
+- An abbreviated name is not expanded without adequate corroboration.
+- An unrelated redirect destination cannot verify the original company.
+- A verified claim with missing or irrelevant source evidence is rejected or downgraded.
+- A genuinely corroborating person-specific source can satisfy the relevant verification gate.
 
-A successful request only demonstrates reachability. It does not establish that the fetched domain belongs to the supplied company.
-
-Check the actual page content, title, brand identity, and available domain context. A similar-looking hostname alone is not sufficient proof.
-
-If the supplied company website redirects to a different host, retain the original URL, record the final fetched URL, and assess whether the destination is a legitimate company site. Do not automatically verify the supplied company based on an unrelated redirect destination.
-
-A company page can support facts about company products or capabilities without supporting the identity or job title of any particular person.
-
-### Email and profile verification
-
-Do not mark an email or LinkedIn profile verified just because the imported value looks syntactically correct or the URL matches a familiar pattern.
-
-Do not claim email deliverability unless an actual permitted verification mechanism established it. If no deliverability probe occurs, retain the existing `syntax_valid_unprobed` distinction.
-
-## 2.4 Enforce source provenance
-
-Every verified claim must have traceable supporting evidence.
-
-Use existing models where possible to retain:
-
-- Source ID.
-- Source URL and final URL when relevant.
-- Source type.
-- Retrieval time and available page metadata.
-- Relevant excerpt or extracted facts.
-- Evidence quality.
-- Verification status and explanation.
-
-Enforce consistency in code:
-
-- A claim cannot reference a nonexistent source.
-- A source ID cannot be treated as sufficient evidence merely because it exists.
-- A `search_snippet` source cannot independently satisfy a verified person or current-role claim.
-- A generic `official_company` source is not automatically eligible for every claim.
-- Verification must match the claim's meaning, not merely the source type.
-- If source content conflicts with the imported field, preserve the disagreement and mark the claim for review rather than silently choosing whichever value improves the score.
-
-Do not fabricate missing metadata or supporting excerpts.
-
-## 2.5 Required identity regression tests
-
-Add or update tests that demonstrate all of the following:
-
-1. A company homepage fetch alone does not verify a person.
-2. A homepage containing the intended person's name in an acknowledgement does not verify current employment.
-3. A page mentioning the person's name and an unrelated title does not verify the imported role.
-4. A URL containing `/leadership` but lacking relevant person-role content does not verify the role.
-5. A search result with an exact name, job title, and company does not verify the current role unless eligible destination-page evidence is inspected.
-6. A name collision with a different individual is rejected or marked ambiguous.
-7. An abbreviated name is not expanded without adequate corroboration.
-8. A redirected unrelated website does not verify the supplied company.
-9. A verified claim with a missing or invalid source reference is rejected or downgraded.
-10. A genuinely corroborating, directly relevant official person profile can pass the verification gate.
-
-Use mocked sources; do not depend on live external websites.
+Use synthetic data and mocked requests; do not depend on current external web pages.
 
 ---
 
-# 3. P0 — Make personalization evidence-grounded
+# 3. P0 — Align icebreakers and outreach readiness with verified evidence
 
-**Primary file:** `src/lead_research/icebreaker.py`  
-**Related files:** `src/lead_research/research.py`, `src/lead_research/identity.py`, `src/lead_research/schemas.py`
+**Primary files:** `src/lead_research/icebreaker.py`, `src/lead_research/scoring.py`  
+**Related files:** `src/lead_research/research.py`, schemas, exporter, frontend profile and dashboard components.
 
-## 3.1 Separate company signals from person-specific signals
+The current personalization and scoring functions still permit company signals and search snippets to produce overly confident messages. The readiness logic continues to accept field presence and plausible contact formats as evidence of usability.
 
-The current pipeline can create public signals from broad company-page content and search snippets. These signals may be marked `verified`, after which a ready icebreaker can be generated if the identity-confidence threshold is met.
+## 3.1 Make the personalization source-aware
 
-The identity shortcut described in Section 2 must be removed. Additionally, ensure that company context never becomes person-specific evidence by implication.
+Separate signals into at least these categories:
 
-Maintain a clear distinction between:
+- Company-level capability or positioning.
+- Company-level product announcement.
+- Person-specific professional background.
+- Person-specific current role or work.
+- Explicit hypothesis about a potential need.
 
-- A fact about the company.
-- A fact about the individual.
-- A fact about the person's current role.
-- A hypothesis about a potential security or infrastructure need.
+A signal about the company cannot become a claim about the individual without evidence explicitly connecting the individual to it.
 
-A company's API platform does not prove that the person personally built it. A company AI announcement does not prove that the person led the launch. A keyword in a search result does not establish that the person owns a technical initiative.
+Do not state that the person led, built, announced, designed, or owns an initiative merely because the employer has that initiative.
 
-Do not personalize using unverified claims of the person's technical leadership, projects, announcements, responsibilities, or career history.
+## 3.2 Correct product-launch classification
 
-## 3.2 Tighten product-launch classification
+A page URL containing `/news`, `/press`, `/announcements`, or `/releases` is not evidence that a launch occurred.
 
-The current launch classifier can use launch-related terms and URL paths such as `/news`, `/press`, `/announcements`, or `/releases`.
+Require inspected source content that actually describes the event. Use dates only when the source supports them. Distinguish among:
 
-A URL path alone is not evidence that an actual product launch occurred.
+- A genuine product launch or announcement.
+- A general description of an existing capability.
+- Static API or product documentation.
+- Generic corporate marketing copy.
 
-Implement the following:
+A general company page mentioning AI must not become a “recent launch” signal.
 
-- Require inspected source content that substantively describes a real announcement or launch.
-- Prefer an actual announcement headline and relevant page content.
-- Use a publication or event date only when supported by the source.
-- Distinguish a dated product launch from general company positioning, capability descriptions, or static product documentation.
-- Do not infer a launch merely because the page contains an AI keyword alongside a launch-related keyword.
-- Do not invent recency, launch dates, or event details.
+## 3.3 Correct biography and technical-work classification
 
-If the evidence establishes that a company offers an AI capability but not that it recently launched one, classify the signal as a capability or company-positioning signal, not a launch.
+Do not infer technical work from biography length or generic keywords alone.
 
-## 3.3 Tighten professional-background and technical-work signals
+Only generate a specific person-related signal when the source content supports that specific description and has passed the relevant identity checks.
 
-Do not convert every sufficiently long biography or search snippet into a partially verified professional-background or technical-work signal.
+Search snippets may help discovery but must not independently justify statements about verified work, technical leadership, or current responsibilities.
 
-A few broad keywords such as `engineering`, `platform`, `security`, or `architect` are not enough to establish a person's actual responsibilities.
+When evidence is missing or ambiguous, use a conservative generic fallback or mark personalization as `needs_review`.
 
-Require contextual evidence that genuinely supports the proposed description. Keep discovery snippets distinct from inspected page excerpts.
+## 3.4 Enforce truthful readiness gates
 
-If the source cannot support a sufficiently specific statement, either:
-
-- Use a conservative generic company-level observation, clearly supported by the page; or
-- Return `needs_review` or the existing generic fallback.
-
-Do not mark an evidence-grounding failure as `ready` just to generate a usable message.
-
-## 3.4 Make readiness and wording agree
-
-The icebreaker wording must not be more specific than its evidence.
-
-Examples of prohibited behavior include:
-
-- Saying that someone leads an initiative when the source only describes company capabilities.
-- Claiming to have read public coverage of an individual's technical leadership when only a search snippet exists.
-- Claiming that a company recently launched a product because a static page contains AI keywords.
-- Describing a project as the person's work without evidence connecting the person to it.
-- Implying an internal vulnerability, security incident, or customer problem that the source does not establish.
-
-A hypothesis about a possible infrastructure or security challenge can remain a clearly labeled hypothesis; do not state it as an established problem at the target company.
-
-A person-targeted icebreaker must not be `ready` unless the necessary identity and evidence gates are satisfied. Ensure that `source_ids` refer to the actual sources supporting the selected signal.
-
-## 3.5 Required personalization regression tests
-
-Add tests for:
-
-1. A `/news` or `/press` URL with no launch content.
-2. Generic homepage copy containing AI-related terminology.
-3. An API documentation page that does not describe a product launch.
-4. A search snippet containing technical keywords but no fetched destination page.
-5. A company announcement where no evidence ties the person to the announcement.
-6. A non-technical biography that must not be classified as technical leadership.
-7. An actual launch announcement supported by the fetched page content.
-8. A real, inspected company-level capability source that supports a company-level icebreaker.
-9. Missing or conflicting identity evidence that prevents person-specific personalization from becoming ready.
-10. Any `ready` icebreaker whose supporting source IDs are missing, invalid, or inappropriate for the claim.
-
----
-
-# 4. P0 — Enforce strict and auditable outreach-readiness gates
-
-**Primary file:** `src/lead_research/scoring.py`  
-**Related files:** `src/lead_research/research.py`, `src/lead_research/schemas.py`, `src/lead_research/exporter.py`, frontend types and readiness UI
-
-The current code has improved role verification, but contact usability and company context can still be derived from mere field presence. A syntactically valid email or plausible profile URL is not automatically an independently verified contact channel.
-
-## 4.1 Create one explicit readiness policy
-
-Review the entire readiness path, from research claims through scoring, profile serialization, CSV export, API response, and frontend display.
-
-Define and document a single policy for `ready`, `ready_with_caveat`, `needs_research`, and `not_ready`, using the existing schema where practical.
+Implement a single, documented readiness policy that applies consistently to the backend, serialized profiles, CSV exports, manifests, and frontend.
 
 At minimum, distinguish:
 
-- Candidate fit score.
+- Candidate fit.
 - Person identity verification.
 - Current-role verification.
-- Company and domain verification.
-- Contact-channel usability and verification.
-- Personalization evidence quality.
-- Unresolved conflicts and blockers.
+- Company/domain verification.
+- Contact-channel state.
+- Evidence-backed personalization.
+- Outstanding blockers.
 
-A high fit score must never compensate for an unverified identity, unverified current role, or unsupported company association.
+Rules:
 
-## 4.2 Derive readiness from the actual claims
+- Lead-fit score cannot compensate for unverified identity, company, or role.
+- A missing claims list must not trigger a weaker verification fallback.
+- A non-empty company name and URL must not automatically count as verified company context.
+- An email containing `@` is not proof of deliverability.
+- An imported LinkedIn URL is not proof of a valid contact channel.
+- An unprobed email must remain `syntax_valid_unprobed`, not verified.
+- A person-targeted icebreaker must not be marked ready when the required identity evidence is missing.
+- `ready_with_caveat` must not silently be treated as fully ready.
 
-`has_verified_role` must be derived from a verified current-role claim with appropriate evidence. It must not be derived from a non-empty job-title field or a role score.
+Ensure fully ready exports contain only profiles that meet the full readiness policy. Profiles failing any required gate should have actionable blockers and appear in the appropriate review output.
 
-Similarly:
+Do not simply mark every lead not ready. Preserve useful prioritization while representing uncertainty honestly.
 
-- `has_company_context` must not equate to the presence of a company name and URL.
-- `has_usable_contact_channel` must not equate to an email string containing `@` or a LinkedIn URL containing `/in/`.
-- `has_evidence_based_icebreaker` must reflect source-grounded evidence, not merely non-empty text.
-- A status labelled verified must be backed by a claim and eligible evidence.
-- A claim-level conflict must not be erased by the aggregate identity score.
+## 3.5 Required tests
 
-If legacy compatibility paths remain, ensure they cannot bypass these gates. Do not use a weaker verification fallback merely because the `claims` list is empty. Missing verification data should trigger a conservative review state.
+Test:
 
-## 4.3 Define contact-channel outcomes truthfully
+- Company AI copy without a launch announcement.
+- A news URL with no actual launch content.
+- An API documentation page.
+- A search snippet that describes technical leadership but has not been fetched or corroborated.
+- Company-level signals that cannot be attributed to a person.
+- A high-fit lead with an unverified role.
+- A verified role with an unverified company.
+- An unprobed email and a plausible but unverified LinkedIn URL.
+- Missing claims or unsupported evidence.
+- Readiness statuses and blockers across profiles, CSV exports, and dashboard counts.
 
-Keep email syntax, deliverability, identity association, and outreach permission distinct.
-
-- `syntax_valid_unprobed` must not be described as delivered, deliverable, or verified.
-- Do not promote an imported email to verified without a real supported check.
-- Do not mark a profile URL verified because of URL structure alone.
-- Where no channel has enough evidence to be considered usable under the defined policy, set an appropriate non-ready state.
-- If an unprobed email is the only available contact method, do not put the record into the fully `ready` outreach export.
-- `ready_with_caveat` must be explained accurately and must not silently become equivalent to `ready` in exports or frontend summaries.
-
-If a supported independent channel is usable while email remains unprobed, represent that distinction accurately. Do not make the record globally unusable solely because one optional channel lacks verification if another supported channel genuinely satisfies the policy.
-
-## 4.4 Ensure all surfaces agree
-
-Verify that:
-
-- `contact_readiness.status` and `contact_readiness.blockers` agree.
-- Scoring explanations do not claim a role is verified when it is not.
-- Exported `outreach_ready.csv` contains only profiles meeting the fully ready policy.
-- `needs_review.csv` includes profiles that do not satisfy it.
-- Frontend status badges, counters, filtering, and batch totals use the same policy.
-- Legacy profile migration cannot change an unverified claim into a verified one simply to populate a newer field.
-
-## 4.5 Required readiness regression tests
-
-Test combinations including:
-
-- High lead-fit score plus unverified identity.
-- Verified identity plus unverified current role.
-- Verified role plus unverified company.
-- An imported but unprobed email.
-- A malformed email.
-- A plausible but uncorroborated LinkedIn URL.
-- A verified role claim whose source does not actually support the role.
-- A ready-looking icebreaker with invalid source evidence.
-- A conflicting company or identity claim.
-- A complete set of eligible claims with a supported contact channel.
-- Export partition correctness for ready versus review profiles.
-
-Use explicit expected statuses and blockers. Do not weaken existing tests to make the suite pass.
+All tests must use synthetic data.
 
 ---
 
-# 5. P0 — Close production API authorization gaps
+# 4. P0 — Protect all sensitive API reads, exports, and mutations
 
 **Primary file:** `src/lead_research/server.py`  
-**Related files:** `src/lib/api.ts`, Next.js route handlers or middleware where appropriate, `docker-compose.yml`, `Dockerfile`, `.env.example` or configuration documentation, `tests/test_api.py`
+**Related files:** `src/middleware.ts`, `src/lib/api.ts`, `src/app/api/auth/`, Next.js route handlers, deployment configuration, `tests/test_api.py`
 
-## 5.1 Remove fail-open authorization in production
+The latest commit adds production-mode authentication checks and login/session endpoints. However, many FastAPI read endpoints remain unauthenticated, including routes for listing batches, retrieving lead profiles, and downloading exports.
 
-The current `verify_api_key()` implementation returns success when `API_SECRET_KEY` is empty. This makes sensitive mutations unauthenticated by default when the variable is absent.
+These routes can reveal the contents of uploaded lead files and research profiles.
 
-Change the policy so that:
+## 4.1 Inventory every endpoint
 
-- Production startup or protected operations fail closed when the required security configuration is missing.
-- A missing, empty, malformed, or incorrect production credential cannot silently bypass authorization.
-- The authentication path used by the browser frontend actually works with the deployed configuration.
-- Local development remains usable through a clearly defined and explicitly development-only mode.
-- Development bypasses cannot be accidentally enabled in production just because a variable was not set.
+Build an explicit inventory of every FastAPI route and any Next.js proxy or rewrite that reaches it.
 
-Validate the environment mode and allowed deployment configurations. Document exactly how to configure production and local development.
+For each endpoint, determine whether it is:
 
-## 5.2 Do not expose a shared secret in browser JavaScript
+- Public and safe by design.
+- Authenticated read access.
+- Authenticated mutation.
+- Administrative/destructive.
+- Sensitive because it exposes uploaded or enriched contact data.
 
-The current frontend reads `NEXT_PUBLIC_API_KEY`. A `NEXT_PUBLIC_*` value is exposed to browser code and must not be relied upon to keep a shared secret confidential.
+Do not rely on the route being called through the frontend. A client may call the backend directly if it is reachable.
 
-Do not simply rename this variable to another public variable or embed the credential in frontend source code.
+Public routes should be restricted to the minimum necessary, such as an intentional health check that does not reveal secrets or sensitive operational information.
 
-Inspect how the Next.js frontend communicates with the FastAPI backend and choose a secure, architecture-compatible arrangement. Prefer a server-side proxy/backend-for-frontend with server-only credentials plus a proper authenticated session or access-control mechanism, or an equivalent supported design.
+## 4.2 Protect sensitive read routes
 
-Requirements:
+Apply appropriate authorization to endpoints such as:
 
-- The browser must not receive the server's shared API secret.
-- Sensitive operations must require an authenticated, authorized caller even through any same-origin frontend proxy.
-- Do not leave an unauthenticated proxy that effectively bypasses the backend's new authorization.
-- Session cookies, where used, must have appropriate `HttpOnly`, `SameSite`, and production `Secure` settings.
-- Handle sign-in, invalid sessions, expiration, and unauthorized responses coherently.
-- Do not log credentials or return them in exceptions.
-- Configure the Docker deployment and frontend so that ordinary authenticated UI functions still work.
-- Keep any development-only shortcut explicit, tested, and limited to local development.
+- Batch listing and details.
+- Per-batch leads.
+- Individual lead/profile retrieval.
+- Latest batch details.
+- Manifest and summary downloads.
+- Prioritized and outreach-ready CSV downloads.
+- Needs-review and error reports.
+- Scraping logs.
+- Profile JSON files and batch ZIP downloads.
 
-If a complete user-session mechanism already exists, integrate with it instead of introducing a second identity system. If none exists, implement the smallest sound authentication mechanism that secures sensitive UI operations and document its setup. Do not claim a browser-exposed static token is secure authentication.
+Also protect uploads, batch starts and retries, deletions, clearing history, Tor management, and other operations that change state or initiate externally connected research.
 
-## 5.3 Protect all relevant operations
+The protection must apply to direct FastAPI access, not only to Next.js requests.
 
-Review every endpoint and identify which operations are public, read-only, authenticated, administrative, or destructive.
+Use consistent authorization dependencies, a verified identity/session mechanism, and appropriate access policies. Do not create one weak path through a different endpoint or export handler.
 
-Protect at least:
+Keep an explicit distinction between an authenticated operator and an administrator if the application supports those roles.
 
-- Dataset uploads.
-- Research batch starts, restarts, and retries.
-- Deleting individual batches.
-- Clearing all batch/history records.
-- Mutating Tor settings or other privileged runtime configuration.
-- Any other endpoint that can incur external requests, change stored data, export sensitive records, or alter runtime state.
+## 4.3 Do not treat a browser token as a secret
 
-Do not assume every read route is harmless: lead and export endpoints can expose personal contact data. Apply authentication and authorization appropriate to the deployed application's user and data-access model.
+Inspect the current authentication design, especially:
 
-Validate that the access model applies consistently to direct backend access as well as calls through the frontend. CORS must not be used as an authentication mechanism.
+- `src/app/api/auth/login/route.ts`
+- `src/app/api/auth/logout/route.ts`
+- `src/app/api/auth/status/route.ts`
+- `src/middleware.ts`
+- `src/lib/api.ts`
+- FastAPI's `verify_api_key()`
 
-## 5.4 CORS and request validation
+The current design stores the raw backend API secret in the `sealapi_session` cookie and checks that cookie against the backend secret. `HttpOnly` prevents ordinary client-side JavaScript from reading the cookie, but it does not convert the raw shared secret into a properly scoped session.
 
-Keep explicit allowed CORS origins. Never combine `allow_origins=["*"]` with credentialed access.
+Implement a safer, coherent arrangement:
 
-Also verify:
+- Keep backend secrets server-only.
+- Use an authenticated session that is separate from the raw backend API secret, such as a properly signed session token with expiration.
+- Use appropriate cookie properties: `HttpOnly`, `SameSite`, and `Secure` in production.
+- Validate authentication and authorization on every protected operation.
+- Add CSRF protections for cookie-authenticated state-changing requests as appropriate.
+- Invalidate sessions on logout and expiration.
+- Handle invalid sessions without leaking credentials.
+- Ensure direct backend access is independently protected.
+- Do not add a public, unauthenticated proxy to work around the backend authentication.
+- Do not treat CORS as authentication.
 
-- Origins are normalized and configured explicitly.
-- Unexpected origins are not allowed by a permissive fallback.
-- Credentials are enabled only when needed.
-- Batch IDs and request parameters are validated.
-- Upload filenames cannot perform path traversal.
-- Only supported file types are accepted.
-- Upload size limits are enforced before writing unbounded content.
-- Invalid or unauthorized requests receive appropriate HTTP codes without stack traces, secrets, or full input data.
+Use the existing session architecture if it can be safely corrected. Avoid introducing duplicate authentication systems unnecessarily.
 
-Do not overstate what CORS guarantees: same-origin or direct API requests must still be protected by authorization.
+## 4.4 Correct production and Docker configuration
 
-## 5.5 Required authorization regression tests
+`Dockerfile` sets `NODE_ENV=production`, while `docker-compose.yml` does not pass `API_SECRET_KEY`. The backend can therefore fail closed with an unset key, which is correct from a security perspective but leaves the normal container deployment improperly configured.
 
-Test:
+Implement a complete, documented configuration:
 
-1. Production mode with no required secret fails closed or refuses startup with an actionable error.
-2. Missing credentials return 401 or 403 for sensitive operations.
-3. Incorrect credentials return 401 or 403.
-4. Correct credentials allow an authorized request.
-5. Development-mode behavior is available only under the defined development configuration.
-6. No browser bundle exposes a server-only API secret.
-7. A same-origin frontend proxy cannot be used to bypass authentication.
-8. Unauthorized callers cannot upload, start, delete, clear history, or change protected settings.
-9. Valid authenticated UI flows remain functional.
-10. Disallowed CORS origins are not granted access.
-11. An authenticated but unauthorized user cannot perform administrative actions, if the application's user model supports different roles.
-12. Invalid uploads and traversal attempts are rejected safely.
+- Require production secrets explicitly.
+- Pass them through an appropriate environment or secret mechanism.
+- Never bake credentials into the image or commit them to the repository.
+- Ensure the Next.js server and FastAPI backend use a compatible auth configuration.
+- Make missing production configuration produce a clear, safe error or startup failure.
+- Keep permissive development behavior explicitly restricted to local development.
+- Ensure a missing variable cannot accidentally activate a production bypass.
+- Document required environment variables and how an operator configures them.
 
-Mock secrets in tests. Never print real environment credentials.
+Do not weaken production authentication simply to make the container start.
+
+## 4.5 Required API tests
+
+Test every important route category:
+
+- Missing credentials.
+- Invalid credentials.
+- Valid authenticated request.
+- Expired or invalid session.
+- Unauthorized reads of contact data and profile exports.
+- Unauthorized mutations, batch starts, deletion, clear-history and Tor management.
+- Direct backend requests bypassing the frontend.
+- A same-origin proxy request without a valid session.
+- CSRF protections where relevant.
+- Production deployment with required secrets missing.
+- Valid authentication and UI workflows.
+- Health-check behavior without sensitive disclosures.
+- No server API secret shipped in browser bundles or exposed through an API response.
+
+Use mock secrets only. Do not include secret material in logs or test output.
 
 ---
 
-# 6. P0 — Apply SSRF protection to every fetching path
+# 5. P0 — Close SSRF gaps in browser fetching and outbound requests
 
 **Primary file:** `src/lead_research/scraper.py`  
-**Related files:** `tests/test_scraper_mocked.py`, `tests/test_v2_pipeline.py`, fetch configuration and Docker networking
+**Related files:** scraper tests, browser/proxy configuration, Docker networking.
 
-The direct HTTP path now checks redirects before making requests to redirect destinations. However, the browser fallback still uses `StealthyFetcher.fetch()` without demonstrated equivalent enforcement for every redirect and subsequent network request.
+The latest code validates redirects in the direct HTTP fetcher. However, the browser fallback still uses `StealthyFetcher.fetch()` without demonstrated enforcement of the same destination policy for redirects and subresources. Requiring a configured proxy is not sufficient unless that proxy actually enforces destination safety.
 
-Checking only the initial URL does not make browser navigation SSRF-safe.
+## 5.1 Define one mandatory outbound-request policy
 
-## 6.1 Establish one shared URL and destination policy
+Every supported fetching path must apply the same security rules:
 
-Every fetching mechanism must enforce a consistent policy before connecting to a destination.
+- HTTP/HTTPS only.
+- No embedded URL credentials.
+- Block loopback, private, link-local, unspecified, reserved, multicast, and other non-public destinations not explicitly permitted.
+- Handle IPv4, IPv6, IPv4-mapped IPv6, unusual IP encodings, invalid URLs, and disallowed internal hostnames.
+- Validate DNS resolutions before connecting.
+- Reject hostnames that resolve to a disallowed address.
+- Limit connection/read time, redirects, retries, and response size.
+- Log only sanitized diagnostics.
 
-At minimum:
+Do not rely on a successful initial URL check for subsequent browser or redirect requests.
 
-- Permit only explicitly supported HTTP/HTTPS schemes.
-- Reject embedded URL credentials.
-- Reject localhost, private, loopback, link-local, reserved, multicast, and otherwise disallowed IP destinations.
-- Reject disallowed internal hostnames and address representations.
-- Normalize and validate hostnames, ports, and URLs consistently.
-- Validate resolved DNS addresses, including IPv4 and IPv6.
-- Handle DNS failures conservatively.
-- Bound connection and read times, retries, redirect count, and response size.
-- Retain an explicit, auditable reason when a request is blocked.
+## 5.2 Validate redirects before the connection
 
-Ensure that IP classification is complete and correct for the address types supported by the runtime. Do not assume checking only a subset of `ipaddress` properties covers every non-public range.
+For direct HTTP requests:
 
-## 6.2 Validate every redirect before fetching it
+- Disable automatic redirects.
+- Resolve each `Location` against the current URL.
+- Validate the new URL and its destination before making the next request.
+- Validate the destination again when the hostname changes.
+- Reject redirect loops and excessive redirects.
+- Confirm in tests that blocked destinations were never requested.
 
-For the direct HTTP implementation:
+For hostnames that resolve to multiple addresses, reject the destination if any address violates the configured policy unless the transport provides a stronger, demonstrably safe destination-pinning approach.
 
-- Continue disabling automatic redirects.
-- Parse each redirect's `Location` against the current URL.
-- Validate the resulting absolute destination before the next connection.
-- Reject redirect loops and excessive redirect chains.
-- Revalidate DNS and destination policy for each new host.
-- Never issue a request to a blocked redirect target and then report that it was blocked afterward.
+## 5.3 Secure browser and proxy paths
 
-Add tests that verify not only the returned error but also that the unsafe destination was never requested.
+Review the actual Scrapling/StealthyFetcher capabilities and the installed versions.
 
-## 6.3 Secure or disable browser fallback
+Determine how to enforce policy before the network request for:
 
-Inspect the current Scrapling/StealthyFetcher version and determine whether the browser supports reliable pre-request interception for:
-
-- Top-level navigation.
-- HTTP redirects.
+- Top-level page navigation.
+- Redirect destinations.
 - Subresource requests.
-- Popups and new pages.
-- Client-triggered navigations and requests.
-- WebSocket or other outbound mechanisms, if supported.
+- Popups/new pages.
+- Client-triggered navigation and requests.
+- WebSockets and other outbound mechanisms if supported.
 
-If the available browser stack can enforce the destination policy reliably, implement that enforcement and test it.
+If reliable pre-request interception is available, implement it and test it.
 
-If the stack cannot guarantee that every destination is checked before the network request occurs, do not claim that the browser path is safe merely because its initial URL was checked. Use a demonstrably safe network boundary, such as a controlled validating egress proxy, or disable the unsafe browser fallback for production research. Document any retained restriction.
+If not, use a validating egress proxy or equivalent network boundary that demonstrably blocks unsafe destinations at connection time. The existing Tor proxy must not be assumed to provide this guarantee.
 
-Apply the same policy when Tor, proxies, or alternate transport settings are enabled. Do not assume that using a proxy alone prevents SSRF.
+If the current stack cannot enforce the required policy, disable the unsafe browser fallback for production research and document the limitation. Do not claim full SSRF protection based solely on checking the initial URL.
 
-## 6.4 Address DNS rebinding and connection-time validation
+Address DNS rebinding and the validation-versus-connection time-of-check/time-of-use gap. Use transport or egress controls that prevent a re-resolution from reaching an unapproved destination. Do not disable TLS certificate verification as a workaround.
 
-Checking DNS and then allowing the HTTP library to resolve the hostname again introduces a potential time-of-check/time-of-use gap.
+Apply the same rule to all enabled HTTP, browser, Tor, and proxy execution modes.
 
-Inspect whether the current transport can pin or constrain the validated destination addresses while preserving correct TLS hostname verification and HTTP host semantics.
+## 5.4 Required SSRF tests
 
-Use a transport-level or egress control that can enforce the required protection. Where the stack cannot reliably guarantee this, fail closed for the unsafe path or document precisely which guarantee is unavailable.
+Using mocks, controlled local test doubles, or an intentionally restricted test egress environment, verify:
 
-Do not solve DNS rebinding by disabling certificate verification or weakening TLS validation.
+- Private and public IPv4/IPv6 handling.
+- IPv4-mapped IPv6 and unspecified addresses.
+- Invalid URLs and disallowed schemes.
+- Internal hostnames.
+- DNS responses containing a private destination.
+- DNS failures.
+- Unsafe redirects rejected before the next request.
+- Redirect loops and redirect limits.
+- Browser redirect and subresource policy enforcement.
+- Proxy/Tor paths do not bypass the policy.
+- Permitted public pages still work through every production-enabled fetch mode.
+- Any unsupported browser path is demonstrably disabled or restricted.
 
-## 6.5 Required SSRF regression tests
+Do not make real requests to cloud metadata endpoints or internal services.
 
-Use mocks or local test doubles. Do not make real requests to cloud metadata services, internal networks, or other potentially sensitive endpoints.
+---
+
+# 6. P1 — Make finalized batches genuinely immutable
+
+**Primary files:** `src/lead_research/exporter.py`, `src/lead_research/pipeline.py`, `src/lead_research/server.py`
+
+The exporter now refuses to overwrite manifests marked `completed` or `finalized` by default. The remaining work is to make this enforcement atomic and cover other existing batch states.
+
+## 6.1 Create an explicit batch lifecycle
+
+Define states and legal transitions, for example:
+
+- `pending`
+- `processing`
+- `completed`
+- `partial`
+- `failed`
+- `finalized`
+
+Choose states compatible with the current application, and document exactly when a batch becomes immutable.
+
+Ensure that every new run has a unique batch/attempt identity.
+
+If resume support is retained:
+
+- Resume only genuinely incomplete work.
+- Do not silently mutate finalized outputs.
+- Preserve the prior input snapshot, evidence, profiles, exports, and manifest.
+- Use a distinct attempt/revision identity when prior results must be preserved.
+
+If safe resumption cannot be guaranteed, reject it with an actionable error and require a new batch.
+
+## 6.2 Enforce immutability in the exporter itself
+
+Do not rely solely on the API endpoint or in-memory status.
+
+Implement a safe finalization design:
+
+- Reserve the batch identifier atomically.
+- Prevent two concurrent runs from reserving the same ID.
+- Reject writes to an existing finalized directory regardless of whether its status is `completed`, `partial`, `failed`, or some other persisted state that should be immutable.
+- If a partial batch is explicitly resumable, use the documented attempt policy rather than silently reusing it.
+- Write outputs to an isolated staging directory.
+- Validate required outputs and internal counts.
+- Publish finalized results atomically where supported.
+- Ensure a failed write never publishes an incomplete finalized manifest.
+- Update latest-batch pointers only after successful finalization.
+- Ensure concurrent writers cannot overwrite each other's files.
+
+Distinguish a manifest that does not exist from a corrupted, unreadable, or inconsistent manifest. Do not silently treat an unreadable manifest as permission to overwrite an existing batch directory.
+
+## 6.3 Required batch tests
 
 Test:
 
-1. Public HTTP/HTTPS addresses allowed under policy.
-2. Loopback and private IPv4 addresses blocked.
-3. IPv6 loopback, private, link-local, and mapped-address cases handled.
-4. Malformed URLs, embedded credentials, and disallowed schemes rejected.
-5. Internal hostnames and reserved destinations blocked.
-6. Hostnames resolving to a public and a private address are blocked.
-7. Unsafe redirects are rejected before the next request.
-8. Redirect loops and excessive redirects are rejected.
-9. DNS failures produce a safe result.
-10. Browser top-level redirects and subresource requests are subject to the same policy.
-11. Proxy/Tor paths cannot bypass it.
-12. A permitted page can still be fetched through each production-enabled method.
-13. Any browser path that lacks reliable enforcement is disabled or clearly limited rather than falsely reporting full protection.
+1. A new batch succeeds.
+2. A finalized batch cannot be overwritten.
+3. Existing failed/partial states follow an explicit policy.
+4. Resume uses the documented mechanism.
+5. Two concurrent start requests cannot reserve the same batch.
+6. Two concurrent exporters cannot overwrite one another.
+7. Failed staging/finalization does not replace the latest pointer.
+8. A new latest pointer references only a finalized valid batch.
+9. Output counts, profile counts, summary and manifest agree.
+10. Existing historical `data/` files remain unchanged.
+
+Use temporary directories and synthetic profiles.
 
 ---
 
-# 7. P1 — Make cache invalidation reflect actual research configuration
+# 7. P1 — Fix cache configuration and data consistency
 
-**Primary file:** `src/lead_research/fingerprint.py`  
-**Related files:** `src/lead_research/pipeline.py`, `src/lead_research/importer.py`, researcher configuration and tests
+Inspect `src/lead_research/fingerprint.py` and `src/lead_research/pipeline.py`, along with schema loading, exporter serialization, and UI models.
 
-The code now normalizes aliases such as `Full Name`, `Company Name`, and `Job Title`. However, the pipeline still constructs the fingerprint using only `{"dry_run": dry_run}` as the research configuration.
+The latest pipeline now includes more cache configuration and version identifiers, which is a good improvement. Complete the implementation by making it reflect actual effective research behavior.
 
-Changes to research modes, browser usage, Tor/proxy configuration, enabled evidence sources, or the verification and personalization logic may therefore reuse old research results.
+Ensure the deterministic fingerprint covers all relevant inputs and settings, including:
 
-## 7.1 Build one canonical fingerprint input
+- Canonical person/company/contact fields.
+- Research sources and transport modes.
+- Browser/Tor/proxy-enabled mode without secrets.
+- Extraction, identity, role-verification, scoring, and personalization policy versions.
+- Profile schema and pipeline version.
 
-Normalize data from the canonical `LeadInput` model rather than relying on inconsistent dictionaries wherever possible.
+Use one centrally defined effective configuration so the version passed to the fingerprint matches the code that actually runs.
 
-Ensure equivalent headers and values yield the same normalized data, while meaningful changes invalidate the cache.
+A cache entry must be reused only when its fingerprint, schema, and pipeline compatibility are established. Preserve incompatible historical profiles instead of relabeling them.
 
-Include relevant fields such as:
+Also ensure:
 
-- Name and other person identifiers.
-- Company and company website.
-- Job title.
-- Professional email and profile URL.
-- Industry, keywords, and relevant location fields.
-- Any additional fields that materially change research or identity matching.
+- Profile schema versions agree with profile metadata.
+- Claim/source references remain valid when serialized and reloaded.
+- CSV readiness, JSON profiles, summaries, and manifests use the same policy.
+- Historical output pointers are not silently updated by tests or migration code.
 
-Be careful with alias normalization. Confirm that all declared aliases use the same normalization convention as the lookup table; case, spaces, and underscores must behave consistently.
-
-## 7.2 Include relevant research configuration and implementation versions
-
-Build a stable, centrally defined cache configuration based on the effective research settings.
-
-Include relevant properties such as:
-
-- Dry-run behavior.
-- Browser mode.
-- Tor/proxy mode and other materially different transport settings.
-- Enabled research sources and extraction policies.
-- Identity-verification policy version.
-- Evidence and claim-extraction policy version.
-- Scoring-policy version.
-- Personalization-policy version.
-- Profile schema version.
-- Pipeline implementation version.
-
-Do not store proxy passwords, API keys, credentials, or other secrets in the fingerprint inputs, fingerprint diagnostics, logs, or exported metadata.
-
-Include a stable, non-secret representation of configuration that materially affects results. Do not include volatile timestamps, random IDs, or irrelevant values that would unnecessarily invalidate the cache.
-
-Centralize version definitions and ensure the values passed by the pipeline reflect the actual active configuration. Do not update a default function argument while leaving the real pipeline on its old version.
-
-## 7.3 Cache compatibility and persistence
-
-A cached profile must be reused only when its fingerprint and schema/version compatibility can be established.
-
-Profiles without a fingerprint, profiles with an incompatible schema, and profiles generated under materially different research settings must not be silently treated as current.
-
-Preserve those historical files. Reject reuse or mark them as requiring new research instead of rewriting their metadata to appear current.
-
-## 7.4 Required fingerprint regression tests
-
-Test that:
-
-- Identical canonical data produces identical fingerprints.
-- Equivalent header aliases produce the same fingerprint.
-- Changes to each meaningful research field change the fingerprint.
-- Relevant research configuration changes invalidate the fingerprint.
-- Extraction, verification, scoring, and personalization version changes invalidate the fingerprint as designed.
-- Secret values are not written into logs or profile metadata.
-- Irrelevant volatile values do not invalidate the cache.
-- Historical profiles missing fingerprints are handled according to the explicit compatibility policy.
+Add tests for field-by-field invalidation, effective configuration changes, secret exclusion, legacy-profile handling, and output consistency.
 
 ---
 
-# 8. P1 — Enforce batch immutability and consistent exports
+# 8. Data preservation and validation-run requirements
 
-**Primary files:** `src/lead_research/exporter.py`, `src/lead_research/pipeline.py`, `src/lead_research/server.py`  
-**Related files:** batch schemas, batch UI, export tests
+**Do not modify any existing file under `data/` during implementation or tests.**
 
-The server blocks some completed-batch restarts, but the exporter can still open an existing directory and overwrite its files. This means a code path such as a resume or repeated export can mutate outputs that users expect to be a stable record of a prior research run.
+After the fixes and regression tests are complete, validate the new code with:
 
-## 8.1 Define batch lifecycle semantics
+1. Synthetic end-to-end leads.
+2. A temporary output directory.
+3. A distinct new test batch.
+4. Inspection of the resulting claims, evidence, readiness blockers, and exports.
 
-Document the exact lifecycle states and which transitions are legal.
+Do not automatically rerun the real lead dataset. Do not modify `data/output/latest.json`, `data/output/manifest.json`, historical profiles, historical CSVs, or stored scraped files as part of this task.
 
-Use these principles:
-
-- Each new research run has a unique batch or attempt identity.
-- A completed, finalized batch is immutable.
-- A retry or re-evaluation must not silently replace its output files or manifest.
-- Historical batch summaries, profiles, claims, evidence, CSVs, and manifests remain available.
-- A batch ID must not be reused simply because its directory exists.
-- A race between two start requests cannot cause both requests to write the same run.
-
-Review the current `resume` behavior and determine whether it can safely resume unfinished work without mutating finalized outputs.
-
-If safe resumption cannot be guaranteed within the existing implementation, reject the resume operation with an actionable message and require the user to start a new batch. Do not silently re-export into the same finalized directory.
-
-If resumption is retained, represent it explicitly as a distinct, auditable attempt or revision. Preserve the earlier snapshot and outputs.
-
-## 8.2 Enforce immutability at every relevant layer
-
-Protect the policy in more than the API endpoint.
-
-Implement checks in the batch reservation/start logic and exporter so that calling the exporter directly cannot overwrite a finalized batch.
-
-Where practical:
-
-- Reserve batch IDs atomically.
-- Use locks or an equivalent mechanism to prevent concurrent reservations.
-- Reject existing finalized destination directories.
-- Write files to temporary paths and atomically publish them.
-- Validate temporary outputs before publishing a completed manifest.
-- Update the global latest pointer only after the intended outputs and manifest are successfully finalized.
-- Do not promote a partially written or failed batch to latest.
-- Keep the uploaded input, input hash, profile counts, manifest counts, and summary consistent.
-
-Do not rely solely on a status stored in in-memory state. Reconcile persisted manifests and directory state as needed.
-
-## 8.3 Keep historical review data unchanged
-
-The existing checked-in data and batch outputs must remain untouched.
-
-Do not automatically regenerate `data/output/latest.json`, `data/output/manifest.json`, legacy CSVs, profile JSONs, or other committed artifacts as part of this fix.
-
-Use isolated temporary directories for tests. Demonstrate new output behavior with synthetic fixtures.
-
-When users explicitly start a real batch later, ensure that the new batch receives a distinct identity and that previous outputs remain preserved.
-
-## 8.4 Required batch regression tests
-
-Test:
-
-1. Exporting a new batch succeeds.
-2. A second export using the same finalized batch ID is rejected.
-3. Starting an already completed batch is rejected without mutating it.
-4. Retrying or resuming unfinished work follows the documented policy.
-5. Concurrent starts do not both reserve the same batch.
-6. Concurrent exports cannot overwrite one another.
-7. A failed file write does not update the finalized manifest or latest pointer.
-8. A valid new batch updates the correct latest pointer only after successful completion.
-9. Manifest counts match generated outputs.
-10. Existing historical outputs remain unmodified.
-11. The frontend receives an actionable error for an invalid restart rather than a false “started” response.
+When the application is explicitly run by the operator later, it can create a separate real-data batch through the normal workflow.
 
 ---
 
-# 9. P1 — Profile and evidence consistency across API, exports, and UI
+# 9. CI and regression-test requirements
 
-Inspect the entire data flow between the research engine, schema validation, exporter, API endpoints, and the Next.js frontend.
-
-Ensure that a correct backend decision cannot become misleading due to serialization, legacy migrations, export logic, or frontend presentation.
-
-Requirements:
-
-- New profiles use a consistent schema and pipeline version.
-- Their metadata and manifests agree about schema, pipeline, and batch IDs.
-- Claim statuses and blockers survive serialization without changing meaning.
-- Source IDs and claims remain connected to the correct profile.
-- The `outreach_ready.csv`, `needs_review.csv`, JSON profiles, summary, and manifests derive their counts from the same readiness decision.
-- Historical schema migration preserves the original uncertainty and does not invent corroboration.
-- The latest pointer does not imply that a pre-fix historical batch was generated by the new code.
-- Missing or inconsistent historical manifests are surfaced as a warning or validation result, not silently rewritten.
-- Frontend status labels reflect what is actually supported by the API.
-- A `ready_with_caveat` profile is not represented as a fully ready profile by a UI badge, summary count, or download.
-
-Add tests for these consistency rules using synthetic profile data.
-
----
-
-# 10. Regression test and CI requirements
-
-Extend the existing test suite instead of replacing it or introducing a separate test framework unnecessarily.
-
-Inspect at least:
+Review and extend the current test suite, including:
 
 - `tests/test_api.py`
 - `tests/test_scraper_mocked.py`
@@ -714,111 +560,81 @@ Inspect at least:
 - `tests/test_scoring.py`
 - `tests/test_identity.py`
 - `tests/test_v2_pipeline.py`
-- Existing frontend logic and API tests
+- Existing frontend logic and UI tests.
 
-Add tests to the appropriate modules for every regression described above.
+Add tests next to the code responsible for each defect. The tests must reproduce the actual unsafe or incorrect behavior, not just check for the presence of a helper.
 
-The tests must reproduce the real failure mode. A test that merely checks that a helper exists, that a function returns a non-empty value, or that a string appears in the output is insufficient to establish the security or verification property.
+Run the existing commands as defined by `package.json` and `.github/workflows/ci.yml`:
 
-### Minimum execution checklist
+1. Targeted Python tests.
+2. Full backend pytest suite.
+3. Frontend unit tests.
+4. TypeScript typecheck.
+5. Next.js production build.
+6. Any relevant added integration/security tests.
 
-Run the targeted backend tests first, followed by:
-
-1. The complete pytest suite using the repository's configured Python environment.
-2. Frontend unit tests.
-3. TypeScript type checking.
-4. Next.js production build.
-5. Any additional security or integration test commands already configured in CI.
-
-Use the existing command names from `package.json` and `.github/workflows/ci.yml`. Report actual commands and actual results. Investigate and correct regressions introduced by the implementation. Do not skip or weaken existing tests just to achieve a green build.
-
-Where a test cannot be executed, report the exact blocker. Do not claim it passed.
+Investigate failures caused by the changes. Do not weaken, skip, or delete existing tests simply to get a passing build. Report exact commands and results. Mark any test that could not run as unexecuted rather than passed.
 
 ---
 
-# 11. Acceptance criteria
+# 10. Definition of done
 
-The task is complete only when the following behaviors have been demonstrated with regression tests.
+The task is complete only when all of the following are demonstrated by code and tests:
 
-### Research correctness
+### Verification and outreach
+- A homepage mention does not independently verify identity or role.
+- A title substring and leadership-related URL cannot independently verify a current role.
+- Company/domain verification is independent of a successful fetch.
+- Company-level facts are not falsely attributed to an individual.
+- Unsupported launch and technical-leadership signals cannot create a ready icebreaker.
+- Readiness is determined by explicit verified-claim gates.
+- Exports and the frontend agree with backend readiness.
 
-- A company-page name mention cannot independently raise identity confidence to a verified state.
-- Search-result snippets can discover candidates but cannot verify a current title.
-- Current roles require appropriate inspected, claim-specific evidence.
-- Company verification depends on corroborating company identity, not merely a successful HTTP request.
-- Abbreviated names and same-name collisions do not pass verification without adequate evidence.
-- Evidence references are valid and relevant to the claims they support.
+### Authorization
+- Sensitive read endpoints and exports are protected.
+- Mutations and administrative operations are protected.
+- Direct backend access is secured, not only the frontend route.
+- The browser does not receive a server-side shared API secret.
+- Sessions have appropriate expiration and secure cookie handling.
+- The production Docker configuration works with required secrets supplied and refuses unsafe implicit bypasses.
+- Valid authenticated UI workflows remain functional.
 
-### Personalization correctness
+### SSRF
+- All enabled fetching paths follow the same URL/destination policy.
+- Unsafe redirects are blocked before the destination request.
+- Browser navigation and subresource requests cannot bypass the policy.
+- DNS rebinding risks are addressed by enforceable transport/egress controls, or unsafe paths are disabled.
+- Any unfulfilled network-security guarantee is documented precisely.
 
-- Company-level signals cannot be converted into person-specific career claims without evidence.
-- A news URL or an AI keyword alone cannot establish a product launch.
-- Unverified or unsupported statements cannot produce a ready person-targeted icebreaker.
-- Personalization wording matches the strength and scope of its evidence.
+### Batch integrity
+- Finalized batches cannot be overwritten through the API or direct exporter use.
+- Concurrent execution/export cannot silently write into the same batch.
+- Failed finalization cannot promote incomplete outputs.
+- Latest pointers reference a valid finalized batch.
 
-### Readiness correctness
-
-- Lead fit cannot substitute for identity, role, or company verification.
-- Input values are not automatically verified contact channels.
-- Unprobed emails are not labelled deliverable.
-- All backend, export, and frontend readiness states agree.
-
-### Security
-
-- Production API authorization fails closed.
-- No server-side API secret is shipped to browser code.
-- Direct API access and same-origin proxy access both enforce authorization.
-- The direct HTTP and browser fetching paths enforce SSRF policy before contacting unsafe destinations.
-- Redirects, DNS resolution, and browser subrequests cannot bypass the stated SSRF policy.
-- Unsafe network behavior is disabled if the available stack cannot safely enforce the required controls.
-
-### Data and storage integrity
-
-- Relevant research changes invalidate incompatible cached profiles.
-- Finalized batches cannot be silently overwritten.
-- Failed or concurrent runs cannot corrupt manifests or latest pointers.
-- Existing checked-in data and historical review outputs remain unchanged.
-
-### Build and evidence
-
+### Validation and preservation
 - New regression tests pass.
-- Existing backend and frontend CI checks pass.
-- The final diff contains only intentional changes.
-- Every claimed fix is backed by code and an appropriate test.
+- Existing backend/frontend checks pass.
+- Historical review files and tracking rules remain untouched.
+- No full real-data run was triggered automatically.
+- The final report is supported by actual code and test evidence.
 
 ---
 
-# 12. Final implementation report
+# 11. Final implementation report
 
-When finished, provide the following report in your response:
+After implementation, report:
 
-## A. Summary
-State which remaining defects were fixed and what behavior changed.
+1. **Summary:** What was fixed.
+2. **Changed files:** Each file and its purpose.
+3. **Before/after behavior:** The exact failure path and correction.
+4. **Regression tests:** Which tests cover each residual issue.
+5. **Command results:** Exact test/build commands and pass/fail/unexecuted status.
+6. **Security limitations:** Especially browser SSRF, DNS rebinding, session security, and direct backend access.
+7. **Deployment configuration:** Required environment variables and Docker instructions.
+8. **Data preservation:** Confirmation that no existing `data/` artifacts or `.gitignore` rules were changed.
+9. **Remaining issues:** Anything not fixed and why.
 
-## B. Files changed
-List each changed file and explain why the change was necessary.
+Do not claim that production readiness has been achieved just because CI is green. Do not claim a security guarantee without an actual enforcement mechanism and appropriate regression tests.
 
-## C. Root cause and correction
-For each major defect, provide:
-- The original failure path.
-- The concrete correction.
-- The regression test proving the correction.
-
-## D. Test evidence
-List each exact test/build command and its observed result. Separate passed, failed, and unexecuted checks.
-
-## E. Security limitations
-Be explicit about any SSRF, browser isolation, authorization, or transport guarantees that the current libraries cannot fully provide.
-
-## F. Configuration required
-Document any environment variables, authentication setup, Docker changes, or migration steps needed to run the updated application correctly.
-
-## G. Data preservation
-Confirm that existing files under `data/`, `.gitignore`, and historical review outputs were not changed or deleted.
-
-## H. Remaining work
-List anything that remains unfixed with a precise reason and an appropriate follow-up action.
-
-Do not claim production readiness merely because CI is green. Do not claim a security guarantee unless its enforcement mechanism and tests justify that claim. Do not modify the user's existing review data to make the report appear cleaner.
-
-**Start implementation now. Do not return only a plan or ask for confirmation.**
+**Implement the changes now. Do not return only a plan, and do not ask for confirmation.**

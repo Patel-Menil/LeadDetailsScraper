@@ -136,12 +136,36 @@ def test_decoupled_scoring_evaluation():
         ),
     ]
 
+    # Without verified claims, missing claims list must NOT trigger weak fallback
+    p_info_no_claims, breakdown_no_claims, readiness_no_claims = scorer.evaluate_lead(
+        lead=lead,
+        prof_context=prof_ctx,
+        sources=sources,
+        identity_score=0.90,
+        researched_text="Marcus Vance leads infrastructure engineering at CloudMatrix.",
+    )
+    assert breakdown_no_claims.lead_fit_score >= 70.0
+    assert p_info_no_claims.numeric_priority == 0
+    assert readiness_no_claims.status == "needs_research"
+    assert "current_role_not_verified" in readiness_no_claims.blockers
+    assert "company_not_verified" in readiness_no_claims.blockers
+
+    # With verified claims, role and company are established
+    from src.lead_research.schemas import LeadClaim
+    claims = [
+        LeadClaim(claim_id="c1", field="name", value="Marcus Vance", status="verified", source_ids=["src_001"]),
+        LeadClaim(claim_id="c2", field="job_title", value="VP of Infrastructure", status="verified", source_ids=["src_001"]),
+        LeadClaim(claim_id="c3", field="company", value="CloudMatrix", status="verified", source_ids=["src_001"]),
+        LeadClaim(claim_id="c4", field="professional_email", value="marcus@cloudmatrix.io", status="input_provided", source_ids=["src_001"]),
+    ]
+
     p_info, breakdown, readiness = scorer.evaluate_lead(
         lead=lead,
         prof_context=prof_ctx,
         sources=sources,
         identity_score=0.90,
         researched_text="Marcus Vance leads infrastructure engineering at CloudMatrix.",
+        claims=claims,
     )
 
     # 1. Lead Fit Score is high (VP of Infrastructure at software company with active AI/API context)
@@ -154,6 +178,8 @@ def test_decoupled_scoring_evaluation():
     assert readiness.status in ("ready", "ready_with_caveat")
     assert readiness.has_usable_contact_channel is True
     assert readiness.has_name is True
+    assert readiness.has_verified_role is True
+    assert readiness.has_company_context is True
 
 
 def test_icebreaker_generation_no_hardcoded_dates():

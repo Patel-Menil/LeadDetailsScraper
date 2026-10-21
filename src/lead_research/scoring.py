@@ -201,36 +201,44 @@ class LeadScorer:
         blockers: List[str] = []
         has_name = bool(lead.name and len(lead.name.strip()) > 1)
 
-        # has_verified_role must be derived from the relevant job-title claim's verification status
+        # has_verified_role must be derived strictly from verified job_title claim
+        # A missing claims list must never trigger a weaker verification fallback
         has_verified_role = False
         if claims:
             for clm in claims:
                 if clm.field == "job_title" and clm.status == "verified" and clm.source_ids:
                     has_verified_role = True
                     break
+
+        # has_company_ctx requires a verified company claim or corroborated official source
+        # Mere presence of company name and URL is not verified company context
+        has_company_ctx = False
+        if claims:
+            has_company_ctx = any(clm.field == "company" and clm.status == "verified" and bool(clm.source_ids) for clm in claims)
         else:
-            has_verified_role = any(
-                lead.job_title and lead.job_title.lower() in (
-                    f"{src.relevant_excerpt or ''} {' '.join(src.facts_supported)}".lower()
-                )
-                for src in (sources or [])
-                if src.source_type in ("official_company", "official_company_blog")
+            has_company_ctx = any(
+                s.source_type == "official_company" and any("company identity" in f.lower() for f in s.facts_supported)
+                for s in (sources or [])
             )
 
-        has_company_ctx = bool(lead.company and lead.company_website)
-        has_usable_channel = bool(
-            (lead.professional_email and "@" in lead.professional_email) or
-            (lead.linkedin_url and "linkedin.com/in/" in lead.linkedin_url)
-        )
+        # Contact channel validation: require syntactically valid email format
+        email_val = (lead.professional_email or "").strip()
+        email_syntax_valid = bool(re.match(r"^[^@\s]+@[^@\s]+\.[a-zA-Z0-9]{2,}$", email_val))
+        has_usable_channel = email_syntax_valid
+
         has_evidence_icebreaker = bool(icebreaker and icebreaker.personalization_status == "ready")
 
         # Classify email channel deliverability vs syntax unprobed
         email_claim = next((c for c in (claims or []) if c.field == "professional_email"), None)
         is_email_verified = bool(email_claim and email_claim.status == "verified")
-        is_email_unprobed = bool(lead.professional_email and "@" in lead.professional_email and not is_email_verified)
+        is_email_unprobed = bool(email_syntax_valid and not is_email_verified)
 
-        if identity_score < 0.60:
+        name_claim = next((c for c in (claims or []) if c.field == "name"), None)
+        if name_claim and name_claim.status in ("needs_review", "unverified"):
             blockers.append("identity_not_verified")
+        elif identity_score < 0.60:
+            blockers.append("identity_not_verified")
+
         if not has_verified_role:
             blockers.append("current_role_not_verified")
         if not has_company_ctx:
@@ -241,6 +249,9 @@ class LeadScorer:
             blockers.append("icebreaker_needs_review")
         if is_email_unprobed:
             blockers.append("email_syntax_valid_unprobed")
+
+        # Deduplicate blockers preserving order
+        blockers = list(dict.fromkeys(blockers))
 
         # Readiness Policy Gates:
         # A lead is ready only when identity, verified role, company, usable channel, and grounded icebreaker are satisfied

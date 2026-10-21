@@ -28,6 +28,178 @@ from .scoring import LeadScorer
 logger = logging.getLogger("lead_research.research")
 
 
+def is_company_corroborated(
+    lead_company: str,
+    original_url: str,
+    final_url: str,
+    title: str,
+    meta_desc: str,
+    extracted_text: str,
+) -> Tuple[bool, str]:
+    """
+    Verifies that the fetched destination actually corresponds to the target company.
+    Checks for domain consistency, redirects, and brand/company name presence.
+    """
+    if not lead_company:
+        return False, "No target company specified."
+
+    orig_dom = extract_domain(original_url)
+    final_dom = extract_domain(final_url)
+
+    # If redirected to a completely different domain, check for brand corroboration
+    is_domain_redirected = bool(orig_dom and final_dom and orig_dom != final_dom)
+
+    # Normalize company name for matching
+    clean_company = re.sub(r"[^\w\s]", "", lead_company.lower()).strip()
+    clean_company_tokens = [
+        t for t in clean_company.split()
+        if t not in ("inc", "llc", "corp", "corporation", "ltd", "limited", "technologies", "group", "co", "the")
+        and len(t) >= 3
+    ]
+
+    combined_text = f"{title} {meta_desc} {extracted_text[:1500]}".lower()
+
+    # Check if any core company brand token or full company name appears
+    has_company_mention = False
+    if clean_company and clean_company in combined_text:
+        has_company_mention = True
+    elif any(token in combined_text for token in clean_company_tokens):
+        has_company_mention = True
+
+    # If redirected to an unrelated domain and company name is not present
+    if is_domain_redirected and not has_company_mention:
+        return False, f"Redirected from {orig_dom} to unrelated host {final_dom} without company corroboration."
+
+    # If not redirected or domain matches, require that page content has some company or brand alignment
+    if not has_company_mention and not (orig_dom and final_dom and orig_dom == final_dom):
+        return False, f"Destination page does not corroborate company identity for '{lead_company}'."
+
+    # If domain matches exactly, but company name is completely absent and page looks parked or generic 404
+    if not has_company_mention and any(parked in combined_text for parked in ["domain for sale", "buy this domain", "parked domain", "404 not found"]):
+        return False, f"Domain '{orig_dom}' appears parked or inactive; company identity uncorroborated."
+
+    return True, "Company identity and official domain corroborated."
+
+
+def check_person_role_association(
+    person_name: str,
+    job_title: str,
+    text: str,
+    is_bio_page: bool,
+) -> Tuple[bool, bool, str]:
+    """
+    Evaluates whether inspected destination text connects the person to the organization and specifically to the role.
+    Returns: (name_verified, role_verified, explanation)
+    """
+    if not person_name or not text:
+        return False, False, "Missing person name or page text"
+
+    p_lower = person_name.lower().strip()
+    t_lower = text.lower()
+
+    # Name must appear in the text
+    if p_lower not in t_lower:
+        return False, False, f"Name '{person_name}' not found on page"
+
+    # Abbreviated name (e.g. 'Jon B.') cannot be verified without full surname corroboration
+    if is_abbreviated_name(person_name):
+        return False, False, f"Name '{person_name}' is abbreviated; requires full surname evidence"
+
+    # Context check: reject acknowledgement / testimonial / customer quote context
+    name_pos = t_lower.find(p_lower)
+    while name_pos != -1:
+        start_idx = max(0, name_pos - 120)
+        end_idx = min(len(t_lower), name_pos + len(p_lower) + 120)
+        surrounding = t_lower[start_idx:end_idx]
+        if any(ack in surrounding for ack in [
+            "acknowledgement", "acknowledgments", "special thanks to", "donor", "donors",
+            "customer review", "testimonial", "client testimonial", "what our clients say",
+            "quoted by", "user review", "sponsor"
+        ]):
+            return False, False, f"Mention of '{person_name}' is in an acknowledgement or testimonial context, not employment"
+        name_pos = t_lower.find(p_lower, name_pos + 1)
+
+    # Name is on the page. Is it an official bio / team page?
+    if not is_bio_page:
+        return False, False, f"Mention of '{person_name}' on general page does not establish employment or role"
+
+    # On an official team/bio page:
+    name_verified = True
+    role_verified = False
+    explanation = f"Name '{person_name}' confirmed on official team/leadership page"
+
+    if job_title and len(job_title) > 2:
+        j_lower = job_title.lower().strip()
+        name_indices = [m.start() for m in re.finditer(re.escape(p_lower), t_lower)]
+        for idx in name_indices:
+            window = t_lower[max(0, idx - 150):min(len(t_lower), idx + len(p_lower) + 150)]
+            if j_lower in window:
+                role_verified = True
+                explanation = f"Confirmed '{person_name}' in role '{job_title}' on official team page"
+                break
+            role_tokens = [tok.strip() for tok in re.split(r"[,|\-/()]", j_lower) if len(tok.strip()) >= 3]
+            for tok in role_tokens:
+                if tok in window:
+                    role_verified = True
+                    explanation = f"Confirmed '{person_name}' in role '{job_title}' on official team page"
+                    break
+            if role_verified:
+                break
+
+        if not role_verified:
+            explanation = f"Name '{person_name}' found on team page, but role '{job_title}' is not connected to this person"
+
+    return name_verified, role_verified, explanation
+
+
+def validate_claims_provenance(claims: List[LeadClaim], sources: List[SourceEvidence]) -> List[LeadClaim]:
+    """
+    Enforces that every verified claim has traceable, eligible supporting evidence.
+    Downgrades any unsupported verified claims to unverified or needs_review.
+    """
+    source_map = {s.source_id: s for s in sources}
+
+    for clm in claims:
+        if clm.status == "verified":
+            valid_sources = [source_map[sid] for sid in clm.source_ids if sid in source_map]
+            if not valid_sources:
+                clm.status = "needs_review"
+                clm.confidence = min(clm.confidence, 0.40)
+                clm.review_reason = "Missing source provenance: referenced source does not exist"
+                continue
+
+            all_snippet_or_input = all(s.source_type in ("user_input", "search_snippet") for s in valid_sources)
+            if all_snippet_or_input:
+                clm.status = "needs_review"
+                clm.confidence = min(clm.confidence, 0.50)
+                clm.review_reason = "Search snippets or imported input alone cannot independently establish a verified claim"
+                continue
+
+            if clm.field == "job_title":
+                has_eligible_bio_source = any(
+                    s.source_type in ("official_company", "biography", "team_page") and
+                    any("role verification" in f.lower() or "confirmed" in f.lower() for f in s.facts_supported)
+                    for s in valid_sources
+                )
+                if not has_eligible_bio_source:
+                    clm.status = "unverified"
+                    clm.confidence = min(clm.confidence, 0.40)
+                    clm.review_reason = "Role claim lacks inspected destination-page evidence connecting person to role"
+
+            elif clm.field == "company":
+                has_corroborated_company = any(
+                    s.source_type == "official_company" and
+                    any("company identity" in f.lower() or "website title" in f.lower() for f in s.facts_supported)
+                    for s in valid_sources
+                )
+                if not has_corroborated_company:
+                    clm.status = "unverified"
+                    clm.confidence = min(clm.confidence, 0.50)
+                    clm.review_reason = "Company claim lacks corroborated official domain evidence"
+
+    return claims
+
+
 class LeadResearcher:
     """Researches professional data and produces traceable, grounded lead profiles."""
 
@@ -139,6 +311,8 @@ class LeadResearcher:
             company_site_url = f"https://{company_site_url}"
 
         company_site_fetched = False
+        company_corroborated = False
+        company_final_url = company_site_url
         company_mentions_person = False
         company_src_id = f"src_web_{lead.lead_id[:8]}"
 
@@ -149,6 +323,7 @@ class LeadResearcher:
                 res: ScrapeResult = self.scraper.fetch_url(company_site_url)
                 if res.success:
                     company_site_fetched = True
+                    company_final_url = res.url
                     web_facts: List[str] = []
                     if res.title:
                         web_facts.append(f"Website Title: {res.title}")
@@ -158,32 +333,74 @@ class LeadResearcher:
                         web_facts.append(f"Core Capabilities: {', '.join(res.headings[:4])}")
 
                     # Check if company homepage explicitly mentions the target person
-                    if lead.name and len(lead.name) > 3 and lead.name.lower() in res.extracted_text.lower():
-                        company_mentions_person = True
-                        web_facts.append(f"Confirmed team member mention on company site: {lead.name}")
-                        from urllib.parse import urlparse
-                        parsed_u = urlparse(res.url)
-                        path_l = (parsed_u.path or "").lower()
-                        has_bio_path = any(p in path_l for p in ["/team", "/leadership", "/executives", "/management", "/about/leadership", "/about/team", "/people"])
-                        is_leadership_bio = has_bio_path and any(k in (res.title or "").lower() or k in path_l for k in ["leadership", "executive", "team", "people", "management", "board"])
+                    company_corroborated, comp_reason = is_company_corroborated(
+                        lead_company=lead.company or "",
+                        original_url=company_site_url,
+                        final_url=res.url,
+                        title=res.title or "",
+                        meta_desc=res.meta_description or "",
+                        extracted_text=res.extracted_text,
+                    )
 
-                        for clm in claims:
-                            if clm.field == "name":
-                                clm.status = "verified" if is_leadership_bio else "partially_verified"
-                                clm.confidence = 0.90 if is_leadership_bio else 0.75
+                    web_facts: List[str] = []
+                    if company_corroborated:
+                        web_facts.append(f"Company Identity: {comp_reason}")
+                    if res.title:
+                        web_facts.append(f"Website Title: {res.title}")
+                    if res.meta_description:
+                        web_facts.append(f"Company Mission: {res.meta_description}")
+                    if res.headings:
+                        web_facts.append(f"Core Capabilities: {', '.join(res.headings[:4])}")
+
+                    from urllib.parse import urlparse
+                    parsed_u = urlparse(res.url)
+                    path_l = (parsed_u.path or "").lower()
+                    has_bio_path = any(p in path_l for p in ["/team", "/leadership", "/executives", "/management", "/about/leadership", "/about/team", "/people"])
+                    is_leadership_bio = has_bio_path and any(k in (res.title or "").lower() or k in path_l for k in ["leadership", "executive", "team", "people", "management", "board"])
+
+                    name_verified, role_verified, assoc_reason = check_person_role_association(
+                        person_name=lead.name or "",
+                        job_title=lead.job_title or "",
+                        text=res.extracted_text,
+                        is_bio_page=is_leadership_bio,
+                    )
+                    if name_verified:
+                        web_facts.append(f"Person Verification: {assoc_reason}")
+                    if role_verified:
+                        web_facts.append(f"Role Verification: {assoc_reason}")
+
+                    for clm in claims:
+                        if clm.field == "name":
+                            if name_verified:
+                                clm.status = "verified"
+                                clm.confidence = 0.90
                                 if company_src_id not in clm.source_ids:
                                     clm.source_ids.append(company_src_id)
-                            elif clm.field == "job_title":
-                                # Verify current job title only when destination source is a dedicated bio page directly corroborating role
-                                if is_leadership_bio and lead.job_title and lead.job_title.lower() in res.extracted_text.lower():
-                                    clm.status = "verified"
-                                    clm.confidence = 0.85
-                                    if company_src_id not in clm.source_ids:
-                                        clm.source_ids.append(company_src_id)
-                                else:
-                                    # Homepage mention alone does not corroborate current job title
-                                    clm.status = "unverified"
-                                    clm.confidence = 0.40
+                            elif is_abbreviated_name(lead.name):
+                                clm.status = "needs_review"
+                                clm.confidence = 0.30
+                                clm.review_reason = "Surname is abbreviated; requires full name evidence"
+                            elif lead.name and lead.name.lower() in res.extracted_text.lower():
+                                # Mentioned on company site, but role not corroborated on team/bio page
+                                clm.status = "partially_verified"
+                                clm.confidence = 0.65
+                                clm.review_reason = "Name mentioned on company site but role not corroborated on team/bio page"
+                                if company_src_id not in clm.source_ids:
+                                    clm.source_ids.append(company_src_id)
+                            else:
+                                clm.status = "input_provided"
+                                clm.confidence = 0.50
+                                clm.review_reason = assoc_reason
+                        elif clm.field == "job_title":
+                            if role_verified:
+                                clm.status = "verified"
+                                clm.confidence = 0.85
+                                if company_src_id not in clm.source_ids:
+                                    clm.source_ids.append(company_src_id)
+                            else:
+                                clm.status = "unverified"
+                                clm.confidence = 0.40
+                                clm.review_reason = assoc_reason
 
                     researched_snippets.append(res.extracted_text)
 
@@ -194,27 +411,34 @@ class LeadResearcher:
                             source_type="official_company",
                             title=res.title,
                             retrieval_timestamp=res.timestamp,
-                            evidence_quality=0.90,
+                            evidence_quality=0.90 if company_corroborated else 0.50,
                             relevant_excerpt=res.meta_description or res.extracted_text[:400],
                             facts_supported=web_facts,
                         )
                     )
 
-                    # Update company claim with authoritative source
+                    # Update company claim with corroborated source
                     for clm in claims:
                         if clm.field == "company":
-                            clm.status = "verified"
-                            clm.confidence = 0.95
-                            clm.source_ids.append(company_src_id)
+                            if company_corroborated:
+                                clm.status = "verified"
+                                clm.confidence = 0.95
+                                if company_src_id not in clm.source_ids:
+                                    clm.source_ids.append(company_src_id)
+                            else:
+                                clm.status = "unverified"
+                                clm.confidence = 0.40
+                                clm.review_reason = comp_reason
 
                     claims.append(
                         LeadClaim(
                             claim_id="clm_website",
                             field="company_website",
                             value=res.url,
-                            status="verified",
+                            status="verified" if company_corroborated else "unverified",
                             source_ids=[company_src_id],
-                            confidence=0.95,
+                            confidence=0.95 if company_corroborated else 0.40,
+                            review_reason="Verified official company website" if company_corroborated else comp_reason,
                         )
                     )
 
@@ -289,10 +513,15 @@ class LeadResearcher:
                     if cand_score >= 0.70:
                         for clm in claims:
                             if clm.field == "name" and clm.status in ("input_provided", "unverified"):
-                                clm.status = "partially_verified"
-                                clm.confidence = max(clm.confidence, cand_score)
-                                if src_id not in clm.source_ids:
-                                    clm.source_ids.append(src_id)
+                                if not is_abbreviated_name(lead.name):
+                                    clm.status = "partially_verified"
+                                    clm.confidence = max(clm.confidence, cand_score)
+                                    if src_id not in clm.source_ids:
+                                        clm.source_ids.append(src_id)
+                                else:
+                                    # Abbreviated name requires full surname corroboration; keep in review
+                                    clm.status = "needs_review"
+                                    clm.review_reason = "Surname is abbreviated; requires full name evidence"
                             elif clm.field == "job_title":
                                 # Search snippets alone cannot verify current role; destination page inspection required
                                 if src_id not in clm.source_ids:
@@ -318,6 +547,10 @@ class LeadResearcher:
             fetched_sources=sources,
             candidate_bio_snippets=candidate_bio_snippets,
         )
+
+        # Enforce claim provenance validation before identity check and scoring:
+        # Downgrades any verified claims lacking genuine corroborating evidence
+        claims = validate_claims_provenance(claims, sources)
 
         # Verified identity requires a verified person claim backed by inspected source evidence
         # Numerical candidate-match score alone never verifies identity
@@ -387,9 +620,10 @@ class LeadResearcher:
         company_dict = {
             "name": lead.company,
             "website": company_site_url,
+            "final_url": company_final_url,
             "domain": extract_domain(company_site_url),
             "industry": lead.industry,
-            "verified": company_site_fetched,
+            "verified": bool(company_site_fetched and company_corroborated),
         }
 
         # 10. Honest Research & Execution Metadata

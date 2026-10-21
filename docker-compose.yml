@@ -13,6 +13,9 @@ services:
       - DATA_DIR=/app/data
       - PORT=3000
       - BACKEND_API_URL=http://127.0.0.1:8000
+      - APP_ENV=${APP_ENV:-production}
+      - API_SECRET_KEY=${API_SECRET_KEY:-}
+      - SESSION_SECRET=${SESSION_SECRET:-}
       - CONCURRENCY=${CONCURRENCY:-2}
       - SCRAPER_TIMEOUT=${SCRAPER_TIMEOUT:-25}
       - TOR_PROXY=${TOR_PROXY:-socks5://host.docker.internal:9050}

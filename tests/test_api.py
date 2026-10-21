@@ -212,3 +212,37 @@ def test_tor_start_requires_authorization(client: TestClient):
         res_auth = client.post("/api/tor/start", headers={"X-API-Key": "tor_admin_secret_999"})
         assert res_auth.status_code == 200
 
+
+def test_exports_and_sensitive_reads_require_authorization(client: TestClient):
+    with pytest.MonkeyPatch.context() as mp:
+        mp.setattr("src.lead_research.server.API_SECRET_KEY", "secure_key_12345")
+
+        # Test batch list read
+        res = client.get("/api/batches")
+        assert res.status_code == 401
+        res = client.get("/api/batches", headers={"X-API-Key": "secure_key_12345"})
+        assert res.status_code == 200
+
+        # Test dashboard stats read
+        res = client.get("/api/dashboard/stats")
+        assert res.status_code == 401
+        res = client.get("/api/dashboard/stats", headers={"X-API-Key": "secure_key_12345"})
+        assert res.status_code == 200
+
+        # Test export download routes
+        export_endpoints = [
+            "/api/batches/b1/exports/manifest.json",
+            "/api/batches/b1/exports/summary.json",
+            "/api/batches/b1/exports/prioritized.csv",
+            "/api/batches/b1/exports/outreach_ready.csv",
+            "/api/batches/b1/exports/needs_review.csv",
+            "/api/batches/b1/exports/errors.csv",
+            "/api/batches/b1/exports/scraping.log",
+            "/api/batches/b1/exports/profiles/person_001.json",
+            "/api/batches/b1/exports/zip",
+        ]
+        for ep in export_endpoints:
+            res = client.get(ep)
+            assert res.status_code == 401, f"{ep} did not require authentication"
+
+

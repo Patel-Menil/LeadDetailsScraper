@@ -227,13 +227,11 @@ def load_all_batches_metadata() -> List[Dict[str, Any]]:
 
 @app.get("/api/health")
 def health_check():
-    """Verify application API and storage health."""
+    """Verify application API and storage health without exposing internal file paths."""
     return {
         "status": "healthy",
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "storage": {
-            "uploads_dir": str(UPLOADS_DIR),
-            "batches_dir": str(BATCHES_DIR),
             "uploads_writable": os.access(UPLOADS_DIR, os.W_OK),
             "batches_writable": os.access(BATCHES_DIR, os.W_OK),
         },
@@ -241,7 +239,7 @@ def health_check():
     }
 
 
-@app.get("/api/tor/status")
+@app.get("/api/tor/status", dependencies=[Depends(verify_api_key)])
 def get_tor_status():
     """Check Tor proxy health, active port, and availability."""
     manager = TorManager()
@@ -256,7 +254,7 @@ def start_tor_proxy():
     return {"success": success, "message": message, "port": port}
 
 
-@app.get("/api/dashboard/stats")
+@app.get("/api/dashboard/stats", dependencies=[Depends(verify_api_key)])
 def get_dashboard_stats():
     """Aggregated metrics across all batches for the dashboard."""
     all_batches = load_all_batches_metadata()
@@ -436,13 +434,13 @@ def start_research_batch(batch_id: str, req: StartBatchRequest):
     return {"message": "Research batch started", "batch_id": batch_id}
 
 
-@app.get("/api/batches")
+@app.get("/api/batches", dependencies=[Depends(verify_api_key)])
 def list_batches():
     """List all research batches."""
     return load_all_batches_metadata()
 
 
-@app.get("/api/batches/{batch_id}")
+@app.get("/api/batches/{batch_id}", dependencies=[Depends(verify_api_key)])
 def get_batch_status(batch_id: str):
     """Get status and live progress of a specific batch."""
     validate_batch_id(batch_id)
@@ -574,7 +572,7 @@ def clear_all_batches():
     return {"message": "All batch history and outputs cleared successfully"}
 
 
-@app.get("/api/batches/{batch_id}/leads")
+@app.get("/api/batches/{batch_id}/leads", dependencies=[Depends(verify_api_key)])
 def get_batch_leads(
     batch_id: str,
     priority: Optional[str] = Query(None, description="Filter by priority: 0, 1, 2"),
@@ -641,7 +639,7 @@ def get_batch_leads(
     }
 
 
-@app.get("/api/batches/{batch_id}/leads/{lead_id}/profile")
+@app.get("/api/batches/{batch_id}/leads/{lead_id}/profile", dependencies=[Depends(verify_api_key)])
 def get_lead_profile(batch_id: str, lead_id: str):
     """Retrieve full JSON research profile for an individual person."""
     validate_batch_id(batch_id)
@@ -685,7 +683,7 @@ def get_lead_profile(batch_id: str, lead_id: str):
     }
 
 
-@app.get("/api/leads")
+@app.get("/api/leads", dependencies=[Depends(verify_api_key)])
 def get_leads_global(
     batch_id: Optional[str] = Query(None, description="Batch ID (defaults to latest)"),
     priority: Optional[str] = Query(None, description="Filter by priority: 0, 1, 2"),
@@ -722,7 +720,7 @@ def get_leads_global(
     )
 
 
-@app.get("/api/leads/{lead_id}/profile")
+@app.get("/api/leads/{lead_id}/profile", dependencies=[Depends(verify_api_key)])
 def get_lead_profile_direct(lead_id: str, batch_id: Optional[str] = None):
     """Retrieve full JSON research profile by lead_id (searches all batches if batch_id is omitted)."""
     if batch_id:
@@ -770,7 +768,7 @@ def get_lead_profile_direct(lead_id: str, batch_id: Optional[str] = None):
     raise HTTPException(status_code=404, detail=f"Profile for lead '{lead_id}' not found across any batches.")
 
 
-@app.get("/api/batches/latest")
+@app.get("/api/batches/latest", dependencies=[Depends(verify_api_key)])
 def get_latest_batch_info():
     """Retrieve metadata about the latest completed batch."""
     latest_file = OUTPUT_DIR / "latest.json"
@@ -787,7 +785,7 @@ def get_latest_batch_info():
         return json.load(f)
 
 
-@app.get("/api/batches/{batch_id}/exports/manifest.json")
+@app.get("/api/batches/{batch_id}/exports/manifest.json", dependencies=[Depends(verify_api_key)])
 def download_manifest_json(batch_id: str):
     """Download manifest.json for a batch."""
     validate_batch_id(batch_id)
@@ -803,7 +801,7 @@ def download_manifest_json(batch_id: str):
     )
 
 
-@app.get("/api/batches/{batch_id}/exports/summary.json")
+@app.get("/api/batches/{batch_id}/exports/summary.json", dependencies=[Depends(verify_api_key)])
 def download_summary_json(batch_id: str):
     """Download summary.json for a batch."""
     validate_batch_id(batch_id)
@@ -819,7 +817,7 @@ def download_summary_json(batch_id: str):
     )
 
 
-@app.get("/api/batches/{batch_id}/exports/prioritized.csv")
+@app.get("/api/batches/{batch_id}/exports/prioritized.csv", dependencies=[Depends(verify_api_key)])
 def download_prioritized_csv(batch_id: str):
     """Download leads_prioritized.csv."""
     validate_batch_id(batch_id)
@@ -835,7 +833,7 @@ def download_prioritized_csv(batch_id: str):
     )
 
 
-@app.get("/api/batches/{batch_id}/exports/outreach_ready.csv")
+@app.get("/api/batches/{batch_id}/exports/outreach_ready.csv", dependencies=[Depends(verify_api_key)])
 def download_outreach_ready_csv(batch_id: str):
     """Download outreach_ready.csv containing only outreach-ready leads."""
     validate_batch_id(batch_id)
@@ -851,7 +849,7 @@ def download_outreach_ready_csv(batch_id: str):
     )
 
 
-@app.get("/api/batches/{batch_id}/exports/needs_review.csv")
+@app.get("/api/batches/{batch_id}/exports/needs_review.csv", dependencies=[Depends(verify_api_key)])
 def download_needs_review_csv(batch_id: str):
     """Download needs_review.csv containing leads requiring review or research."""
     validate_batch_id(batch_id)
@@ -867,7 +865,7 @@ def download_needs_review_csv(batch_id: str):
     )
 
 
-@app.get("/api/batches/{batch_id}/exports/errors.csv")
+@app.get("/api/batches/{batch_id}/exports/errors.csv", dependencies=[Depends(verify_api_key)])
 def download_errors_csv(batch_id: str):
     """Download errors.csv."""
     validate_batch_id(batch_id)
@@ -883,7 +881,7 @@ def download_errors_csv(batch_id: str):
     )
 
 
-@app.get("/api/batches/{batch_id}/exports/scraping.log")
+@app.get("/api/batches/{batch_id}/exports/scraping.log", dependencies=[Depends(verify_api_key)])
 def download_scraping_log(batch_id: str):
     """Download scraping.log containing granular web research logs."""
     validate_batch_id(batch_id)
@@ -905,7 +903,7 @@ def download_scraping_log(batch_id: str):
     )
 
 
-@app.get("/api/batches/{batch_id}/exports/profiles/{filename}")
+@app.get("/api/batches/{batch_id}/exports/profiles/{filename}", dependencies=[Depends(verify_api_key)])
 def download_single_profile(batch_id: str, filename: str):
     """Download a single JSON profile securely."""
     validate_batch_id(batch_id)
@@ -923,7 +921,7 @@ def download_single_profile(batch_id: str, filename: str):
     )
 
 
-@app.get("/api/batches/{batch_id}/exports/zip")
+@app.get("/api/batches/{batch_id}/exports/zip", dependencies=[Depends(verify_api_key)])
 def download_batch_zip(batch_id: str):
     """Create and stream a ZIP archive of all batch assets."""
     validate_batch_id(batch_id)

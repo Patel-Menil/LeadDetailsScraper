@@ -64,3 +64,26 @@ def test_mocked_scrapling_fetch_retry_and_failure(mock_get):
     assert res.success is False
     assert res.status_code == 500
     assert "Request failed after 2 attempts" in res.error
+
+
+def test_ssrf_blocks_multi_ip_when_any_ip_is_private():
+    import socket
+    from src.lead_research.scraper import is_safe_url
+
+    mock_addrinfo = [
+        (socket.AF_INET, socket.SOCK_STREAM, 6, "", ("93.184.216.34", 80)),
+        (socket.AF_INET, socket.SOCK_STREAM, 6, "", ("10.0.0.1", 80)),
+    ]
+    with patch("socket.getaddrinfo", return_value=mock_addrinfo):
+        safe, reason = is_safe_url("http://dual-homed-target.com/api")
+        assert not safe
+        assert "private/reserved IP" in reason or "10.0.0.1" in reason
+
+
+def test_browser_fallback_disabled_without_proxy_for_arbitrary_urls():
+    scraper = ScraplingScraper(use_browser=True, use_tor=False, proxy=None)
+    with patch("src.lead_research.scraper.Fetcher.get", return_value=None):
+        res = scraper.fetch_url("https://example.com/test-path")
+        assert res.success is False
+        assert res.status_code in (500, 504)
+
