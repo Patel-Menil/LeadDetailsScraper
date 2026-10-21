@@ -38,47 +38,80 @@ def is_company_corroborated(
 ) -> Tuple[bool, str]:
     """
     Verifies that the fetched destination actually corresponds to the target company.
-    Checks for domain consistency, redirects, and brand/company name presence.
+    Requires meaningful evidence connecting the requested company name to the fetched site.
+    Never treats domain equality alone as company verification.
     """
     if not lead_company:
         return False, "No target company specified."
 
     orig_dom = extract_domain(original_url)
     final_dom = extract_domain(final_url)
-
-    # If redirected to a completely different domain, check for brand corroboration
     is_domain_redirected = bool(orig_dom and final_dom and orig_dom != final_dom)
+
+    combined_text = f"{title} {meta_desc} {extracted_text[:2000]}".lower()
+
+    # Reject parked, inactive, or generic placeholder error pages immediately
+    parked_or_error_indicators = [
+        "domain for sale", "buy this domain", "parked domain", "404 not found",
+        "under construction", "website coming soon", "domain parked", "godaddy",
+        "namecheap", "dan.com", "sedo", "huge domains", "page not found",
+        "error 404", "apache2 ubuntu default page", "nginx default page",
+        "welcome to nginx", "welcome to openresty", "default web site page",
+        "server error", "502 bad gateway", "503 service unavailable", "dns error",
+        "this domain is registered", "inquire about this domain"
+    ]
+    if any(parked in combined_text for parked in parked_or_error_indicators):
+        return False, f"Domain '{orig_dom or final_dom}' appears parked, inactive, or a generic placeholder error page."
 
     # Normalize company name for matching
     clean_company = re.sub(r"[^\w\s]", "", lead_company.lower()).strip()
-    clean_company_tokens = [
-        t for t in clean_company.split()
-        if t not in ("inc", "llc", "corp", "corporation", "ltd", "limited", "technologies", "group", "co", "the")
-        and len(t) >= 3
+    company_tokens = clean_company.split()
+    generic_company_tokens = {
+        "inc", "llc", "corp", "corporation", "ltd", "limited", "technologies", "technology",
+        "group", "co", "the", "company", "solutions", "services", "systems", "global",
+        "consulting", "digital", "data", "tech", "software", "partners", "holdings",
+        "capital", "ventures", "management", "network", "associates", "enterprises",
+        "security", "financial", "health", "care", "labs", "studio", "studios", "design",
+        "creative", "cloud", "ai", "app", "apps", "web", "interactive", "media", "international",
+        "agency", "consultants", "platform", "online"
+    }
+    distinctive_tokens = [
+        t for t in company_tokens
+        if t not in generic_company_tokens and len(t) >= 3
     ]
 
-    combined_text = f"{title} {meta_desc} {extracted_text[:1500]}".lower()
-
-    # Check if any core company brand token or full company name appears
     has_company_mention = False
+    # 1. Exact full clean company phrase appears in page
     if clean_company and clean_company in combined_text:
         has_company_mention = True
-    elif any(token in combined_text for token in clean_company_tokens):
+    # 2. Distinctive brand token appears in title or meta description
+    elif any(token in f"{title} {meta_desc}".lower() for token in distinctive_tokens):
         has_company_mention = True
+    # 3. If multiple distinctive tokens exist, at least two distinctive tokens appear in the text
+    elif len(distinctive_tokens) >= 2 and sum(1 for token in distinctive_tokens if token in combined_text) >= 2:
+        has_company_mention = True
+    # 4. If single distinctive token exists (>= 4 chars), and domain contains it AND page contains it
+    elif len(distinctive_tokens) == 1 and len(distinctive_tokens[0]) >= 4:
+        token = distinctive_tokens[0]
+        if token in combined_text and (orig_dom and token in orig_dom.lower()):
+            has_company_mention = True
 
-    # If redirected to an unrelated domain and company name is not present
+    # If redirected to an unrelated domain without company mention
     if is_domain_redirected and not has_company_mention:
         return False, f"Redirected from {orig_dom} to unrelated host {final_dom} without company corroboration."
 
-    # If not redirected or domain matches, require that page content has some company or brand alignment
-    if not has_company_mention and not (orig_dom and final_dom and orig_dom == final_dom):
-        return False, f"Destination page does not corroborate company identity for '{lead_company}'."
+    # Never treat domain equality alone as company verification
+    if not has_company_mention:
+        return False, f"Destination page on '{orig_dom or final_dom}' does not contain corroborating evidence for '{lead_company}'."
 
-    # If domain matches exactly, but company name is completely absent and page looks parked or generic 404
-    if not has_company_mention and any(parked in combined_text for parked in ["domain for sale", "buy this domain", "parked domain", "404 not found"]):
-        return False, f"Domain '{orig_dom}' appears parked or inactive; company identity uncorroborated."
+    return True, f"Company identity corroborated on official domain for '{lead_company}'."
 
-    return True, "Company identity and official domain corroborated."
+
+HISTORICAL_ROLE_PATTERNS = [
+    r"\bformer\b", r"\bpreviously\b", r"\bpast\b", r"\bex-", r"\bretired\b",
+    r"\bserv(ed|ing)\s+as\b", r"\bwas\s+the\b", r"\buntil\s+20\d\d\b",
+    r"\bprior\s+to\b", r"\bheld\s+roles?\s+at\b"
+]
 
 
 def check_person_role_association(
@@ -108,13 +141,13 @@ def check_person_role_association(
     # Context check: reject acknowledgement / testimonial / customer quote context
     name_pos = t_lower.find(p_lower)
     while name_pos != -1:
-        start_idx = max(0, name_pos - 120)
-        end_idx = min(len(t_lower), name_pos + len(p_lower) + 120)
+        start_idx = max(0, name_pos - 150)
+        end_idx = min(len(t_lower), name_pos + len(p_lower) + 150)
         surrounding = t_lower[start_idx:end_idx]
         if any(ack in surrounding for ack in [
             "acknowledgement", "acknowledgments", "special thanks to", "donor", "donors",
             "customer review", "testimonial", "client testimonial", "what our clients say",
-            "quoted by", "user review", "sponsor"
+            "quoted by", "user review", "sponsor", "client quote", "user story"
         ]):
             return False, False, f"Mention of '{person_name}' is in an acknowledgement or testimonial context, not employment"
         name_pos = t_lower.find(p_lower, name_pos + 1)
@@ -132,21 +165,26 @@ def check_person_role_association(
         j_lower = job_title.lower().strip()
         name_indices = [m.start() for m in re.finditer(re.escape(p_lower), t_lower)]
         for idx in name_indices:
-            window = t_lower[max(0, idx - 150):min(len(t_lower), idx + len(p_lower) + 150)]
+            window = t_lower[max(0, idx - 180):min(len(t_lower), idx + len(p_lower) + 180)]
+            role_matched_in_window = False
             if j_lower in window:
-                role_verified = True
-                explanation = f"Confirmed '{person_name}' in role '{job_title}' on official team page"
-                break
-            role_tokens = [tok.strip() for tok in re.split(r"[,|\-/()]", j_lower) if len(tok.strip()) >= 3]
-            for tok in role_tokens:
-                if tok in window:
+                role_matched_in_window = True
+            else:
+                role_tokens = [tok.strip() for tok in re.split(r"[,|\-/()]", j_lower) if len(tok.strip()) >= 3 and tok.strip() not in ("the", "and", "for", "with")]
+                if role_tokens and all(tok in window for tok in role_tokens[:2]):
+                    role_matched_in_window = True
+
+            if role_matched_in_window:
+                # Check for historical or past role indicators
+                if any(re.search(pat, window) for pat in HISTORICAL_ROLE_PATTERNS):
+                    explanation = f"Role '{job_title}' appears in historical or past context for '{person_name}', not current employment"
+                    role_verified = False
+                else:
                     role_verified = True
                     explanation = f"Confirmed '{person_name}' in role '{job_title}' on official team page"
                     break
-            if role_verified:
-                break
 
-        if not role_verified:
+        if not role_verified and "historical" not in explanation:
             explanation = f"Name '{person_name}' found on team page, but role '{job_title}' is not connected to this person"
 
     return name_verified, role_verified, explanation
@@ -175,9 +213,21 @@ def validate_claims_provenance(claims: List[LeadClaim], sources: List[SourceEvid
                 clm.review_reason = "Search snippets or imported input alone cannot independently establish a verified claim"
                 continue
 
-            if clm.field == "job_title":
+            if clm.field == "name":
+                has_eligible_name_source = any(
+                    s.source_type in ("official_company", "biography", "team_page", "public_professional_profile", "public_web_bio") and
+                    s.evidence_quality >= 0.70
+                    for s in valid_sources
+                )
+                if not has_eligible_name_source:
+                    clm.status = "partially_verified"
+                    clm.confidence = min(clm.confidence, 0.50)
+                    clm.review_reason = "Name claim lacks eligible inspected source evidence"
+
+            elif clm.field == "job_title":
                 has_eligible_bio_source = any(
-                    s.source_type in ("official_company", "biography", "team_page") and
+                    s.source_type in ("official_company", "biography", "team_page", "public_professional_profile") and
+                    s.evidence_quality >= 0.70 and
                     any("role verification" in f.lower() or "confirmed" in f.lower() for f in s.facts_supported)
                     for s in valid_sources
                 )
@@ -188,7 +238,8 @@ def validate_claims_provenance(claims: List[LeadClaim], sources: List[SourceEvid
 
             elif clm.field == "company":
                 has_corroborated_company = any(
-                    s.source_type == "official_company" and
+                    s.source_type in ("official_company", "company_registry", "verified_profile") and
+                    s.evidence_quality >= 0.70 and
                     any("company identity" in f.lower() or "website title" in f.lower() for f in s.facts_supported)
                     for s in valid_sources
                 )
@@ -483,6 +534,7 @@ class LeadResearcher:
                 if log_fn:
                     log_fn(f"   ↳ [Tor Results] Found {len(raw_candidates)} results, {len(matched_candidates)} verified matches")
 
+                top_candidate_fetched = False
                 for idx, (cand, cand_score) in enumerate(matched_candidates[:4], 1):
                     src_id = f"src_bio_{lead.lead_id[:6]}_{idx}"
                     p_facts = [
@@ -526,6 +578,68 @@ class LeadResearcher:
                                 # Search snippets alone cannot verify current role; destination page inspection required
                                 if src_id not in clm.source_ids:
                                     clm.source_ids.append(src_id)
+
+                    # Fetch the top candidate source page to verify person and role against actual page content
+                    cand_url = cand.get("url")
+                    if cand_url and not skip_web_scrape and not top_candidate_fetched and cand_score >= 0.60:
+                        try:
+                            if log_fn:
+                                log_fn(f"🌐 [Web Scraper] Inspecting candidate profile page: {cand_url}")
+                            cand_res = self.scraper.fetch_url(cand_url)
+                            if cand_res.success:
+                                top_candidate_fetched = True
+                                from urllib.parse import urlparse
+                                cand_parsed = urlparse(cand_res.url)
+                                cand_path = (cand_parsed.path or "").lower()
+                                is_cand_bio = any(p in cand_path for p in ["/team", "/leadership", "/executives", "/management", "/about", "/people", "/profile", "/bio", "/speakers", "/author"]) or any(k in (cand_res.title or "").lower() for k in ["leadership", "executive", "team", "people", "profile", "bio"])
+
+                                c_name_ver, c_role_ver, c_reason = check_person_role_association(
+                                    person_name=lead.name or "",
+                                    job_title=lead.job_title or "",
+                                    text=cand_res.extracted_text,
+                                    is_bio_page=is_cand_bio,
+                                )
+
+                                fetched_cand_src_id = f"src_bio_page_{lead.lead_id[:6]}_{idx}"
+                                cand_facts = [
+                                    f"Candidate Page Title: {cand_res.title}",
+                                    f"Person Corroboration: {c_reason}",
+                                ]
+                                if c_role_ver:
+                                    cand_facts.append(f"Role Verification: {c_reason}")
+
+                                sources.append(
+                                    SourceEvidence(
+                                        source_id=fetched_cand_src_id,
+                                        source_url=cand_res.url,
+                                        source_type="biography" if is_cand_bio else "public_web_bio",
+                                        title=cand_res.title,
+                                        retrieval_timestamp=cand_res.timestamp,
+                                        evidence_quality=0.85 if (c_name_ver and c_role_ver) else 0.70,
+                                        relevant_excerpt=cand_res.extracted_text[:400],
+                                        facts_supported=cand_facts,
+                                    )
+                                )
+                                researched_snippets.append(cand_res.extracted_text)
+
+                                if c_name_ver:
+                                    for clm in claims:
+                                        if clm.field == "name":
+                                            clm.status = "verified"
+                                            clm.confidence = 0.90
+                                            if fetched_cand_src_id not in clm.source_ids:
+                                                clm.source_ids.append(fetched_cand_src_id)
+                                if c_role_ver:
+                                    for clm in claims:
+                                        if clm.field == "job_title":
+                                            clm.status = "verified"
+                                            clm.confidence = 0.85
+                                            if fetched_cand_src_id not in clm.source_ids:
+                                                clm.source_ids.append(fetched_cand_src_id)
+                            else:
+                                limitations.append(f"Candidate source URL {cand_url} could not be retrieved: {cand_res.error}")
+                        except Exception as c_err:
+                            limitations.append(f"Exception fetching candidate page {cand_url}: {c_err}")
 
                 if matched_candidates and log_fn:
                     top_cand, top_score = matched_candidates[0]

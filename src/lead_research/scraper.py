@@ -117,6 +117,8 @@ def is_safe_url(url: str, resolve_dns: bool = True) -> Tuple[bool, str]:
         if resolve_dns:
             try:
                 addr_info = socket.getaddrinfo(hostname, None, socket.AF_UNSPEC, socket.SOCK_STREAM)
+                if not addr_info:
+                    return False, f"SSRF Protection: DNS resolution returned no addresses for hostname '{hostname}'."
                 for family, socktype, proto, canonname, sockaddr in addr_info:
                     ip_str = sockaddr[0]
                     resolved_ip = ipaddress.ip_address(ip_str)
@@ -132,9 +134,9 @@ def is_safe_url(url: str, resolve_dns: bool = True) -> Tuple[bool, str]:
                     ):
                         return False, f"SSRF Protection: Hostname '{hostname}' resolves to private/reserved IP {ip_str}."
             except socket.gaierror:
-                pass
+                return False, f"SSRF Protection: DNS resolution failed for hostname '{hostname}'."
             except Exception as dns_err:
-                logger.debug(f"DNS check notice for {hostname}: {dns_err}")
+                return False, f"SSRF Protection: DNS check failed for hostname '{hostname}': {dns_err}"
 
         return True, ""
     except Exception as e:
@@ -392,27 +394,9 @@ class ScraplingScraper:
                 error=f"Request failed after {attempts} attempts: {last_error}",
             )
 
-        # 4. Optional Browser-based Scraping with StealthyFetcher for anti-bot or JS-heavy sites
+        # 4. Browser fallback is disabled for arbitrary target URLs to guarantee SSRF egress isolation
         if self.use_browser:
-            if not self.proxy:
-                logger.info(f"Browser fallback disabled for arbitrary URL {url} to enforce SSRF egress safety.")
-            else:
-                try:
-                    logger.info(f"Scrapling StealthyFetcher browser fetching via proxy: {url}")
-                    fetch_kwargs: Dict[str, Any] = {
-                        "headless": self.headless,
-                        "timeout": 12000,
-                        "disable_resources": True,
-                        "block_ads": True,
-                        "network_idle": False,
-                        "retries": 1,
-                        "proxy": self.proxy,
-                    }
-                    response = StealthyFetcher.fetch(url, **fetch_kwargs)
-                    return self._extract_page_metadata(response, url)
-                except Exception as exc:
-                    logger.warning(f"Browser scrape attempt failed for {url}: {exc}")
-                    last_error = str(exc)
+            logger.info(f"Browser fallback disabled for arbitrary URL {url} to enforce SSRF egress safety.")
 
         return ScrapeResult(
             url=url,

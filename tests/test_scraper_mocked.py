@@ -23,8 +23,9 @@ def test_linkedin_auth_wall_limitation():
     assert "authentication wall" in res.error.lower()
 
 
+@patch("src.lead_research.scraper.is_safe_url", return_value=(True, ""))
 @patch("src.lead_research.scraper.Fetcher.get")
-def test_mocked_scrapling_fetch_success(mock_get):
+def test_mocked_scrapling_fetch_success(mock_get, mock_safe):
     sample_html = """
     <!DOCTYPE html>
     <html>
@@ -54,8 +55,9 @@ def test_mocked_scrapling_fetch_success(mock_get):
     assert any("/security" in sub for sub in res.sublinks)
 
 
+@patch("src.lead_research.scraper.is_safe_url", return_value=(True, ""))
 @patch("src.lead_research.scraper.Fetcher.get")
-def test_mocked_scrapling_fetch_retry_and_failure(mock_get):
+def test_mocked_scrapling_fetch_retry_and_failure(mock_get, mock_safe):
     mock_get.side_effect = ConnectionError("DNS resolution failed")
 
     scraper = ScraplingScraper(max_retries=1)

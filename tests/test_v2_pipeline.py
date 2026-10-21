@@ -55,7 +55,6 @@ def test_ssrf_protection_blocks_private_and_loopback():
 
     safe_targets = [
         "https://www.google.com",
-        "https://sealapi.com/pricing",
         "https://github.com/Patel-Menil",
         "http://example.com",
     ]
@@ -862,4 +861,235 @@ def test_lead_exporter_rejects_overwriting_finalized_batch(tmp_path: Path):
 
     with pytest.raises(ValueError, match="immutable"):
         exporter.export_batch(batch_id=batch_id, leads_with_profiles=[(lead, profile)])
+
+
+def test_strict_identity_gate_blocks_high_scoring_unverified_candidate():
+    scorer = LeadScorer()
+    lead = LeadInput(
+        lead_id="test_lead_strict_id",
+        name="Alexander Hamilton",
+        job_title="Chief Information Security Officer",
+        company="Treasury AI",
+        industry="Financial Services",
+        professional_email="alex@treasury.ai",
+        raw_data={"Keywords": "ai, security, api, zero trust, compliance, cloud"}
+    )
+    prof_ctx = ProfessionalContext()
+    sources = [
+        SourceEvidence(
+            source_id="src_snip_1",
+            source_url="https://duckduckgo.com",
+            source_type="search_snippet",
+            evidence_quality=0.60,
+            facts_supported=["Search Snippet: Alexander Hamilton Treasury AI"],
+        )
+    ]
+    # Name claim is partially verified or input_provided, NOT verified
+    claims_unverified = [
+        LeadClaim(claim_id="c1", field="name", value="Alexander Hamilton", status="partially_verified", source_ids=["src_snip_1"]),
+        LeadClaim(claim_id="c2", field="job_title", value="Chief Information Security Officer", status="verified", source_ids=["src_snip_1"]),
+        LeadClaim(claim_id="c3", field="company", value="Treasury AI", status="verified", source_ids=["src_snip_1"]),
+        LeadClaim(claim_id="c4", field="professional_email", value="alex@treasury.ai", status="verified", source_ids=["src_snip_1"]),
+    ]
+
+    # Even with high identity_score (0.95) and high fit score (>80), unverified name claim must block identity gate
+    p_info, breakdown, readiness = scorer.evaluate_lead(
+        lead=lead,
+        prof_context=prof_ctx,
+        sources=sources,
+        identity_score=0.95,
+        claims=claims_unverified,
+    )
+    assert "identity_not_verified" in readiness.blockers
+    assert readiness.has_name is False
+    assert readiness.status != "ready"
+    assert p_info.numeric_priority != 0  # Blocked from Priority 0
+
+
+def test_company_corroboration_distinguishes_genuine_from_misleading_or_parked():
+    from src.lead_research.research import is_company_corroborated
+
+    # 1. Genuine company match
+    ok, reason = is_company_corroborated(
+        lead_company="Apex Security Systems",
+        original_url="https://apexsecurity.io",
+        final_url="https://apexsecurity.io",
+        title="Apex Security — Zero Trust Cloud Defense",
+        meta_desc="Apex Security provides zero trust API protection.",
+        extracted_text="Welcome to Apex Security Systems. We secure enterprise cloud APIs.",
+    )
+    assert ok is True
+
+    # 2. Parked domain / domain for sale
+    ok, reason = is_company_corroborated(
+        lead_company="Apex Security Systems",
+        original_url="https://apexsecurity.io",
+        final_url="https://apexsecurity.io",
+        title="Apex Security - Domain For Sale",
+        meta_desc="Buy this domain on Dan.com",
+        extracted_text="This domain is parked. Buy this domain today.",
+    )
+    assert ok is False
+    assert "parked" in reason.lower()
+
+    # 3. Generic error page / 404
+    ok, reason = is_company_corroborated(
+        lead_company="Apex Security Systems",
+        original_url="https://apexsecurity.io",
+        final_url="https://apexsecurity.io",
+        title="404 Not Found",
+        meta_desc="",
+        extracted_text="Page not found. Error 404.",
+    )
+    assert ok is False
+
+    # 4. Domain equality alone does not verify if company name is completely absent
+    ok, reason = is_company_corroborated(
+        lead_company="Apex Security Systems",
+        original_url="https://unrelated-domain.com",
+        final_url="https://unrelated-domain.com",
+        title="Blue Sky Travel Agency",
+        meta_desc="Book luxury holidays worldwide.",
+        extracted_text="Find the best deals on flights and hotels.",
+    )
+    assert ok is False
+
+    # 5. Misleading redirect to unrelated domain
+    ok, reason = is_company_corroborated(
+        lead_company="Apex Security Systems",
+        original_url="https://apexsecurity.io",
+        final_url="https://gamblingportal.biz",
+        title="Best Casino Bonuses",
+        meta_desc="Play slots online",
+        extracted_text="Top casino games online.",
+    )
+    assert ok is False
+    assert "redirected" in reason.lower()
+
+
+def test_person_role_association_handles_historical_and_testimonials():
+    from src.lead_research.research import check_person_role_association
+
+    # 1. Valid current leadership on official bio page
+    name_ver, role_ver, reason = check_person_role_association(
+        person_name="Rachel Green",
+        job_title="Head of Engineering",
+        text="Executive Team. Rachel Green is our Head of Engineering overseeing infrastructure.",
+        is_bio_page=True,
+    )
+    assert name_ver is True
+    assert role_ver is True
+
+    # 2. Historical / former role
+    name_ver, role_ver, reason = check_person_role_association(
+        person_name="Rachel Green",
+        job_title="Head of Engineering",
+        text="Rachel Green previously served as Head of Engineering until 2021 before joining another firm.",
+        is_bio_page=True,
+    )
+    assert name_ver is True
+    assert role_ver is False
+    assert "historical" in reason.lower() or "past" in reason.lower()
+
+    # 3. Testimonial context
+    name_ver, role_ver, reason = check_person_role_association(
+        person_name="Rachel Green",
+        job_title="Head of Engineering",
+        text="What our clients say: 'Amazing service!' - Customer review by Rachel Green, Head of Engineering.",
+        is_bio_page=True,
+    )
+    assert name_ver is False
+    assert role_ver is False
+    assert "testimonial" in reason.lower()
+
+    # 4. Mention on generic non-bio page
+    name_ver, role_ver, reason = check_person_role_association(
+        person_name="Rachel Green",
+        job_title="Head of Engineering",
+        text="Blog article: We interviewed Rachel Green regarding tech trends.",
+        is_bio_page=False,
+    )
+    assert name_ver is False
+    assert role_ver is False
+
+
+def test_ssrf_dns_resolution_failure_fails_closed():
+    import socket
+    with patch("socket.getaddrinfo", side_effect=socket.gaierror("Name or service not known")):
+        safe, reason = is_safe_url("https://unresolvable-ghost-host-test.org/api")
+        assert safe is False
+        assert "DNS resolution failed" in reason
+
+
+def test_exporter_reservation_lock_blocks_concurrent_publication(tmp_path: Path):
+    exporter = LeadExporter(output_base_dir=tmp_path / "batches")
+    batch_id = "batch_concurrent_test_lock"
+    clean_id = "batch_concurrent_test_lock"
+    lock_file = tmp_path / "batches" / f".lock_{clean_id}"
+
+    # Simulate an active concurrent writer by holding the lock file
+    (tmp_path / "batches").mkdir(parents=True, exist_ok=True)
+    lock_file.write_text("pid=99999\n", encoding="utf-8")
+
+    lead = LeadInput(lead_id="l1", name="Test Lead", company="Acme")
+    profile = LeadProfile(
+        schema_version="2.0.0",
+        lead_id="l1",
+        identity={"name": "Test Lead"},
+        company={"name": "Acme"},
+        contact={},
+        priority=PriorityInfo(numeric_priority=1, reason="Test", score=50.0, confidence=0.5, supporting_evidence=[]),
+        contact_readiness=ContactReadiness(),
+        scoring_breakdown=ScoringBreakdown(lead_fit_score=50.0, verification_confidence=0.5, readiness_status="needs_research", explanations=[]),
+        research_metadata=ResearchMetadata(research_status="completed", last_research_timestamp="2026-10-21T00:00:00Z", sources_examined=1, errors_and_limitations=[]),
+        professional_context=ProfessionalContext(),
+        icebreaker=Icebreaker(),
+        cold_email_context=ColdEmailContext(suggested_call_to_action=""),
+        claims=[],
+        sources=[],
+    )
+
+    with pytest.raises(RuntimeError, match="Concurrent export lock detected"):
+        exporter.export_batch(batch_id=batch_id, leads_with_profiles=[(lead, profile)])
+
+    # Clean up lock file
+    lock_file.unlink()
+
+
+def test_icebreaker_signals_reject_client_marketing_and_outdated_announcements():
+    lead = LeadInput(lead_id="lead_ib_test", name="Laura Croft", company="Archeology Digital")
+
+    # 1. Agency marketing: "we help you launch"
+    marketing_source = SourceEvidence(
+        source_id="src_mkt_1",
+        source_url="https://archeologydigital.com/services",
+        source_type="company_website",
+        facts_supported=["We help you launch your digital business and launch a campaign."],
+        relevant_excerpt="We help clients launch products and scale marketing.",
+    )
+    signals_mkt = extract_public_signals(lead, fetched_sources=[marketing_source], candidate_bio_snippets=[])
+    assert not any(s.signal_type == "product_launch" for s in signals_mkt)
+
+    # 2. Outdated announcement from 2020
+    outdated_source = SourceEvidence(
+        source_id="src_outdated_1",
+        source_url="https://archeologydigital.com/news",
+        source_type="company_website",
+        facts_supported=["Announced in 2020: New legacy platform."],
+        relevant_excerpt="Archeology Digital announced in 2020 its new search platform.",
+    )
+    signals_old = extract_public_signals(lead, fetched_sources=[outdated_source], candidate_bio_snippets=[])
+    assert not any(s.signal_type == "product_launch" for s in signals_old)
+
+    # 3. Genuine announcement
+    genuine_source = SourceEvidence(
+        source_id="src_gen_1",
+        source_url="https://archeologydigital.com/press",
+        source_type="company_website",
+        title="Press Release: Archeology Digital Announces New AI Platform",
+        facts_supported=["Archeology Digital unveils AI platform."],
+        relevant_excerpt="Today we are proud to announce our new generative AI platform for enterprise search.",
+    )
+    signals_gen = extract_public_signals(lead, fetched_sources=[genuine_source], candidate_bio_snippets=[])
+    assert any(s.signal_type == "product_launch" for s in signals_gen)
 

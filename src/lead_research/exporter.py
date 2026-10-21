@@ -81,6 +81,20 @@ class LeadExporter:
 
         # Isolated staging directory for atomic finalization
         clean_id = sanitize_filename(batch_id)
+        lock_file = self.output_base_dir / f".lock_{clean_id}"
+        lock_acquired = False
+        try:
+            # Atomic reservation via O_CREAT | O_EXCL to prevent concurrent writers
+            fd = os.open(str(lock_file), os.O_CREAT | os.O_EXCL | os.O_WRONLY)
+            with os.fdopen(fd, "w") as f:
+                f.write(f"pid={os.getpid()}\ntimestamp={time.time()}\n")
+            lock_acquired = True
+        except FileExistsError:
+            raise RuntimeError(
+                f"Concurrent export lock detected: another process is currently publishing batch '{batch_id}'. "
+                f"Lock reservation: {lock_file}"
+            )
+
         staging_dir = self.output_base_dir / f".staging_{clean_id}_{os.getpid()}_{int(time.time() * 1000)}"
         staging_dir.mkdir(parents=True, exist_ok=True)
         staging_profiles_dir = staging_dir / "profiles"
@@ -315,23 +329,35 @@ class LeadExporter:
                 if not (staging_dir / req_file).exists():
                     raise ValueError(f"Batch staging validation error: missing required deliverable '{req_file}'")
 
-            # 12. Atomic Publish to Target Batch Directory
+            # 12. Publish to Target Batch Directory (Manifest moved last to ensure atomic batch completion)
             batch_dir.mkdir(parents=True, exist_ok=True)
             target_profiles = batch_dir / "profiles"
             target_profiles.mkdir(parents=True, exist_ok=True)
 
+            manifest_staged = staging_dir / "manifest.json"
             for item in staging_dir.iterdir():
-                if item.name == "profiles":
+                if item.name == "manifest.json":
+                    continue
+                elif item.name == "profiles":
                     for pf in item.iterdir():
                         shutil.move(str(pf), str(target_profiles / pf.name))
                 else:
                     shutil.move(str(item), str(batch_dir / item.name))
+
+            if manifest_staged.exists():
+                shutil.move(str(manifest_staged), str(batch_dir / "manifest.json"))
 
             shutil.rmtree(staging_dir, ignore_errors=True)
 
         except Exception as export_err:
             shutil.rmtree(staging_dir, ignore_errors=True)
             raise export_err
+        finally:
+            if lock_acquired and lock_file.exists():
+                try:
+                    lock_file.unlink()
+                except OSError:
+                    pass
 
         # 13. Atomic latest.json update (only after successful publishing)
         final_manifest_path = batch_dir / "manifest.json"

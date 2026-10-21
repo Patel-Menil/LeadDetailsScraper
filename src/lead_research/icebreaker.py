@@ -39,11 +39,18 @@ def extract_public_signals(
             url_lower = src.source_url.lower()
 
             # Check if source is static API or developer documentation
-            is_static_docs = any(d in url_lower for d in ["/docs", "/documentation", "/api-docs", "/api/docs", "/reference", "/developer", "/manual"]) or any(d in text for d in ["api documentation", "api reference", "sdk reference", "endpoint list"])
+            is_static_docs = any(d in url_lower for d in ["/docs", "/documentation", "/api-docs", "/api/docs", "/reference", "/developer", "/manual", "/swagger", "/openapi"]) or any(d in text for d in ["api documentation", "api reference", "sdk reference", "endpoint list", "getting started guide", "developer guide"])
+
+            # Reject agency marketing, career advice, and unrelated launch keywords
+            unrelated_launch_phrases = ["help you launch", "helps clients launch", "launch your career", "launch your business", "launching careers", "rocket launch", "launch a campaign"]
+            is_unrelated_launch = any(p in text for p in unrelated_launch_phrases)
+
+            # Check for outdated announcement years (e.g. 2018, 2019, 2020, 2021, 2022)
+            is_outdated_announcement = bool(re.search(r"\b(announced|launched|unveiled)\s+(in\s+)?(201\d|202[0-2])\b", text))
 
             # Robust launch / announcement patterns require inspected content (a URL path alone is never proof of launch)
             launch_pattern = r"\b(announc(e|ing|ed|ement|es)?|launch(ed|ing|es)?(\s+of)?|now\s+available|unveil(ed|ing|s)?|introduc(e|ing|ed|es)\s+our\s+new|press\s+release)\b"
-            has_launch_event = not is_static_docs and bool(
+            has_launch_event = not is_static_docs and not is_unrelated_launch and not is_outdated_announcement and bool(
                 re.search(launch_pattern, text) or
                 re.search(launch_pattern, title.lower())
             )

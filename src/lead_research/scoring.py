@@ -201,6 +201,32 @@ class LeadScorer:
         blockers: List[str] = []
         has_name = bool(lead.name and len(lead.name.strip()) > 1)
 
+        # Strict identity verification check:
+        # A lead must not pass the identity-verification gate unless the person's name claim has
+        # status 'verified' and is supported by eligible, nonempty evidence source IDs.
+        # Claims with statuses such as 'input_provided', 'partially_verified', 'needs_review', or 'unverified'
+        # must not satisfy the verified-identity requirement. A high identity_score must not override missing evidence.
+        has_verified_identity = False
+        if claims is not None:
+            name_claim = next((c for c in claims if c.field == "name"), None)
+            if name_claim and name_claim.status == "verified" and bool(name_claim.source_ids):
+                has_verified_identity = True
+            else:
+                blockers.append("identity_not_verified")
+        else:
+            # Backward-compatible fallback when claims is None (e.g. standalone calculate_priority)
+            if identity_score >= 0.60 and has_name:
+                has_verified_identity = True
+            else:
+                blockers.append("identity_not_verified")
+
+        if identity_score < 0.60 and "identity_not_verified" not in blockers:
+            blockers.append("identity_not_verified")
+
+        # Cap verification confidence if identity is unverified
+        if not has_verified_identity:
+            verification_conf = min(verification_conf, 0.50)
+
         # has_verified_role must be derived strictly from verified job_title claim
         # A missing claims list must never trigger a weaker verification fallback
         has_verified_role = False
@@ -233,12 +259,6 @@ class LeadScorer:
         is_email_verified = bool(email_claim and email_claim.status == "verified")
         is_email_unprobed = bool(email_syntax_valid and not is_email_verified)
 
-        name_claim = next((c for c in (claims or []) if c.field == "name"), None)
-        if name_claim and name_claim.status in ("needs_review", "unverified"):
-            blockers.append("identity_not_verified")
-        elif identity_score < 0.60:
-            blockers.append("identity_not_verified")
-
         if not has_verified_role:
             blockers.append("current_role_not_verified")
         if not has_company_ctx:
@@ -255,8 +275,8 @@ class LeadScorer:
 
         # Readiness Policy Gates:
         # A lead is ready only when identity, verified role, company, usable channel, and grounded icebreaker are satisfied
-        if not has_usable_channel or identity_score < 0.40:
-            readiness_status = "not_ready"
+        if not has_usable_channel or identity_score < 0.40 or not has_verified_identity:
+            readiness_status = "not_ready" if (not has_usable_channel or identity_score < 0.40) else "needs_research"
         elif "current_role_not_verified" in blockers or "identity_not_verified" in blockers or "company_not_verified" in blockers:
             readiness_status = "needs_research"
         elif "icebreaker_needs_review" in blockers or is_email_unprobed or not has_evidence_icebreaker:
@@ -267,7 +287,7 @@ class LeadScorer:
 
         readiness = ContactReadiness(
             status=readiness_status,
-            has_name=has_name,
+            has_name=has_name and has_verified_identity,
             has_verified_role=has_verified_role,
             has_company_context=has_company_ctx,
             has_usable_contact_channel=has_usable_channel,
@@ -287,17 +307,24 @@ class LeadScorer:
 
         # 7. Deterministic Numeric Priority (0, 1, 2)
         # Priority 0: Decision maker in regulated/tech vertical with real technical need AND verified identity
-        if lead_fit_score >= 70.0 and role_score >= 25.0 and industry_score >= 18.0 and tech_score >= 15.0 and identity_score >= 0.60:
+        if (
+            lead_fit_score >= 70.0
+            and role_score >= 25.0
+            and industry_score >= 18.0
+            and tech_score >= 15.0
+            and has_verified_identity
+            and "identity_not_verified" not in blockers
+        ):
             numeric_priority = 0
             reason = (
                 f"Priority 0 (Highest Fit): {lead.job_title or 'Executive'} at {lead.company or 'Target Account'} "
-                f"matches core decision-maker criteria in a target vertical with active AI/API needs."
+                f"matches core decision-maker criteria in a target vertical with active AI/API needs and verified identity."
             )
         elif lead_fit_score >= 45.0:
             numeric_priority = 1
             reason = (
                 f"Priority 1 (Medium Fit): {lead.job_title or 'Contact'} at {lead.company or 'Company'} "
-                f"is in a relevant role or vertical, but requires further qualification of immediate security/AI deployment urgency."
+                f"is in a relevant role or vertical, but requires further qualification of immediate security/AI deployment urgency or verified identity."
             )
         else:
             numeric_priority = 2
