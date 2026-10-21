@@ -352,7 +352,10 @@ def test_tor_manager_respects_tor_enabled_flag(monkeypatch):
 
     status = manager.get_status()
     assert status["enabled"] is False
+    assert status["state"] == "disabled"
     assert status["is_running"] is False
+    assert status["socks_reachable"] is False
+    assert status["proxy_url"] is None
     assert status["compose_service"] == "tor"
 
 
@@ -365,16 +368,127 @@ def test_tor_manager_sanitizes_credentials():
 
 
 def test_tor_manager_reports_unreachable_endpoint_safely(monkeypatch):
-    """Verify TorManager does not crash when Tor endpoint is offline."""
+    """Verify TorManager does not equate configured proxy with running when endpoint is offline."""
     monkeypatch.setenv("TOR_ENABLED", "true")
-    monkeypatch.setenv("TOR_PROXY", "")
+    monkeypatch.setenv("TOR_PROXY", "socks5://offline-tor-node.internal:9050")
     with patch.object(TorManager, "is_port_open", return_value=False):
-        with patch.object(TorManager, "find_tor_executable", return_value=None):
-            manager = TorManager()
-            proxy = manager.get_proxy_url()
-            assert proxy is None
-            status = manager.get_status()
-            assert status["is_running"] is False
+        manager = TorManager()
+        proxy = manager.get_proxy_url()
+        # Must NOT return unreachable proxy as active
+        assert proxy is None
+        status = manager.get_status()
+        assert status["enabled"] is True
+        assert status["is_running"] is False
+        assert status["socks_reachable"] is False
+        assert status["state"] == "proxy_configured_unreachable"
+        assert "unreachable" in status["details"].lower()
+
+
+def test_tor_manager_rejects_open_tcp_port_if_not_socks_proxy(monkeypatch):
+    """Verify open TCP port that fails SOCKS5 handshake is identified as check_failed_or_inconclusive."""
+    # Ephemeral server listening on TCP but sending non-SOCKS HTTP response
+    class NonSocksHandler(http.server.BaseHTTPRequestHandler):
+        def do_GET(self):
+            self.send_response(200)
+            self.end_headers()
+            self.wfile.write(b"NOT A SOCKS PROXY")
+        def log_message(self, *args):
+            pass
+
+    server = http.server.HTTPServer(("127.0.0.1", 0), NonSocksHandler)
+    port = server.server_port
+    t = threading.Thread(target=server.serve_forever, daemon=True)
+    t.start()
+
+    try:
+        monkeypatch.setenv("TOR_ENABLED", "true")
+        monkeypatch.setenv("TOR_PROXY", f"socks5://127.0.0.1:{port}")
+        manager = TorManager()
+
+        # Port is open, but it's not a SOCKS5 proxy
+        assert manager.is_port_open("127.0.0.1", port) is True
+        assert manager.is_socks5_functional("127.0.0.1", port) is False
+
+        # get_proxy_url must reject it
+        assert manager.get_proxy_url() is None
+
+        status = manager.get_status()
+        assert status["enabled"] is True
+        assert status["is_running"] is False
+        assert status["socks_reachable"] is False
+        assert status["state"] == "check_failed_or_inconclusive"
+        assert "handshake failed" in status["details"].lower()
+    finally:
+        server.shutdown()
+
+
+def test_tor_manager_functioning_mock_socks5_endpoint(monkeypatch):
+    """Verify functioning SOCKS5 responder is recognized as socks_endpoint_reachable."""
+    running = True
+
+    def mock_socks5_server(server_sock):
+        server_sock.settimeout(2.0)
+        while running:
+            try:
+                conn, _ = server_sock.accept()
+                with conn:
+                    conn.settimeout(2.0)
+                    greeting = conn.recv(10)
+                    if greeting.startswith(b"\x05"):
+                        # Respond with SOCKS5, No Authentication Required
+                        conn.sendall(b"\x05\x00")
+            except (socket.timeout, OSError):
+                continue
+
+    server_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server_sock.bind(("127.0.0.1", 0))
+    server_sock.listen(5)
+    port = server_sock.getsockname()[1]
+
+    t = threading.Thread(target=mock_socks5_server, args=(server_sock,), daemon=True)
+    t.start()
+
+    try:
+        monkeypatch.setenv("TOR_ENABLED", "true")
+        monkeypatch.setenv("TOR_PROXY", f"socks5://127.0.0.1:{port}")
+        manager = TorManager()
+
+        assert manager.is_port_open("127.0.0.1", port) is True
+        assert manager.is_socks5_functional("127.0.0.1", port) is True
+
+        proxy = manager.get_proxy_url()
+        assert proxy == f"socks5://127.0.0.1:{port}"
+
+        status = manager.get_status()
+        assert status["enabled"] is True
+        assert status["is_running"] is True
+        assert status["socks_reachable"] is True
+        assert status["state"] == "socks_endpoint_reachable"
+        assert status["routing_verified"] is False
+    finally:
+        running = False
+        server_sock.close()
+
+
+def test_tor_manager_verified_routing_and_secret_redaction(monkeypatch):
+    """Verify routing_verified state and credential masking in details and proxy_url."""
+    monkeypatch.setenv("TOR_ENABLED", "true")
+    monkeypatch.setenv("TOR_PROXY", "socks5://user:TopSecretPass999@tor:9050")
+
+    with patch.object(TorManager, "is_port_open", return_value=True):
+        with patch.object(TorManager, "is_socks5_functional", return_value=True):
+            with patch.object(TorManager, "verify_tor_routing", return_value=True):
+                manager = TorManager()
+                status = manager.get_status(verify_routing=True)
+
+                assert status["enabled"] is True
+                assert status["is_running"] is True
+                assert status["socks_reachable"] is True
+                assert status["routing_verified"] is True
+                assert status["state"] == "routing_verified"
+                assert "TopSecretPass999" not in status["proxy_url"]
+                assert "TopSecretPass999" not in status["details"]
+                assert status["proxy_url"] == "socks5://***:***@tor:9050"
 
 
 # ---------------------------------------------------------------------------

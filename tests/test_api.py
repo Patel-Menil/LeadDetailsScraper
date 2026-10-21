@@ -213,6 +213,26 @@ def test_tor_start_requires_authorization(client: TestClient):
         assert res_auth.status_code == 200
 
 
+def test_tor_status_requires_authorization_and_returns_structured_health(client: TestClient):
+    with pytest.MonkeyPatch.context() as mp:
+        mp.setattr("src.lead_research.server.API_SECRET_KEY", "tor_admin_secret_999")
+
+        # Missing key -> 401
+        res = client.get("/api/tor/status")
+        assert res.status_code == 401
+
+        # Valid key -> 200 with structured health details
+        res_auth = client.get("/api/tor/status", headers={"X-API-Key": "tor_admin_secret_999"})
+        assert res_auth.status_code == 200
+        data = res_auth.json()
+        assert "enabled" in data
+        assert "state" in data
+        assert "is_running" in data
+        assert "socks_reachable" in data
+        assert "routing_verified" in data
+        assert "details" in data
+
+
 def test_exports_and_sensitive_reads_require_authorization(client: TestClient):
     with pytest.MonkeyPatch.context() as mp:
         mp.setattr("src.lead_research.server.API_SECRET_KEY", "secure_key_12345")
