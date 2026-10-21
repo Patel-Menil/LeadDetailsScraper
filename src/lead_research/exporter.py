@@ -6,7 +6,10 @@ import logging
 import os
 import re
 import shutil
+import sys
+import threading
 import time
+import uuid
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
@@ -25,12 +28,140 @@ def sanitize_filename(name: str, max_length: int = 50) -> str:
     return clean[:max_length] or "unnamed"
 
 
+class BatchLock:
+    """
+    Cross-platform OS-level advisory file lock for batch export reservation.
+    Held open for the duration of batch export and released on completion or failure.
+    If the holding process terminates unexpectedly, the OS kernel automatically releases the lock.
+    """
+    _thread_locks_guard = threading.Lock()
+    _active_thread_locks: set = set()
+
+    def __init__(self, lock_file: Path, batch_id: str):
+        self.lock_file = lock_file
+        self.batch_id = batch_id
+        self.fd: Optional[int] = None
+        self._thread_locked = False
+
+    def acquire(self) -> None:
+        norm_key = str(self.lock_file.resolve())
+        with self._thread_locks_guard:
+            if norm_key in self._active_thread_locks:
+                raise RuntimeError(
+                    f"Concurrent export lock detected: another active process or thread is "
+                    f"currently publishing batch '{self.batch_id}'. Lock reservation: {self.lock_file}"
+                )
+            self._active_thread_locks.add(norm_key)
+            self._thread_locked = True
+
+        self.lock_file.parent.mkdir(parents=True, exist_ok=True)
+        try:
+            self.fd = os.open(str(self.lock_file), os.O_RDWR | os.O_CREAT, 0o666)
+
+            if os.fstat(self.fd).st_size == 0:
+                os.write(self.fd, b" ")
+                try:
+                    os.fsync(self.fd)
+                except OSError:
+                    pass
+
+            if sys.platform == "win32":
+                import msvcrt
+                os.lseek(self.fd, 0, os.SEEK_SET)
+                msvcrt.locking(self.fd, msvcrt.LK_NBLCK, 1)
+            else:
+                import fcntl
+                fcntl.flock(self.fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
+
+            # Safely record diagnostic metadata after byte 0
+            try:
+                os.lseek(self.fd, 1, os.SEEK_SET)
+                meta = f"pid={os.getpid()}\ntime={time.time()}\nbatch={self.batch_id}\n".encode("utf-8")
+                os.write(self.fd, meta)
+                os.ftruncate(self.fd, 1 + len(meta))
+            except Exception:
+                pass
+
+        except (BlockingIOError, PermissionError, OSError) as err:
+            self._cleanup_on_failure()
+            raise RuntimeError(
+                f"Concurrent export lock detected: another active process is currently "
+                f"publishing batch '{self.batch_id}'. Lock reservation: {self.lock_file}"
+            ) from err
+        except Exception:
+            self._cleanup_on_failure()
+            raise
+
+    def _cleanup_on_failure(self) -> None:
+        if self.fd is not None:
+            try:
+                os.close(self.fd)
+            except OSError:
+                pass
+            self.fd = None
+        if self._thread_locked:
+            norm_key = str(self.lock_file.resolve())
+            with self._thread_locks_guard:
+                self._active_thread_locks.discard(norm_key)
+            self._thread_locked = False
+
+    def release(self) -> None:
+        if self.fd is not None:
+            try:
+                if sys.platform == "win32":
+                    import msvcrt
+                    try:
+                        os.lseek(self.fd, 0, os.SEEK_SET)
+                        msvcrt.locking(self.fd, msvcrt.LK_UNLCK, 1)
+                    except OSError:
+                        pass
+                else:
+                    import fcntl
+                    try:
+                        fcntl.flock(self.fd, fcntl.LOCK_UN)
+                    except OSError:
+                        pass
+            finally:
+                try:
+                    os.close(self.fd)
+                except OSError:
+                    pass
+                self.fd = None
+
+        if self._thread_locked:
+            norm_key = str(self.lock_file.resolve())
+            with self._thread_locks_guard:
+                self._active_thread_locks.discard(norm_key)
+            self._thread_locked = False
+
+    def __enter__(self) -> "BatchLock":
+        self.acquire()
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb) -> None:
+        self.release()
+
+
 class LeadExporter:
     """Exports prioritized CSV, individual per-lead JSON profiles, batch manifests, and audit files."""
 
     def __init__(self, output_base_dir: Path):
         self.output_base_dir = Path(output_base_dir)
         self.output_base_dir.mkdir(parents=True, exist_ok=True)
+
+    def acquire_batch_lock(self, batch_id: str) -> BatchLock:
+        """Acquire exclusive OS-level advisory lock for batch."""
+        clean_id = sanitize_filename(batch_id)
+        lock_file = self.output_base_dir / f".lock_{clean_id}"
+        lock = BatchLock(lock_file=lock_file, batch_id=batch_id)
+        lock.acquire()
+        return lock
+
+    def _acquire_batch_lock(self, lock_file: Path, batch_id: str, clean_id: str) -> BatchLock:
+        """Internal helper for acquiring lock."""
+        lock = BatchLock(lock_file=lock_file, batch_id=batch_id)
+        lock.acquire()
+        return lock
 
     def get_batch_dir(self, batch_id: str) -> Path:
         """Get directory for a specific batch."""
@@ -47,21 +178,33 @@ class LeadExporter:
         allow_overwrite: bool = False,
     ) -> Dict[str, str]:
         """Export all assets for a batch: CSVs, profiles, JSONL logs, and manifest."""
-        batch_dir = self.output_base_dir / sanitize_filename(batch_id)
-        manifest_file = batch_dir / "manifest.json"
+        clean_id = sanitize_filename(batch_id)
+        lock_file = self.output_base_dir / f".lock_{clean_id}"
+        batch_lock = self._acquire_batch_lock(lock_file, batch_id, clean_id)
+        lock_acquired = True
 
-        # Check existing batch directory and manifest immutability
-        if batch_dir.exists() and any(batch_dir.iterdir()):
-            if not allow_overwrite:
+        staging_dir = None
+        try:
+            batch_dir = self.output_base_dir / clean_id
+            manifest_file = batch_dir / "manifest.json"
+
+            # Check existing batch directory and manifest immutability under exclusive reservation
+            if batch_dir.exists() and any(batch_dir.iterdir()):
                 if manifest_file.exists():
                     try:
                         with open(manifest_file, "r", encoding="utf-8") as mf:
                             existing_m = json.load(mf)
                             st = existing_m.get("status")
-                            if st in ("completed", "finalized", "partial", "failed"):
+                            # Completed and finalized batches are strictly immutable regardless of allow_overwrite
+                            if st in ("completed", "finalized"):
                                 raise ValueError(
                                     f"Batch '{batch_id}' is finalized (status: {st}) and immutable. "
                                     "Cannot overwrite an existing batch."
+                                )
+                            if not allow_overwrite:
+                                raise ValueError(
+                                    f"Batch '{batch_id}' has existing state (status: {st}) and is immutable. "
+                                    "Cannot overwrite without explicit allow_overwrite=True."
                                 )
                     except json.JSONDecodeError:
                         raise ValueError(
@@ -74,33 +217,17 @@ class LeadExporter:
                             "Refusing to overwrite existing batch directory."
                         )
                 else:
-                    raise ValueError(
-                        f"Batch directory '{batch_id}' already exists and contains files. "
-                        "Cannot overwrite without explicit allow_overwrite=True."
-                    )
+                    if not allow_overwrite:
+                        raise ValueError(
+                            f"Batch directory '{batch_id}' already exists and contains files. "
+                            "Cannot overwrite without explicit allow_overwrite=True."
+                        )
 
-        # Isolated staging directory for atomic finalization
-        clean_id = sanitize_filename(batch_id)
-        lock_file = self.output_base_dir / f".lock_{clean_id}"
-        lock_acquired = False
-        try:
-            # Atomic reservation via O_CREAT | O_EXCL to prevent concurrent writers
-            fd = os.open(str(lock_file), os.O_CREAT | os.O_EXCL | os.O_WRONLY)
-            with os.fdopen(fd, "w") as f:
-                f.write(f"pid={os.getpid()}\ntimestamp={time.time()}\n")
-            lock_acquired = True
-        except FileExistsError:
-            raise RuntimeError(
-                f"Concurrent export lock detected: another process is currently publishing batch '{batch_id}'. "
-                f"Lock reservation: {lock_file}"
-            )
-
-        staging_dir = self.output_base_dir / f".staging_{clean_id}_{os.getpid()}_{int(time.time() * 1000)}"
-        staging_dir.mkdir(parents=True, exist_ok=True)
-        staging_profiles_dir = staging_dir / "profiles"
-        staging_profiles_dir.mkdir(parents=True, exist_ok=True)
-
-        try:
+            # Isolated staging directory for atomic finalization
+            staging_dir = self.output_base_dir / f".staging_{clean_id}_{os.getpid()}_{int(time.time() * 1000)}"
+            staging_dir.mkdir(parents=True, exist_ok=True)
+            staging_profiles_dir = staging_dir / "profiles"
+            staging_profiles_dir.mkdir(parents=True, exist_ok=True)
             exported_profiles: List[str] = []
             csv_rows: List[Dict[str, Any]] = []
             outreach_ready_rows: List[Dict[str, Any]] = []
@@ -340,77 +467,84 @@ class LeadExporter:
                     continue
                 elif item.name == "profiles":
                     for pf in item.iterdir():
-                        shutil.move(str(pf), str(target_profiles / pf.name))
+                        dest_pf = target_profiles / pf.name
+                        if dest_pf.exists():
+                            dest_pf.unlink()
+                        shutil.move(str(pf), str(dest_pf))
                 else:
-                    shutil.move(str(item), str(batch_dir / item.name))
+                    dest_item = batch_dir / item.name
+                    if dest_item.exists():
+                        dest_item.unlink()
+                    shutil.move(str(item), str(dest_item))
 
             if manifest_staged.exists():
-                shutil.move(str(manifest_staged), str(batch_dir / "manifest.json"))
+                dest_mf = batch_dir / "manifest.json"
+                if dest_mf.exists():
+                    dest_mf.unlink()
+                shutil.move(str(manifest_staged), str(dest_mf))
 
             shutil.rmtree(staging_dir, ignore_errors=True)
+
+            # 13. Atomic latest.json update (only after successful publishing while holding exclusive reservation)
+            final_manifest_path = batch_dir / "manifest.json"
+            final_summary_path = batch_dir / "summary.json"
+            latest_data = {
+                "batch_id": batch_id,
+                "manifest_path": str(final_manifest_path),
+                "summary": summary_data,
+                "updated_at": datetime.now(timezone.utc).isoformat(),
+            }
+            try:
+                targets = [self.output_base_dir / "latest.json"]
+                if self.output_base_dir.parent.exists() and self.output_base_dir.name == "batches":
+                    targets.append(self.output_base_dir.parent / "latest.json")
+
+                for t in targets:
+                    tmp_t = t.parent / f"{t.name}.{os.getpid()}.{time.time()}.tmp"
+                    with open(tmp_t, "w", encoding="utf-8") as f:
+                        json.dump(latest_data, f, indent=2)
+                    os.replace(str(tmp_t), str(t))
+            except Exception as l_err:
+                logger.debug(f"Notice writing latest.json: {l_err}")
+
+            # 14. Top-level mirroring only when operating in canonical data/output
+            try:
+                alt_root = Path("output")
+                if (
+                    alt_root.resolve() != batch_dir.resolve()
+                    and self.output_base_dir in (Path("data/output/batches"), Path("data/output"))
+                ):
+                    alt_root.mkdir(parents=True, exist_ok=True)
+                    shutil.copy2(batch_dir / "leads_prioritized.csv", alt_root / "leads_prioritized.csv")
+                    shutil.copy2(batch_dir / "manifest.json", alt_root / "manifest.json")
+                    if (batch_dir / "errors.csv").exists():
+                        shutil.copy2(batch_dir / "errors.csv", alt_root / "errors.csv")
+                    alt_profiles = alt_root / "profiles"
+                    alt_profiles.mkdir(parents=True, exist_ok=True)
+                    for p_file in target_profiles.glob("*.json"):
+                        shutil.copy2(p_file, alt_profiles / p_file.name)
+            except Exception as copy_err:
+                logger.debug(f"Notice on legacy output mirror: {copy_err}")
+
+            return {
+                "batch_dir": str(batch_dir),
+                "csv_path": str(batch_dir / "leads_prioritized.csv"),
+                "outreach_ready_path": str(batch_dir / "outreach_ready.csv"),
+                "needs_review_path": str(batch_dir / "needs_review.csv"),
+                "errors_path": str(batch_dir / "errors.csv"),
+                "manifest_path": str(final_manifest_path),
+                "summary_path": str(final_summary_path),
+                "profiles_dir": str(target_profiles),
+                "jsonl_path": str(batch_dir / "lead_profiles.jsonl"),
+            }
 
         except Exception as export_err:
-            shutil.rmtree(staging_dir, ignore_errors=True)
+            if staging_dir and staging_dir.exists():
+                shutil.rmtree(staging_dir, ignore_errors=True)
             raise export_err
         finally:
-            if lock_acquired and lock_file.exists():
-                try:
-                    lock_file.unlink()
-                except OSError:
-                    pass
-
-        # 13. Atomic latest.json update (only after successful publishing)
-        final_manifest_path = batch_dir / "manifest.json"
-        final_summary_path = batch_dir / "summary.json"
-        latest_data = {
-            "batch_id": batch_id,
-            "manifest_path": str(final_manifest_path),
-            "summary": summary_data,
-            "updated_at": datetime.now(timezone.utc).isoformat(),
-        }
-        try:
-            targets = [self.output_base_dir / "latest.json"]
-            if self.output_base_dir.parent.exists() and self.output_base_dir.name == "batches":
-                targets.append(self.output_base_dir.parent / "latest.json")
-
-            for t in targets:
-                tmp_t = t.parent / f"{t.name}.tmp"
-                with open(tmp_t, "w", encoding="utf-8") as f:
-                    json.dump(latest_data, f, indent=2)
-                tmp_t.replace(t)
-        except Exception as l_err:
-            logger.debug(f"Notice writing latest.json: {l_err}")
-
-        # 14. Top-level mirroring only when operating in canonical data/output
-        try:
-            alt_root = Path("output")
-            if (
-                alt_root.resolve() != batch_dir.resolve()
-                and self.output_base_dir in (Path("data/output/batches"), Path("data/output"))
-            ):
-                alt_root.mkdir(parents=True, exist_ok=True)
-                shutil.copy2(batch_dir / "leads_prioritized.csv", alt_root / "leads_prioritized.csv")
-                shutil.copy2(batch_dir / "manifest.json", alt_root / "manifest.json")
-                if (batch_dir / "errors.csv").exists():
-                    shutil.copy2(batch_dir / "errors.csv", alt_root / "errors.csv")
-                alt_profiles = alt_root / "profiles"
-                alt_profiles.mkdir(parents=True, exist_ok=True)
-                for p_file in target_profiles.glob("*.json"):
-                    shutil.copy2(p_file, alt_profiles / p_file.name)
-        except Exception as copy_err:
-            logger.debug(f"Notice on legacy output mirror: {copy_err}")
-
-        return {
-            "batch_dir": str(batch_dir),
-            "csv_path": str(batch_dir / "leads_prioritized.csv"),
-            "outreach_ready_path": str(batch_dir / "outreach_ready.csv"),
-            "needs_review_path": str(batch_dir / "needs_review.csv"),
-            "errors_path": str(batch_dir / "errors.csv"),
-            "manifest_path": str(final_manifest_path),
-            "summary_path": str(final_summary_path),
-            "profiles_dir": str(target_profiles),
-            "jsonl_path": str(batch_dir / "lead_profiles.jsonl"),
-        }
+            if lock_acquired and batch_lock:
+                batch_lock.release()
 
     def _write_csv(self, file_path: Path, rows: List[Dict[str, Any]]) -> None:
         """Write CSV atomically with UTF-8 encoding."""

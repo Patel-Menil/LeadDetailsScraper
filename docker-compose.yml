@@ -1,4 +1,17 @@
 services:
+  tor:
+    image: osminogin/tor-simple:0.4.9.14@sha256:ea335859425375b3294b15a5df61ca317ca4fdd143cf7a8d568bb2cd48217774
+    container_name: sealapi_tor_proxy
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:9050:9050"
+    healthcheck:
+      test: ["CMD-SHELL", "nc -z 127.0.0.1 9050 || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
   sealapi-lead-research:
     build:
       context: .
@@ -6,6 +19,9 @@ services:
     image: sealapi-lead-research:latest
     container_name: sealapi_lead_research_app
     restart: unless-stopped
+    depends_on:
+      tor:
+        condition: service_healthy
     ports:
       - "${HOST_IP:-127.0.0.1}:${FRONTEND_PORT:-3000}:3000"
       - "${HOST_IP:-127.0.0.1}:${BACKEND_PORT:-8000}:8000"
@@ -18,7 +34,8 @@ services:
       - SESSION_SECRET=${SESSION_SECRET:-}
       - CONCURRENCY=${CONCURRENCY:-2}
       - SCRAPER_TIMEOUT=${SCRAPER_TIMEOUT:-25}
-      - TOR_PROXY=${TOR_PROXY:-socks5://host.docker.internal:9050}
+      - TOR_PROXY=${TOR_PROXY:-socks5://tor:9050}
+      - TOR_ENABLED=${TOR_ENABLED:-true}
       - USER_AGENT=${USER_AGENT:-"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36 SealAPIResearchBot/1.0"}
     extra_hosts:
       - "host.docker.internal:host-gateway"

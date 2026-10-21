@@ -3,7 +3,7 @@
 import logging
 import re
 from datetime import datetime, timezone
-from typing import Any, Callable, Dict, List, Optional
+from typing import Any, Callable, Dict, List, Optional, Tuple
 
 from .icebreaker import build_icebreaker, extract_public_signals
 from .identity import build_targeted_queries, extract_domain, identity_match_score, is_abbreviated_name
@@ -248,6 +248,21 @@ def validate_claims_provenance(claims: List[LeadClaim], sources: List[SourceEvid
                     clm.confidence = min(clm.confidence, 0.50)
                     clm.review_reason = "Company claim lacks corroborated official domain evidence"
 
+            elif clm.field == "professional_email":
+                has_corroborated_email = any(
+                    s.source_type in ("official_company", "biography", "team_page", "public_professional_profile", "public_web_bio") and
+                    s.evidence_quality >= 0.70 and
+                    (
+                        (clm.value and clm.value.lower() in (s.relevant_excerpt or "").lower()) or
+                        any("email corroborated" in f.lower() or "email verification" in f.lower() for f in s.facts_supported)
+                    )
+                    for s in valid_sources
+                )
+                if not has_corroborated_email:
+                    clm.status = "input_provided"
+                    clm.confidence = min(clm.confidence, 0.50)
+                    clm.review_reason = "Email claim lacks eligible inspected source evidence containing the exact address"
+
     return claims
 
 
@@ -338,15 +353,16 @@ class LeadResearcher:
                 )
             )
         if lead.professional_email:
+            is_valid_syntax = "@" in lead.professional_email and "." in lead.professional_email.split("@")[-1] and not any(c in lead.professional_email for c in [" ", "\t", "\n"])
             claims.append(
                 LeadClaim(
                     claim_id="clm_email",
                     field="professional_email",
                     value=lead.professional_email,
-                    status="input_provided",
+                    status="input_provided" if is_valid_syntax else "unverified",
                     source_ids=[input_src_id],
-                    confidence=0.50,
-                    review_reason="Syntax valid from import; deliverability probe not performed",
+                    confidence=0.50 if is_valid_syntax else 0.10,
+                    review_reason="Syntax valid from import; deliverability probe not performed" if is_valid_syntax else "Malformed email address syntax from import",
                 )
             )
 
@@ -452,6 +468,15 @@ class LeadResearcher:
                                 clm.status = "unverified"
                                 clm.confidence = 0.40
                                 clm.review_reason = assoc_reason
+                        elif clm.field == "professional_email":
+                            if lead.professional_email and lead.professional_email.lower() in res.extracted_text.lower() and company_corroborated:
+                                clm.status = "verified"
+                                clm.confidence = 0.90
+                                clm.review_reason = "Professional email corroborated on official company domain"
+                                if company_src_id not in clm.source_ids:
+                                    clm.source_ids.append(company_src_id)
+                                if f"Email Corroborated: {lead.professional_email}" not in web_facts:
+                                    web_facts.append(f"Email Corroborated: {lead.professional_email}")
 
                     researched_snippets.append(res.extracted_text)
 
@@ -636,6 +661,17 @@ class LeadResearcher:
                                             clm.confidence = 0.85
                                             if fetched_cand_src_id not in clm.source_ids:
                                                 clm.source_ids.append(fetched_cand_src_id)
+
+                                if (c_name_ver or c_role_ver) and lead.professional_email and lead.professional_email.lower() in cand_res.extracted_text.lower():
+                                    if f"Email Corroborated: {lead.professional_email}" not in cand_facts:
+                                        cand_facts.append(f"Email Corroborated: {lead.professional_email}")
+                                    for clm in claims:
+                                        if clm.field == "professional_email":
+                                            clm.status = "verified"
+                                            clm.confidence = 0.90
+                                            clm.review_reason = "Professional email corroborated on candidate profile page"
+                                            if fetched_cand_src_id not in clm.source_ids:
+                                                clm.source_ids.append(fetched_cand_src_id)
                             else:
                                 limitations.append(f"Candidate source URL {cand_url} could not be retrieved: {cand_res.error}")
                         except Exception as c_err:
@@ -723,10 +759,20 @@ class LeadResearcher:
             "country": lead.country,
         }
 
+        email_claim = next((c for c in claims if c.field == "professional_email"), None)
+        email_status = "missing"
+        if lead.professional_email:
+            if email_claim and email_claim.status == "verified":
+                email_status = "corroborated_on_verified_source"
+            elif email_claim and email_claim.status == "unverified":
+                email_status = "syntax_invalid"
+            else:
+                email_status = "syntax_valid_unprobed"
+
         contact = {
             "email": lead.professional_email,
             "email_type": "work" if lead.professional_email and not any(f in lead.professional_email for f in ["@gmail.", "@yahoo.", "@hotmail."]) else "generic",
-            "email_verification_status": "syntax_valid_unprobed",
+            "email_verification_status": email_status,
             "linkedin_url": lead.linkedin_url,
             "contact_channel_status": "available" if (lead.professional_email or lead.linkedin_url) else "missing",
         }

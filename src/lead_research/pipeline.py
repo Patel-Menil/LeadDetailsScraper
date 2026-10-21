@@ -173,6 +173,31 @@ class ResearchPipeline:
             f"Batch started: {len(leads)} total leads ({len(results)} loaded from resume cache, {len(leads_to_process)} to research)"
         )
 
+        existing_manifest = batch_dir / "manifest.json"
+        if resume and not leads_to_process and existing_manifest.exists():
+            try:
+                with open(existing_manifest, "r", encoding="utf-8") as mf:
+                    ex_data = json.load(mf)
+                    if ex_data.get("status") in ("completed", "finalized"):
+                        log_event(f"🏁 Batch '{batch_id}' is already finalized. Returning existing completed batch.")
+                        progress.status = ex_data.get("status", "completed")
+                        progress.updated_at = datetime.now(timezone.utc).isoformat()
+                        if progress_callback:
+                            progress_callback(progress)
+                        return progress, {
+                            "batch_dir": str(batch_dir),
+                            "csv_path": str(batch_dir / "leads_prioritized.csv"),
+                            "outreach_ready_path": str(batch_dir / "outreach_ready.csv"),
+                            "needs_review_path": str(batch_dir / "needs_review.csv"),
+                            "errors_path": str(batch_dir / "errors.csv"),
+                            "manifest_path": str(batch_dir / "manifest.json"),
+                            "summary_path": str(batch_dir / "summary.json"),
+                            "profiles_dir": str(batch_dir / "profiles"),
+                            "jsonl_path": str(batch_dir / "lead_profiles.jsonl"),
+                        }
+            except Exception as ex_err:
+                logger.debug(f"Could not load finalized manifest: {ex_err}")
+
         def process_single_lead(lead: LeadInput) -> Tuple[LeadInput, LeadProfile]:
             log_event(f"🎯 Researching: {lead.name} ({lead.company or 'Unknown Co'})")
             profile = self.researcher.research_lead(

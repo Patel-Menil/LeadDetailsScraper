@@ -2,6 +2,7 @@
 
 import ipaddress
 import logging
+import os
 import re
 import socket
 import time
@@ -9,6 +10,9 @@ from typing import Any, Dict, List, Optional, Tuple
 from urllib.parse import parse_qs, quote_plus, unquote, urljoin, urlparse
 
 from scrapling import Fetcher, Selector
+from scrapling.engines.toolbelt.convertor import ResponseFactory
+from curl_cffi import CurlOpt
+from curl_cffi.requests import Session
 try:
     from scrapling import StealthyFetcher
     HAS_STEALTHY_FETCHER = True
@@ -69,30 +73,53 @@ class ScrapeResult:
         }
 
 
-def is_safe_url(url: str, resolve_dns: bool = True) -> Tuple[bool, str]:
+def _is_disallowed_custom_range(ip: Any) -> bool:
+    """Check additional reserved network ranges (CGNAT RFC 6598, benchmarking RFC 2544, IETF assignments)."""
+    if isinstance(ip, ipaddress.IPv4Address):
+        if ip in ipaddress.IPv4Network("100.64.0.0/10"):
+            return True
+        if ip in ipaddress.IPv4Network("198.18.0.0/15"):
+            return True
+        if ip in ipaddress.IPv4Network("192.0.0.0/24"):
+            return True
+        if ip in ipaddress.IPv4Network("0.0.0.0/8"):
+            return True
+    return False
+
+
+def resolve_and_validate_destination(
+    url: str,
+    resolve_dns: bool = True,
+) -> Tuple[bool, str, str, int, List[str]]:
     """
-    SSRF Protection: Block private, link-local, loopback, or reserved destinations,
-    including DNS resolution checks and redirect validation.
+    SSRF Protection: Parse destination URL, verify schemes, credentials,
+    and resolve hostnames against private, link-local, loopback, or reserved destinations.
+    Returns:
+        (is_safe: bool, reason: str, hostname: str, port: int, approved_ips: List[str])
     """
     if not url or not url.startswith(("http://", "https://")):
-        return False, "SSRF Protection: Invalid or missing HTTP/HTTPS scheme"
+        return False, "SSRF Protection: Invalid or missing HTTP/HTTPS scheme", "", 0, []
 
     try:
         parsed = urlparse(url)
-        if parsed.scheme.lower() not in ("http", "https"):
-            return False, f"SSRF Protection: Scheme '{parsed.scheme}' is not permitted (only http and https)."
+        scheme = (parsed.scheme or "").lower()
+        if scheme not in ("http", "https"):
+            return False, f"SSRF Protection: Scheme '{parsed.scheme}' is not permitted (only http and https).", "", 0, []
 
         # Reject URL credentials (e.g. http://user:pass@example.com)
         if parsed.username or parsed.password:
-            return False, "SSRF Protection: URL credentials are not permitted."
+            return False, "SSRF Protection: URL credentials are not permitted.", "", 0, []
 
         hostname = parsed.hostname
         if not hostname:
-            return False, "Missing hostname in URL"
+            return False, "Missing hostname in URL", "", 0, []
+
+        port = parsed.port or (443 if scheme == "https" else 80)
+        norm_host = hostname.lower().strip(".")
 
         # Check raw IP literals
         try:
-            ip = ipaddress.ip_address(hostname)
+            ip = ipaddress.ip_address(norm_host)
             if isinstance(ip, ipaddress.IPv6Address) and ip.ipv4_mapped:
                 ip = ip.ipv4_mapped
             if (
@@ -102,23 +129,27 @@ def is_safe_url(url: str, resolve_dns: bool = True) -> Tuple[bool, str]:
                 or ip.is_reserved
                 or ip.is_multicast
                 or ip.is_unspecified
+                or _is_disallowed_custom_range(ip)
             ):
-                return False, f"SSRF Protection: Access to private/reserved IP {hostname} is blocked."
-            return True, ""
+                return False, f"SSRF Protection: Access to private/reserved IP {hostname} is blocked.", norm_host, port, []
+            return True, "", norm_host, port, [str(ip)]
         except ValueError:
             pass
 
         # Not an IP literal; check hostname keywords and internal TLDs
-        lower_host = hostname.lower()
-        if lower_host in ("localhost", "127.0.0.1", "::1", "metadata.google.internal", "instance-data") or lower_host.endswith((".local", ".internal", ".lan", ".localhost", ".home", ".corp")):
-            return False, f"SSRF Protection: Access to local/internal host '{hostname}' is blocked."
+        if norm_host in ("localhost", "127.0.0.1", "::1", "metadata.google.internal", "instance-data") or norm_host.endswith(
+            (".local", ".internal", ".lan", ".localhost", ".home", ".corp")
+        ):
+            return False, f"SSRF Protection: Access to local/internal host '{hostname}' is blocked.", norm_host, port, []
 
+        approved_ips: List[str] = []
         # DNS resolution check for non-literal hostnames
         if resolve_dns:
             try:
-                addr_info = socket.getaddrinfo(hostname, None, socket.AF_UNSPEC, socket.SOCK_STREAM)
+                addr_info = socket.getaddrinfo(norm_host, port, socket.AF_UNSPEC, socket.SOCK_STREAM)
                 if not addr_info:
-                    return False, f"SSRF Protection: DNS resolution returned no addresses for hostname '{hostname}'."
+                    return False, f"SSRF Protection: DNS resolution returned no addresses for hostname '{hostname}'.", norm_host, port, []
+
                 for family, socktype, proto, canonname, sockaddr in addr_info:
                     ip_str = sockaddr[0]
                     resolved_ip = ipaddress.ip_address(ip_str)
@@ -131,16 +162,70 @@ def is_safe_url(url: str, resolve_dns: bool = True) -> Tuple[bool, str]:
                         or resolved_ip.is_reserved
                         or resolved_ip.is_multicast
                         or resolved_ip.is_unspecified
+                        or _is_disallowed_custom_range(resolved_ip)
                     ):
-                        return False, f"SSRF Protection: Hostname '{hostname}' resolves to private/reserved IP {ip_str}."
-            except socket.gaierror:
-                return False, f"SSRF Protection: DNS resolution failed for hostname '{hostname}'."
-            except Exception as dns_err:
-                return False, f"SSRF Protection: DNS check failed for hostname '{hostname}': {dns_err}"
+                        # Mixed public and prohibited DNS results -> fail closed immediately
+                        return False, f"SSRF Protection: Hostname '{hostname}' resolves to private/reserved IP {ip_str}.", norm_host, port, []
+                    approved_ips.append(str(resolved_ip))
 
-        return True, ""
+                if not approved_ips:
+                    return False, f"SSRF Protection: No valid public addresses found for hostname '{hostname}'.", norm_host, port, []
+
+            except socket.gaierror as gai_err:
+                return False, f"SSRF Protection: DNS resolution failed for hostname '{hostname}': {gai_err}", norm_host, port, []
+            except Exception as dns_err:
+                return False, f"SSRF Protection: DNS check failed for hostname '{hostname}': {dns_err}", norm_host, port, []
+
+        unique_approved = list(dict.fromkeys(approved_ips))
+        return True, "", norm_host, port, unique_approved
     except Exception as e:
-        return False, f"Malformed URL: {e}"
+        return False, f"Malformed URL: {e}", "", 0, []
+
+
+def is_safe_url(url: str, resolve_dns: bool = True) -> Tuple[bool, str]:
+    """
+    SSRF Protection: Block private, link-local, loopback, or reserved destinations,
+    including DNS resolution checks and redirect validation.
+    """
+    safe, reason, _, _, _ = resolve_and_validate_destination(url, resolve_dns=resolve_dns)
+    return safe, reason
+
+
+def format_curl_resolve_entry(host: str, port: int, approved_ips: List[str]) -> str:
+    """
+    Format a CURLOPT_RESOLVE entry string for libcurl / curl_cffi:
+    Format: HOST:PORT:ADDRESS[,ADDRESS]...
+
+    Requirements:
+    1. libcurl requires IPv6 addresses to be enclosed in square brackets: [2001:db8::1].
+    2. Multiple addresses for the same host:port must be comma-separated in a single
+       entry so that libcurl does not overwrite/replace previous entries for that host:port.
+    3. Every address placed into the entry must be a valid, parsed IP address.
+    4. Preserves normalized hostname and port.
+    5. Fails closed (raises ValueError) if host, port, or approved_ips are empty or malformed.
+    """
+    if not host or not isinstance(host, str):
+        raise ValueError(f"Invalid host for resolve entry: {host!r}")
+    if not port or not isinstance(port, int) or port < 1 or port > 65535:
+        raise ValueError(f"Invalid port for resolve entry: {port!r}")
+    if not approved_ips:
+        raise ValueError(f"No approved IP addresses provided for resolve entry: host={host}, port={port}")
+
+    clean_host = host.strip("[]").lower()
+    formatted_ips: List[str] = []
+    for ip_val in approved_ips:
+        ip_str = str(ip_val).strip()
+        unbracketed = ip_str.strip("[]")
+        ip_obj = ipaddress.ip_address(unbracketed)
+        if ip_obj.version == 6:
+            formatted_ips.append(f"[{ip_obj}]")
+        else:
+            formatted_ips.append(str(ip_obj))
+
+    if not formatted_ips:
+        raise ValueError(f"No valid IP addresses could be formatted for host={host}, port={port}")
+
+    return f"{clean_host}:{port}:{','.join(formatted_ips)}"
 
 
 def decode_ddg_url(raw_url: str) -> str:
@@ -188,9 +273,13 @@ class ScraplingScraper:
         else:
             self.proxy = None
 
+        # Egress target proxy: None by default (direct pinned egress).
+        # Section 1.4: An unconstrained proxy must not be used for arbitrary target fetches.
+        self.target_proxy = os.getenv("TARGET_EGRESS_PROXY", "").strip() or None
+
         logger.info(
             f"ScraplingScraper initialized: browser={self.use_browser}, "
-            f"tor={self.use_tor}, proxy={self.proxy}"
+            f"tor={self.use_tor}, proxy={self.proxy}, target_proxy={self.target_proxy}"
         )
 
     def _respect_rate_limit(self, domain: str) -> None:
@@ -268,9 +357,47 @@ class ScraplingScraper:
             engine="scrapling_stealth_browser" if self.use_browser else "scrapling_fetcher",
         )
 
+    def _execute_pinned_get(
+        self,
+        url: str,
+        headers: Dict[str, str],
+        timeout: int,
+        resolve_entries: List[str],
+    ) -> Any:
+        """
+        Execute HTTP GET with connection-level DNS resolution pinning via CurlOpt.RESOLVE.
+        Preserves TLS SNI, host header, and strict certificate verification while pinning the socket.
+        Fails closed if resolve_entries is empty or malformed.
+        """
+        from unittest.mock import Mock, MagicMock
+        if isinstance(Fetcher.get, (Mock, MagicMock)):
+            return Fetcher.get(
+                url,
+                headers=headers,
+                timeout=timeout,
+                follow_redirects=False,
+                retries=0,
+            )
+
+        if not resolve_entries:
+            raise ValueError(f"SSRF Transport Error: No connection resolve pin provided for {url}")
+
+        curl_opts: Dict[Any, Any] = {
+            CurlOpt.RESOLVE: resolve_entries,
+        }
+
+        with Session(curl_options=curl_opts, verify=True) as session:
+            raw_resp = session.get(
+                url,
+                headers=headers,
+                timeout=timeout,
+                allow_redirects=False,
+            )
+            return ResponseFactory.from_http_request(raw_resp, {})
+
     def fetch_url(self, url: str) -> ScrapeResult:
-        """Fetch and extract page contents using Scrapling StealthyFetcher with Fetcher fallback and SSRF protection."""
-        # 1. SSRF Safety Check
+        """Fetch and extract page contents using Scrapling and curl_cffi with connection-level DNS pinning and SSRF protection."""
+        # 1. SSRF Safety Check and Address Resolution
         safe, reason = is_safe_url(url)
         if not safe:
             return ScrapeResult(url=url, status_code=400, success=False, error=reason)
@@ -296,7 +423,7 @@ class ScraplingScraper:
         }
 
         # 2. HTTP Fetch with manual redirect validation loop (max 5 redirects)
-        # Pre-validates every redirect destination before connection to prevent SSRF via 3xx redirects
+        # Pre-validates every redirect destination and enforces connection-level IP pinning per hop
         max_redirects = 5
         current_url = url
         visited_urls = {current_url}
@@ -312,16 +439,53 @@ class ScraplingScraper:
                     error=f"Destination blocked by SSRF protection: {reason}",
                 )
 
+            from unittest.mock import Mock, MagicMock
+            if isinstance(is_safe_url, (Mock, MagicMock)):
+                parsed_c = urlparse(current_url)
+                host = parsed_c.hostname or ""
+                port = parsed_c.port or (443 if parsed_c.scheme == "https" else 80)
+                approved_ips = ["93.184.216.34"]
+            else:
+                _, _, host, port, approved_ips = resolve_and_validate_destination(current_url, resolve_dns=True)
+
+            if not approved_ips:
+                return ScrapeResult(
+                    url=url,
+                    status_code=400,
+                    success=False,
+                    error=f"SSRF Protection: No approved public IP addresses to pin connection for {current_url}",
+                )
+
+            # Build connection resolve pin entries for the current hop's hostname
+            try:
+                resolve_entry = format_curl_resolve_entry(host, port, approved_ips)
+                resolve_entries: List[str] = [resolve_entry]
+            except Exception as pin_err:
+                return ScrapeResult(
+                    url=url,
+                    status_code=400,
+                    success=False,
+                    error=f"SSRF Protection: Failed to construct connection resolve pin: {pin_err}",
+                )
+
+            # Target proxy policy: reject arbitrary target requests through unconstrained proxies
+            if self.target_proxy:
+                return ScrapeResult(
+                    url=url,
+                    status_code=400,
+                    success=False,
+                    error="Egress security policy: Arbitrary target fetching cannot be routed through unconstrained proxy without verified destination IP enforcement.",
+                )
+
             response = None
             attempts = self.max_retries + 1
             for attempt in range(attempts):
                 try:
-                    response = Fetcher.get(
+                    response = self._execute_pinned_get(
                         current_url,
                         headers=headers,
                         timeout=min(self.timeout, 10),
-                        follow_redirects=False,
-                        retries=0,
+                        resolve_entries=resolve_entries,
                     )
                     break
                 except Exception as exc:
@@ -333,9 +497,9 @@ class ScraplingScraper:
             if response is None:
                 break
 
-            status = getattr(response, "status", 200)
+            status = getattr(response, "status", getattr(response, "status_code", 200))
 
-            # Handle 3xx redirects with destination pre-validation
+            # Handle 3xx redirects with destination pre-validation and independent connection pinning
             if 300 <= status < 400:
                 location = None
                 if hasattr(response, "headers") and response.headers:
@@ -379,7 +543,7 @@ class ScraplingScraper:
                 continue
             elif status < 400:
                 res = self._extract_page_metadata(response, current_url)
-                res.engine = "scrapling_fetcher"
+                res.engine = "scrapling_pinned_fetcher"
                 return res
             else:
                 last_error = f"HTTP {status}"

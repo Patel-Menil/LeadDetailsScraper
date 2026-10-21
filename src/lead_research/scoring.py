@@ -203,22 +203,31 @@ class LeadScorer:
 
         # Strict identity verification check:
         # A lead must not pass the identity-verification gate unless the person's name claim has
-        # status 'verified' and is supported by eligible, nonempty evidence source IDs.
+        # status 'verified' and is supported by eligible, nonempty evidence source IDs that actually exist in sources.
         # Claims with statuses such as 'input_provided', 'partially_verified', 'needs_review', or 'unverified'
         # must not satisfy the verified-identity requirement. A high identity_score must not override missing evidence.
         has_verified_identity = False
+        valid_sources = {
+            s.source_id: s for s in (sources or [])
+            if s.source_id and s.source_type != "user_input" and s.evidence_quality > 0.0
+        }
+
+        def _has_verified_claim_with_valid_source(claim: Optional[LeadClaim]) -> bool:
+            if not claim or claim.status != "verified" or not claim.source_ids:
+                return False
+            # Referenced source IDs must actually exist in the observed source evidence
+            return any(sid in valid_sources for sid in claim.source_ids)
+
         if claims is not None:
             name_claim = next((c for c in claims if c.field == "name"), None)
-            if name_claim and name_claim.status == "verified" and bool(name_claim.source_ids):
+            if _has_verified_claim_with_valid_source(name_claim):
                 has_verified_identity = True
             else:
                 blockers.append("identity_not_verified")
         else:
-            # Backward-compatible fallback when claims is None (e.g. standalone calculate_priority)
-            if identity_score >= 0.60 and has_name:
-                has_verified_identity = True
-            else:
-                blockers.append("identity_not_verified")
+            # No claims provided (e.g. standalone calculate_priority): identity cannot be verified
+            # A high identity_score and supplied name alone must never establish verified identity
+            blockers.append("identity_not_verified")
 
         if identity_score < 0.60 and "identity_not_verified" not in blockers:
             blockers.append("identity_not_verified")
@@ -227,20 +236,23 @@ class LeadScorer:
         if not has_verified_identity:
             verification_conf = min(verification_conf, 0.50)
 
-        # has_verified_role must be derived strictly from verified job_title claim
+        # has_verified_role must be derived strictly from verified job_title claim with existing source evidence
         # A missing claims list must never trigger a weaker verification fallback
         has_verified_role = False
-        if claims:
+        if claims is not None:
             for clm in claims:
-                if clm.field == "job_title" and clm.status == "verified" and clm.source_ids:
+                if clm.field == "job_title" and _has_verified_claim_with_valid_source(clm):
                     has_verified_role = True
                     break
 
         # has_company_ctx requires a verified company claim or corroborated official source
         # Mere presence of company name and URL is not verified company context
         has_company_ctx = False
-        if claims:
-            has_company_ctx = any(clm.field == "company" and clm.status == "verified" and bool(clm.source_ids) for clm in claims)
+        if claims is not None:
+            has_company_ctx = any(
+                clm.field == "company" and _has_verified_claim_with_valid_source(clm)
+                for clm in claims
+            )
         else:
             has_company_ctx = any(
                 s.source_type == "official_company" and any("company identity" in f.lower() for f in s.facts_supported)

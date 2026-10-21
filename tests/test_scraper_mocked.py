@@ -89,3 +89,77 @@ def test_browser_fallback_disabled_without_proxy_for_arbitrary_urls():
         assert res.success is False
         assert res.status_code in (500, 504)
 
+
+def test_ssrf_rejects_non_http_schemes():
+    from src.lead_research.scraper import is_safe_url
+    schemes = [
+        "file:///etc/passwd",
+        "file:///c:/boot.ini",
+        "gopher://127.0.0.1:6379/_INFO",
+        "ftp://ftp.example.com/file",
+        "javascript:alert(1)",
+        "data:text/html,<h1>test</h1>",
+    ]
+    for target in schemes:
+        safe, reason = is_safe_url(target)
+        assert not safe, f"Target {target} should be rejected"
+        assert "scheme" in reason.lower() or "invalid" in reason.lower()
+
+
+def test_ssrf_redirect_loop_detected():
+    scraper = ScraplingScraper()
+
+    class Mock302Response:
+        status = 302
+        headers = {"Location": "https://example.com/page-a"}
+
+    mock_resp = Mock302Response()
+
+    with patch("src.lead_research.scraper.is_safe_url", return_value=(True, "")):
+        with patch("src.lead_research.scraper.Fetcher.get", return_value=mock_resp):
+            res = scraper.fetch_url("https://example.com/page-a")
+            assert res.success is False
+            assert res.status_code == 400
+            assert "redirect loop detected" in res.error.lower()
+
+
+def test_ssrf_excessive_redirects_rejected():
+    scraper = ScraplingScraper()
+
+    # Step generator returning new valid URLs for 6 hops
+    step_count = [0]
+    def mock_get(url, **kwargs):
+        step_count[0] += 1
+        class StepResp:
+            status = 302
+            headers = {"Location": f"https://example.com/hop-{step_count[0]}"}
+        return StepResp()
+
+    with patch("src.lead_research.scraper.is_safe_url", return_value=(True, "")):
+        with patch("src.lead_research.scraper.Fetcher.get", side_effect=mock_get):
+            res = scraper.fetch_url("https://example.com/hop-0")
+            assert res.success is False
+            assert res.status_code == 400
+            assert "too many redirects" in res.error.lower()
+
+
+def test_ssrf_unsafe_redirect_destination_blocked_before_fetch():
+    scraper = ScraplingScraper()
+
+    class RedirectToInternalResp:
+        status = 301
+        headers = {"Location": "http://169.254.169.254/latest/meta-data/"}
+
+    with patch("src.lead_research.scraper.is_safe_url") as mock_safe:
+        # First request safe, redirect destination unsafe
+        def safe_side_effect(url, **kwargs):
+            if "169.254" in url:
+                return False, "SSRF Protection: Access to private/reserved IP 169.254.169.254 is blocked."
+            return True, ""
+
+        mock_safe.side_effect = safe_side_effect
+        with patch("src.lead_research.scraper.Fetcher.get", return_value=RedirectToInternalResp()):
+            res = scraper.fetch_url("https://innocent-looking-site.com/redirect")
+            assert res.success is False
+            assert res.status_code == 400
+            assert "redirect destination blocked" in res.error.lower()

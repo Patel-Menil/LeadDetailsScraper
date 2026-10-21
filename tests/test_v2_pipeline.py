@@ -135,7 +135,8 @@ def test_decoupled_scoring_evaluation():
         ),
     ]
 
-    # Without verified claims, missing claims list must NOT trigger weak fallback
+    # Without verified claims, missing claims list must NOT trigger weak fallback.
+    # After identity gate fix: claims=None means identity is unverified, blocking P0.
     p_info_no_claims, breakdown_no_claims, readiness_no_claims = scorer.evaluate_lead(
         lead=lead,
         prof_context=prof_ctx,
@@ -144,8 +145,9 @@ def test_decoupled_scoring_evaluation():
         researched_text="Marcus Vance leads infrastructure engineering at CloudMatrix.",
     )
     assert breakdown_no_claims.lead_fit_score >= 70.0
-    assert p_info_no_claims.numeric_priority == 0
+    assert p_info_no_claims.numeric_priority >= 1  # P0 blocked: no verified claims
     assert readiness_no_claims.status == "needs_research"
+    assert "identity_not_verified" in readiness_no_claims.blockers
     assert "current_role_not_verified" in readiness_no_claims.blockers
     assert "company_not_verified" in readiness_no_claims.blockers
 
@@ -631,7 +633,15 @@ def test_unprobed_email_sets_ready_with_caveat():
     p_info, breakdown, readiness = scorer.evaluate_lead(
         lead=lead,
         prof_context=ProfessionalContext(),
-        sources=[],
+        sources=[
+            SourceEvidence(
+                source_id="src_01",
+                source_url="https://shieldnet.com",
+                source_type="official_company",
+                evidence_quality=0.90,
+                facts_supported=["Casey Morgan corroborated on official domain", "Company identity corroborated"],
+            )
+        ],
         identity_score=0.90,
         claims=claims,
         icebreaker=icebreaker,
@@ -1024,36 +1034,32 @@ def test_ssrf_dns_resolution_failure_fails_closed():
 def test_exporter_reservation_lock_blocks_concurrent_publication(tmp_path: Path):
     exporter = LeadExporter(output_base_dir=tmp_path / "batches")
     batch_id = "batch_concurrent_test_lock"
-    clean_id = "batch_concurrent_test_lock"
-    lock_file = tmp_path / "batches" / f".lock_{clean_id}"
 
-    # Simulate an active concurrent writer by holding the lock file
-    (tmp_path / "batches").mkdir(parents=True, exist_ok=True)
-    lock_file.write_text("pid=99999\n", encoding="utf-8")
+    # Simulate an active concurrent writer by holding the actual reservation lock
+    held_lock = exporter.acquire_batch_lock(batch_id)
+    try:
+        lead = LeadInput(lead_id="l1", name="Test Lead", company="Acme")
+        profile = LeadProfile(
+            schema_version="2.0.0",
+            lead_id="l1",
+            identity={"name": "Test Lead"},
+            company={"name": "Acme"},
+            contact={},
+            priority=PriorityInfo(numeric_priority=1, reason="Test", score=50.0, confidence=0.5, supporting_evidence=[]),
+            contact_readiness=ContactReadiness(),
+            scoring_breakdown=ScoringBreakdown(lead_fit_score=50.0, verification_confidence=0.5, readiness_status="needs_research", explanations=[]),
+            research_metadata=ResearchMetadata(research_status="completed", last_research_timestamp="2026-10-21T00:00:00Z", sources_examined=1, errors_and_limitations=[]),
+            professional_context=ProfessionalContext(),
+            icebreaker=Icebreaker(),
+            cold_email_context=ColdEmailContext(suggested_call_to_action=""),
+            claims=[],
+            sources=[],
+        )
 
-    lead = LeadInput(lead_id="l1", name="Test Lead", company="Acme")
-    profile = LeadProfile(
-        schema_version="2.0.0",
-        lead_id="l1",
-        identity={"name": "Test Lead"},
-        company={"name": "Acme"},
-        contact={},
-        priority=PriorityInfo(numeric_priority=1, reason="Test", score=50.0, confidence=0.5, supporting_evidence=[]),
-        contact_readiness=ContactReadiness(),
-        scoring_breakdown=ScoringBreakdown(lead_fit_score=50.0, verification_confidence=0.5, readiness_status="needs_research", explanations=[]),
-        research_metadata=ResearchMetadata(research_status="completed", last_research_timestamp="2026-10-21T00:00:00Z", sources_examined=1, errors_and_limitations=[]),
-        professional_context=ProfessionalContext(),
-        icebreaker=Icebreaker(),
-        cold_email_context=ColdEmailContext(suggested_call_to_action=""),
-        claims=[],
-        sources=[],
-    )
-
-    with pytest.raises(RuntimeError, match="Concurrent export lock detected"):
-        exporter.export_batch(batch_id=batch_id, leads_with_profiles=[(lead, profile)])
-
-    # Clean up lock file
-    lock_file.unlink()
+        with pytest.raises(RuntimeError, match="Concurrent export lock detected"):
+            exporter.export_batch(batch_id=batch_id, leads_with_profiles=[(lead, profile)])
+    finally:
+        held_lock.release()
 
 
 def test_icebreaker_signals_reject_client_marketing_and_outdated_announcements():
@@ -1092,4 +1098,318 @@ def test_icebreaker_signals_reject_client_marketing_and_outdated_announcements()
     )
     signals_gen = extract_public_signals(lead, fetched_sources=[genuine_source], candidate_bio_snippets=[])
     assert any(s.signal_type == "product_launch" for s in signals_gen)
+
+
+def test_claims_none_identity_gate_blocks_priority_0_and_caps_confidence():
+    """Regression test for fix.md #2: claims=None must never allow verified identity.
+
+    A high identity score and supplied name must never establish verified identity
+    by themselves. When claims is None, the identity gate must block P0, cap
+    verification confidence at 0.50, and set readiness to needs_research or not_ready.
+    """
+    scorer = LeadScorer()
+    lead = LeadInput(
+        lead_id="test_claims_none_gate",
+        name="Diana Prince",
+        first_name="Diana",
+        last_name="Prince",
+        job_title="Chief Information Security Officer",
+        company="Themyscira Security",
+        industry="Cybersecurity",
+        professional_email="diana@themyscira.io",
+        company_website="https://themyscira.io",
+        raw_data={"Keywords": "ai, security, api, zero trust, compliance, cloud"},
+    )
+    prof_ctx = ProfessionalContext()
+    sources = [
+        SourceEvidence(
+            source_id="src_off_1",
+            source_url="https://themyscira.io",
+            source_type="official_company",
+            evidence_quality=0.95,
+            facts_supported=["Company identity corroborated on official domain"],
+        ),
+    ]
+
+    # claims=None: identity gate MUST block P0
+    p_info, breakdown, readiness = scorer.evaluate_lead(
+        lead=lead,
+        prof_context=prof_ctx,
+        sources=sources,
+        identity_score=0.99,  # High identity score must not override
+        claims=None,
+    )
+    assert "identity_not_verified" in readiness.blockers, "claims=None must always add identity_not_verified blocker"
+    assert readiness.has_name is False, "has_name must be False when identity is unverified"
+    assert readiness.status != "ready", "Readiness must not be 'ready' without verified identity"
+    assert p_info.numeric_priority >= 1, "P0 must be blocked without verified claims"
+    assert breakdown.verification_confidence <= 0.50, "Confidence must be capped at 0.50 for unverified identity"
+
+
+def test_partially_verified_name_does_not_satisfy_identity_gate():
+    """Regression test for fix.md #2: partially_verified name claim must not pass identity gate.
+
+    Only claims with status='verified' and nonempty source_ids satisfy the gate.
+    """
+    scorer = LeadScorer()
+    lead = LeadInput(
+        lead_id="test_partial_name",
+        name="Bruce Wayne",
+        first_name="Bruce",
+        last_name="Wayne",
+        job_title="Head of AI",
+        company="Wayne Enterprises",
+        industry="Information Technology",
+        professional_email="bruce@wayne.com",
+        raw_data={"Keywords": "ai, machine learning, cloud, api, security"},
+    )
+    prof_ctx = ProfessionalContext()
+    sources = [
+        SourceEvidence(
+            source_id="src_web_1",
+            source_url="https://wayne.com",
+            source_type="official_company",
+            evidence_quality=0.90,
+            facts_supported=["Company identity corroborated"],
+        ),
+    ]
+    claims_partial = [
+        LeadClaim(claim_id="c1", field="name", value="Bruce Wayne", status="partially_verified", source_ids=["src_web_1"]),
+        LeadClaim(claim_id="c2", field="job_title", value="Head of AI", status="verified", source_ids=["src_web_1"]),
+        LeadClaim(claim_id="c3", field="company", value="Wayne Enterprises", status="verified", source_ids=["src_web_1"]),
+        LeadClaim(claim_id="c4", field="professional_email", value="bruce@wayne.com", status="input_provided", source_ids=["src_web_1"]),
+    ]
+
+    p_info, breakdown, readiness = scorer.evaluate_lead(
+        lead=lead,
+        prof_context=prof_ctx,
+        sources=sources,
+        identity_score=0.95,
+        claims=claims_partial,
+    )
+    assert "identity_not_verified" in readiness.blockers
+    assert readiness.has_name is False
+    assert p_info.numeric_priority >= 1, "partially_verified name must block P0"
+    assert breakdown.verification_confidence <= 0.50
+
+
+def test_correctly_evidenced_verified_identity_grants_priority_0():
+    """Regression test for fix.md #2: correctly evidenced verified identity SHOULD allow P0.
+
+    When name, role, and company claims are all verified with eligible source_ids,
+    the identity gate must pass and allow P0 for a high-fit lead.
+    """
+    scorer = LeadScorer()
+    lead = LeadInput(
+        lead_id="test_verified_identity",
+        name="Lara Croft",
+        first_name="Lara",
+        last_name="Croft",
+        job_title="VP of Infrastructure",
+        company="Croft Analytics",
+        industry="Information Technology",
+        professional_email="lara@croftanalytics.com",
+        company_website="https://croftanalytics.com",
+        raw_data={"Keywords": "ai, machine learning, cloud, api, security, zero trust"},
+    )
+    prof_ctx = ProfessionalContext()
+    sources = [
+        SourceEvidence(
+            source_id="src_team_1",
+            source_url="https://croftanalytics.com/team",
+            source_type="official_company",
+            evidence_quality=0.95,
+            facts_supported=["Lara Croft is VP of Infrastructure at Croft Analytics", "Company identity corroborated"],
+        ),
+    ]
+    claims_verified = [
+        LeadClaim(claim_id="c1", field="name", value="Lara Croft", status="verified", source_ids=["src_team_1"]),
+        LeadClaim(claim_id="c2", field="job_title", value="VP of Infrastructure", status="verified", source_ids=["src_team_1"]),
+        LeadClaim(claim_id="c3", field="company", value="Croft Analytics", status="verified", source_ids=["src_team_1"]),
+        LeadClaim(claim_id="c4", field="professional_email", value="lara@croftanalytics.com", status="input_provided", source_ids=["src_team_1"]),
+    ]
+
+    p_info, breakdown, readiness = scorer.evaluate_lead(
+        lead=lead,
+        prof_context=prof_ctx,
+        sources=sources,
+        identity_score=0.90,
+        claims=claims_verified,
+    )
+    assert "identity_not_verified" not in readiness.blockers
+    assert readiness.has_name is True
+    assert readiness.has_verified_role is True
+    assert readiness.has_company_context is True
+    assert p_info.numeric_priority == 0, "Fully verified identity with high-fit lead must achieve P0"
+    assert breakdown.verification_confidence > 0.50
+    assert readiness.status in ("ready", "ready_with_caveat")
+
+
+def test_calculate_priority_backward_compat_blocks_p0_without_claims():
+    """Regression test for fix.md #2: calculate_priority (backward-compat entry) must block P0.
+
+    calculate_priority passes claims=None internally. After the identity gate fix,
+    it must not grant P0 even for the highest-fit leads.
+    """
+    scorer = LeadScorer()
+    lead = LeadInput(
+        lead_id="test_calc_priority_bc",
+        name="Tony Stark",
+        first_name="Tony",
+        last_name="Stark",
+        job_title="Chief Technology Officer",
+        company="Stark Industries",
+        industry="Artificial Intelligence",
+        professional_email="tony@starkindustries.com",
+        raw_data={"Keywords": "ai, machine learning, api, zero trust, encryption, compliance"},
+    )
+    prof_ctx = ProfessionalContext()
+    sources = [
+        SourceEvidence(
+            source_id="src_1",
+            source_url="https://starkindustries.com",
+            source_type="official_company",
+            evidence_quality=0.95,
+            facts_supported=["Stark Industries AI platform"],
+        ),
+    ]
+
+    p_info = scorer.calculate_priority(lead, prof_ctx, sources, researched_text="ai security api")
+    # Score is high but P0 blocked because calculate_priority passes claims=None
+    assert p_info.score >= 70.0
+    assert p_info.numeric_priority >= 1, "calculate_priority (claims=None) must block P0"
+
+
+def test_invalid_source_ids_rejected_by_identity_gate():
+    """Regression test for fix.md #2: Arbitrary/nonexistent source IDs must not satisfy identity verification."""
+    scorer = LeadScorer()
+    lead = LeadInput(
+        lead_id="test_invalid_src_id",
+        name="Barry Allen",
+        first_name="Barry",
+        last_name="Allen",
+        job_title="Lead Forensic Scientist",
+        company="Central City Police",
+        professional_email="barry@ccpd.gov",
+        raw_data={"Keywords": "security, forensic, cloud, api"},
+    )
+    prof_ctx = ProfessionalContext()
+    # Real source in sources has id "src_real_99"
+    sources = [
+        SourceEvidence(
+            source_id="src_real_99",
+            source_url="https://ccpd.gov",
+            source_type="official_company",
+            evidence_quality=0.90,
+            facts_supported=["Central City Police corroborated"],
+        ),
+    ]
+    # Name claim references "src_nonexistent_404" which does NOT exist in sources
+    claims_invalid_src = [
+        LeadClaim(claim_id="c1", field="name", value="Barry Allen", status="verified", source_ids=["src_nonexistent_404"]),
+        LeadClaim(claim_id="c2", field="job_title", value="Lead Forensic Scientist", status="verified", source_ids=["src_real_99"]),
+        LeadClaim(claim_id="c3", field="company", value="Central City Police", status="verified", source_ids=["src_real_99"]),
+    ]
+
+    p_info, breakdown, readiness = scorer.evaluate_lead(
+        lead=lead,
+        prof_context=prof_ctx,
+        sources=sources,
+        identity_score=0.95,
+        claims=claims_invalid_src,
+    )
+    assert "identity_not_verified" in readiness.blockers, "Nonexistent source ID must fail identity verification"
+    assert readiness.has_name is False
+    assert p_info.numeric_priority >= 1
+    assert breakdown.verification_confidence <= 0.50
+
+
+def test_unverified_role_blocks_ready_status_and_priority_0():
+    """Regression test for fix.md #2: Unverified role must block P0 and prevent 'ready' status."""
+    scorer = LeadScorer()
+    lead = LeadInput(
+        lead_id="test_unverified_role",
+        name="Arthur Curry",
+        first_name="Arthur",
+        last_name="Curry",
+        job_title="Director of Marine Infrastructure",
+        company="Atlantis Systems",
+        industry="Technology",
+        professional_email="arthur@atlantis.io",
+        raw_data={"Keywords": "ai, cloud, api, security, zero trust, governance"},
+    )
+    prof_ctx = ProfessionalContext()
+    sources = [
+        SourceEvidence(
+            source_id="src_atl_1",
+            source_url="https://atlantis.io",
+            source_type="official_company",
+            evidence_quality=0.95,
+            facts_supported=["Arthur Curry corroborated on official domain", "Company identity corroborated"],
+        ),
+    ]
+    # Name and company verified, but role is unverified
+    claims = [
+        LeadClaim(claim_id="c1", field="name", value="Arthur Curry", status="verified", source_ids=["src_atl_1"]),
+        LeadClaim(claim_id="c2", field="job_title", value="Director of Marine Infrastructure", status="unverified", source_ids=[]),
+        LeadClaim(claim_id="c3", field="company", value="Atlantis Systems", status="verified", source_ids=["src_atl_1"]),
+        LeadClaim(claim_id="c4", field="professional_email", value="arthur@atlantis.io", status="input_provided", source_ids=["src_atl_1"]),
+    ]
+
+    p_info, breakdown, readiness = scorer.evaluate_lead(
+        lead=lead,
+        prof_context=prof_ctx,
+        sources=sources,
+        identity_score=0.95,
+        claims=claims,
+    )
+    assert "current_role_not_verified" in readiness.blockers
+    assert readiness.has_verified_role is False
+    assert readiness.status != "ready"
+    assert p_info.numeric_priority >= 1, "Unverified role must block Priority 0"
+
+
+def test_unverified_company_blocks_ready_status_and_priority_0():
+    """Regression test for fix.md #2: Unverified company must block P0 and prevent 'ready' status."""
+    scorer = LeadScorer()
+    lead = LeadInput(
+        lead_id="test_unverified_company",
+        name="Hal Jordan",
+        first_name="Hal",
+        last_name="Jordan",
+        job_title="VP of Flight Engineering",
+        company="Ferris Aircraft",
+        industry="Aerospace",
+        professional_email="hal@ferrisair.com",
+        raw_data={"Keywords": "ai, cloud, api, security, zero trust, aerospace"},
+    )
+    prof_ctx = ProfessionalContext()
+    sources = [
+        SourceEvidence(
+            source_id="src_bio_1",
+            source_url="https://aerospace-bio.org/hal",
+            source_type="public_web_bio",
+            evidence_quality=0.90,
+            facts_supported=["Hal Jordan VP of Flight Engineering"],
+        ),
+    ]
+    # Name and role verified, but company claim is unverified
+    claims = [
+        LeadClaim(claim_id="c1", field="name", value="Hal Jordan", status="verified", source_ids=["src_bio_1"]),
+        LeadClaim(claim_id="c2", field="job_title", value="VP of Flight Engineering", status="verified", source_ids=["src_bio_1"]),
+        LeadClaim(claim_id="c3", field="company", value="Ferris Aircraft", status="unverified", source_ids=[]),
+        LeadClaim(claim_id="c4", field="professional_email", value="hal@ferrisair.com", status="input_provided", source_ids=["src_bio_1"]),
+    ]
+
+    p_info, breakdown, readiness = scorer.evaluate_lead(
+        lead=lead,
+        prof_context=prof_ctx,
+        sources=sources,
+        identity_score=0.90,
+        claims=claims,
+    )
+    assert "company_not_verified" in readiness.blockers
+    assert readiness.has_company_context is False
+    assert readiness.status != "ready"
+    assert p_info.numeric_priority >= 1, "Unverified company must block Priority 0"
 

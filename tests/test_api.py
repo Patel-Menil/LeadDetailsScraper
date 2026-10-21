@@ -245,4 +245,48 @@ def test_exports_and_sensitive_reads_require_authorization(client: TestClient):
             res = client.get(ep)
             assert res.status_code == 401, f"{ep} did not require authentication"
 
+        # Additional sensitive read endpoints
+        sensitive_reads = [
+            "/api/batches/b1/leads",
+            "/api/batches/b1/leads/lead_1/profile",
+            "/api/leads",
+            "/api/leads/lead_1/profile",
+            "/api/batches/latest",
+            "/api/tor/status",
+        ]
+        for ep in sensitive_reads:
+            res = client.get(ep)
+            assert res.status_code == 401, f"{ep} did not require authentication"
+
+
+def test_batch_clear_all_requires_authorization(client: TestClient):
+    with pytest.MonkeyPatch.context() as mp:
+        mp.setattr("src.lead_research.server.API_SECRET_KEY", "admin_secret_987")
+        res = client.delete("/api/batches")
+        assert res.status_code == 401
+
+        res_bad = client.delete("/api/batches", headers={"X-API-Key": "wrong_key"})
+        assert res_bad.status_code == 401
+
+
+def test_api_responses_never_leak_secret_key(client: TestClient):
+    secret_token = "confidential_production_secret_key_777"
+    with pytest.MonkeyPatch.context() as mp:
+        mp.setattr("src.lead_research.server.API_SECRET_KEY", secret_token)
+        mp.setattr("src.lead_research.server.APP_ENV", "production")
+
+        # 401 Unauthorized response
+        res_401 = client.get("/api/batches")
+        assert res_401.status_code == 401
+        assert secret_token not in res_401.text
+
+        # 404 Not Found response
+        res_404 = client.get("/api/nonexistent-route", headers={"X-API-Key": secret_token})
+        assert secret_token not in res_404.text
+
+        # Health endpoint
+        res_health = client.get("/api/health")
+        assert res_health.status_code == 200
+        assert secret_token not in res_health.text
+
 

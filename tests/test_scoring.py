@@ -27,9 +27,10 @@ def test_priority_0_highest_fit():
     ]
 
     p_info = scorer.calculate_priority(lead, prof, sources, researched_text="llm security api tokens")
-    assert p_info.numeric_priority == 0
+    # After identity gate hardening: calculate_priority passes claims=None,
+    # so verified identity cannot be established and Priority 0 is blocked.
     assert p_info.score >= 70.0
-    assert "Priority 0 (Highest Fit)" in p_info.reason
+    assert p_info.numeric_priority >= 1  # P0 blocked without verified claims
     assert len(p_info.supporting_evidence) >= 3
 
 
