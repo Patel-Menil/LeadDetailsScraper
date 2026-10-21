@@ -105,8 +105,7 @@ class ResearchPipeline:
 
         # Separate leads already cached with fingerprint validation
         for lead in leads:
-            lead_raw = lead.raw_data or dict(lead.model_dump())
-            expected_fp = research_fingerprint(lead_raw, research_config={"dry_run": dry_run})
+            expected_fp = research_fingerprint(lead.model_dump(), research_config={"dry_run": dry_run})
 
             cached_prof = existing_profiles.get(lead.lead_id) if resume else None
 
@@ -166,10 +165,9 @@ class ResearchPipeline:
                 log_fn=log_event,
             )
             # Tag batch_id and fingerprint
-            lead_raw = lead.raw_data or dict(lead.model_dump())
             profile.research_metadata.batch_id = batch_id
             profile.research_metadata.cache_fingerprint = research_fingerprint(
-                lead_raw, research_config={"dry_run": dry_run}
+                lead.model_dump(), research_config={"dry_run": dry_run}
             )
             return (lead, profile)
 

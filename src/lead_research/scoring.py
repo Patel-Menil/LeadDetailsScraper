@@ -12,6 +12,7 @@ from typing import Any, Dict, List, Optional, Tuple
 from .schemas import (
     ContactReadiness,
     Icebreaker,
+    LeadClaim,
     LeadInput,
     PriorityInfo,
     ProfessionalContext,
@@ -100,6 +101,7 @@ class LeadScorer:
         identity_score: float = 0.8,
         icebreaker: Optional[Icebreaker] = None,
         researched_text: str = "",
+        claims: Optional[List[LeadClaim]] = None,
     ) -> Tuple[PriorityInfo, ScoringBreakdown, ContactReadiness]:
         """
         Produce deterministic Lead Fit, Verification Confidence, and Contact Readiness evaluations.
@@ -198,7 +200,23 @@ class LeadScorer:
         # 6. Contact Readiness Classification
         blockers: List[str] = []
         has_name = bool(lead.name and len(lead.name.strip()) > 1)
-        has_verified_role = bool(lead.job_title and role_score >= 15.0)
+
+        # has_verified_role must be derived from the relevant job-title claim's verification status
+        has_verified_role = False
+        if claims:
+            for clm in claims:
+                if clm.field == "job_title" and clm.status == "verified" and clm.source_ids:
+                    has_verified_role = True
+                    break
+        else:
+            has_verified_role = any(
+                lead.job_title and lead.job_title.lower() in (
+                    f"{src.relevant_excerpt or ''} {' '.join(src.facts_supported)}".lower()
+                )
+                for src in (sources or [])
+                if src.source_type in ("official_company", "official_company_blog")
+            )
+
         has_company_ctx = bool(lead.company and lead.company_website)
         has_usable_channel = bool(
             (lead.professional_email and "@" in lead.professional_email) or
@@ -206,23 +224,35 @@ class LeadScorer:
         )
         has_evidence_icebreaker = bool(icebreaker and icebreaker.personalization_status == "ready")
 
+        # Classify email channel deliverability vs syntax unprobed
+        email_claim = next((c for c in (claims or []) if c.field == "professional_email"), None)
+        is_email_verified = bool(email_claim and email_claim.status == "verified")
+        is_email_unprobed = bool(lead.professional_email and "@" in lead.professional_email and not is_email_verified)
+
         if identity_score < 0.60:
             blockers.append("identity_not_verified")
+        if not has_verified_role:
+            blockers.append("current_role_not_verified")
         if not has_company_ctx:
             blockers.append("company_not_verified")
         if not has_usable_channel:
             blockers.append("no_usable_contact_channel")
         if icebreaker and icebreaker.personalization_status == "needs_review":
             blockers.append("icebreaker_needs_review")
+        if is_email_unprobed:
+            blockers.append("email_syntax_valid_unprobed")
 
-        if not blockers:
-            readiness_status = "ready"
-        elif has_usable_channel and identity_score >= 0.50:
-            readiness_status = "ready_with_caveat"
-        elif identity_score < 0.40:
+        # Readiness Policy Gates:
+        # A lead is ready only when identity, verified role, company, usable channel, and grounded icebreaker are satisfied
+        if not has_usable_channel or identity_score < 0.40:
             readiness_status = "not_ready"
-        else:
+        elif "current_role_not_verified" in blockers or "identity_not_verified" in blockers or "company_not_verified" in blockers:
             readiness_status = "needs_research"
+        elif "icebreaker_needs_review" in blockers or is_email_unprobed or not has_evidence_icebreaker:
+            # Core identity, role, and company are verified with usable contact channel, but caveats remain (unprobed email, icebreaker review)
+            readiness_status = "ready_with_caveat"
+        else:
+            readiness_status = "ready"
 
         readiness = ContactReadiness(
             status=readiness_status,

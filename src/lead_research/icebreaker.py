@@ -36,10 +36,15 @@ def extract_public_signals(
         if src.source_type in ("company_website", "official_company", "company_blog", "official_company_blog"):
             text = (src.relevant_excerpt or " ".join(src.facts_supported)).lower()
             title = src.title or ""
+            url_lower = src.source_url.lower()
 
-            # Launch / announcement indicators
-            launch_keywords = ["announc", "launch", "introduc", "unveil", "release", "new feature", "now available"]
-            has_launch_event = any(lk in text for lk in launch_keywords)
+            # Robust launch / announcement patterns (avoid matching generic words like 'release notes' or 'introduce')
+            launch_pattern = r"\b(announc(ing|ed|ement)|launch(ed|ing|es)?\s+of|now\s+available|unveil(ed|ing|s)?|introducing\s+our\s+new|press\s+release)\b"
+            has_launch_event = bool(
+                re.search(launch_pattern, text) or
+                re.search(launch_pattern, title.lower()) or
+                any(k in url_lower for k in ["/news", "/press", "/announcements", "/releases"])
+            )
 
             # Check for AI / agent / LLM integration signal
             if re.search(r"\b(ai|agent|agents|llm|llms|generative ai|copilot|chatgpt|artificial intelligence|machine learning)\b", text):
@@ -98,22 +103,41 @@ def extract_public_signals(
                 )
 
     # 2. Biographical / Leadership Public Signals
+    tech_keywords = ["engineering", "architect", "cto", "infrastructure", "software", "developer", "platform", "security", "devops", "cloud", "systems", "technical"]
     for bio in candidate_bio_snippets:
-        # Only use validated candidate snippets
         src_id = bio.get("source_id", "")
         snip = bio.get("snippet", "")
         bio_title = bio.get("title", "")
-        if snip and len(snip) > 30:
+        if not snip or len(snip) < 30:
+            continue
+
+        combined_bio_text = f"{bio_title} {snip}".lower()
+        has_tech_evidence = any(k in combined_bio_text for k in tech_keywords)
+
+        if has_tech_evidence:
             signals.append(
                 PublicSignal(
                     signal_id=f"sig_{len(signals)+1}",
                     signal_type="technical_work",
-                    headline=f"Public professional profile for {lead.name}",
-                    summary=f"Public records reference {lead.name}'s professional leadership at {comp} ('{bio_title[:50]}').",
+                    headline=f"Public technical profile for {lead.name}",
+                    summary=f"Public records reference {lead.name}'s technical focus at {comp} ('{bio_title[:50]}').",
                     source_ids=[src_id] if src_id else [],
                     relevance_to_lead="Technology leadership and infrastructure oversight",
                     verification_status="partially_verified",
                     confidence=0.70,
+                )
+            )
+        else:
+            signals.append(
+                PublicSignal(
+                    signal_id=f"sig_{len(signals)+1}",
+                    signal_type="professional_background",
+                    headline=f"Public professional profile for {lead.name}",
+                    summary=f"Public records reference {lead.name}'s professional background at {comp} ('{bio_title[:50]}').",
+                    source_ids=[src_id] if src_id else [],
+                    relevance_to_lead="Operational management and leadership",
+                    verification_status="partially_verified",
+                    confidence=0.60,
                 )
             )
 
@@ -137,12 +161,12 @@ def build_icebreaker(
     eligible_signals = [s for s in signals if s.source_ids and s.verification_status in ("verified", "partially_verified")]
 
     if eligible_signals and identity_verified:
-        # Prioritize product_launch > ai_capability > product_integration > technical_work > company_positioning
         priority_order = {
             "product_launch": 5,
             "ai_capability": 4,
             "product_integration": 3,
             "technical_work": 2,
+            "professional_background": 2,
             "company_positioning": 1,
         }
         best_signal = max(eligible_signals, key=lambda s: (priority_order.get(s.signal_type, 0), s.confidence))
@@ -194,11 +218,15 @@ def build_icebreaker(
             icebreaker_type = "product_integration"
 
         elif best_signal.signal_type == "technical_work":
-            text = (
-                f"I came across public coverage of your technical leadership at {comp} and the engineering initiatives your team is driving."
-            )
+            # Check if leadership is actually corroborated
+            lead_title = (lead.job_title or "").lower()
+            is_leader = any(k in lead_title for k in ["vp", "director", "head", "lead", "chief", "manager", "principal"])
+            if is_leader:
+                text = f"I came across public coverage of your technical role at {comp}."
+            else:
+                text = f"I came across public details regarding your engineering work at {comp}."
             why_it_matters = (
-                "Technical leaders navigating rapid infrastructure growth benefit from automated security guardrails that don't block development."
+                "Engineering organizations navigating rapid infrastructure growth benefit from automated security guardrails that don't block development."
             )
             pain_point = (
                 "Hypothesis: Balancing developer velocity with rigorous zero-trust API protection."
@@ -207,6 +235,19 @@ def build_icebreaker(
                 "Are zero-trust API gateways and automated credential protection active discussion topics on your engineering roadmap?"
             )
             icebreaker_type = "technical_work"
+
+        elif best_signal.signal_type == "professional_background":
+            text = f"I came across public professional records regarding your work at {comp}."
+            why_it_matters = (
+                f"As {comp} continues to expand digital services, establishing zero-trust access controls and protecting critical interfaces is essential."
+            )
+            pain_point = (
+                "Hypothesis: Maintaining strict data integrity and governance across internal and customer-facing interfaces."
+            )
+            question = (
+                "Is your team currently exploring automated security guardrails for production APIs this quarter?"
+            )
+            icebreaker_type = "professional_background"
 
         else:
             text = (
@@ -223,6 +264,7 @@ def build_icebreaker(
             )
             icebreaker_type = "company_positioning"
 
+        status = "ready" if best_signal.confidence >= 0.70 and best_signal.verification_status == "verified" else "needs_review"
         icebreaker = Icebreaker(
             text=text,
             icebreaker_type=icebreaker_type,
@@ -231,7 +273,7 @@ def build_icebreaker(
             why_it_matters=why_it_matters,
             potential_pain_point=pain_point,
             conversation_question=question,
-            personalization_status="ready",
+            personalization_status=status,
         )
 
     # 2. Industry-Specific Fallback if Identity or Specific Evidence is Partial

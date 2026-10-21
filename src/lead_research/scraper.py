@@ -75,10 +75,17 @@ def is_safe_url(url: str, resolve_dns: bool = True) -> Tuple[bool, str]:
     including DNS resolution checks and redirect validation.
     """
     if not url or not url.startswith(("http://", "https://")):
-        return False, "Invalid or missing HTTP/HTTPS scheme"
+        return False, "SSRF Protection: Invalid or missing HTTP/HTTPS scheme"
 
     try:
         parsed = urlparse(url)
+        if parsed.scheme.lower() not in ("http", "https"):
+            return False, f"SSRF Protection: Scheme '{parsed.scheme}' is not permitted (only http and https)."
+
+        # Reject URL credentials (e.g. http://user:pass@example.com)
+        if parsed.username or parsed.password:
+            return False, "SSRF Protection: URL credentials are not permitted."
+
         hostname = parsed.hostname
         if not hostname:
             return False, "Missing hostname in URL"
@@ -94,7 +101,7 @@ def is_safe_url(url: str, resolve_dns: bool = True) -> Tuple[bool, str]:
 
         # Not an IP literal; check hostname keywords and internal TLDs
         lower_host = hostname.lower()
-        if lower_host in ("localhost", "127.0.0.1", "::1", "metadata.google.internal") or lower_host.endswith((".local", ".internal", ".lan", ".localhost")):
+        if lower_host in ("localhost", "127.0.0.1", "::1", "metadata.google.internal", "instance-data") or lower_host.endswith((".local", ".internal", ".lan", ".localhost", ".home", ".corp")):
             return False, f"SSRF Protection: Access to local/internal host '{hostname}' is blocked."
 
         # DNS resolution check for non-literal hostnames
@@ -269,41 +276,95 @@ class ScraplingScraper:
             "Accept-Language": "en-US,en;q=0.9",
         }
 
-        # 2. HTTP Fetch with bounded retry loop
+        # 2. HTTP Fetch with manual redirect validation loop (max 5 redirects)
+        # Pre-validates every redirect destination before connection to prevent SSRF via 3xx redirects
+        max_redirects = 5
+        current_url = url
+        visited_urls = {current_url}
         last_error = ""
-        attempts = self.max_retries + 1
-        for attempt in range(attempts):
-            try:
-                response = Fetcher.get(
-                    url,
-                    headers=headers,
-                    timeout=min(self.timeout, 10),
-                    follow_redirects=True,
-                    retries=0,
-                )
-                if response and getattr(response, "status", 200) < 400:
-                    resp_url = getattr(response, "url", url) or url
-                    if resp_url != url:
-                        safe_redir, redir_reason = is_safe_url(resp_url)
-                        if not safe_redir:
-                            return ScrapeResult(
-                                url=url,
-                                status_code=400,
-                                success=False,
-                                error=f"Redirect destination blocked by SSRF protection: {redir_reason}",
-                            )
-                    res = self._extract_page_metadata(response, resp_url)
-                    res.engine = "scrapling_fetcher"
-                    return res
-                elif response:
-                    status = getattr(response, "status", 500)
-                    last_error = f"HTTP {status}"
-            except Exception as exc:
-                last_error = str(exc)
-                logger.debug(f"Fetch attempt {attempt + 1}/{attempts} failed for {url}: {exc}")
 
-            if attempt < attempts - 1:
-                time.sleep(0.25 * (attempt + 1))
+        for redirect_step in range(max_redirects + 1):
+            safe, reason = is_safe_url(current_url)
+            if not safe:
+                return ScrapeResult(
+                    url=url,
+                    status_code=400,
+                    success=False,
+                    error=f"Destination blocked by SSRF protection: {reason}",
+                )
+
+            response = None
+            attempts = self.max_retries + 1
+            for attempt in range(attempts):
+                try:
+                    response = Fetcher.get(
+                        current_url,
+                        headers=headers,
+                        timeout=min(self.timeout, 10),
+                        follow_redirects=False,
+                        retries=0,
+                    )
+                    break
+                except Exception as exc:
+                    last_error = str(exc)
+                    logger.debug(f"Fetch attempt {attempt + 1}/{attempts} failed for {current_url}: {exc}")
+                    if attempt < attempts - 1:
+                        time.sleep(0.25 * (attempt + 1))
+
+            if response is None:
+                break
+
+            status = getattr(response, "status", 200)
+
+            # Handle 3xx redirects with destination pre-validation
+            if 300 <= status < 400:
+                location = None
+                if hasattr(response, "headers") and response.headers:
+                    location = response.headers.get("location") or response.headers.get("Location")
+
+                if not location:
+                    last_error = f"HTTP {status} redirect without Location header"
+                    break
+
+                next_url = urljoin(current_url, location)
+
+                # Check redirect loop
+                if next_url in visited_urls:
+                    return ScrapeResult(
+                        url=url,
+                        status_code=400,
+                        success=False,
+                        error=f"Redirect loop detected: {next_url}",
+                    )
+
+                # Validate redirect destination BEFORE making request
+                safe_redir, redir_reason = is_safe_url(next_url)
+                if not safe_redir:
+                    return ScrapeResult(
+                        url=url,
+                        status_code=400,
+                        success=False,
+                        error=f"Redirect destination blocked by SSRF protection: {redir_reason}",
+                    )
+
+                visited_urls.add(next_url)
+                current_url = next_url
+
+                if redirect_step == max_redirects:
+                    return ScrapeResult(
+                        url=url,
+                        status_code=400,
+                        success=False,
+                        error=f"Too many redirects (exceeded limit of {max_redirects})",
+                    )
+                continue
+            elif status < 400:
+                res = self._extract_page_metadata(response, current_url)
+                res.engine = "scrapling_fetcher"
+                return res
+            else:
+                last_error = f"HTTP {status}"
+                break
 
         # 3. If direct HTTP failed due to connection/DNS resolution, do NOT hit with browser
         if "connection" in last_error.lower() or "dns" in last_error.lower() or "resolve" in last_error.lower():

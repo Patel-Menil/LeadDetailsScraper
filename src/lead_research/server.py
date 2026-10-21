@@ -13,7 +13,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-from fastapi import BackgroundTasks, FastAPI, File, HTTPException, Query, UploadFile
+from fastapi import BackgroundTasks, Depends, FastAPI, File, Header, HTTPException, Query, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
@@ -49,13 +49,59 @@ app = FastAPI(
     version="1.0.0",
 )
 
+# Explicit CORS origins (reject wildcard with credentials)
+ALLOWED_ORIGINS = os.getenv(
+    "ALLOWED_ORIGINS",
+    "http://localhost:3000,http://127.0.0.1:3000,http://localhost:8000,http://127.0.0.1:8000",
+)
+allowed_origins_list = [o.strip() for o in ALLOWED_ORIGINS.split(",") if o.strip()]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=allowed_origins_list,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# API Secret Key Authorization for Destructive/Mutation Operations
+API_SECRET_KEY = os.getenv("API_SECRET_KEY", "").strip()
+
+
+def verify_api_key(
+    x_api_key: Optional[str] = Header(None, alias="X-API-Key"),
+    authorization: Optional[str] = Header(None, alias="Authorization"),
+):
+    """Enforce API key on sensitive/destructive mutations if configured; permissive for local dev if unset."""
+    if not API_SECRET_KEY:
+        return True
+    key = x_api_key
+    if not key and authorization:
+        if authorization.lower().startswith("bearer "):
+            key = authorization[7:].strip()
+        else:
+            key = authorization.strip()
+    if not key or key != API_SECRET_KEY:
+        raise HTTPException(
+            status_code=401,
+            detail="Unauthorized: Invalid or missing API key.",
+        )
+    return True
+
+
+# Batch ID Validation
+BATCH_ID_REGEX = re.compile(r"^[a-zA-Z0-9_\-]+$")
+
+
+def validate_batch_id(batch_id: str) -> str:
+    """Validate that a batch ID contains only safe alphanumeric, underscore, and hyphen characters."""
+    if not batch_id or not BATCH_ID_REGEX.match(batch_id):
+        raise HTTPException(
+            status_code=400,
+            detail="Invalid batch ID: Batch IDs must only contain alphanumeric characters, underscores, and hyphens.",
+        )
+    return batch_id
+
 
 # In-memory batch progress tracking
 active_batches: Dict[str, BatchProgress] = {}
@@ -216,13 +262,16 @@ def get_dashboard_stats():
     }
 
 
-@app.post("/api/batches/upload")
+MAX_UPLOAD_SIZE = 50 * 1024 * 1024  # 50 MB
+
+
+@app.post("/api/batches/upload", dependencies=[Depends(verify_api_key)])
 async def upload_leads_file(file: UploadFile = File(...)):
     """Upload CSV or XLSX, inspect columns, detect mapping, and preview data."""
     if not file.filename:
         raise HTTPException(status_code=400, detail="Filename missing")
 
-    filename = file.filename
+    filename = Path(file.filename).name  # Prevent directory traversal in filename
     ext = Path(filename).suffix.lower()
     if ext not in (".csv", ".xlsx", ".xls"):
         raise HTTPException(
@@ -230,14 +279,21 @@ async def upload_leads_file(file: UploadFile = File(...)):
             detail=f"Unsupported file type '{ext}'. Please upload a .csv or .xlsx file."
         )
 
-    # Save to uploads directory using collision-resistant batch ID
-    batch_id = create_batch_id()
-    saved_path = UPLOADS_DIR / f"{batch_id}{ext}"
-
     content = await file.read()
     if len(content) == 0:
         raise HTTPException(status_code=400, detail="Uploaded file is empty.")
+    if len(content) > MAX_UPLOAD_SIZE:
+        raise HTTPException(
+            status_code=413,
+            detail="File size exceeds maximum allowed limit of 50 MB.",
+        )
 
+    # Save to uploads directory using collision-resistant batch ID
+    batch_id = create_batch_id()
+    while (BATCHES_DIR / batch_id).exists() or (LEGACY_BATCHES_DIR / batch_id).exists():
+        batch_id = create_batch_id()
+
+    saved_path = UPLOADS_DIR / f"{batch_id}{ext}"
     with open(saved_path, "wb") as f:
         f.write(content)
 
@@ -305,9 +361,18 @@ def _run_research_in_thread(
             active_batches[batch_id].errors.append(f"Fatal error: {str(e)}")
 
 
-@app.post("/api/batches/{batch_id}/start")
+@app.post("/api/batches/{batch_id}/start", dependencies=[Depends(verify_api_key)])
 def start_research_batch(batch_id: str, req: StartBatchRequest):
     """Initiate research pipeline for an uploaded batch in background."""
+    validate_batch_id(batch_id)
+
+    # Prevent concurrent execution
+    if batch_id in active_batches and active_batches[batch_id].status == "processing":
+        raise HTTPException(
+            status_code=409,
+            detail=f"Batch '{batch_id}' is currently running and cannot be started concurrently.",
+        )
+
     # Find uploaded file
     matches = list(UPLOADS_DIR.glob(f"{batch_id}.*"))
     if not matches:
@@ -316,25 +381,21 @@ def start_research_batch(batch_id: str, req: StartBatchRequest):
     input_file = matches[0]
 
     # Check if this batch is already completed and cannot be silently restarted without resume=True
-    batch_dir = get_batch_directory(batch_id)
+    batch_dir = resolve_batch_dir(batch_id)
     manifest_file = batch_dir / "manifest.json"
     if manifest_file.exists() and not req.resume:
         try:
             with open(manifest_file, "r", encoding="utf-8") as mf:
                 m_info = json.load(mf)
-                if m_info.get("status") == "completed":
+                if m_info.get("status") in ("completed", "partial"):
                     raise HTTPException(
                         status_code=409,
-                        detail=f"Batch '{batch_id}' is already completed. Please upload a new batch or set resume=true.",
+                        detail=f"Batch '{batch_id}' is already completed and immutable. To resume or re-evaluate, set resume=true or upload as a new batch.",
                     )
         except HTTPException:
             raise
         except Exception as e:
             logger.debug(f"Manifest check notice: {e}")
-
-    # Prevent duplicate submission
-    if batch_id in active_batches and active_batches[batch_id].status == "processing":
-        return {"message": "Batch is already running", "batch": active_batches[batch_id].model_dump()}
 
     if batch_id not in active_batches:
         active_batches[batch_id] = BatchProgress(
@@ -365,6 +426,7 @@ def list_batches():
 @app.get("/api/batches/{batch_id}")
 def get_batch_status(batch_id: str):
     """Get status and live progress of a specific batch."""
+    validate_batch_id(batch_id)
     clean_id = sanitize_filename(batch_id)
     if clean_id in active_batches:
         return active_batches[clean_id].model_dump()
@@ -441,9 +503,10 @@ def get_batch_status(batch_id: str):
     }
 
 
-@app.delete("/api/batches/{batch_id}")
+@app.delete("/api/batches/{batch_id}", dependencies=[Depends(verify_api_key)])
 def delete_batch(batch_id: str):
     """Delete a specific batch and all associated outputs."""
+    validate_batch_id(batch_id)
     clean_id = sanitize_filename(batch_id)
     if clean_id in active_batches:
         del active_batches[clean_id]
@@ -462,7 +525,7 @@ def delete_batch(batch_id: str):
     return {"message": f"Batch '{batch_id}' deleted successfully"}
 
 
-@app.delete("/api/batches")
+@app.delete("/api/batches", dependencies=[Depends(verify_api_key)])
 def clear_all_batches():
     """Clear all batch records, profiles, and history across V2 and legacy stores."""
     active_batches.clear()
@@ -502,6 +565,7 @@ def get_batch_leads(
     page_size: int = Query(25, ge=1, le=200),
 ):
     """Retrieve prioritized leads from the generated leads_prioritized.csv."""
+    validate_batch_id(batch_id)
     b_dir = resolve_batch_dir(batch_id)
     csv_path = b_dir / "leads_prioritized.csv"
 
@@ -561,6 +625,7 @@ def get_batch_leads(
 @app.get("/api/batches/{batch_id}/leads/{lead_id}/profile")
 def get_lead_profile(batch_id: str, lead_id: str):
     """Retrieve full JSON research profile for an individual person."""
+    validate_batch_id(batch_id)
     b_dir = resolve_batch_dir(batch_id)
     profiles_dir = b_dir / "profiles"
 
@@ -706,6 +771,7 @@ def get_latest_batch_info():
 @app.get("/api/batches/{batch_id}/exports/manifest.json")
 def download_manifest_json(batch_id: str):
     """Download manifest.json for a batch."""
+    validate_batch_id(batch_id)
     b_dir = resolve_batch_dir(batch_id)
     manifest_path = b_dir / "manifest.json"
     if not manifest_path.exists():
@@ -721,6 +787,7 @@ def download_manifest_json(batch_id: str):
 @app.get("/api/batches/{batch_id}/exports/summary.json")
 def download_summary_json(batch_id: str):
     """Download summary.json for a batch."""
+    validate_batch_id(batch_id)
     b_dir = resolve_batch_dir(batch_id)
     summary_path = b_dir / "summary.json"
     if not summary_path.exists():
@@ -736,6 +803,7 @@ def download_summary_json(batch_id: str):
 @app.get("/api/batches/{batch_id}/exports/prioritized.csv")
 def download_prioritized_csv(batch_id: str):
     """Download leads_prioritized.csv."""
+    validate_batch_id(batch_id)
     b_dir = resolve_batch_dir(batch_id)
     csv_path = b_dir / "leads_prioritized.csv"
     if not csv_path.exists():
@@ -751,6 +819,7 @@ def download_prioritized_csv(batch_id: str):
 @app.get("/api/batches/{batch_id}/exports/outreach_ready.csv")
 def download_outreach_ready_csv(batch_id: str):
     """Download outreach_ready.csv containing only outreach-ready leads."""
+    validate_batch_id(batch_id)
     b_dir = resolve_batch_dir(batch_id)
     csv_path = b_dir / "outreach_ready.csv"
     if not csv_path.exists():
@@ -766,6 +835,7 @@ def download_outreach_ready_csv(batch_id: str):
 @app.get("/api/batches/{batch_id}/exports/needs_review.csv")
 def download_needs_review_csv(batch_id: str):
     """Download needs_review.csv containing leads requiring review or research."""
+    validate_batch_id(batch_id)
     b_dir = resolve_batch_dir(batch_id)
     csv_path = b_dir / "needs_review.csv"
     if not csv_path.exists():
@@ -781,6 +851,7 @@ def download_needs_review_csv(batch_id: str):
 @app.get("/api/batches/{batch_id}/exports/errors.csv")
 def download_errors_csv(batch_id: str):
     """Download errors.csv."""
+    validate_batch_id(batch_id)
     b_dir = resolve_batch_dir(batch_id)
     errors_path = b_dir / "errors.csv"
     if not errors_path.exists():
@@ -796,6 +867,7 @@ def download_errors_csv(batch_id: str):
 @app.get("/api/batches/{batch_id}/exports/scraping.log")
 def download_scraping_log(batch_id: str):
     """Download scraping.log containing granular web research logs."""
+    validate_batch_id(batch_id)
     b_dir = resolve_batch_dir(batch_id)
     log_path = b_dir / "scraping.log"
     if not log_path.exists():
@@ -817,6 +889,7 @@ def download_scraping_log(batch_id: str):
 @app.get("/api/batches/{batch_id}/exports/profiles/{filename}")
 def download_single_profile(batch_id: str, filename: str):
     """Download a single JSON profile securely."""
+    validate_batch_id(batch_id)
     safe_fn = sanitize_filename(Path(filename).stem) + ".json"
     b_dir = resolve_batch_dir(batch_id)
     profile_path = b_dir / "profiles" / safe_fn
@@ -834,6 +907,7 @@ def download_single_profile(batch_id: str, filename: str):
 @app.get("/api/batches/{batch_id}/exports/zip")
 def download_batch_zip(batch_id: str):
     """Create and stream a ZIP archive of all batch assets."""
+    validate_batch_id(batch_id)
     b_dir = resolve_batch_dir(batch_id)
     if not b_dir.exists():
         raise HTTPException(status_code=404, detail="Batch directory not found")

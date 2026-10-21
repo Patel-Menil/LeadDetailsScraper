@@ -33,7 +33,7 @@ from src.lead_research.schemas import (
     migrate_profile_v1_to_v2,
 )
 from src.lead_research.scoring import LeadScorer
-from src.lead_research.scraper import ScrapeResult, is_safe_url
+from src.lead_research.scraper import ScrapeResult, ScraplingScraper, is_safe_url
 
 
 def test_ssrf_protection_blocks_private_and_loopback():
@@ -479,3 +479,238 @@ def test_worker_exception_handled_as_failed_profile_in_pipeline(tmp_path: Path):
     lead_profiles_jsonl = (batch_dir / "lead_profiles.jsonl").read_text(encoding="utf-8")
     assert "Simulated worker network failure" in lead_profiles_jsonl
     assert "Broken Worker" in lead_profiles_jsonl
+
+
+def test_company_homepage_mention_does_not_verify_job_title():
+    scraper = ScraplingScraper(use_browser=False, use_tor=False)
+    researcher = LeadResearcher(scraper=scraper)
+    lead = LeadInput(
+        lead_id="lead_test_homepage",
+        name="Taylor Brooks",
+        job_title="VP of AI Architecture",
+        company="NexusFlow AI",
+        company_website="https://nexusflow.ai",
+    )
+    # Mock company homepage mentioning name in general text without a leadership bio
+    mock_res = ScrapeResult(
+        url="https://nexusflow.ai",
+        status_code=200,
+        success=True,
+        title="NexusFlow AI - Enterprise Workflows",
+        extracted_text="NexusFlow AI powers autonomous agents. Special thanks to Taylor Brooks and our advisors for consulting.",
+    )
+    with patch.object(researcher.scraper, "fetch_url", return_value=mock_res):
+        with patch.object(researcher.scraper, "search_person", return_value=[]):
+            profile = researcher.research_lead(lead, skip_web_scrape=False)
+
+    name_claim = next(c for c in profile.claims if c.field == "name")
+    title_claim = next(c for c in profile.claims if c.field == "job_title")
+
+    # Name is partially verified from company homepage mention, but NOT fully verified
+    assert name_claim.status == "partially_verified"
+    assert name_claim.confidence <= 0.80
+
+    # Job title must NOT be verified because homepage mention alone does not corroborate role
+    assert title_claim.status != "verified"
+    assert "current_role_not_verified" in profile.contact_readiness.blockers
+    assert profile.contact_readiness.status != "ready"
+
+
+def test_search_snippets_do_not_verify_job_title_claim():
+    scraper = ScraplingScraper(use_browser=False, use_tor=False)
+    researcher = LeadResearcher(scraper=scraper)
+    lead = LeadInput(
+        lead_id="lead_test_snippets",
+        name="Jordan Lee",
+        job_title="Chief Information Security Officer",
+        company="SecureCloud Inc",
+    )
+    # Search snippet matching person and company strongly
+    mock_candidates = [
+        {
+            "title": "Jordan Lee - Chief Information Security Officer - SecureCloud Inc | LinkedIn",
+            "url": "https://linkedin.com/in/jordan-lee-ciso",
+            "snippet": "Jordan Lee is Chief Information Security Officer at SecureCloud Inc leading zero-trust initiatives.",
+        }
+    ]
+    with patch.object(researcher.scraper, "search_person", return_value=mock_candidates):
+        profile = researcher.research_lead(lead, skip_web_scrape=False)
+
+    title_claim = next(c for c in profile.claims if c.field == "job_title")
+    # Search snippet alone cannot verify current role claim
+    assert title_claim.status != "verified"
+    assert profile.contact_readiness.has_verified_role is False
+    assert "current_role_not_verified" in profile.contact_readiness.blockers
+
+
+def test_high_fit_score_with_unverified_role_blocks_ready_status():
+    scorer = LeadScorer()
+    lead = LeadInput(
+        lead_id="lead_high_fit_unverified_role",
+        name="Morgan Hayes",
+        job_title="VP of Engineering",
+        company="DataVault Systems",
+        company_website="https://datavault.io",
+        professional_email="morgan@datavault.io",
+        industry="Cybersecurity",
+    )
+    # Unverified role claim despite valid company & email
+    claims = [
+        LeadClaim(claim_id="c1", field="name", value="Morgan Hayes", status="partially_verified", confidence=0.70, source_ids=["src_01"]),
+        LeadClaim(claim_id="c2", field="job_title", value="VP of Engineering", status="unverified", confidence=0.40, source_ids=[]),
+        LeadClaim(claim_id="c3", field="company", value="DataVault Systems", status="verified", confidence=0.95, source_ids=["src_01"]),
+        LeadClaim(claim_id="c4", field="professional_email", value="morgan@datavault.io", status="input_provided", confidence=0.50, source_ids=["src_01"]),
+    ]
+    p_info, breakdown, readiness = scorer.evaluate_lead(
+        lead=lead,
+        prof_context=ProfessionalContext(),
+        sources=[],
+        identity_score=0.75,
+        claims=claims,
+        researched_text="DataVault systems engineering overview",
+    )
+    # High fit score does NOT compensate for unverified role
+    assert breakdown.lead_fit_score >= 60.0
+    assert readiness.has_verified_role is False
+    assert "current_role_not_verified" in readiness.blockers
+    assert readiness.status == "needs_research"
+    assert readiness.status != "ready"
+
+
+def test_unprobed_email_sets_ready_with_caveat():
+    scorer = LeadScorer()
+    lead = LeadInput(
+        lead_id="lead_unprobed_email",
+        name="Casey Morgan",
+        job_title="VP of Security",
+        company="ShieldNet",
+        company_website="https://shieldnet.com",
+        professional_email="casey@shieldnet.com",
+        industry="Cybersecurity",
+    )
+    claims = [
+        LeadClaim(claim_id="c1", field="name", value="Casey Morgan", status="verified", confidence=0.90, source_ids=["src_01"]),
+        LeadClaim(claim_id="c2", field="job_title", value="VP of Security", status="verified", confidence=0.90, source_ids=["src_01"]),
+        LeadClaim(claim_id="c3", field="company", value="ShieldNet", status="verified", confidence=0.95, source_ids=["src_01"]),
+        LeadClaim(claim_id="c4", field="professional_email", value="casey@shieldnet.com", status="input_provided", confidence=0.50, source_ids=["src_01"]),
+    ]
+    icebreaker = Icebreaker(
+        text="I noticed ShieldNet's public developer API portal.",
+        icebreaker_type="product_integration",
+        source_ids=["src_01"],
+        confidence=0.85,
+        personalization_status="ready",
+    )
+    p_info, breakdown, readiness = scorer.evaluate_lead(
+        lead=lead,
+        prof_context=ProfessionalContext(),
+        sources=[],
+        identity_score=0.90,
+        claims=claims,
+        icebreaker=icebreaker,
+        researched_text="Casey Morgan leads security at ShieldNet.",
+    )
+    # Core identity, role, company, and icebreaker are verified, but email is unprobed syntax-only
+    assert readiness.has_verified_role is True
+    assert readiness.has_name is True
+    assert readiness.has_company_context is True
+    assert readiness.has_evidence_based_icebreaker is True
+    assert "email_syntax_valid_unprobed" in readiness.blockers
+    assert readiness.status == "ready_with_caveat"
+
+
+def test_icebreaker_grounding_non_technical_snippet_no_leadership_fabrication():
+    lead = LeadInput(
+        lead_id="lead_hr_exec",
+        name="Samira Khan",
+        job_title="Director of People Operations",
+        company="ScaleFlow",
+    )
+    candidate_bios = [
+        {
+            "source_id": "src_bio_01",
+            "title": "Samira Khan - People Operations - ScaleFlow",
+            "snippet": "Samira Khan manages human resources, organizational development, and recruiting at ScaleFlow.",
+        }
+    ]
+    signals = extract_public_signals(lead=lead, fetched_sources=[], candidate_bio_snippets=candidate_bios)
+    assert len(signals) == 1
+    # Must NOT classify non-technical HR biography as technical_work
+    assert signals[0].signal_type == "professional_background"
+    assert signals[0].signal_type != "technical_work"
+
+    icebreaker = build_icebreaker(lead=lead, signals=signals, sources=[], identity_verified=True)
+    # Must NOT fabricate technical leadership statement
+    assert "technical leadership" not in (icebreaker.text or "").lower()
+
+
+def test_csv_header_aliases_normalized_identically_in_fingerprint():
+    raw_csv_lead = {
+        "Full Name": "Devon Miller",
+        "Company Name": "Apex Systems",
+        "Job Title": "Chief Technology Officer",
+        "Email": "devon@apexsystems.com",
+        "Company Website": "apexsystems.com",
+        "Industry": "Information Technology",
+        "Keywords": "cloud, security, kubernetes",
+    }
+    canonical_lead = {
+        "name": "Devon Miller",
+        "company": "Apex Systems",
+        "job_title": "Chief Technology Officer",
+        "professional_email": "devon@apexsystems.com",
+        "company_website": "apexsystems.com",
+        "industry": "Information Technology",
+        "keywords": "cloud, security, kubernetes",
+    }
+    fp_raw = research_fingerprint(raw_csv_lead, pipeline_version="2.0.0", schema_version="2.0.0")
+    fp_canonical = research_fingerprint(canonical_lead, pipeline_version="2.0.0", schema_version="2.0.0")
+
+    # Raw CSV headers and canonical keys must produce identical fingerprints
+    assert fp_raw == fp_canonical
+
+    # Changing any single field must invalidate the fingerprint
+    assert fp_raw != research_fingerprint(dict(raw_csv_lead, **{"Job Title": "VP of Architecture"}))
+    assert fp_raw != research_fingerprint(dict(raw_csv_lead, **{"Email": "dmiller@apexsystems.com"}))
+    assert fp_raw != research_fingerprint(dict(raw_csv_lead, **{"Company Name": "Apex Security"}))
+    assert fp_raw != research_fingerprint(dict(raw_csv_lead, **{"Company Website": "apexsecurity.io"}))
+
+
+def test_ssrf_rejects_credentials_and_prevalidates_unsafe_redirects():
+    # URL credentials must be rejected
+    safe, reason = is_safe_url("http://user:password@example.com")
+    assert not safe
+    assert "credentials" in reason.lower()
+
+    safe, reason = is_safe_url("https://admin:token@10.0.0.1/dashboard")
+    assert not safe
+
+    # Mock redirect to internal metadata service
+    scraper = ScraplingScraper(use_browser=False, use_tor=False)
+    redirect_response = MagicMock()
+    redirect_response.status = 302
+    redirect_response.headers = {"location": "http://169.254.169.254/latest/meta-data/"}
+
+    with patch("src.lead_research.scraper.Fetcher.get", return_value=redirect_response):
+        result = scraper.fetch_url("http://example.com/test-redirect")
+
+    assert result.status_code == 400
+    assert result.success is False
+    assert "SSRF" in result.error or "Redirect destination blocked" in result.error
+
+    # Mock redirect loop
+    loop_response1 = MagicMock()
+    loop_response1.status = 302
+    loop_response1.headers = {"location": "http://example.com/hop2"}
+
+    loop_response2 = MagicMock()
+    loop_response2.status = 302
+    loop_response2.headers = {"location": "http://example.com/hop1"}
+
+    with patch("src.lead_research.scraper.Fetcher.get", side_effect=[loop_response1, loop_response2, loop_response1]):
+        result = scraper.fetch_url("http://example.com/hop1")
+
+    assert result.status_code == 400
+    assert result.success is False
+    assert "redirect loop" in result.error.lower()
+

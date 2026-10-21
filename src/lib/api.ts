@@ -14,6 +14,7 @@ import {
 } from "@/types";
 
 const API_BASE = "";
+const API_KEY = process.env.NEXT_PUBLIC_API_KEY || "";
 
 class ApiError extends Error {
   status: number;
@@ -26,12 +27,17 @@ class ApiError extends Error {
 
 async function request<T>(path: string, options?: RequestInit): Promise<T> {
   const url = `${API_BASE}${path}`;
+  const headers: Record<string, string> = {
+    Accept: "application/json",
+    ...(options?.headers as Record<string, string>),
+  };
+  if (API_KEY) {
+    headers["X-API-Key"] = API_KEY;
+  }
+
   const response = await fetch(url, {
     ...options,
-    headers: {
-      Accept: "application/json",
-      ...options?.headers,
-    },
+    headers,
     cache: "no-store",
   });
 
@@ -74,12 +80,17 @@ export const api = {
     const formData = new FormData();
     formData.append("file", file);
 
+    const headers: Record<string, string> = {
+      Accept: "application/json",
+    };
+    if (API_KEY) {
+      headers["X-API-Key"] = API_KEY;
+    }
+
     const response = await fetch("/api/batches/upload", {
       method: "POST",
       body: formData,
-      headers: {
-        Accept: "application/json",
-      },
+      headers,
     });
 
     if (!response.ok) {

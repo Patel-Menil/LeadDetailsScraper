@@ -161,17 +161,20 @@ class LeadResearcher:
                     if lead.name and len(lead.name) > 3 and lead.name.lower() in res.extracted_text.lower():
                         company_mentions_person = True
                         web_facts.append(f"Confirmed team member mention on company site: {lead.name}")
+                        is_leadership_bio = any(k in res.url.lower() or k in (res.title or "").lower() for k in ["/team", "/about", "/leadership", "/executive", "/people", "/management", "leadership", "team"])
                         for clm in claims:
                             if clm.field == "name":
-                                clm.status = "verified"
-                                clm.confidence = 0.95
+                                clm.status = "verified" if is_leadership_bio else "partially_verified"
+                                clm.confidence = 0.90 if is_leadership_bio else 0.75
                                 if company_src_id not in clm.source_ids:
                                     clm.source_ids.append(company_src_id)
                             elif clm.field == "job_title":
-                                clm.status = "verified"
-                                clm.confidence = 0.90
-                                if company_src_id not in clm.source_ids:
-                                    clm.source_ids.append(company_src_id)
+                                # Verify current job title only when destination source directly corroborates role
+                                if is_leadership_bio and lead.job_title and lead.job_title.lower() in res.extracted_text.lower():
+                                    clm.status = "verified"
+                                    clm.confidence = 0.85
+                                    if company_src_id not in clm.source_ids:
+                                        clm.source_ids.append(company_src_id)
 
                     researched_snippets.append(res.extracted_text)
 
@@ -273,7 +276,7 @@ class LeadResearcher:
                         "snippet": cand["snippet"],
                     })
 
-                    # If candidate strongly matched the person and company, update claim provenance
+                    # If candidate strongly matched the person and company, update candidate bio evidence
                     if cand_score >= 0.70:
                         for clm in claims:
                             if clm.field == "name" and clm.status in ("input_provided", "unverified"):
@@ -281,9 +284,8 @@ class LeadResearcher:
                                 clm.confidence = max(clm.confidence, cand_score)
                                 if src_id not in clm.source_ids:
                                     clm.source_ids.append(src_id)
-                            elif clm.field == "job_title" and clm.status in ("input_provided", "unverified"):
-                                clm.status = "partially_verified"
-                                clm.confidence = max(clm.confidence, cand_score)
+                            elif clm.field == "job_title":
+                                # Search snippets alone cannot verify current role; destination page inspection required
                                 if src_id not in clm.source_ids:
                                     clm.source_ids.append(src_id)
 
@@ -334,6 +336,7 @@ class LeadResearcher:
             identity_score=max_identity_score,
             icebreaker=icebreaker,
             researched_text=" ".join(researched_snippets),
+            claims=claims,
         )
 
         if log_fn:
