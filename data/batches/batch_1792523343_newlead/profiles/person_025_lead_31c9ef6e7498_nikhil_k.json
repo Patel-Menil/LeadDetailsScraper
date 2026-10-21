@@ -1,0 +1,107 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_31c9ef6e7498",
+  "identity": {
+    "name": "Nikhil K",
+    "first_name": "Nikhil",
+    "last_name": "K",
+    "job_title": "Chief AI Officer and CTO",
+    "company": "C3 AI",
+    "industry": "information technology & services",
+    "linkedin_url": "",
+    "company_website": "http://www.c3.ai",
+    "professional_email": "nikhil.krishnan@c3.ai",
+    "city": "Redwood City",
+    "state": "California",
+    "country": "United States"
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at C3 AI",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Generative AI & LLM Infrastructure",
+      "API Security & Microservices",
+      "Healthcare Data Privacy (HIPAA) & Safe Exchange",
+      "Financial Data Governance & Compliance"
+    ],
+    "public_projects": [
+      "Platform development and operations for C3 AI"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at C3 AI"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Nikhil K (Chief AI Officer and CTO at C3 AI) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails"
+      ],
+      "evidence_points": [
+        "Role 'Chief AI Officer and CTO' makes key architecture decisions for emerging AI capabilities"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 0,
+    "reason": "Priority 0 (Highest Fit): Chief AI Officer and CTO at C3 AI matches core decision-maker criteria in a regulated/tech-driven industry with active AI/API needs.",
+    "score": 100.0,
+    "confidence": 0.9,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'Chief AI Officer and CTO'",
+      "Target enterprise vertical matching SealAPI: 'information technology'",
+      "Strong verified AI/API security need (matched signals: ai, artificial intelligence, machine learning, genai, generative ai, agentic)",
+      "Verified business email domain: nikhil.krishnan@c3.ai"
+    ]
+  },
+  "sources": [
+    {
+      "source_url": "lead_import_record",
+      "source_type": "input_data",
+      "retrieval_timestamp": "2026-10-20T19:10:58.273546+00:00",
+      "facts_supported": [
+        "Verified Name: Nikhil K",
+        "Declared Job Title: Chief AI Officer and CTO",
+        "Company: C3 AI",
+        "Industry: information technology & services",
+        "Verified Professional Email: nikhil.krishnan@c3.ai",
+        "Reported Location: Redwood City, California, United States",
+        "Company Keywords: generative ai,ai,enterprise ai,genai,agentic ai,ai agents,big data,artificial intelligence,analytics,machine learning,information technology,enterprise software,deep information te"
+      ]
+    },
+    {
+      "source_url": "http://www.c3.ai",
+      "source_type": "company_website",
+      "retrieval_timestamp": "2026-10-20T19:10:58Z",
+      "facts_supported": [
+        "Website Title: Home Page | C3 AI",
+        "Company Mission/Description: C3 AI is an enterprise artificial intelligence software company based nearby in Redwood City, California.",
+        "Core Offerings: The Agentic Operating System for Enterprise AI, Built for Your Industry, Decision Advantage,\n Delivered., Sea Power,\n Built on AI."
+      ]
+    }
+  ],
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as Chief AI Officer and CTO at C3 AI.",
+      "Focus on Generative AI & LLM Infrastructure, API Security & Microservices."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for information technology & services.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "Would you be open to a 10-minute technical exchange next Tuesday to explore how SealAPI shields AI and API endpoints for teams like C3 AI?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly."
+    ],
+    "missing_verification_points": []
+  },
+  "research_metadata": {
+    "research_status": "completed",
+    "last_research_timestamp": "2026-10-20T19:10:58.273546+00:00",
+    "sources_examined": 2,
+    "errors_and_limitations": []
+  }
+}

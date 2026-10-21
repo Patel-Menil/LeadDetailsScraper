@@ -1,0 +1,107 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_59182d1d7655",
+  "identity": {
+    "name": "Roman Gushel",
+    "first_name": "Roman",
+    "last_name": "Gushel",
+    "job_title": "CTO & Head of AI",
+    "company": "display.io",
+    "industry": "marketing & advertising",
+    "linkedin_url": "http://www.linkedin.com/in/gushel",
+    "company_website": "http://www.display.io",
+    "professional_email": "romang@display.io",
+    "city": "Fort Lauderdale",
+    "state": "Florida",
+    "country": "United States"
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at display.io",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Generative AI & LLM Infrastructure",
+      "API Security & Microservices"
+    ],
+    "public_projects": [
+      "Platform development and operations for display.io"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at display.io"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Roman Gushel (CTO & Head of AI at display.io) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails"
+      ],
+      "evidence_points": [
+        "Role 'CTO & Head of AI' makes key architecture decisions for emerging AI capabilities"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 0,
+    "reason": "Priority 0 (Highest Fit): CTO & Head of AI at display.io matches core decision-maker criteria in a regulated/tech-driven industry with active AI/API needs.",
+    "score": 88.0,
+    "confidence": 0.9,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'CTO & Head of AI'",
+      "Adjacent vertical: 'marketing & advertising'",
+      "Strong verified AI/API security need (matched signals: ai, machine learning, security, compliance, saas)",
+      "Verified business email domain: romang@display.io"
+    ]
+  },
+  "sources": [
+    {
+      "source_url": "lead_import_record",
+      "source_type": "input_data",
+      "retrieval_timestamp": "2026-10-20T19:09:39.091110+00:00",
+      "facts_supported": [
+        "Verified Name: Roman Gushel",
+        "Declared Job Title: CTO & Head of AI",
+        "Company: display.io",
+        "Industry: marketing & advertising",
+        "Verified Professional Email: romang@display.io",
+        "Reported Location: Fort Lauderdale, Florida, United States",
+        "Company Keywords: monetization,user acquisition,programmatic mobile advertising,mobile advertising,sdk,ad serving,mobile app,native,video,ecpm,bradvertising,rewarded video,rtb,app monetization,heade"
+      ]
+    },
+    {
+      "source_url": "http://www.display.io",
+      "source_type": "company_website",
+      "retrieval_timestamp": "2026-10-20T19:09:40Z",
+      "facts_supported": [
+        "Website Title: Display.io | Incremental Ad Monetization & Revenue",
+        "Company Mission/Description: Net-new supply for advertisers. Incremental revenue for publishers. Explore in-app ad monetization and programmatic audio curation solutions.",
+        "Core Offerings: Incremental, by design., Incremental \nin-app ad \nmonetization, Programmatic audio \ncuration, Built to add,"
+      ]
+    }
+  ],
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as CTO & Head of AI at display.io.",
+      "Focus on Generative AI & LLM Infrastructure, API Security & Microservices."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for marketing & advertising.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "Would you be open to a 10-minute technical exchange next Tuesday to explore how SealAPI shields AI and API endpoints for teams like display.io?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly."
+    ],
+    "missing_verification_points": []
+  },
+  "research_metadata": {
+    "research_status": "completed",
+    "last_research_timestamp": "2026-10-20T19:09:39.091110+00:00",
+    "sources_examined": 2,
+    "errors_and_limitations": [
+      "LinkedIn profile (http://www.linkedin.com/in/gushel) is behind an authentication wall; public domain records used for verified evidence."
+    ]
+  }
+}

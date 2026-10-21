@@ -1,0 +1,106 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_bbd5fdd40179",
+  "identity": {
+    "name": "Andrew R",
+    "first_name": "Andrew",
+    "last_name": "R",
+    "job_title": "CTO, Head of AI",
+    "company": "Upwork",
+    "industry": "information technology & services",
+    "linkedin_url": "",
+    "company_website": "http://www.upwork.com",
+    "professional_email": "andrewrabinovich@upwork.com",
+    "city": "San Francisco",
+    "state": "California",
+    "country": "United States"
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at Upwork",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Generative AI & LLM Infrastructure",
+      "API Security & Microservices",
+      "Financial Data Governance & Compliance"
+    ],
+    "public_projects": [
+      "Platform development and operations for Upwork"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at Upwork"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Andrew R (CTO, Head of AI at Upwork) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails"
+      ],
+      "evidence_points": [
+        "Role 'CTO, Head of AI' makes key architecture decisions for emerging AI capabilities"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 0,
+    "reason": "Priority 0 (Highest Fit): CTO, Head of AI at Upwork matches core decision-maker criteria in a regulated/tech-driven industry with active AI/API needs.",
+    "score": 100.0,
+    "confidence": 0.9,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'CTO, Head of AI'",
+      "Target enterprise vertical matching SealAPI: 'information technology'",
+      "Strong verified AI/API security need (matched signals: ai, machine learning, api, security, compliance)",
+      "Verified business email domain: andrewrabinovich@upwork.com"
+    ]
+  },
+  "sources": [
+    {
+      "source_url": "lead_import_record",
+      "source_type": "input_data",
+      "retrieval_timestamp": "2026-10-20T19:09:35.949609+00:00",
+      "facts_supported": [
+        "Verified Name: Andrew R",
+        "Declared Job Title: CTO, Head of AI",
+        "Company: Upwork",
+        "Industry: information technology & services",
+        "Verified Professional Email: andrewrabinovich@upwork.com",
+        "Reported Location: San Francisco, California, United States",
+        "Company Keywords: freelancers agencies,edp services,technology,software development,talent sourcing,graphic design,freelancer ratings,ai-driven freelancer ratings,ai for freelancer engagement,busine"
+      ]
+    },
+    {
+      "source_url": "http://www.upwork.com",
+      "source_type": "company_website",
+      "retrieval_timestamp": "2026-10-20T19:09:37Z",
+      "facts_supported": [
+        "Website Title: Upwork | Hire Top Freelance Talent with Confidence",
+        "Company Mission/Description: Upwork is the world’s largest human and AI-powered freelance marketplace to hire top talent—trusted by businesses and professionals worldwide.",
+        "Core Offerings: Drive larger-scale work, Learn about Upwork, Work at the speed of your ambition, Find freelancers for every type of work"
+      ]
+    }
+  ],
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as CTO, Head of AI at Upwork.",
+      "Focus on Generative AI & LLM Infrastructure, API Security & Microservices."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for information technology & services.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "Would you be open to a 10-minute technical exchange next Tuesday to explore how SealAPI shields AI and API endpoints for teams like Upwork?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly."
+    ],
+    "missing_verification_points": []
+  },
+  "research_metadata": {
+    "research_status": "completed",
+    "last_research_timestamp": "2026-10-20T19:09:35.949609+00:00",
+    "sources_examined": 2,
+    "errors_and_limitations": []
+  }
+}

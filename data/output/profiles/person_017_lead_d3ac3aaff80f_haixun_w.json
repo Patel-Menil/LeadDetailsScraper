@@ -1,0 +1,164 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_d3ac3aaff80f",
+  "identity": {
+    "name": "Haixun W",
+    "first_name": "Haixun",
+    "last_name": "W",
+    "job_title": "VP of Engineering, Head of AI",
+    "company": "EvenUp",
+    "industry": "information technology & services",
+    "linkedin_url": "",
+    "company_website": "http://www.evenuplaw.com",
+    "professional_email": "haixun.wang@evenup.ai",
+    "city": "Seattle",
+    "state": "Washington",
+    "country": "United States"
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at EvenUp",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Generative AI & LLM Infrastructure",
+      "API Security & Microservices",
+      "Financial Data Governance & Compliance"
+    ],
+    "public_projects": [
+      "Platform development and operations for EvenUp"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at EvenUp",
+      "VP Engineering, Head of AI | ACM Fellow | IEEE Fellow · Experience:  EvenUp  · Education: University of California, Los Angeles · Location: Greater Seattle Area · 500+ connections on LinkedIn",
+      "He is currently VP of Engineering and Head of AI at  EvenUp , where he leads efforts to apply large language and vision-language models (LLMs and VLMs) to legal and medical documents—building CoPilot-style tools for",
+      "Haixun  Wang brings experience from previous roles at IEEE, Data Engineering Bulletin, Fellows Fund, University of Washington and Board of Trustees, VLDB Endowment"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Haixun W (VP of Engineering, Head of AI at EvenUp) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails"
+      ],
+      "evidence_points": [
+        "Role 'VP of Engineering, Head of AI' makes key architecture decisions for emerging AI capabilities"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 0,
+    "reason": "Priority 0 (Highest Fit): VP of Engineering, Head of AI at EvenUp matches core decision-maker criteria in a regulated/tech-driven industry with active AI/API needs.",
+    "score": 100.0,
+    "confidence": 1.0,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'VP of Engineering, Head of AI'",
+      "Target enterprise vertical matching SealAPI: 'information technology'",
+      "Strong verified AI/API security need (matched signals: ai, artificial intelligence, machine learning, llm, generative ai, security)",
+      "Verified business email domain: haixun.wang@evenup.ai"
+    ]
+  },
+  "sources": [
+    {
+      "source_url": "lead_import_record",
+      "source_type": "input_data",
+      "retrieval_timestamp": "2026-10-10T19:19:53.388466+00:00",
+      "facts_supported": [
+        "Verified Name: Haixun W",
+        "Declared Job Title: VP of Engineering, Head of AI",
+        "Company: EvenUp",
+        "Industry: information technology & services",
+        "Verified Professional Email: haixun.wang@evenup.ai",
+        "Reported Location: Seattle, Washington, United States",
+        "Company Keywords: technology, information & internet,lawyer productivity tools,legal ai models,medical chronology automation,case valuation ai,medical record summarization ai,settlement negotiation "
+      ]
+    },
+    {
+      "source_url": "http://www.evenuplaw.com",
+      "source_type": "company_website",
+      "retrieval_timestamp": "2026-10-10T19:19:55Z",
+      "facts_supported": [
+        "Website Title: Leading AI for Personal Injury Lawyers - EvenUp Law",
+        "Company Mission/Description: EvenUp is the leading proactive AI platform for personal injury law firms. Our automations empower legal teams to focus on strategy, relationships, and care coordination.",
+        "Core Offerings: Proactive AI for Personal Injury Firms, Why 2,000+ Personal Injury Firms Choose EvenUp, The First Proactive AI Platform for the Entire Case Lifecycle, Platform"
+      ]
+    },
+    {
+      "source_url": "https://www.linkedin.com/in/haixun",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:20:00.287044+00:00",
+      "facts_supported": [
+        "Public Profile: Haixun Wang - VP Engineering, Head of AI | ACM Fellow - LinkedIn",
+        "Verified Career & Background: VP Engineering, Head of AI | ACM Fellow | IEEE Fellow · Experience: \nEvenUp\n · Education: University of California, Los Angeles · Location: Greater Seattle Area · 500+ connections on LinkedIn ..."
+      ]
+    },
+    {
+      "source_url": "https://www.theofficialboard.com/biography/haixun-wang-d2473",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:20:00.287112+00:00",
+      "facts_supported": [
+        "Public Profile: Haixun Wang Bio - EvenUp Engineering & AI - The Official Board",
+        "Verified Career & Background: Learn about the role of \nHaixun\n Wang, Vice President of Engineering and Head of Artificial Intelligence at \nEvenUp\n. Full bio on The Official Board."
+      ]
+    },
+    {
+      "source_url": "https://speakers.acm.org/speakers/wang_22329",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:20:00.287121+00:00",
+      "facts_supported": [
+        "Public Profile: Dr. Haixun Wang - speakers.acm.org",
+        "Verified Career & Background: Haixun\n Wang is an ACM Fellow, IEEE Fellow, Editor-in-Chief of the IEEE Data Engineering Bulletin, a trustee of VLDB, and an Affiliate Professor at the University of Washington. He is currently VP of Engineering and Head of AI at \nEvenUp\n, where he leads efforts to apply large language and vision-la"
+      ]
+    },
+    {
+      "source_url": "https://scholar.google.com/citations?user=Q1mcglAAAAAJ&hl=en",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:20:00.287127+00:00",
+      "facts_supported": [
+        "Public Profile: ‪Haixun Wang‬ - ‪Google Scholar‬",
+        "Verified Career & Background: Haixun\n Wang VP of Engineering, Head of AI at \nEvenUp\n Verified email at \nevenup\n.ai - Homepage Machine Learning Data and knowledge engineering NLP"
+      ]
+    },
+    {
+      "source_url": "https://www.evenuplaw.com/blog/haixun-wang-recognition-acm-fellow/",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:20:00.287132+00:00",
+      "facts_supported": [
+        "Public Profile: EvenUp Law Celebrates Haixun Wang's Recognition as a 2024 ACM Fellow",
+        "Verified Career & Background: We are proud to announce that \nHaixun\n Wang, Vice President of Engineering and Head of AI at \nEvenUp\n, has been named an ACM Fellow by the Association for Computing Machinery (ACM). This prestigious honor is awarded to fewer than 1% of ACM members worldwide and recognizes individuals whose groundbre"
+      ]
+    },
+    {
+      "source_url": "https://rocketreach.co/haixun-wang-email_2722139",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:20:00.287137+00:00",
+      "facts_supported": [
+        "Public Profile: Haixun Wang Email & Phone Number | EvenUp VP of ... - RocketReach",
+        "Verified Career & Background: Haixun\n Wang, based in Kirkland, WA, US, is currently a VP of Engineering, Head of AI at \nEvenUp\n. \nHaixun\n Wang brings experience from previous roles at IEEE, Data Engineering Bulletin, Fellows Fund, University of Washington and Board of Trustees, VLDB Endowment."
+      ]
+    }
+  ],
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as VP of Engineering, Head of AI at EvenUp.",
+      "Focus on Generative AI & LLM Infrastructure, API Security & Microservices.",
+      "Background: VP Engineering, Head of AI | ACM Fellow | IEEE Fellow · Experience:  EvenUp  · Education: University of California, Los ..."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for information technology & services.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "Would you be open to a 10-minute technical exchange next Tuesday to explore how SealAPI shields AI and API endpoints for teams like EvenUp?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly."
+    ],
+    "missing_verification_points": []
+  },
+  "research_metadata": {
+    "research_status": "completed",
+    "last_research_timestamp": "2026-10-10T19:19:53.388466+00:00",
+    "sources_examined": 8,
+    "errors_and_limitations": []
+  }
+}

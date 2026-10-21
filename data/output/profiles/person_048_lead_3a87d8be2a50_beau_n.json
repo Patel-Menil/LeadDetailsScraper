@@ -1,0 +1,166 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_3a87d8be2a50",
+  "identity": {
+    "name": "Beau N",
+    "first_name": "Beau",
+    "last_name": "N",
+    "job_title": "Co-Founder and Chief AI Officer",
+    "company": "Qualified Health",
+    "industry": "hospital & health care",
+    "linkedin_url": "",
+    "company_website": "https://qualifiedhealthai.com",
+    "professional_email": "beau@qualifiedhealthai.com",
+    "city": "Palo Alto",
+    "state": "California",
+    "country": "United States"
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at Qualified Health",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Generative AI & LLM Infrastructure",
+      "API Security & Microservices",
+      "Healthcare Data Privacy (HIPAA) & Safe Exchange"
+    ],
+    "public_projects": [
+      "Platform development and operations for Qualified Health"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at Qualified Health",
+      "Learn more Partnered with leading organizations building at the frontier of healthcare AI",
+      "We’re able to harness their infrastructure and discipline as we work toward a system-wide, centralized strategy,  where AI is deployed while preserving and building upon our top-quality patient experience and health outcomes",
+      "Atul Butte: Visionary, Mentor, Friend ·  Beau  is Co-founder and Chief AI Officer at  Qualified Health , building the infrastructure for Generative AI in healthcare"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Beau N (Co-Founder and Chief AI Officer at Qualified Health) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails",
+        "Privacy-Preserving Data Exchange & Compliance"
+      ],
+      "evidence_points": [
+        "Role 'Co-Founder and Chief AI Officer' makes key architecture decisions for emerging AI capabilities",
+        "Regulated domain 'hospital & health care' mandates strict API access controls and audited data flow"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 0,
+    "reason": "Priority 0 (Highest Fit): Co-Founder and Chief AI Officer at Qualified Health matches core decision-maker criteria in a regulated/tech-driven industry with active AI/API needs.",
+    "score": 100.0,
+    "confidence": 1.0,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'Co-Founder and Chief AI Officer'",
+      "Target enterprise vertical matching SealAPI: 'hospital & health care'",
+      "Strong verified AI/API security need (matched signals: ai, artificial intelligence, machine learning, llm, generative ai, agentic)",
+      "Verified business email domain: beau@qualifiedhealthai.com"
+    ]
+  },
+  "sources": [
+    {
+      "source_url": "lead_import_record",
+      "source_type": "input_data",
+      "retrieval_timestamp": "2026-10-10T19:21:23.725116+00:00",
+      "facts_supported": [
+        "Verified Name: Beau N",
+        "Declared Job Title: Co-Founder and Chief AI Officer",
+        "Company: Qualified Health",
+        "Industry: hospital & health care",
+        "Verified Professional Email: beau@qualifiedhealthai.com",
+        "Reported Location: Palo Alto, California, United States",
+        "Company Keywords: technology,machine learning,llms,patient health outcomes,digital health,clinical decision support,health it,health informatics,medical software,hospitals & health care,artificial i"
+      ]
+    },
+    {
+      "source_url": "https://qualifiedhealthai.com",
+      "source_type": "company_website",
+      "retrieval_timestamp": "2026-10-10T19:21:24Z",
+      "facts_supported": [
+        "Website Title: Enterprise AI Platform for Health Systems | Qualified Health",
+        "Company Mission/Description: Enterprise AI platform for health systems. One integration, proven solutions, end-to-end governance, and real ROI. Trusted by 400,000 users.",
+        "Core Offerings: Healthcare AI can’t scale without safety and trust., That’s where we come in., Trusted by leading health systems to deliver enterprise-wide AI transformation., One integration. One platform. All your governed AI solutions."
+      ]
+    },
+    {
+      "source_url": "https://www.linkedin.com/in/beau-norgeot-phd",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:21:29.249015+00:00",
+      "facts_supported": [
+        "Public Profile: Beau Norgeot, PhD - Atul Butte: Visionary, Mentor, Friend | LinkedIn",
+        "Verified Career & Background: Atul Butte: Visionary, Mentor, Friend · \nBeau\n is Co-founder and Chief AI Officer at \nQualified\nHealth\n, building the infrastructure for Generative AI in healthcare. He has spent his career obsessed ..."
+      ]
+    },
+    {
+      "source_url": "https://www.crunchbase.com/person/beau-norgeot",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:21:29.249054+00:00",
+      "facts_supported": [
+        "Public Profile: Beau Norgeot - Co-Founder & Chief AI Officer @ Qualified Health ...",
+        "Verified Career & Background: Beau\n Norgeot is based out of Palo Alto, California and is the Co-Founder and Chief AI Officer of \nQualified\nHealth\n. \nBeau\n previously worked at Elevance \nHealth\n as a Staff VP, AI."
+      ]
+    },
+    {
+      "source_url": "https://people.equilar.com/bio/person/beau-norgeot-qualified-health-pbc/64384435",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:21:29.249060+00:00",
+      "facts_supported": [
+        "Public Profile: Beau Norgeot PhD - Executive Bio, Work History, and Contacts - Equilar ...",
+        "Verified Career & Background: View the executive profile of \nBeau\n Norgeot PhD, Co-Founder | Chief AI Officer at \nQualified\nHealth\n at \nQualified\nHealth\n PBC, on Equilar ExecAtlas to see current and past work history and gain access to \nBeau\n Norgeot PhD's network of 6 business contacts."
+      ]
+    },
+    {
+      "source_url": "https://www.theofficialboard.com/biography/beau-norgeot-d76e5",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:21:29.249065+00:00",
+      "facts_supported": [
+        "Public Profile: Beau Norgeot Bio - Qualified Health AI - The Official Board",
+        "Verified Career & Background: Read the biography of \nBeau\n Norgeot, at \nQualified\nHealth\n as Co-Founder and Chief Artificial Intelligence Officer - ... Full bio on The Official Board."
+      ]
+    },
+    {
+      "source_url": "https://www.qualifiedhealthai.com/about-us",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:21:29.249070+00:00",
+      "facts_supported": [
+        "Public Profile: About Us | Qualified Health AI Leadership & Expertise",
+        "Verified Career & Background: Meet the healthcare executives, physicians, and AI engineers behind \nQualified\nHealth\n. We bring clinical insight and technical excellence to enterprise AI."
+      ]
+    },
+    {
+      "source_url": "https://www.qualifiedhealthai.com/",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:21:29.249075+00:00",
+      "facts_supported": [
+        "Public Profile: Enterprise AI Platform for Health Systems | Qualified Health",
+        "Verified Career & Background: Enterprise AI platform for \nhealth\n systems. One integration, proven solutions, end-to-end governance, and real ROI. Trusted by 400,000 users."
+      ]
+    }
+  ],
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as Co-Founder and Chief AI Officer at Qualified Health.",
+      "Focus on Generative AI & LLM Infrastructure, API Security & Microservices.",
+      "Background: Learn more Partnered with leading organizations building at the frontier of healthcare AI..."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for hospital & health care.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "Would you be open to a 10-minute technical exchange next Tuesday to explore how SealAPI shields AI and API endpoints for teams like Qualified Health?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly."
+    ],
+    "missing_verification_points": []
+  },
+  "research_metadata": {
+    "research_status": "completed",
+    "last_research_timestamp": "2026-10-10T19:21:23.725116+00:00",
+    "sources_examined": 8,
+    "errors_and_limitations": []
+  }
+}

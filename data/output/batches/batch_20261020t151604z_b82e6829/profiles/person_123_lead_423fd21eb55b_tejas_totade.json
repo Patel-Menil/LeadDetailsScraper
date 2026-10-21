@@ -1,0 +1,247 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_423fd21eb55b",
+  "input_snapshot": {
+    "Linkedin Url": "http://www.linkedin.com/in/tejastotade",
+    "Full Name": "Tejas Totade",
+    "First Name": "Tejas",
+    "Last Name": "Totade",
+    "Email": "totadet@ruderfinn.com",
+    "Email Status": "verified",
+    "Job Title": "CTO and Head of AI",
+    "Company Name": "Ruder Finn",
+    "Company Website": "http://www.ruderfinn.com",
+    "City": "New York",
+    "State": "New York",
+    "Country": "United States",
+    "Industry": "public relations & communications",
+    "Keywords": "pr,marketing,communications,media relations,creativity,thought leadership,digital media,social media,analytics,engagement,technology,public relations & communications services,global communications,corporate responsibility campaigns,digital storytelling solutions,digital storytelling techniques,media analytics,online reputation,digital analytics,de&i initiatives,public relations,digital storytelling platforms,digital reputation monitoring tools,media monitoring,digital engagement,digital campaign management,digital reputation monitoring,marketing and advertising,crisis communications,corporate social responsibility,digital-first approach,social media management,stakeholder engagement,digital storytelling,campaign measurement,media monitoring tools,digital reputation tools,reputation management,digital storytelling tools,digital reputation management,digital-first branding strategies,content creation,social media analytics,digital reputation analytics,corporate social responsibility campaigns,social media strategy,content marketing,creative campaigns,brand storytelling,digital-first communication strategies,content development,stakeholder capitalism,corporate reputation,digital tools,stakeholder engagement strategies,media relations campaigns,digital-first communication,digital engagement strategies,brand experience,digital-first branding,communications services,public relations agencies,digital reputation management platforms,campaign analytics,digital reputation management tools,digital reputation,media relations strategy,media strategy,brand positioning,purpose-driven leadership,integrated marketing,social media campaigns,digital marketing,media outreach,corporate communications,brand management,digital transformation,crisis management,executive communications,internal communications,employee engagement,creative storytelling,change management,narrative development,advocacy,consumer insights,multicultural marketing,technology communications,healthcare communications,sustainability,de&i,creative solutions,innovation,leadership dialogue,employee training,consumer brand strategy,partnership development,community engagement,predictive analytics,influencer marketing,c-suite positioning,strategic planning,workplace culture,client experience,health equity,cross-cultural engagement,public affairs,market research,performance measurement,brand loyalty,customer experience,risk management,creative design,b2b,healthcare,non-profit,services,consulting,public relations & communications,consumer internet,consumers,internet,information technology & services,marketing & advertising,environmental services,renewables & environment,enterprise software,enterprises,computer software,health care,health, wellness & fitness,hospital & health care,nonprofit organization management",
+    "Employees": "1000",
+    "Company City": "New York",
+    "Company State": "New York",
+    "Company Country": "United States",
+    "Company Linkedin Url": "http://www.linkedin.com/company/ruder-finn",
+    "Company Twitter Url": "https://twitter.com/RuderFinn",
+    "Company Facebook Url": "https://facebook.com/ruderfinn",
+    "Company Phone Numbers": "+1 212-593-6400",
+    "Twitter Url": "https://twitter.com/teyjas",
+    "Facebook Url": ""
+  },
+  "identity": {
+    "name": "Tejas Totade",
+    "first_name": "Tejas",
+    "last_name": "Totade",
+    "job_title": "CTO and Head of AI",
+    "company": "Ruder Finn",
+    "industry": "public relations & communications",
+    "linkedin_url": "http://www.linkedin.com/in/tejastotade",
+    "company_website": "http://www.ruderfinn.com",
+    "professional_email": "totadet@ruderfinn.com",
+    "city": "New York",
+    "state": "New York",
+    "country": "United States"
+  },
+  "contact": {
+    "email": "totadet@ruderfinn.com",
+    "email_type": "work",
+    "email_verification_status": "syntax_valid_unprobed",
+    "linkedin_url": "http://www.linkedin.com/in/tejastotade",
+    "contact_channel_status": "available"
+  },
+  "company": {
+    "name": "Ruder Finn",
+    "website": "http://www.ruderfinn.com",
+    "domain": "ruderfinn.com",
+    "industry": "public relations & communications",
+    "verified": false
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at Ruder Finn",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Generative AI & LLM Infrastructure"
+    ],
+    "public_projects": [
+      "Platform development and operations for Ruder Finn"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at Ruder Finn"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Tejas Totade (CTO and Head of AI at Ruder Finn) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails"
+      ],
+      "evidence_points": [
+        "Role 'CTO and Head of AI' makes architecture decisions for emerging AI capabilities"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 1,
+    "reason": "Priority 1 (Medium Fit): CTO and Head of AI at Ruder Finn is in a relevant role or vertical, but requires further qualification of immediate security/AI deployment urgency.",
+    "score": 65.0,
+    "confidence": 0.33,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'CTO and Head of AI'",
+      "Moderate AI/API infrastructure signals: ai, api"
+    ]
+  },
+  "sources": [
+    {
+      "source_id": "src_input_lead_423",
+      "source_url": "lead_import_record",
+      "source_type": "user_input",
+      "title": null,
+      "publisher": null,
+      "retrieval_timestamp": "2026-10-20T15:16:10.202646+00:00",
+      "published_at": null,
+      "relevant_excerpt": null,
+      "evidence_quality": 0.6,
+      "supports_claim_ids": [],
+      "facts_supported": [
+        "Imported Name: Tejas Totade",
+        "Imported Job Title: CTO and Head of AI",
+        "Imported Company: Ruder Finn",
+        "Imported Industry: public relations & communications",
+        "Imported Professional Email: totadet@ruderfinn.com",
+        "Imported Company Website: http://www.ruderfinn.com"
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "clm_name",
+      "field": "name",
+      "value": "Tejas Totade",
+      "status": "verified",
+      "source_ids": [
+        "src_input_lead_423"
+      ],
+      "confidence": 0.75,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_company",
+      "field": "company",
+      "value": "Ruder Finn",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_423"
+      ],
+      "confidence": 0.7,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_title",
+      "field": "job_title",
+      "value": "CTO and Head of AI",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_423"
+      ],
+      "confidence": 0.65,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_email",
+      "field": "professional_email",
+      "value": "totadet@ruderfinn.com",
+      "status": "unverified",
+      "source_ids": [
+        "src_input_lead_423"
+      ],
+      "confidence": 0.5,
+      "last_verified_at": null,
+      "review_reason": "Syntax valid from import; deliverability probe not performed"
+    }
+  ],
+  "public_signals": [],
+  "icebreaker": {
+    "text": "I have been following how technology teams in the public relations & communications sector are managing API and AI endpoint security.",
+    "icebreaker_type": "general_question",
+    "source_ids": [
+      "src_input_lead_423"
+    ],
+    "confidence": 0.45,
+    "why_it_matters": "SealAPI helps organizations protect APIs from token leakage, prompt injection, and credential abuse with zero-trust gateways.",
+    "potential_pain_point": "Hypothesis: Preventing credential leakage and unauthorized API consumption in production.",
+    "conversation_question": "Would you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?",
+    "personalization_status": "generic_fallback",
+    "outreach_draft": {
+      "subject": "API security & AI infrastructure at Ruder Finn",
+      "greeting": "Hi Tejas,",
+      "opener": "I have been following how technology teams in the public relations & communications sector are managing API and AI endpoint security.",
+      "sealapi_connection": "At SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.",
+      "low_pressure_ask": "Would you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?",
+      "full_body": "Hi Tejas,\n\nI have been following how technology teams in the public relations & communications sector are managing API and AI endpoint security.\n\nAt SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.\n\nWould you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?\n\nBest regards,\nSealAPI Research & Partnerships"
+    }
+  },
+  "scoring": {
+    "lead_fit_score": 65.0,
+    "role_fit_score": 35.0,
+    "industry_fit_score": 5.0,
+    "technical_need_score": 15.0,
+    "verification_confidence": 0.33,
+    "readiness_status": "ready_with_caveat",
+    "explanations": [
+      "High-authority security/AI decision maker role: 'CTO and Head of AI'",
+      "Moderate AI/API infrastructure signals: ai, api"
+    ]
+  },
+  "contact_readiness": {
+    "status": "ready_with_caveat",
+    "has_name": true,
+    "has_verified_role": true,
+    "has_company_context": true,
+    "has_usable_contact_channel": true,
+    "has_evidence_based_icebreaker": false,
+    "blockers": [
+      "identity_not_verified"
+    ]
+  },
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as CTO and Head of AI at Ruder Finn.",
+      "Focus on Generative AI & LLM Infrastructure.",
+      "Evidence-based opener: I have been following how technology teams in the public relations & communications sector are managing API and AI endpoint security."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for public relations & communications.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "Would you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly.",
+      "Do not assume delivered email address guarantees personal inbox delivery without validation."
+    ],
+    "missing_verification_points": [
+      "Icebreaker status: generic_fallback (human review recommended)."
+    ]
+  },
+  "research_metadata": {
+    "schema_version": "2.0.0",
+    "batch_id": "batch_20261020T151604Z_b82e6829",
+    "pipeline_version": "2.0.0",
+    "researched_at": "2026-10-20T15:16:10.202646+00:00",
+    "execution_status": "partial",
+    "verification_status": "unverified",
+    "source_count": 1,
+    "review_required": true,
+    "cache_fingerprint": "a5e2e164567fd57ed9ea97d3a7209438925aaa6c63f8f1fed2e014ba384a6219",
+    "errors_and_limitations": [
+      "LinkedIn URL (http://www.linkedin.com/in/tejastotade) is behind an authentication wall; public domain records used for verified evidence."
+    ],
+    "research_status": "partial",
+    "last_research_timestamp": "2026-10-20T15:16:10.202646+00:00",
+    "sources_examined": 1
+  }
+}

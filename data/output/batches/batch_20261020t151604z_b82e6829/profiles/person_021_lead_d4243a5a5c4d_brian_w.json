@@ -1,0 +1,247 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_d4243a5a5c4d",
+  "input_snapshot": {
+    "Linkedin Url": "",
+    "Full Name": "Brian W",
+    "First Name": "Brian",
+    "Last Name": "W",
+    "Email": "brian.weiss@itech-solutions.com",
+    "Email Status": "verified",
+    "Job Title": "CEO, Chief AI Officer & Strategic Technology Advisor",
+    "Company Name": "ITECH Solutions",
+    "Company Website": "http://www.itech-solutions.com",
+    "City": "Templeton",
+    "State": "California",
+    "Country": "United States",
+    "Industry": "information technology & services",
+    "Keywords": "ai,cybersecurity,compliance,it infrastructure,microsoft 365,business continuity disaster recovery,governance risk management,zerotrust architecture,threatlocker,comanaged it services,managed it services,it service management,identity access management,aidriven operations,microsoft defender,microsoft azure,microsoft entra,microsoft purview,microsoft copilot,vciso,vcio,vcaio,microsoft intune,cloud optimization,security operations,data loss prevention,cloud security,incident response planning,it services & it consulting,technology, information & internet,b2b,it training and support,information technology and services,cloud services,consulting,business continuity,co-managed it services,business technology optimization,disaster recovery,security layers,hybrid cloud support,network security,it system design,multi-factor authentication,it outsourcing,remote support,zero trust security,it compliance support,it asset management,data protection,remote monitoring,it infrastructure management,it monitoring,it support,cybersecurity solutions,it support portal,generative ai in it,it consulting,managed security services provider (mssp),virtual cio,saas,cloud migration,services,it solutions,security solutions,generative ai,itil support processes,it project management,data backup,fully managed it services,computer systems design and related services,information technology & services,cloud computing,enterprise software,enterprises,computer software,outsourcing/offshoring,management consulting,it services & computer repair,local services,professional services,web design",
+    "Employees": "14",
+    "Company City": "Templeton",
+    "Company State": "California",
+    "Company Country": "United States",
+    "Company Linkedin Url": "http://www.linkedin.com/company/itech-solutions2005",
+    "Company Twitter Url": "https://twitter.com/ITECHslo",
+    "Company Facebook Url": "https://www.facebook.com/itechsol/",
+    "Company Phone Numbers": "+1 805-595-1900",
+    "Twitter Url": "",
+    "Facebook Url": ""
+  },
+  "identity": {
+    "name": "Brian W",
+    "first_name": "Brian",
+    "last_name": "W",
+    "job_title": "CEO, Chief AI Officer & Strategic Technology Advisor",
+    "company": "ITECH Solutions",
+    "industry": "information technology & services",
+    "linkedin_url": "",
+    "company_website": "http://www.itech-solutions.com",
+    "professional_email": "brian.weiss@itech-solutions.com",
+    "city": "Templeton",
+    "state": "California",
+    "country": "United States"
+  },
+  "contact": {
+    "email": "brian.weiss@itech-solutions.com",
+    "email_type": "work",
+    "email_verification_status": "syntax_valid_unprobed",
+    "linkedin_url": "",
+    "contact_channel_status": "available"
+  },
+  "company": {
+    "name": "ITECH Solutions",
+    "website": "http://www.itech-solutions.com",
+    "domain": "itech-solutions.com",
+    "industry": "information technology & services",
+    "verified": false
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at ITECH Solutions",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Generative AI & LLM Infrastructure"
+    ],
+    "public_projects": [
+      "Platform development and operations for ITECH Solutions"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at ITECH Solutions"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Brian W (CEO, Chief AI Officer & Strategic Technology Advisor at ITECH Solutions) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails"
+      ],
+      "evidence_points": [
+        "Role 'CEO, Chief AI Officer & Strategic Technology Advisor' makes architecture decisions for emerging AI capabilities"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 1,
+    "reason": "Priority 1 (Medium Fit): CEO, Chief AI Officer & Strategic Technology Advisor at ITECH Solutions is in a relevant role or vertical, but requires further qualification of immediate security/AI deployment urgency.",
+    "score": 100.0,
+    "confidence": 0.24,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'CEO, Chief AI Officer & Strategic Technology Advisor'",
+      "Target enterprise vertical matching SealAPI: 'information technology'",
+      "Strong verified AI/API security need (matched signals: ai, generative ai, security, compliance, zero trust, cloud)"
+    ]
+  },
+  "sources": [
+    {
+      "source_id": "src_input_lead_d42",
+      "source_url": "lead_import_record",
+      "source_type": "user_input",
+      "title": null,
+      "publisher": null,
+      "retrieval_timestamp": "2026-10-20T15:16:10.307839+00:00",
+      "published_at": null,
+      "relevant_excerpt": null,
+      "evidence_quality": 0.6,
+      "supports_claim_ids": [],
+      "facts_supported": [
+        "Imported Name: Brian W",
+        "Imported Job Title: CEO, Chief AI Officer & Strategic Technology Advisor",
+        "Imported Company: ITECH Solutions",
+        "Imported Industry: information technology & services",
+        "Imported Professional Email: brian.weiss@itech-solutions.com",
+        "Imported Company Website: http://www.itech-solutions.com"
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "clm_name",
+      "field": "name",
+      "value": "Brian W",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_d42"
+      ],
+      "confidence": 0.5,
+      "last_verified_at": null,
+      "review_reason": "Surname is abbreviated; requires full name evidence"
+    },
+    {
+      "claim_id": "clm_company",
+      "field": "company",
+      "value": "ITECH Solutions",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_d42"
+      ],
+      "confidence": 0.7,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_title",
+      "field": "job_title",
+      "value": "CEO, Chief AI Officer & Strategic Technology Advisor",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_d42"
+      ],
+      "confidence": 0.65,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_email",
+      "field": "professional_email",
+      "value": "brian.weiss@itech-solutions.com",
+      "status": "unverified",
+      "source_ids": [
+        "src_input_lead_d42"
+      ],
+      "confidence": 0.5,
+      "last_verified_at": null,
+      "review_reason": "Syntax valid from import; deliverability probe not performed"
+    }
+  ],
+  "public_signals": [],
+  "icebreaker": {
+    "text": "I have been following how technology teams in the information technology & services sector are managing API and AI endpoint security.",
+    "icebreaker_type": "general_question",
+    "source_ids": [
+      "src_input_lead_d42"
+    ],
+    "confidence": 0.45,
+    "why_it_matters": "SealAPI helps organizations protect APIs from token leakage, prompt injection, and credential abuse with zero-trust gateways.",
+    "potential_pain_point": "Hypothesis: Preventing credential leakage and unauthorized API consumption in production.",
+    "conversation_question": "Would you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?",
+    "personalization_status": "generic_fallback",
+    "outreach_draft": {
+      "subject": "API security & AI infrastructure at ITECH Solutions",
+      "greeting": "Hi Brian,",
+      "opener": "I have been following how technology teams in the information technology & services sector are managing API and AI endpoint security.",
+      "sealapi_connection": "At SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.",
+      "low_pressure_ask": "Would you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?",
+      "full_body": "Hi Brian,\n\nI have been following how technology teams in the information technology & services sector are managing API and AI endpoint security.\n\nAt SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.\n\nWould you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?\n\nBest regards,\nSealAPI Research & Partnerships"
+    }
+  },
+  "scoring": {
+    "lead_fit_score": 100.0,
+    "role_fit_score": 35.0,
+    "industry_fit_score": 30.0,
+    "technical_need_score": 25.0,
+    "verification_confidence": 0.24,
+    "readiness_status": "needs_research",
+    "explanations": [
+      "High-authority security/AI decision maker role: 'CEO, Chief AI Officer & Strategic Technology Advisor'",
+      "Target enterprise vertical matching SealAPI: 'information technology'",
+      "Strong verified AI/API security need (matched signals: ai, generative ai, security, compliance, zero trust, cloud)"
+    ]
+  },
+  "contact_readiness": {
+    "status": "needs_research",
+    "has_name": true,
+    "has_verified_role": true,
+    "has_company_context": true,
+    "has_usable_contact_channel": true,
+    "has_evidence_based_icebreaker": false,
+    "blockers": [
+      "identity_not_verified"
+    ]
+  },
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as CEO, Chief AI Officer & Strategic Technology Advisor at ITECH Solutions.",
+      "Focus on Generative AI & LLM Infrastructure.",
+      "Evidence-based opener: I have been following how technology teams in the information technology & services sector are managing API and AI endpoint security."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for information technology & services.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "Would you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly.",
+      "Do not assume delivered email address guarantees personal inbox delivery without validation."
+    ],
+    "missing_verification_points": [
+      "Icebreaker status: generic_fallback (human review recommended)."
+    ]
+  },
+  "research_metadata": {
+    "schema_version": "2.0.0",
+    "batch_id": "batch_20261020T151604Z_b82e6829",
+    "pipeline_version": "2.0.0",
+    "researched_at": "2026-10-20T15:16:10.307839+00:00",
+    "execution_status": "partial",
+    "verification_status": "unverified",
+    "source_count": 1,
+    "review_required": true,
+    "cache_fingerprint": "a5e2e164567fd57ed9ea97d3a7209438925aaa6c63f8f1fed2e014ba384a6219",
+    "errors_and_limitations": [],
+    "research_status": "partial",
+    "last_research_timestamp": "2026-10-20T15:16:10.307839+00:00",
+    "sources_examined": 1
+  }
+}

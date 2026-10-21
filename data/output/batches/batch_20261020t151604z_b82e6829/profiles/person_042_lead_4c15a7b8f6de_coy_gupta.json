@@ -1,0 +1,254 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_4c15a7b8f6de",
+  "input_snapshot": {
+    "Linkedin Url": "http://www.linkedin.com/in/coygupta",
+    "Full Name": "Coy Gupta",
+    "First Name": "Coy",
+    "Last Name": "Gupta",
+    "Email": "cgupta@glytec.com",
+    "Email Status": "verified",
+    "Job Title": "CTO & Head of AI",
+    "Company Name": "Glytec",
+    "Company Website": "https://glytec.com",
+    "City": "Winter Park",
+    "State": "Florida",
+    "Country": "United States",
+    "Industry": "hospital & health care,computer software,information technology & services,health, wellness & fitness,medical devices",
+    "Keywords": "diabetes,health information technology,glycemic management,therapy management software,insulin dosing,digital health,valuebased care,healthcare,population health,clinical decision support,medical device,digital therapeutics,medication optimization,hospitals & health care,workflow automation,eglycemic management system,hyperglycemia prediction,hypoglycemia,glycemic control,predictive analytics,medical devices,care continuum,predictive modeling,fda-cleared,cloud-based software,medical device software,data integration,hyperglycemia,healthcare technology,healthcare analytics,hospitals,data analytics,computer systems design and related services,internal medicine,regulatory compliance,b2b,patient-specific dosing,ai/ml optimization,high-risk patient scoring,real-time analytics,diabetes management,hospital & healthcare it,safety protocols,cost savings,hospital readmission reduction,cost-effective diabetes care,hospital solutions,hospital glycemic protocols,hospital it,ehr integration,cms reporting,hospital safety analytics,insulin titration algorithms,patient safety,glucommander,safety guardrails,healthcare it,diabetes care innovation,insulin management,clinical workflows,patient outcomes,quality measures,digital health solutions,services,medical,health care,health, wellness & fitness,hospital & health care,information technology & services,enterprise software,enterprises,computer software",
+    "Employees": "83",
+    "Company City": "Boston",
+    "Company State": "Massachusetts",
+    "Company Country": "United States",
+    "Company Linkedin Url": "http://www.linkedin.com/company/glytec-llc",
+    "Company Twitter Url": "https://twitter.com/glytec",
+    "Company Facebook Url": "",
+    "Company Phone Numbers": "+1 864-370-3297",
+    "Twitter Url": "",
+    "Facebook Url": ""
+  },
+  "identity": {
+    "name": "Coy Gupta",
+    "first_name": "Coy",
+    "last_name": "Gupta",
+    "job_title": "CTO & Head of AI",
+    "company": "Glytec",
+    "industry": "hospital & health care,computer software,information technology & services,health, wellness & fitness,medical devices",
+    "linkedin_url": "http://www.linkedin.com/in/coygupta",
+    "company_website": "https://glytec.com",
+    "professional_email": "cgupta@glytec.com",
+    "city": "Winter Park",
+    "state": "Florida",
+    "country": "United States"
+  },
+  "contact": {
+    "email": "cgupta@glytec.com",
+    "email_type": "work",
+    "email_verification_status": "syntax_valid_unprobed",
+    "linkedin_url": "http://www.linkedin.com/in/coygupta",
+    "contact_channel_status": "available"
+  },
+  "company": {
+    "name": "Glytec",
+    "website": "https://glytec.com",
+    "domain": "glytec.com",
+    "industry": "hospital & health care,computer software,information technology & services,health, wellness & fitness,medical devices",
+    "verified": false
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at Glytec",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Generative AI & LLM Infrastructure",
+      "API Security & Microservices",
+      "Healthcare Data Privacy (HIPAA) & Safe Exchange"
+    ],
+    "public_projects": [
+      "Platform development and operations for Glytec"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at Glytec"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Coy Gupta (CTO & Head of AI at Glytec) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails",
+        "Privacy-Preserving Data Exchange & Compliance"
+      ],
+      "evidence_points": [
+        "Role 'CTO & Head of AI' makes architecture decisions for emerging AI capabilities",
+        "Regulated vertical 'hospital & health care,computer software,information technology & services,health, wellness & fitness,medical devices' mandates strict API access controls and audited data flow"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 1,
+    "reason": "Priority 1 (Medium Fit): CTO & Head of AI at Glytec is in a relevant role or vertical, but requires further qualification of immediate security/AI deployment urgency.",
+    "score": 90.0,
+    "confidence": 0.33,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'CTO & Head of AI'",
+      "Target enterprise vertical matching SealAPI: 'information technology'",
+      "Moderate AI/API infrastructure signals: ai, compliance, cloud"
+    ]
+  },
+  "sources": [
+    {
+      "source_id": "src_input_lead_4c1",
+      "source_url": "lead_import_record",
+      "source_type": "user_input",
+      "title": null,
+      "publisher": null,
+      "retrieval_timestamp": "2026-10-20T15:16:10.197807+00:00",
+      "published_at": null,
+      "relevant_excerpt": null,
+      "evidence_quality": 0.6,
+      "supports_claim_ids": [],
+      "facts_supported": [
+        "Imported Name: Coy Gupta",
+        "Imported Job Title: CTO & Head of AI",
+        "Imported Company: Glytec",
+        "Imported Industry: hospital & health care,computer software,information technology & services,health, wellness & fitness,medical devices",
+        "Imported Professional Email: cgupta@glytec.com",
+        "Imported Company Website: https://glytec.com"
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "clm_name",
+      "field": "name",
+      "value": "Coy Gupta",
+      "status": "verified",
+      "source_ids": [
+        "src_input_lead_4c1"
+      ],
+      "confidence": 0.75,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_company",
+      "field": "company",
+      "value": "Glytec",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_4c1"
+      ],
+      "confidence": 0.7,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_title",
+      "field": "job_title",
+      "value": "CTO & Head of AI",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_4c1"
+      ],
+      "confidence": 0.65,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_email",
+      "field": "professional_email",
+      "value": "cgupta@glytec.com",
+      "status": "unverified",
+      "source_ids": [
+        "src_input_lead_4c1"
+      ],
+      "confidence": 0.5,
+      "last_verified_at": null,
+      "review_reason": "Syntax valid from import; deliverability probe not performed"
+    }
+  ],
+  "public_signals": [],
+  "icebreaker": {
+    "text": "Given Glytec's focus in hospital & health care,computer software,information technology & services,health, wellness & fitness,medical devices, data privacy governance and auditable API exchanges are typically paramount.",
+    "icebreaker_type": "general_question",
+    "source_ids": [
+      "src_input_lead_4c1"
+    ],
+    "confidence": 0.6,
+    "why_it_matters": "Regulated verticals require verifiable controls to ensure sensitive data does not cross unauthorized API boundaries.",
+    "potential_pain_point": "Hypothesis: Ensuring third-party integrations and internal models comply with strict compliance audits.",
+    "conversation_question": "How does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?",
+    "personalization_status": "needs_review",
+    "outreach_draft": {
+      "subject": "API security & AI infrastructure at Glytec",
+      "greeting": "Hi Coy,",
+      "opener": "Given Glytec's focus in hospital & health care,computer software,information technology & services,health, wellness & fitness,medical devices, data privacy governance and auditable API exchanges are typically paramount.",
+      "sealapi_connection": "At SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.",
+      "low_pressure_ask": "How does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?",
+      "full_body": "Hi Coy,\n\nGiven Glytec's focus in hospital & health care,computer software,information technology & services,health, wellness & fitness,medical devices, data privacy governance and auditable API exchanges are typically paramount.\n\nAt SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.\n\nHow does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?\n\nBest regards,\nSealAPI Research & Partnerships"
+    }
+  },
+  "scoring": {
+    "lead_fit_score": 90.0,
+    "role_fit_score": 35.0,
+    "industry_fit_score": 30.0,
+    "technical_need_score": 15.0,
+    "verification_confidence": 0.33,
+    "readiness_status": "ready_with_caveat",
+    "explanations": [
+      "High-authority security/AI decision maker role: 'CTO & Head of AI'",
+      "Target enterprise vertical matching SealAPI: 'information technology'",
+      "Moderate AI/API infrastructure signals: ai, compliance, cloud"
+    ]
+  },
+  "contact_readiness": {
+    "status": "ready_with_caveat",
+    "has_name": true,
+    "has_verified_role": true,
+    "has_company_context": true,
+    "has_usable_contact_channel": true,
+    "has_evidence_based_icebreaker": false,
+    "blockers": [
+      "identity_not_verified",
+      "icebreaker_needs_review"
+    ]
+  },
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as CTO & Head of AI at Glytec.",
+      "Focus on Generative AI & LLM Infrastructure, API Security & Microservices.",
+      "Evidence-based opener: Given Glytec's focus in hospital & health care,computer software,information technology & services,health, wellness & fitness,medical devices, data privacy governance and auditable API exchanges are typically paramount."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for hospital & health care,computer software,information technology & services,health, wellness & fitness,medical devices.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "How does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly.",
+      "Do not assume delivered email address guarantees personal inbox delivery without validation."
+    ],
+    "missing_verification_points": [
+      "Icebreaker status: needs_review (human review recommended)."
+    ]
+  },
+  "research_metadata": {
+    "schema_version": "2.0.0",
+    "batch_id": "batch_20261020T151604Z_b82e6829",
+    "pipeline_version": "2.0.0",
+    "researched_at": "2026-10-20T15:16:10.197807+00:00",
+    "execution_status": "partial",
+    "verification_status": "unverified",
+    "source_count": 1,
+    "review_required": true,
+    "cache_fingerprint": "a5e2e164567fd57ed9ea97d3a7209438925aaa6c63f8f1fed2e014ba384a6219",
+    "errors_and_limitations": [
+      "LinkedIn URL (http://www.linkedin.com/in/coygupta) is behind an authentication wall; public domain records used for verified evidence."
+    ],
+    "research_status": "partial",
+    "last_research_timestamp": "2026-10-20T15:16:10.197807+00:00",
+    "sources_examined": 1
+  }
+}

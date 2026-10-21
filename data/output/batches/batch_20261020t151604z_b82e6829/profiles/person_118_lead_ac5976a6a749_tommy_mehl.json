@@ -1,0 +1,247 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_ac5976a6a749",
+  "input_snapshot": {
+    "Linkedin Url": "http://www.linkedin.com/in/tommymehl",
+    "Full Name": "Tommy Mehl",
+    "First Name": "Tommy",
+    "Last Name": "Mehl",
+    "Email": "tommy@rashi.ai",
+    "Email Status": "verified",
+    "Job Title": "Founder, CEO & CTO",
+    "Company Name": "Rashi",
+    "Company Website": "http://www.rashi.ai",
+    "City": "New York",
+    "State": "New York",
+    "Country": "United States",
+    "Industry": "market research",
+    "Keywords": "cloud infrastructure,nlp algorithms,automated trend detection,high-velocity decision support,bias-minimized analytics,services,trend identification,trend analysis,contextual inference,real-time insights,industry-specific insights,data analytics,data analysis,pattern detection,insight generation,bespoke data analysis,enterprise analytics,industry-specific data insights,computer systems design and related services,market intelligence,data-driven decision making,ai-powered analytics,decision support,natural language processing,business intelligence,contextual intelligence,bias reduction,holistic pattern recognition,generative ai,pattern discovery,information technology and services,healthcare,multi-source data integration,generative insights engine,software development,data sourcing,data corpus analysis,ai for market research,large language models,pattern recognition,automated research,research automation,enterprise nlp solutions,financial services,holistic data view,deep learning,cloud services,custom inference,market research,b2b,digital transformation,strategic insights,market analysis,contextual inference algorithms,artificial intelligence,finance,saas,enterprise software,enterprises,computer software,information technology & services,internet infrastructure,internet,analytics,health care,health, wellness & fitness,hospital & health care,cloud computing",
+    "Employees": "9",
+    "Company City": "New York",
+    "Company State": "New York",
+    "Company Country": "United States",
+    "Company Linkedin Url": "http://www.linkedin.com/company/rashi-ai",
+    "Company Twitter Url": "",
+    "Company Facebook Url": "",
+    "Company Phone Numbers": "+1 516-666-3213",
+    "Twitter Url": "",
+    "Facebook Url": ""
+  },
+  "identity": {
+    "name": "Tommy Mehl",
+    "first_name": "Tommy",
+    "last_name": "Mehl",
+    "job_title": "Founder, CEO & CTO",
+    "company": "Rashi",
+    "industry": "market research",
+    "linkedin_url": "http://www.linkedin.com/in/tommymehl",
+    "company_website": "http://www.rashi.ai",
+    "professional_email": "tommy@rashi.ai",
+    "city": "New York",
+    "state": "New York",
+    "country": "United States"
+  },
+  "contact": {
+    "email": "tommy@rashi.ai",
+    "email_type": "work",
+    "email_verification_status": "syntax_valid_unprobed",
+    "linkedin_url": "http://www.linkedin.com/in/tommymehl",
+    "contact_channel_status": "available"
+  },
+  "company": {
+    "name": "Rashi",
+    "website": "http://www.rashi.ai",
+    "domain": "rashi.ai",
+    "industry": "market research",
+    "verified": false
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at Rashi",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Enterprise Cloud Systems & Platform Scalability"
+    ],
+    "public_projects": [
+      "Platform development and operations for Rashi"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at Rashi"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Tommy Mehl (Founder, CEO & CTO at Rashi) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails"
+      ],
+      "evidence_points": [
+        "Role 'Founder, CEO & CTO' makes architecture decisions for emerging AI capabilities"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 1,
+    "reason": "Priority 1 (Medium Fit): Founder, CEO & CTO at Rashi is in a relevant role or vertical, but requires further qualification of immediate security/AI deployment urgency.",
+    "score": 75.0,
+    "confidence": 0.33,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'Founder, CEO & CTO'",
+      "Strong verified AI/API security need (matched signals: ai, artificial intelligence, generative ai, cloud, saas, infrastructure)"
+    ]
+  },
+  "sources": [
+    {
+      "source_id": "src_input_lead_ac5",
+      "source_url": "lead_import_record",
+      "source_type": "user_input",
+      "title": null,
+      "publisher": null,
+      "retrieval_timestamp": "2026-10-20T15:16:10.278173+00:00",
+      "published_at": null,
+      "relevant_excerpt": null,
+      "evidence_quality": 0.6,
+      "supports_claim_ids": [],
+      "facts_supported": [
+        "Imported Name: Tommy Mehl",
+        "Imported Job Title: Founder, CEO & CTO",
+        "Imported Company: Rashi",
+        "Imported Industry: market research",
+        "Imported Professional Email: tommy@rashi.ai",
+        "Imported Company Website: http://www.rashi.ai"
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "clm_name",
+      "field": "name",
+      "value": "Tommy Mehl",
+      "status": "verified",
+      "source_ids": [
+        "src_input_lead_ac5"
+      ],
+      "confidence": 0.75,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_company",
+      "field": "company",
+      "value": "Rashi",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_ac5"
+      ],
+      "confidence": 0.7,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_title",
+      "field": "job_title",
+      "value": "Founder, CEO & CTO",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_ac5"
+      ],
+      "confidence": 0.65,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_email",
+      "field": "professional_email",
+      "value": "tommy@rashi.ai",
+      "status": "unverified",
+      "source_ids": [
+        "src_input_lead_ac5"
+      ],
+      "confidence": 0.5,
+      "last_verified_at": null,
+      "review_reason": "Syntax valid from import; deliverability probe not performed"
+    }
+  ],
+  "public_signals": [],
+  "icebreaker": {
+    "text": "I have been following how technology teams in the market research sector are managing API and AI endpoint security.",
+    "icebreaker_type": "general_question",
+    "source_ids": [
+      "src_input_lead_ac5"
+    ],
+    "confidence": 0.45,
+    "why_it_matters": "SealAPI helps organizations protect APIs from token leakage, prompt injection, and credential abuse with zero-trust gateways.",
+    "potential_pain_point": "Hypothesis: Preventing credential leakage and unauthorized API consumption in production.",
+    "conversation_question": "Would you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?",
+    "personalization_status": "generic_fallback",
+    "outreach_draft": {
+      "subject": "API security & AI infrastructure at Rashi",
+      "greeting": "Hi Tommy,",
+      "opener": "I have been following how technology teams in the market research sector are managing API and AI endpoint security.",
+      "sealapi_connection": "At SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.",
+      "low_pressure_ask": "Would you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?",
+      "full_body": "Hi Tommy,\n\nI have been following how technology teams in the market research sector are managing API and AI endpoint security.\n\nAt SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.\n\nWould you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?\n\nBest regards,\nSealAPI Research & Partnerships"
+    }
+  },
+  "scoring": {
+    "lead_fit_score": 75.0,
+    "role_fit_score": 35.0,
+    "industry_fit_score": 5.0,
+    "technical_need_score": 25.0,
+    "verification_confidence": 0.33,
+    "readiness_status": "ready_with_caveat",
+    "explanations": [
+      "High-authority security/AI decision maker role: 'Founder, CEO & CTO'",
+      "Strong verified AI/API security need (matched signals: ai, artificial intelligence, generative ai, cloud, saas, infrastructure)"
+    ]
+  },
+  "contact_readiness": {
+    "status": "ready_with_caveat",
+    "has_name": true,
+    "has_verified_role": true,
+    "has_company_context": true,
+    "has_usable_contact_channel": true,
+    "has_evidence_based_icebreaker": false,
+    "blockers": [
+      "identity_not_verified"
+    ]
+  },
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as Founder, CEO & CTO at Rashi.",
+      "Focus on Enterprise Cloud Systems & Platform Scalability.",
+      "Evidence-based opener: I have been following how technology teams in the market research sector are managing API and AI endpoint security."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for market research.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "Would you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly.",
+      "Do not assume delivered email address guarantees personal inbox delivery without validation."
+    ],
+    "missing_verification_points": [
+      "Icebreaker status: generic_fallback (human review recommended)."
+    ]
+  },
+  "research_metadata": {
+    "schema_version": "2.0.0",
+    "batch_id": "batch_20261020T151604Z_b82e6829",
+    "pipeline_version": "2.0.0",
+    "researched_at": "2026-10-20T15:16:10.278173+00:00",
+    "execution_status": "partial",
+    "verification_status": "unverified",
+    "source_count": 1,
+    "review_required": true,
+    "cache_fingerprint": "a5e2e164567fd57ed9ea97d3a7209438925aaa6c63f8f1fed2e014ba384a6219",
+    "errors_and_limitations": [
+      "LinkedIn URL (http://www.linkedin.com/in/tommymehl) is behind an authentication wall; public domain records used for verified evidence."
+    ],
+    "research_status": "partial",
+    "last_research_timestamp": "2026-10-20T15:16:10.278173+00:00",
+    "sources_examined": 1
+  }
+}

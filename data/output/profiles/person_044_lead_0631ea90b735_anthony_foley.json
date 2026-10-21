@@ -1,0 +1,114 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_0631ea90b735",
+  "identity": {
+    "name": "Anthony Foley",
+    "first_name": "Anthony",
+    "last_name": "Foley",
+    "job_title": "Cto/ciso",
+    "company": "Resource Capital Funds",
+    "industry": "financial services,venture capital & private equity,investment management",
+    "linkedin_url": "http://www.linkedin.com/in/anthonyfoleyit",
+    "company_website": "https://resourcecapitalfunds.com",
+    "professional_email": "tfoley@rcflp.com",
+    "city": "Denver",
+    "state": "Colorado",
+    "country": "United States"
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at Resource Capital Funds",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Generative AI & LLM Infrastructure",
+      "API Security & Microservices",
+      "Financial Data Governance & Compliance"
+    ],
+    "public_projects": [
+      "Platform development and operations for Resource Capital Funds"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at Resource Capital Funds",
+      "Resource Capital Funds | Private Equity for Metals & Mining Please enable JavaScript in order to get the best experience when using this site",
+      "Groundbreaking 25 + Years of mining investing experience 240 + Portfolio company investments 190 + Fully realized investments 120 + Cumulative board seat appointments 55 + Countries invested in 35 + Commodities invested in 25 + Mines brought into production 15 + Innovation portfolio company investments 25 + Years of mining investing experience 240 + Portfolio company investments 190 + Fully realized investments 120 + Cumulative board seat appointments 55 + Countries invested in 35 + Commodities invested in 25 + Mines brought into production 15 + Innovation portfolio company investments Ideas, knowledge, and trends in mining investment Latest News & Insights See all news See all insights Commodity Insights RCF Mining Market Commentary: Q226 Commodity and Mining Investment Quarterly Update Rob Gray Aug 13, 2026 Commodity Insights Metal & Mining Gigacycle: Parsing Metal Demand at",
+      "RCF Editorial Dec 10, 2025 Commodity Insights RCF Mining Market Commentary: Q325 Commodity and Mining Investment Quarterly Update Rob Gray Oct 31, 2025 Technical Expertise Extensive Experience in Critical & Strategic Metals 1 H Hydrogen 2 He Helium 3 Li Lithium 4 Be Beryllium 5 B Boron 6 C Carbon 7 N Nitrogen 8 O Oxygen 9 F Fluorine 10 Ne Neon 11 Na Sodium 12 Mg Magnesium 13 Al Aluminium 14 Si Silicon 15 P Phosphorus 16 S Sulfur 17 Cl Chlorine 18 Ar Argon 19 K Potassium 20 Ca Calcium 21 Sc Scandium 22 Ti Titanium 23 V Vanadium 24 Cr Chromium 25 Mn Manganese 26 Fe Iron 27 Co Cobalt 28 Ni Nickel 29 Cu Copper 30 Zn Zinc 31 Ga Gallium 32 Ge Germanium 33 As Arsenic 34 Se Selenium 35 Br Bromine 36 Kr Krypton 37 Rb Rubidium 38 Sr Strontium 39 Y Yttrium 40 Zr Zirconium 41 Nb Niobium 42 Mo Molybdenum 43 Tc Technetium 44 Ru Ruthenium 45 Rh Rhodium 46 Pd Palladium 47 Ag Silver 48 Cd Cadmium 49 In Indium 50 Sn Tin 51 Sb Antimony 52 Te Tellurium 53 I Iodine 54 Xe Xenon 55 Cs Cesium 56 Ba Barium 57 La Lanthanum 72 Hf Hafnium 73 Ta Tantalum 74 W Tungsten 75 Re Rhenium 76 Os Osmium 77 Ir Iridium 78 Pt Platinum 79 Au Gold 80 Hg Mercury 81 Tl Thallium 82"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Anthony Foley (Cto/ciso at Resource Capital Funds) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails",
+        "Privacy-Preserving Data Exchange & Compliance"
+      ],
+      "evidence_points": [
+        "Role 'Cto/ciso' makes key architecture decisions for emerging AI capabilities",
+        "Regulated domain 'financial services,venture capital & private equity,investment management' mandates strict API access controls and audited data flow"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 0,
+    "reason": "Priority 0 (Highest Fit): Cto/ciso at Resource Capital Funds matches core decision-maker criteria in a regulated/tech-driven industry with active AI/API needs.",
+    "score": 100.0,
+    "confidence": 0.9,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'Cto/ciso'",
+      "Target enterprise vertical matching SealAPI: 'financial services'",
+      "Strong verified AI/API security need (matched signals: ai, api, security, compliance, infrastructure)",
+      "Verified business email domain: tfoley@rcflp.com"
+    ]
+  },
+  "sources": [
+    {
+      "source_url": "lead_import_record",
+      "source_type": "input_data",
+      "retrieval_timestamp": "2026-10-20T19:14:48.535171+00:00",
+      "facts_supported": [
+        "Verified Name: Anthony Foley",
+        "Declared Job Title: Cto/ciso",
+        "Company: Resource Capital Funds",
+        "Industry: financial services,venture capital & private equity,investment management",
+        "Verified Professional Email: tfoley@rcflp.com",
+        "Reported Location: Denver, Colorado, United States",
+        "Company Keywords: private equity,mining,commodities,minerals,metals,alternative investments,critical minerals,battery metals,investments,mining technology,investing,private capital,finance,energy tr"
+      ]
+    },
+    {
+      "source_url": "https://resourcecapitalfunds.com",
+      "source_type": "company_website",
+      "retrieval_timestamp": "2026-10-20T19:14:49Z",
+      "facts_supported": [
+        "Website Title: Resource Capital Funds | Private Equity for Metals & Mining",
+        "Company Mission/Description: Resource Capital Funds is a mining-focused alternative investments firm that partners with companies to build strong, successful, and sustainable businesses.",
+        "Core Offerings: A Pioneer in Private Equity Mining, Groundbreaking, Ideas, knowledge, and trends in mining investment, Latest News & Insights"
+      ]
+    }
+  ],
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as Cto/ciso at Resource Capital Funds.",
+      "Focus on Generative AI & LLM Infrastructure, API Security & Microservices.",
+      "Background: Resource Capital Funds | Private Equity for Metals & Mining Please enable JavaScript in order to get the best experience..."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for financial services,venture capital & private equity,investment management.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "Would you be open to a 10-minute technical exchange next Tuesday to explore how SealAPI shields AI and API endpoints for teams like Resource Capital Funds?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly."
+    ],
+    "missing_verification_points": []
+  },
+  "research_metadata": {
+    "research_status": "completed",
+    "last_research_timestamp": "2026-10-20T19:14:48.535171+00:00",
+    "sources_examined": 2,
+    "errors_and_limitations": [
+      "LinkedIn profile (http://www.linkedin.com/in/anthonyfoleyit) is behind an authentication wall; public domain records used for verified evidence."
+    ]
+  }
+}

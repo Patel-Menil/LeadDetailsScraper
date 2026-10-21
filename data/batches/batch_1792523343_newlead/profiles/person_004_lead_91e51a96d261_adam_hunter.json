@@ -1,0 +1,112 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_91e51a96d261",
+  "identity": {
+    "name": "Adam Hunter",
+    "first_name": "Adam",
+    "last_name": "Hunter",
+    "job_title": "CTO & Head of AI",
+    "company": "Reason Consulting Corporation",
+    "industry": "information technology & services",
+    "linkedin_url": "http://www.linkedin.com/in/adamhunterdev",
+    "company_website": "http://www.reason.consulting",
+    "professional_email": "adam.hunter@reason.consulting",
+    "city": "Charlotte",
+    "state": "North Carolina",
+    "country": "United States"
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at Reason Consulting Corporation",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Generative AI & LLM Infrastructure",
+      "API Security & Microservices",
+      "Financial Data Governance & Compliance"
+    ],
+    "public_projects": [
+      "Platform development and operations for Reason Consulting Corporation"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at Reason Consulting Corporation",
+      "Home | Reason Consulting Skip to main content We use cookies to understand website usage and improve your experience",
+      "CONTACT US WHAT WE DO A strategy founded on logical precision, domain knowledge, and expertise Reason Consulting Corporation is a technology innovation implementation company",
+      "We always focus on building solutions that increase operational accuracy and save time"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Adam Hunter (CTO & Head of AI at Reason Consulting Corporation) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails"
+      ],
+      "evidence_points": [
+        "Role 'CTO & Head of AI' makes key architecture decisions for emerging AI capabilities"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 0,
+    "reason": "Priority 0 (Highest Fit): CTO & Head of AI at Reason Consulting Corporation matches core decision-maker criteria in a regulated/tech-driven industry with active AI/API needs.",
+    "score": 100.0,
+    "confidence": 0.9,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'CTO & Head of AI'",
+      "Target enterprise vertical matching SealAPI: 'information technology'",
+      "Strong verified AI/API security need (matched signals: ai, api, security, compliance, cloud, infrastructure)",
+      "Verified business email domain: adam.hunter@reason.consulting"
+    ]
+  },
+  "sources": [
+    {
+      "source_url": "lead_import_record",
+      "source_type": "input_data",
+      "retrieval_timestamp": "2026-10-20T19:09:41.270015+00:00",
+      "facts_supported": [
+        "Verified Name: Adam Hunter",
+        "Declared Job Title: CTO & Head of AI",
+        "Company: Reason Consulting Corporation",
+        "Industry: information technology & services",
+        "Verified Professional Email: adam.hunter@reason.consulting",
+        "Reported Location: Charlotte, North Carolina, United States",
+        "Company Keywords: software development,public sector technology,data architecture design,enterprise software,software customization,public sector data governance,b2b,software lifecycle,cloud securit"
+      ]
+    },
+    {
+      "source_url": "http://www.reason.consulting",
+      "source_type": "company_website",
+      "retrieval_timestamp": "2026-10-20T19:09:41Z",
+      "facts_supported": [
+        "Website Title: Home | Reason Consulting",
+        "Company Mission/Description: Reason creates software and analytics products for the government and for citizens interacting with their government.",
+        "Core Offerings: We create innovative data driven software and services., A strategy founded on logical precision, domain knowledge, and expertise, A technology innovation implementation company, Government Services"
+      ]
+    }
+  ],
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as CTO & Head of AI at Reason Consulting Corporation.",
+      "Focus on Generative AI & LLM Infrastructure, API Security & Microservices.",
+      "Background: Home | Reason Consulting Skip to main content We use cookies to understand website usage and improve your experience..."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for information technology & services.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "Would you be open to a 10-minute technical exchange next Tuesday to explore how SealAPI shields AI and API endpoints for teams like Reason Consulting Corporation?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly."
+    ],
+    "missing_verification_points": []
+  },
+  "research_metadata": {
+    "research_status": "completed",
+    "last_research_timestamp": "2026-10-20T19:09:41.270015+00:00",
+    "sources_examined": 2,
+    "errors_and_limitations": [
+      "LinkedIn profile (http://www.linkedin.com/in/adamhunterdev) is behind an authentication wall; public domain records used for verified evidence."
+    ]
+  }
+}

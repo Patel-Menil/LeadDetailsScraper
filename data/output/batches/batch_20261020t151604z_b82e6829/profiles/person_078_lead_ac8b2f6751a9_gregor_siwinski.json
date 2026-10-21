@@ -1,0 +1,252 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_ac8b2f6751a9",
+  "input_snapshot": {
+    "Linkedin Url": "http://www.linkedin.com/in/gregor-siwinski",
+    "Full Name": "Gregor Siwinski",
+    "First Name": "Gregor",
+    "Last Name": "Siwinski",
+    "Email": "gregors@payability.com",
+    "Email Status": "verified",
+    "Job Title": "Ceo/cto",
+    "Company Name": "Payability",
+    "Company Website": "https://payability.com",
+    "City": "New York",
+    "State": "New York",
+    "Country": "United States",
+    "Industry": "financial services",
+    "Keywords": "finance,technology,payments,ecommerce,financial services,finance technology,consumer internet,internet,information technology,inventory financing,ecommerce banking,business funding,merchant cash flow,fast funding solutions,marketplace seller finance,funding for newegg sellers,merchant funding,ecommerce seller funding,ecommerce seller growth tools,sector-specific fintech,online seller cash flow,ecommerce platform partnerships,funding for amazon sellers,inventory funding,online seller finance,ecommerce solutions,ecommerce financing,platform integrations,merchant financing,prepaid visa card,growth capital,financial technology,sector-specific finance,instant transfer,business growth funding,cash flow solutions for sellers,ecommerce business growth,ecommerce seller support,instant payout,merchant finance platform,funding platform,merchant card,daily payouts,operational efficiency,merchant cash advance programs,ecommerce business capital,merchant funding platform,fast cash access,lump-sum advances,fast funding,digital merchant finance,cash flow management,merchant cash advance,b2b,business capital,cash flow solutions,marketplace seller funding,business reinvestment,marketplace payout acceleration,financial transactions processing, reserve, and clearinghouse activities,merchant services,services,e-commerce,instant access funding,rapid funding solutions,funding without debt,no credit check,merchant cash flow management,small business funding,merchant account management,instant payout platform,online seller support,online merchant funding,ecommerce seller finance,retail,online seller funding,funding for walmart sellers,merchant funding solutions,merchant account,digital banking,seller funding solutions,online marketplace,marketplace seller solutions,merchant cash solutions,merchant cash management,no credit check funding,rapid funding,marketplace payout,merchant finance,fintech,funding for shopify sellers,instant payouts,amazon seller payments,walmart seller funding,ecommerce cash flow,accelerated payments,visa seller card,online seller financing,growth capital for ecommerce,flexible funding solutions,debt-free sales growth,frequent cash availability,ach transfers,international money transfers,high volume seller financing,fba funding programs,seller support,snapshot sales analysis,sales performance cashing,payout scheduling,automated funding solutions,merchant accounts,ecommerce marketplace payouts,business growth strategizing,investment in inventory,fba inventory funding,real-time payment access,transaction management tools,bank transfers for sellers,daily sales access,ecommerce financial stability,streamlined onboarding process,seller card cashback,business reinvestment strategies,liquidity management,financial flexibility for sellers,payment processing solutions,cash management for ecommerce,funding eligibility requirements,fast approval process,ecommerce seller dashboard,automated bank transfers,fba payment solutions,marketplace seller support,instantly accessible funds,payability reviews,cashless transactions,expense management solutions,ecommerce growth enabling,consumers,information technology & services",
+    "Employees": "25",
+    "Company City": "New York",
+    "Company State": "New York",
+    "Company Country": "United States",
+    "Company Linkedin Url": "http://www.linkedin.com/company/payability",
+    "Company Twitter Url": "https://twitter.com/getpayability",
+    "Company Facebook Url": "https://facebook.com/getpayability",
+    "Company Phone Numbers": "+1 646-494-8675",
+    "Twitter Url": "",
+    "Facebook Url": ""
+  },
+  "identity": {
+    "name": "Gregor Siwinski",
+    "first_name": "Gregor",
+    "last_name": "Siwinski",
+    "job_title": "Ceo/cto",
+    "company": "Payability",
+    "industry": "financial services",
+    "linkedin_url": "http://www.linkedin.com/in/gregor-siwinski",
+    "company_website": "https://payability.com",
+    "professional_email": "gregors@payability.com",
+    "city": "New York",
+    "state": "New York",
+    "country": "United States"
+  },
+  "contact": {
+    "email": "gregors@payability.com",
+    "email_type": "work",
+    "email_verification_status": "syntax_valid_unprobed",
+    "linkedin_url": "http://www.linkedin.com/in/gregor-siwinski",
+    "contact_channel_status": "available"
+  },
+  "company": {
+    "name": "Payability",
+    "website": "https://payability.com",
+    "domain": "payability.com",
+    "industry": "financial services",
+    "verified": false
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at Payability",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Enterprise Cloud Systems & Platform Scalability"
+    ],
+    "public_projects": [
+      "Platform development and operations for Payability"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at Payability"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Gregor Siwinski (Ceo/cto at Payability) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails",
+        "Privacy-Preserving Data Exchange & Compliance"
+      ],
+      "evidence_points": [
+        "Role 'Ceo/cto' makes architecture decisions for emerging AI capabilities",
+        "Regulated vertical 'financial services' mandates strict API access controls and audited data flow"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 1,
+    "reason": "Priority 1 (Medium Fit): Ceo/cto at Payability is in a relevant role or vertical, but requires further qualification of immediate security/AI deployment urgency.",
+    "score": 90.0,
+    "confidence": 0.33,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'Ceo/cto'",
+      "Target enterprise vertical matching SealAPI: 'financial services'",
+      "Moderate AI/API infrastructure signals: ai, api"
+    ]
+  },
+  "sources": [
+    {
+      "source_id": "src_input_lead_ac8",
+      "source_url": "lead_import_record",
+      "source_type": "user_input",
+      "title": null,
+      "publisher": null,
+      "retrieval_timestamp": "2026-10-20T15:16:10.445168+00:00",
+      "published_at": null,
+      "relevant_excerpt": null,
+      "evidence_quality": 0.6,
+      "supports_claim_ids": [],
+      "facts_supported": [
+        "Imported Name: Gregor Siwinski",
+        "Imported Job Title: Ceo/cto",
+        "Imported Company: Payability",
+        "Imported Industry: financial services",
+        "Imported Professional Email: gregors@payability.com",
+        "Imported Company Website: https://payability.com"
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "clm_name",
+      "field": "name",
+      "value": "Gregor Siwinski",
+      "status": "verified",
+      "source_ids": [
+        "src_input_lead_ac8"
+      ],
+      "confidence": 0.75,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_company",
+      "field": "company",
+      "value": "Payability",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_ac8"
+      ],
+      "confidence": 0.7,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_title",
+      "field": "job_title",
+      "value": "Ceo/cto",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_ac8"
+      ],
+      "confidence": 0.65,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_email",
+      "field": "professional_email",
+      "value": "gregors@payability.com",
+      "status": "unverified",
+      "source_ids": [
+        "src_input_lead_ac8"
+      ],
+      "confidence": 0.5,
+      "last_verified_at": null,
+      "review_reason": "Syntax valid from import; deliverability probe not performed"
+    }
+  ],
+  "public_signals": [],
+  "icebreaker": {
+    "text": "Given Payability's focus in financial services, data privacy governance and auditable API exchanges are typically paramount.",
+    "icebreaker_type": "general_question",
+    "source_ids": [
+      "src_input_lead_ac8"
+    ],
+    "confidence": 0.6,
+    "why_it_matters": "Regulated verticals require verifiable controls to ensure sensitive data does not cross unauthorized API boundaries.",
+    "potential_pain_point": "Hypothesis: Ensuring third-party integrations and internal models comply with strict compliance audits.",
+    "conversation_question": "How does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?",
+    "personalization_status": "needs_review",
+    "outreach_draft": {
+      "subject": "API security & AI infrastructure at Payability",
+      "greeting": "Hi Gregor,",
+      "opener": "Given Payability's focus in financial services, data privacy governance and auditable API exchanges are typically paramount.",
+      "sealapi_connection": "At SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.",
+      "low_pressure_ask": "How does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?",
+      "full_body": "Hi Gregor,\n\nGiven Payability's focus in financial services, data privacy governance and auditable API exchanges are typically paramount.\n\nAt SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.\n\nHow does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?\n\nBest regards,\nSealAPI Research & Partnerships"
+    }
+  },
+  "scoring": {
+    "lead_fit_score": 90.0,
+    "role_fit_score": 35.0,
+    "industry_fit_score": 30.0,
+    "technical_need_score": 15.0,
+    "verification_confidence": 0.33,
+    "readiness_status": "ready_with_caveat",
+    "explanations": [
+      "High-authority security/AI decision maker role: 'Ceo/cto'",
+      "Target enterprise vertical matching SealAPI: 'financial services'",
+      "Moderate AI/API infrastructure signals: ai, api"
+    ]
+  },
+  "contact_readiness": {
+    "status": "ready_with_caveat",
+    "has_name": true,
+    "has_verified_role": true,
+    "has_company_context": true,
+    "has_usable_contact_channel": true,
+    "has_evidence_based_icebreaker": false,
+    "blockers": [
+      "identity_not_verified",
+      "icebreaker_needs_review"
+    ]
+  },
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as Ceo/cto at Payability.",
+      "Focus on Enterprise Cloud Systems & Platform Scalability.",
+      "Evidence-based opener: Given Payability's focus in financial services, data privacy governance and auditable API exchanges are typically paramount."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for financial services.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "How does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly.",
+      "Do not assume delivered email address guarantees personal inbox delivery without validation."
+    ],
+    "missing_verification_points": [
+      "Icebreaker status: needs_review (human review recommended)."
+    ]
+  },
+  "research_metadata": {
+    "schema_version": "2.0.0",
+    "batch_id": "batch_20261020T151604Z_b82e6829",
+    "pipeline_version": "2.0.0",
+    "researched_at": "2026-10-20T15:16:10.445168+00:00",
+    "execution_status": "partial",
+    "verification_status": "unverified",
+    "source_count": 1,
+    "review_required": true,
+    "cache_fingerprint": "a5e2e164567fd57ed9ea97d3a7209438925aaa6c63f8f1fed2e014ba384a6219",
+    "errors_and_limitations": [
+      "LinkedIn URL (http://www.linkedin.com/in/gregor-siwinski) is behind an authentication wall; public domain records used for verified evidence."
+    ],
+    "research_status": "partial",
+    "last_research_timestamp": "2026-10-20T15:16:10.445168+00:00",
+    "sources_examined": 1
+  }
+}

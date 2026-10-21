@@ -1,0 +1,247 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_d3ac3aaff80f",
+  "input_snapshot": {
+    "Linkedin Url": "",
+    "Full Name": "Haixun W",
+    "First Name": "Haixun",
+    "Last Name": "W",
+    "Email": "haixun.wang@evenup.ai",
+    "Email Status": "verified",
+    "Job Title": "VP of Engineering, Head of AI",
+    "Company Name": "EvenUp",
+    "Company Website": "http://www.evenuplaw.com",
+    "City": "Seattle",
+    "State": "Washington",
+    "Country": "United States",
+    "Industry": "information technology & services",
+    "Keywords": "technology, information & internet,lawyer productivity tools,legal ai models,medical chronology automation,case valuation ai,medical record summarization ai,settlement negotiation support,ai legal solutions,injury law practice management,medical record parsing ai,ai-driven case insights,ai legal saas,lawyer-client collaboration,medical record extraction ai,ai legal models,injury law case management ai,workflow automation software,injury case strategy ai,personal injury case tools,medical record digitization,ai legal tech solutions,ai legal assistant,ai-powered legal insights,offices of lawyers,ai legal analytics platforms,ai-driven injury case analysis,ai legal workflow tools,ai case valuation models,medical data analysis ai,case lifecycle management,legal technology,ai legal research tools,injury case analytics,medical treatment tracking,ai legal data integration,demand letter optimization,settlement optimization,ai legal document review,medical chronology software,medical record review ai,law firm performance,medical record parsing,workflow automation,law firm performance management,personal injury case automation,case prediction analytics,medical chronology,services,generative ai,automated legal workflows,ai legal compliance systems,personal injury litigation,medical record summarization,natural language processing,medical record analysis,document review automation,operational efficiency,demand package creation,legal process automation,law firm operational tools,law firm efficiency ai,injury claim automation,injury claim prediction ai,demand timing optimization,medical record review,b2b,litigation support tools,medical data extraction,law firm efficiency,ai legal research for injury cases,ai legal software,case prediction models,demand letter generation,case management integration,medical treatment timeline ai,personal injury,ai legal platform,automated demand packages,law firm data insights,predictive analytics,injury claim management,ai legal workflow automation,ai legal research,legal services,cloud-based legal software,legal document automation,client data security,legal ai platform,legal document generation,law firm performance analytics,personal injury case prediction,settlement prediction models,law firm efficiency tools,medical treatment analysis,personal injury law ai,demand letter automation,automated injury claim processing,medical record review automation,injury case settlement prediction,injury claim management software,case prediction,case strategy enhancement,demand letter ai tools,personal injury case workflow ai,settlement analytics,predictive case analytics,ai legal compliance,legal ai training datasets,case analysis automation,law firm efficiency software,ai legal workflow optimization,legal tech innovation,injury claim analytics ai,legal workflow ai,personal injury settlement ai,ai legal document review systems,injury case prediction models,law firm growth tools,law firm growth analytics,medical bill tracking,legal ai innovation,injury law case management,law firm scalability,demand package automation,ai-driven legal research,legal analytics dashboards,predictive case management,claim outcome prediction,automated legal document generation,ai case valuation,personal injury law tech,machine learning in law,ai demand letter drafting,medical bill summarization,medical data analysis,case outcome forecasting,ai legal tech for injury law,personal injury law,ai legal solutions for injury law,law firm growth ai tools,ai-powered legal technology,justice gap closure,ai-powered legal insights for injury law,ai legal compliance tools,demand letter ai,justice technology,settlement negotiation ai,case strategy ai,injury case analytics software,law firm scalability tools,case management system,demand letter automation tools,personal injury claims,ai demand letters,executive analytics,case preparation,negotiation preparation,settlement repository,claims intelligence platform,case management,injury lawyers,settlement outcomes,data-driven insights,document automation,workflow efficiency,missing documents,legal ai,insurance negotiations,case velocity,medical records,client representation,performance metrics,benchmarks,case companion,legal expert review,treatment history,settlement estimates,litigation support,damages claimed,legal expertise,claims analysis,case strategy,injury assessment,legal data analytics,prior injury detection,policy limit settlements,case files,accurate demand packages,customer insights,case resolution,comprehensive summaries,automated documentation,settlement negotiations,data privacy,confidentiality compliance,ai integration,legal team collaboration,streamlined processes,digital documentation,electronic case management,finance,legal,saas,information technology & services,artificial intelligence,enterprise software,enterprises,computer software,financial services",
+    "Employees": "850",
+    "Company City": "San Francisco",
+    "Company State": "California",
+    "Company Country": "United States",
+    "Company Linkedin Url": "http://www.linkedin.com/company/evenup",
+    "Company Twitter Url": "https://twitter.com/evenuplaw",
+    "Company Facebook Url": "https://facebook.com/EvenUpLaw",
+    "Company Phone Numbers": "+1 415-406-9002",
+    "Twitter Url": "",
+    "Facebook Url": ""
+  },
+  "identity": {
+    "name": "Haixun W",
+    "first_name": "Haixun",
+    "last_name": "W",
+    "job_title": "VP of Engineering, Head of AI",
+    "company": "EvenUp",
+    "industry": "information technology & services",
+    "linkedin_url": "",
+    "company_website": "http://www.evenuplaw.com",
+    "professional_email": "haixun.wang@evenup.ai",
+    "city": "Seattle",
+    "state": "Washington",
+    "country": "United States"
+  },
+  "contact": {
+    "email": "haixun.wang@evenup.ai",
+    "email_type": "work",
+    "email_verification_status": "syntax_valid_unprobed",
+    "linkedin_url": "",
+    "contact_channel_status": "available"
+  },
+  "company": {
+    "name": "EvenUp",
+    "website": "http://www.evenuplaw.com",
+    "domain": "evenuplaw.com",
+    "industry": "information technology & services",
+    "verified": false
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at EvenUp",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Generative AI & LLM Infrastructure"
+    ],
+    "public_projects": [
+      "Platform development and operations for EvenUp"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at EvenUp"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Haixun W (VP of Engineering, Head of AI at EvenUp) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails"
+      ],
+      "evidence_points": [
+        "Role 'VP of Engineering, Head of AI' makes architecture decisions for emerging AI capabilities"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 1,
+    "reason": "Priority 1 (Medium Fit): VP of Engineering, Head of AI at EvenUp is in a relevant role or vertical, but requires further qualification of immediate security/AI deployment urgency.",
+    "score": 100.0,
+    "confidence": 0.24,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'VP of Engineering, Head of AI'",
+      "Target enterprise vertical matching SealAPI: 'information technology'",
+      "Strong verified AI/API security need (matched signals: ai, artificial intelligence, machine learning, generative ai, security, compliance)"
+    ]
+  },
+  "sources": [
+    {
+      "source_id": "src_input_lead_d3a",
+      "source_url": "lead_import_record",
+      "source_type": "user_input",
+      "title": null,
+      "publisher": null,
+      "retrieval_timestamp": "2026-10-20T15:16:10.234333+00:00",
+      "published_at": null,
+      "relevant_excerpt": null,
+      "evidence_quality": 0.6,
+      "supports_claim_ids": [],
+      "facts_supported": [
+        "Imported Name: Haixun W",
+        "Imported Job Title: VP of Engineering, Head of AI",
+        "Imported Company: EvenUp",
+        "Imported Industry: information technology & services",
+        "Imported Professional Email: haixun.wang@evenup.ai",
+        "Imported Company Website: http://www.evenuplaw.com"
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "clm_name",
+      "field": "name",
+      "value": "Haixun W",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_d3a"
+      ],
+      "confidence": 0.5,
+      "last_verified_at": null,
+      "review_reason": "Surname is abbreviated; requires full name evidence"
+    },
+    {
+      "claim_id": "clm_company",
+      "field": "company",
+      "value": "EvenUp",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_d3a"
+      ],
+      "confidence": 0.7,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_title",
+      "field": "job_title",
+      "value": "VP of Engineering, Head of AI",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_d3a"
+      ],
+      "confidence": 0.65,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_email",
+      "field": "professional_email",
+      "value": "haixun.wang@evenup.ai",
+      "status": "unverified",
+      "source_ids": [
+        "src_input_lead_d3a"
+      ],
+      "confidence": 0.5,
+      "last_verified_at": null,
+      "review_reason": "Syntax valid from import; deliverability probe not performed"
+    }
+  ],
+  "public_signals": [],
+  "icebreaker": {
+    "text": "I have been following how technology teams in the information technology & services sector are managing API and AI endpoint security.",
+    "icebreaker_type": "general_question",
+    "source_ids": [
+      "src_input_lead_d3a"
+    ],
+    "confidence": 0.45,
+    "why_it_matters": "SealAPI helps organizations protect APIs from token leakage, prompt injection, and credential abuse with zero-trust gateways.",
+    "potential_pain_point": "Hypothesis: Preventing credential leakage and unauthorized API consumption in production.",
+    "conversation_question": "Would you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?",
+    "personalization_status": "generic_fallback",
+    "outreach_draft": {
+      "subject": "API security & AI infrastructure at EvenUp",
+      "greeting": "Hi Haixun,",
+      "opener": "I have been following how technology teams in the information technology & services sector are managing API and AI endpoint security.",
+      "sealapi_connection": "At SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.",
+      "low_pressure_ask": "Would you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?",
+      "full_body": "Hi Haixun,\n\nI have been following how technology teams in the information technology & services sector are managing API and AI endpoint security.\n\nAt SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.\n\nWould you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?\n\nBest regards,\nSealAPI Research & Partnerships"
+    }
+  },
+  "scoring": {
+    "lead_fit_score": 100.0,
+    "role_fit_score": 35.0,
+    "industry_fit_score": 30.0,
+    "technical_need_score": 25.0,
+    "verification_confidence": 0.24,
+    "readiness_status": "needs_research",
+    "explanations": [
+      "High-authority security/AI decision maker role: 'VP of Engineering, Head of AI'",
+      "Target enterprise vertical matching SealAPI: 'information technology'",
+      "Strong verified AI/API security need (matched signals: ai, artificial intelligence, machine learning, generative ai, security, compliance)"
+    ]
+  },
+  "contact_readiness": {
+    "status": "needs_research",
+    "has_name": true,
+    "has_verified_role": true,
+    "has_company_context": true,
+    "has_usable_contact_channel": true,
+    "has_evidence_based_icebreaker": false,
+    "blockers": [
+      "identity_not_verified"
+    ]
+  },
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as VP of Engineering, Head of AI at EvenUp.",
+      "Focus on Generative AI & LLM Infrastructure.",
+      "Evidence-based opener: I have been following how technology teams in the information technology & services sector are managing API and AI endpoint security."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for information technology & services.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "Would you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly.",
+      "Do not assume delivered email address guarantees personal inbox delivery without validation."
+    ],
+    "missing_verification_points": [
+      "Icebreaker status: generic_fallback (human review recommended)."
+    ]
+  },
+  "research_metadata": {
+    "schema_version": "2.0.0",
+    "batch_id": "batch_20261020T151604Z_b82e6829",
+    "pipeline_version": "2.0.0",
+    "researched_at": "2026-10-20T15:16:10.234333+00:00",
+    "execution_status": "partial",
+    "verification_status": "unverified",
+    "source_count": 1,
+    "review_required": true,
+    "cache_fingerprint": "a5e2e164567fd57ed9ea97d3a7209438925aaa6c63f8f1fed2e014ba384a6219",
+    "errors_and_limitations": [],
+    "research_status": "partial",
+    "last_research_timestamp": "2026-10-20T15:16:10.234333+00:00",
+    "sources_examined": 1
+  }
+}

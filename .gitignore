@@ -46,14 +46,13 @@ pnpm-debug.log*
 .DS_Store
 Thumbs.db
 
-# Project data batches/uploads/output and real lead datasets
-data/batches/
-data/uploads/
-data/output/
+# Project data
 data/input/
 output/
 *.csv
 *.xlsx
 *.xls
 !tests/fixtures/*.csv
+!data/
+!data/**
 

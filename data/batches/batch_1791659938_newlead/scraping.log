@@ -1,0 +1,1299 @@
+[19:19:05] Batch started: 144 total leads (0 loaded from resume cache, 144 to research)
+[19:19:05] 🎯 Researching: Luiz Wolf (IMoodYou)
+[19:19:05] 🎯 Researching: Peter Bell (Gather.dev)
+[19:19:05] 🎯 Researching: Peter Enestrom (Zaigo)
+[19:19:05] 🎯 Researching: Jon B (oneAI Consulting)
+[19:19:05] 🎯 Target: Luiz Wolf (CEO, CTO - Co-Founder - Head of AI Transformation) @ IMoodYou
+[19:19:05] 🎯 Target: Peter Bell (Founder | CTO | Head of AI) @ Gather.dev
+[19:19:05] 🎯 Target: Peter Enestrom (Co-Founder & CTO/Head of AI) @ Zaigo
+[19:19:05] 🎯 Target: Jon B (CEO | Head of AI | Founder) @ oneAI Consulting
+[19:19:05] 🌐 [Web Scraper] Fetching company website: http://www.imoodyou.com
+[19:19:05] 🌐 [Web Scraper] Fetching company website: http://www.gather.dev
+[19:19:05] 🌐 [Web Scraper] Fetching company website: http://www.zaigo.ai
+[19:19:05] 🌐 [Web Scraper] Fetching company website: http://www.oneaiconsulting.com
+[19:19:06]    ↳ [Status 200] Extracted content from http://www.zaigo.ai "Zaigo | AI implementation & services..." (scrapling_fetcher)
+[19:19:06] 🧅 [Tor + DuckDuckGo] Searching 'Peter Enestrom Zaigo' via Tor SOCKS5...
+[19:19:06]    ↳ [Status 200] Extracted content from http://www.gather.dev "Gather.dev – Peer community for senior engine..." (scrapling_fetcher)
+[19:19:06] 🧅 [Tor + DuckDuckGo] Searching 'Peter Bell Gather.dev' via Tor SOCKS5...
+[19:19:06]    ↳ [Status 200] Extracted content from http://www.oneaiconsulting.com "oneAI - AI Agent Automation Consulting..." (scrapling_fetcher)
+[19:19:06] 🧅 [Tor + DuckDuckGo] Searching 'Jon B oneAI Consulting' via Tor SOCKS5...
+[19:19:09]    ↳ [Status 200] Extracted content from http://www.imoodyou.com "Imoodyou..." (scrapling_fetcher)
+[19:19:09] 🧅 [Tor + DuckDuckGo] Searching 'Luiz Wolf IMoodYou' via Tor SOCKS5...
+[19:19:12]    ↳ [Tor Results] Found 6 search results for 'Peter Bell'
+[19:19:12]    ↳ [Tor Results] Found 6 search results for 'Peter Enestrom'
+[19:19:12]    ↳ Top Bio: About - Gather.dev
+[19:19:12]    ↳ Top Bio: Peter Enestrom - Co-founder @ Zaigo | Exited found
+[19:19:12] ⭐ [Scoring] Peter Bell -> Priority 1 (Score: 65, Sources: 8)
+[19:19:12] ⭐ [Scoring] Peter Enestrom -> Priority 1 (Score: 83, Sources: 8)
+[19:19:12] 🎯 Researching: Christopher Peters (RIZZARR)
+[19:19:12] ✅ Lead completed: Peter Bell -> Priority 1 (1/144)
+[19:19:12] 🎯 Researching: Kirsten Osolind (Substratos)
+[19:19:12] 🎯 Target: Christopher Peters (Chief Technology Officer & Head of AI) @ RIZZARR
+[19:19:12] 🎯 Target: Kirsten Osolind (Chief Technology Officer | Head of AI) @ Substratos
+[19:19:12] 🌐 [Web Scraper] Fetching company website: http://www.rizzarr.com
+[19:19:12] 🌐 [Web Scraper] Fetching company website: http://www.substratos.ai
+[19:19:12] ✅ Lead completed: Peter Enestrom -> Priority 1 (2/144)
+[19:19:12]    ↳ [Status 200] Extracted content from http://www.substratos.ai "Substratos — Infrastructure OS for Enterprise..." (scrapling_fetcher)
+[19:19:12] 🧅 [Tor + DuckDuckGo] Searching 'Kirsten Osolind Substratos' via Tor SOCKS5...
+[19:19:12]    ↳ [Tor Results] Found 6 search results for 'Jon B'
+[19:19:12]    ↳ Top Bio: Jon Burlinson - CEO @ oneAI Consulting - LinkedIn
+[19:19:12] ⭐ [Scoring] Jon B -> Priority 0 (Score: 100, Sources: 8)
+[19:19:12] 🎯 Researching: Coy Gupta (Glytec)
+[19:19:12] ✅ Lead completed: Jon B -> Priority 0 (3/144)
+[19:19:12] 🎯 Target: Coy Gupta (CTO & Head of AI) @ Glytec
+[19:19:12] 🌐 [Web Scraper] Fetching company website: https://glytec.com
+[19:19:14]    ↳ [Status 200] Extracted content from https://glytec.com "Diabetes Management: Intelligent Glycemic Sol..." (scrapling_fetcher)
+[19:19:14] 🧅 [Tor + DuckDuckGo] Searching 'Coy Gupta Glytec' via Tor SOCKS5...
+[19:19:14]    ↳ [Tor Results] Found 6 search results for 'Luiz Wolf'
+[19:19:14]    ↳ Top Bio: Luiz Wolf - Global IT Business, Operations & Digit
+[19:19:14] ⭐ [Scoring] Luiz Wolf -> Priority 0 (Score: 90, Sources: 8)
+[19:19:14] 🎯 Researching: Andrew R (Upwork)
+[19:19:14] ✅ Lead completed: Luiz Wolf -> Priority 0 (4/144)
+[19:19:14] 🎯 Target: Andrew R (CTO, Head of AI) @ Upwork
+[19:19:14] 🌐 [Web Scraper] Fetching company website: http://www.upwork.com
+[19:19:16]    ↳ [Tor Results] Found 6 search results for 'Kirsten Osolind'
+[19:19:16]    ↳ Top Bio: Kirsten Osolind - Fractional Chief AI Readiness Of
+[19:19:16] ⭐ [Scoring] Kirsten Osolind -> Priority 0 (Score: 100, Sources: 8)
+[19:19:16] 🎯 Researching: Roman Gushel (display.io)
+[19:19:16] ✅ Lead completed: Kirsten Osolind -> Priority 0 (5/144)
+[19:19:16] 🎯 Target: Roman Gushel (CTO & Head of AI) @ display.io
+[19:19:16] 🌐 [Web Scraper] Fetching company website: http://www.display.io
+[19:19:17]    ↳ [Status 200] Extracted content from http://www.upwork.com "Upwork | Hire Top Freelance Talent with Confi..." (scrapling_stealth_browser)
+[19:19:17] 🧅 [Tor + DuckDuckGo] Searching 'Andrew R Upwork' via Tor SOCKS5...
+[19:19:18]    ↳ [Status 200] Extracted content from http://www.display.io "Display.io | Incremental Ad Monetization & Re..." (scrapling_fetcher)
+[19:19:18] 🧅 [Tor + DuckDuckGo] Searching 'Roman Gushel display.io' via Tor SOCKS5...
+[19:19:18]    ↳ [Tor Results] Found 6 search results for 'Coy Gupta'
+[19:19:18]    ↳ Top Bio: Coy Gupta Joins Glytec as Chief Technology Officer
+[19:19:18] ⭐ [Scoring] Coy Gupta -> Priority 0 (Score: 100, Sources: 8)
+[19:19:18] 🎯 Researching: Tejas Totade (Ruder Finn)
+[19:19:18] ✅ Lead completed: Coy Gupta -> Priority 0 (6/144)
+[19:19:18] 🎯 Target: Tejas Totade (CTO and Head of AI) @ Ruder Finn
+[19:19:18] 🌐 [Web Scraper] Fetching company website: http://www.ruderfinn.com
+[19:19:21]    ↳ [Tor Results] Found 6 search results for 'Andrew R'
+[19:19:21]    ↳ Top Bio: Andrew R. - Expert Blue Prism RPA Developer - Upwo
+[19:19:21] ⭐ [Scoring] Andrew R -> Priority 0 (Score: 100, Sources: 8)
+[19:19:21] 🎯 Researching: Adam Hunter (Reason Consulting Corporation)
+[19:19:21] ✅ Lead completed: Andrew R -> Priority 0 (7/144)
+[19:19:21] 🎯 Target: Adam Hunter (CTO & Head of AI) @ Reason Consulting Corporation
+[19:19:21] 🌐 [Web Scraper] Fetching company website: http://www.reason.consulting
+[19:19:21]    ↳ [Status 200] Extracted content from http://www.ruderfinn.com (scrapling_fetcher)
+[19:19:21] 🧅 [Tor + DuckDuckGo] Searching 'Tejas Totade Ruder Finn' via Tor SOCKS5...
+[19:19:22]    ↳ [Tor Results] Found 6 search results for 'Roman Gushel'
+[19:19:22]    ↳ Top Bio: Roman Gushel - display.io | LinkedIn
+[19:19:22] ⭐ [Scoring] Roman Gushel -> Priority 0 (Score: 88, Sources: 8)
+[19:19:22] 🎯 Researching: Roger Burkhardt (Broadridge)
+[19:19:22] ✅ Lead completed: Roman Gushel -> Priority 0 (8/144)
+[19:19:22] 🎯 Target: Roger Burkhardt (Head of AI, Chief Technology Officer) @ Broadridge
+[19:19:22] 🌐 [Web Scraper] Fetching company website: https://broadridge.com
+[19:19:23]    ↳ [Status 200] Extracted content from http://www.rizzarr.com "RIZZARR..." (scrapling_stealth_browser)
+[19:19:23] 🧅 [Tor + DuckDuckGo] Searching 'Christopher Peters RIZZARR' via Tor SOCKS5...
+[19:19:24]    ↳ [Status 200] Extracted content from http://www.reason.consulting "Home - Reason Consulting..." (scrapling_fetcher)
+[19:19:24] 🧅 [Tor + DuckDuckGo] Searching 'Adam Hunter Reason Consulting Corporation' via Tor SOCKS5...
+[19:19:24]    ↳ [Status 200] Extracted content from https://broadridge.com "Broadridge - Broadridge | Global Leader - Fin..." (scrapling_fetcher)
+[19:19:24] 🧅 [Tor + DuckDuckGo] Searching 'Roger Burkhardt Broadridge' via Tor SOCKS5...
+[19:19:25]    ↳ [Tor Results] Found 6 search results for 'Tejas Totade'
+[19:19:25]    ↳ Top Bio: Ruder Finn CTO Tejas Totade Named to PRWeek's Dash
+[19:19:25] ⭐ [Scoring] Tejas Totade -> Priority 1 (Score: 65, Sources: 8)
+[19:19:25] 🎯 Researching: Raghu R (EB1A Experts)
+[19:19:25] ✅ Lead completed: Tejas Totade -> Priority 1 (9/144)
+[19:19:25] 🎯 Target: Raghu R (CEO & Head of AI) @ EB1A Experts
+[19:19:25] 🌐 [Web Scraper] Fetching company website: http://www.eb1aexperts.com
+[19:19:27]    ↳ [Tor Results] Found 6 search results for 'Christopher Peters'
+[19:19:27]    ↳ Top Bio: Christopher Peters, M.Ap.Stat. - RIZZARR | LinkedI
+[19:19:27] ⭐ [Scoring] Christopher Peters -> Priority 0 (Score: 100, Sources: 8)
+[19:19:27] 🎯 Researching: Sanjiv Jivan (Hugentic, Inc.)
+[19:19:27] 🎯 Target: Sanjiv Jivan (Chief Technology Officer & Head of AI) @ Hugentic, Inc.
+[19:19:27] ✅ Lead completed: Christopher Peters -> Priority 0 (10/144)
+[19:19:27] 🌐 [Web Scraper] Fetching company website: http://www.hugenticinc.com
+[19:19:27]    ↳ [Status 200] Extracted content from http://www.eb1aexperts.com "EB1A Experts | 330+ Approvals | Free Eligibil..." (scrapling_fetcher)
+[19:19:27] 🧅 [Tor + DuckDuckGo] Searching 'Raghu R EB1A Experts' via Tor SOCKS5...
+[19:19:28]    ↳ [Tor Results] Found 6 search results for 'Adam Hunter'
+[19:19:28]    ↳ Top Bio: Adam Hunter - CTO & Head of AI @ Reason Consulting
+[19:19:28] ⭐ [Scoring] Adam Hunter -> Priority 0 (Score: 100, Sources: 8)
+[19:19:28] 🎯 Researching: Michael Kline (ThnkLab)
+[19:19:28] ✅ Lead completed: Adam Hunter -> Priority 0 (11/144)
+[19:19:28] 🎯 Target: Michael Kline (Founder & CEO | Head of AI Enablement) @ ThnkLab
+[19:19:28] 🌐 [Web Scraper] Fetching company website: http://www.thnklab.io
+[19:19:28]    ↳ [Status 200] Extracted content from http://www.hugenticinc.com "Hugentic, Inc. — Human-Centric AI for Life Sc..." (scrapling_fetcher)
+[19:19:28] 🧅 [Tor + DuckDuckGo] Searching 'Sanjiv Jivan Hugentic, Inc.' via Tor SOCKS5...
+[19:19:29]    ↳ [Tor Results] Found 6 search results for 'Roger Burkhardt'
+[19:19:29]    ↳ Top Bio: Roger Burkhardt - Head of AI, Chief Technology Off
+[19:19:29] ⭐ [Scoring] Roger Burkhardt -> Priority 0 (Score: 100, Sources: 8)
+[19:19:29] 🎯 Researching: Hamid Azzawe (Functional Finance)
+[19:19:29] ✅ Lead completed: Roger Burkhardt -> Priority 0 (12/144)
+[19:19:29] 🎯 Target: Hamid Azzawe (CPO, CTO, and Head of AI) @ Functional Finance
+[19:19:29] 🌐 [Web Scraper] Fetching company website: https://functionalfi.com
+[19:19:30]    ↳ [Status 200] Extracted content from https://functionalfi.com "Functional Finance: Financial Operations Plat..." (scrapling_fetcher)
+[19:19:30] 🧅 [Tor + DuckDuckGo] Searching 'Hamid Azzawe Functional Finance' via Tor SOCKS5...
+[19:19:31]    ↳ [Tor Results] Found 6 search results for 'Raghu R'
+[19:19:31]    ↳ Top Bio: Who We Are | Meet the EB1A Experts Team
+[19:19:31] ⭐ [Scoring] Raghu R -> Priority 0 (Score: 88, Sources: 8)
+[19:19:31] 🎯 Researching: Raymond Davis (edc.org)
+[19:19:31] ✅ Lead completed: Raghu R -> Priority 0 (13/144)
+[19:19:31] 🎯 Target: Raymond Davis (Chief Technology Officer and Head of AI Strategy) @ edc.org
+[19:19:31] 🌐 [Web Scraper] Fetching company website: http://www.edc.org
+[19:19:31]    ↳ [Status 200] Extracted content from http://www.thnklab.io "ThnkLab – Practical AI Enablement & Automatio..." (scrapling_fetcher)
+[19:19:31] 🧅 [Tor + DuckDuckGo] Searching 'Michael Kline ThnkLab' via Tor SOCKS5...
+[19:19:32]    ↳ [Tor Results] Found 6 search results for 'Sanjiv Jivan'
+[19:19:32]    ↳ Top Bio: Sanjiv Jivan's Post - LinkedIn
+[19:19:32] ⭐ [Scoring] Sanjiv Jivan -> Priority 0 (Score: 90, Sources: 8)
+[19:19:32] 🎯 Researching: Rob P (Vantora (formerly UP.Labs))
+[19:19:32] 🎯 Target: Rob P (CTO & Head of AI Studio) @ Vantora (formerly UP.Labs)
+[19:19:32] ✅ Lead completed: Sanjiv Jivan -> Priority 0 (14/144)
+[19:19:32] 🌐 [Web Scraper] Fetching company website: http://www.vantora.us
+[19:19:33]    ↳ [Status 200] Extracted content from http://www.edc.org "Home - edc.org..." (scrapling_fetcher)
+[19:19:33] 🧅 [Tor + DuckDuckGo] Searching 'Raymond Davis edc.org' via Tor SOCKS5...
+[19:19:33]    ↳ [Status 200] Extracted content from http://www.vantora.us "Vantora | Conquer Your Toughest Enterprise Pr..." (scrapling_fetcher)
+[19:19:33] 🧅 [Tor + DuckDuckGo] Searching 'Rob P Vantora (formerly UP.Labs)' via Tor SOCKS5...
+[19:19:34]    ↳ [Tor Results] Found 6 search results for 'Hamid Azzawe'
+[19:19:34]    ↳ Top Bio: Hamid Azzawe - Twice CEO · ex-Amazon, Bloomberg, M
+[19:19:34] ⭐ [Scoring] Hamid Azzawe -> Priority 0 (Score: 100, Sources: 8)
+[19:19:34] 🎯 Researching: Thais Graham (InteliArt.ai)
+[19:19:34] ✅ Lead completed: Hamid Azzawe -> Priority 0 (15/144)
+[19:19:34] 🎯 Target: Thais Graham (Chief Executive Officer and Head of AI of InteliArt) @ InteliArt.ai
+[19:19:34] 🌐 [Web Scraper] Fetching company website: http://www.inteliart.ai
+[19:19:35]    ↳ [Status 200] Extracted content from http://www.inteliart.ai "InteliArt.LLC official..." (scrapling_fetcher)
+[19:19:35] 🧅 [Tor + DuckDuckGo] Searching 'Thais Graham InteliArt.ai' via Tor SOCKS5...
+[19:19:36]    ↳ [Tor Results] Found 6 search results for 'Michael Kline'
+[19:19:36]    ↳ Top Bio: Michael Kline - AI Enablement Executive | Founder,
+[19:19:36] ⭐ [Scoring] Michael Kline -> Priority 0 (Score: 90, Sources: 8)
+[19:19:36] 🎯 Researching: Shideh G (SMG Solutions LLC)
+[19:19:36] ✅ Lead completed: Michael Kline -> Priority 0 (16/144)
+[19:19:36] 🎯 Target: Shideh G (Founder and Ceo| Fractional Cto/cio | Chief AI Officer) @ SMG Solutions LLC
+[19:19:36] 🌐 [Web Scraper] Fetching company website: http://www.smgsolutionsllc.com
+[19:19:36]    ↳ [Tor Results] Found 6 search results for 'Raymond Davis'
+[19:19:36]    ↳ Top Bio: Raymond Davis - Global CTO | AI &amp; Digital Tran
+[19:19:36] ⭐ [Scoring] Raymond Davis -> Priority 1 (Score: 65, Sources: 8)
+[19:19:36] 🎯 Researching: Angel Marinov (ePlane AI)
+[19:19:36] ✅ Lead completed: Raymond Davis -> Priority 1 (17/144)
+[19:19:36] 🎯 Target: Angel Marinov (Head of AI & CISO) @ ePlane AI
+[19:19:36] 🌐 [Web Scraper] Fetching company website: http://www.eplaneai.com
+[19:19:37]    ↳ [Status 200] Extracted content from http://www.eplaneai.com "AI in Operations & Supply Chain Enterprise AI..." (scrapling_fetcher)
+[19:19:37] 🧅 [Tor + DuckDuckGo] Searching 'Angel Marinov ePlane AI' via Tor SOCKS5...
+[19:19:37]    ↳ [Tor Results] Found 6 search results for 'Rob P'
+[19:19:37]    ↳ Top Bio: Rob Patrick - CTO | AI Strategy & Transformation -
+[19:19:37] ⭐ [Scoring] Rob P -> Priority 0 (Score: 78, Sources: 8)
+[19:19:37] 🎯 Researching: Monica Rysavy (Systematic You)
+[19:19:37] ✅ Lead completed: Rob P -> Priority 0 (18/144)
+[19:19:37] 🎯 Target: Monica Rysavy (Founder, CEO, & Chief AI Officer) @ Systematic You
+[19:19:37] 🌐 [Web Scraper] Fetching company website: http://www.systematicyou.notion.site
+[19:19:38]    ↳ [Status 200] Extracted content from http://www.smgsolutionsllc.com "SMG Solutions LLC – Salesforce & AI  Consulti..." (scrapling_fetcher)
+[19:19:38] 🧅 [Tor + DuckDuckGo] Searching 'Shideh G SMG Solutions LLC' via Tor SOCKS5...
+[19:19:38]    ↳ [Tor Results] Found 6 search results for 'Thais Graham'
+[19:19:38]    ↳ Top Bio: Thais Tuffi Graham , EE, MSPPM - Director | Vehicl
+[19:19:38] ⭐ [Scoring] Thais Graham -> Priority 0 (Score: 78, Sources: 8)
+[19:19:38] 🎯 Researching: Dmitriy Stepanov (Glorium Technologies)
+[19:19:38] ✅ Lead completed: Thais Graham -> Priority 0 (19/144)
+[19:19:38] 🎯 Target: Dmitriy Stepanov (Co-founder, CTO and Chief AI Officer) @ Glorium Technologies
+[19:19:38] 🌐 [Web Scraper] Fetching company website: http://www.gloriumtech.com
+[19:19:40]    ↳ [Notice] Company website notice: Website could not be reached via HTTP or Browser.
+[19:19:40] 🧅 [Tor + DuckDuckGo] Searching 'Monica Rysavy Systematic You' via Tor SOCKS5...
+[19:19:41]    ↳ [Tor Results] Found 6 search results for 'Angel Marinov'
+[19:19:41]    ↳ Top Bio: Angel Marinov - Founder | Building a Mojo-Powered 
+[19:19:41] ⭐ [Scoring] Angel Marinov -> Priority 0 (Score: 100, Sources: 8)
+[19:19:41] 🎯 Researching: Tariq Alinur (BrainCX AI)
+[19:19:41] ✅ Lead completed: Angel Marinov -> Priority 0 (20/144)
+[19:19:41] 🎯 Target: Tariq Alinur (Founder, CEO & Chief AI Officer) @ BrainCX AI
+[19:19:41] 🌐 [Web Scraper] Fetching company website: http://www.braincx.com
+[19:19:42]    ↳ [Status 200] Extracted content from http://www.gloriumtech.com "Digital Transformation Solutions Company - Gl..." (scrapling_fetcher)
+[19:19:42] 🧅 [Tor + DuckDuckGo] Searching 'Dmitriy Stepanov Glorium Technologies' via Tor SOCKS5...
+[19:19:42]    ↳ [Tor Results] Found 6 search results for 'Shideh G'
+[19:19:42]    ↳ Top Bio: About - SMG Solutions LLC
+[19:19:42] ⭐ [Scoring] Shideh G -> Priority 0 (Score: 90, Sources: 8)
+[19:19:42] 🎯 Researching: Daniel Emaasit (Logistify AI)
+[19:19:42] ✅ Lead completed: Shideh G -> Priority 0 (21/144)
+[19:19:42] 🎯 Target: Daniel Emaasit (Co-Founder, CEO & Chief AI Officer) @ Logistify AI
+[19:19:42] 🌐 [Web Scraper] Fetching company website: http://www.logistify.ai
+[19:19:42]    ↳ [Status 200] Extracted content from http://www.logistify.ai "Managed AI Services for Supply Chain Work..." (scrapling_fetcher)
+[19:19:42] 🧅 [Tor + DuckDuckGo] Searching 'Daniel Emaasit Logistify AI' via Tor SOCKS5...
+[19:19:44]    ↳ [Tor Results] Found 6 search results for 'Monica Rysavy'
+[19:19:44]    ↳ Top Bio: Systematic You - Dr. Monica Rysavy | AI strategy, 
+[19:19:44] ⭐ [Scoring] Monica Rysavy -> Priority 1 (Score: 71, Sources: 7)
+[19:19:44] 🎯 Researching: Atif Mohammad (Cyquent, Inc.)
+[19:19:44] ✅ Lead completed: Monica Rysavy -> Priority 1 (22/144)
+[19:19:44] 🎯 Target: Atif Mohammad (Chief AI Officer / CISO) @ Cyquent, Inc.
+[19:19:44]    ↳ [Status 200] Extracted content from http://www.braincx.com "AI Phone Agent & Call Translator for Business..." (scrapling_fetcher)
+[19:19:44] 🧅 [Tor + DuckDuckGo] Searching 'Tariq Alinur BrainCX AI' via Tor SOCKS5...
+[19:19:44] 🌐 [Web Scraper] Fetching company website: http://www.cyquent.com
+[19:19:45]    ↳ [Status 200] Extracted content from http://www.cyquent.com "Cyquent | IT Consultancy Services..." (scrapling_fetcher)
+[19:19:45] 🧅 [Tor + DuckDuckGo] Searching 'Atif Mohammad Cyquent, Inc.' via Tor SOCKS5...
+[19:19:45]    ↳ [Tor Results] Found 6 search results for 'Dmitriy Stepanov'
+[19:19:45]    ↳ Top Bio: Dmitriy Stepanov - Co-founder, CTO, CAIO, and Busi
+[19:19:45] ⭐ [Scoring] Dmitriy Stepanov -> Priority 0 (Score: 100, Sources: 8)
+[19:19:45] 🎯 Researching: Anh Speer (Quantum IQ Consulting)
+[19:19:45] ✅ Lead completed: Dmitriy Stepanov -> Priority 0 (23/144)
+[19:19:45] 🎯 Target: Anh Speer (Founder & CEO, Chief AI Officer) @ Quantum IQ Consulting
+[19:19:45] 🌐 [Web Scraper] Fetching company website: http://www.quantum-iq.ai
+[19:19:46]    ↳ [Tor Results] Found 6 search results for 'Daniel Emaasit'
+[19:19:46]    ↳ Top Bio: Daniel Emaasit - AI Services for Supply Chain Coor
+[19:19:46] ⭐ [Scoring] Daniel Emaasit -> Priority 0 (Score: 100, Sources: 8)
+[19:19:46] 🎯 Researching: Ricardo Cuervo (FinRatio.ai)
+[19:19:46] ✅ Lead completed: Daniel Emaasit -> Priority 0 (24/144)
+[19:19:46] 🎯 Target: Ricardo Cuervo (CEO / Founder / Chief AI Officer) @ FinRatio.ai
+[19:19:46] 🌐 [Web Scraper] Fetching company website: https://finratio.ai
+[19:19:47]    ↳ [Status 200] Extracted content from https://finratio.ai "Home | FinRatio AI..." (scrapling_fetcher)
+[19:19:47] 🧅 [Tor + DuckDuckGo] Searching 'Ricardo Cuervo FinRatio.ai' via Tor SOCKS5...
+[19:19:48]    ↳ [Tor Results] Found 6 search results for 'Tariq Alinur'
+[19:19:48]    ↳ Top Bio: Tariq Alinur - Three decades watching companies fa
+[19:19:48] ⭐ [Scoring] Tariq Alinur -> Priority 0 (Score: 100, Sources: 8)
+[19:19:48] 🎯 Researching: Steve Metcalf (IMAGINE AI LIVE)
+[19:19:48] ✅ Lead completed: Tariq Alinur -> Priority 0 (25/144)
+[19:19:48] 🎯 Target: Steve Metcalf (Founder, CEO, & Chief AI Officer) @ IMAGINE AI LIVE
+[19:19:48] 🌐 [Web Scraper] Fetching company website: http://www.imagineai.live
+[19:19:49]    ↳ [Tor Results] Found 6 search results for 'Atif Mohammad'
+[19:19:49]    ↳ Top Bio: Dr Atif Mohammad | Cyquent
+[19:19:49] ⭐ [Scoring] Atif Mohammad -> Priority 0 (Score: 100, Sources: 8)
+[19:19:49] 🎯 Researching: Patrick O'Leary (The VGER Group)
+[19:19:49] ✅ Lead completed: Atif Mohammad -> Priority 0 (26/144)
+[19:19:49] 🎯 Target: Patrick O'Leary (Technology CEO, CTO and AI Founder) @ The VGER Group
+[19:19:49] 🌐 [Web Scraper] Fetching company website: http://www.thevgergroup.com
+[19:19:49]    ↳ [Status 200] Extracted content from http://www.imagineai.live "IMAGINE AI LIVE | The #1 AI Community for Bus..." (scrapling_fetcher)
+[19:19:49] 🧅 [Tor + DuckDuckGo] Searching 'Steve Metcalf IMAGINE AI LIVE' via Tor SOCKS5...
+[19:19:49]    ↳ [Status 200] Extracted content from http://www.quantum-iq.ai "Quantum IQ Consulting | Strategic AI Consulti..." (scrapling_fetcher)
+[19:19:49] 🧅 [Tor + DuckDuckGo] Searching 'Anh Speer Quantum IQ Consulting' via Tor SOCKS5...
+[19:19:51]    ↳ [Tor Results] Found 6 search results for 'Ricardo Cuervo'
+[19:19:51]    ↳ Top Bio: Ricardo Cuervo - AI practitioner with MSc in AI + 
+[19:19:51] ⭐ [Scoring] Ricardo Cuervo -> Priority 0 (Score: 100, Sources: 8)
+[19:19:51] 🎯 Researching: Marc George (Identity Checkpoint Sentry Services, Inc.)
+[19:19:51] ✅ Lead completed: Ricardo Cuervo -> Priority 0 (27/144)
+[19:19:51] 🎯 Target: Marc George (Ceo/cio/cto/ciso) @ Identity Checkpoint Sentry Services, Inc.
+[19:19:51] 🌐 [Web Scraper] Fetching company website: http://www.identitycheckpoint.com
+[19:19:51]    ↳ [Status 200] Extracted content from http://www.thevgergroup.com "AI Technology Consultants - The VGER Group..." (scrapling_fetcher)
+[19:19:51] 🧅 [Tor + DuckDuckGo] Searching 'Patrick O'Leary The VGER Group' via Tor SOCKS5...
+[19:19:52]    ↳ [Status 200] Extracted content from http://www.identitycheckpoint.com "Identity Checkpoint..." (scrapling_fetcher)
+[19:19:52] 🧅 [Tor + DuckDuckGo] Searching 'Marc George Identity Checkpoint Sentry Services, Inc.' via Tor SOCKS5...
+[19:19:53]    ↳ [Tor Results] Found 6 search results for 'Steve Metcalf'
+[19:19:53]    ↳ Top Bio: About Imagine AI Live: The Enterprise AI Conferenc
+[19:19:53] ⭐ [Scoring] Steve Metcalf -> Priority 1 (Score: 75, Sources: 8)
+[19:19:53] 🎯 Researching: Rawad Zaki (Hover City)
+[19:19:53] ✅ Lead completed: Steve Metcalf -> Priority 1 (28/144)
+[19:19:53] 🎯 Target: Rawad Zaki (Founder | CEO | CTO) @ Hover City
+[19:19:53] 🌐 [Web Scraper] Fetching company website: http://www.hover-city.com
+[19:19:53]    ↳ [Tor Results] Found 6 search results for 'Anh Speer'
+[19:19:53]    ↳ Top Bio: Quantum IQ Consulting | Strategic AI Consulting & 
+[19:19:53] ⭐ [Scoring] Anh Speer -> Priority 0 (Score: 100, Sources: 8)
+[19:19:53] 🎯 Researching: Haixun W (EvenUp)
+[19:19:53] ✅ Lead completed: Anh Speer -> Priority 0 (29/144)
+[19:19:53] 🎯 Target: Haixun W (VP of Engineering, Head of AI) @ EvenUp
+[19:19:53] 🌐 [Web Scraper] Fetching company website: http://www.evenuplaw.com
+[19:19:53]    ↳ [Status 200] Extracted content from http://www.hover-city.com "Home | Hover City..." (scrapling_fetcher)
+[19:19:53] 🧅 [Tor + DuckDuckGo] Searching 'Rawad Zaki Hover City' via Tor SOCKS5...
+[19:19:55]    ↳ [Status 200] Extracted content from http://www.evenuplaw.com "Leading AI for Personal Injury Lawyers - Even..." (scrapling_fetcher)
+[19:19:55] 🧅 [Tor + DuckDuckGo] Searching 'Haixun W EvenUp' via Tor SOCKS5...
+[19:19:55]    ↳ [Tor Results] Found 6 search results for 'Patrick O'Leary'
+[19:19:55]    ↳ Top Bio: AI Transformation Company | Proven Results & Innov
+[19:19:55] ⭐ [Scoring] Patrick O'Leary -> Priority 0 (Score: 100, Sources: 8)
+[19:19:55] 🎯 Researching: Matthew Ward (Foundry Fractional)
+[19:19:55] ✅ Lead completed: Patrick O'Leary -> Priority 0 (30/144)
+[19:19:55] 🎯 Target: Matthew Ward (Founder / CEO / CTO) @ Foundry Fractional
+[19:19:55] 🌐 [Web Scraper] Fetching company website: http://www.foundryfractional.com
+[19:19:55]    ↳ [Status 200] Extracted content from http://www.foundryfractional.com "Foundry Fractional - Fractional CTO Advisory..." (scrapling_fetcher)
+[19:19:55] 🧅 [Tor + DuckDuckGo] Searching 'Matthew Ward Foundry Fractional' via Tor SOCKS5...
+[19:19:56]    ↳ [Tor Results] Found 6 search results for 'Marc George'
+[19:19:56]    ↳ Top Bio: Marc George - CEO/CIO/CTO/CISO | LinkedIn
+[19:19:56] ⭐ [Scoring] Marc George -> Priority 1 (Score: 65, Sources: 8)
+[19:19:56] 🎯 Researching: Gabe Bar (Be Belong)
+[19:19:56] ✅ Lead completed: Marc George -> Priority 1 (31/144)
+[19:19:56] 🎯 Target: Gabe Bar (Co-Founder, CEO & CTO) @ Be Belong
+[19:19:56] 🌐 [Web Scraper] Fetching company website: http://www.bebelong.life
+[19:19:57]    ↳ [Tor Results] Found 6 search results for 'Rawad Zaki'
+[19:19:57]    ↳ Top Bio: Team | Hover City
+[19:19:57] ⭐ [Scoring] Rawad Zaki -> Priority 1 (Score: 65, Sources: 8)
+[19:19:57] 🎯 Researching: Jimit M (Abmatic AI)
+[19:19:57] ✅ Lead completed: Rawad Zaki -> Priority 1 (32/144)
+[19:19:57] 🎯 Target: Jimit M (CEO/CTO/Co-Founder) @ Abmatic AI
+[19:19:57] 🌐 [Web Scraper] Fetching company website: http://www.abmatic.ai
+[19:19:58]    ↳ [Status 522] Extracted content from http://www.bebelong.life "bebelong.life | 522: Connection timed out..." (scrapling_stealth_browser)
+[19:19:58] 🧅 [Tor + DuckDuckGo] Searching 'Gabe Bar Be Belong' via Tor SOCKS5...
+[19:19:59]    ↳ [Status 200] Extracted content from http://www.abmatic.ai "Abmatic AI | Transforming Account-Based Marke..." (scrapling_fetcher)
+[19:19:59] 🧅 [Tor + DuckDuckGo] Searching 'Jimit M Abmatic AI' via Tor SOCKS5...
+[19:20:00]    ↳ [Tor Results] Found 6 search results for 'Haixun W'
+[19:20:00]    ↳ Top Bio: Haixun Wang - VP Engineering, Head of AI | ACM Fel
+[19:20:00] ⭐ [Scoring] Haixun W -> Priority 0 (Score: 100, Sources: 8)
+[19:20:00] 🎯 Researching: Wez I (EvoTechnica)
+[19:20:00] ✅ Lead completed: Haixun W -> Priority 0 (33/144)
+[19:20:00] 🎯 Target: Wez I (Founder, CISO, CTO) @ EvoTechnica
+[19:20:00] 🌐 [Web Scraper] Fetching company website: http://www.evotechnica.com
+[19:20:03]    ↳ [Status 200] Extracted content from http://www.evotechnica.com "EvoTechnica..." (scrapling_stealth_browser)
+[19:20:03] 🧅 [Tor + DuckDuckGo] Searching 'Wez I EvoTechnica' via Tor SOCKS5...
+[19:20:04]    ↳ [Tor Results] Found 6 search results for 'Matthew Ward'
+[19:20:04]    ↳ Top Bio: About Matt Ward | Foundry Fractional
+[19:20:04] ⭐ [Scoring] Matthew Ward -> Priority 1 (Score: 83, Sources: 8)
+[19:20:04] 🎯 Researching: Kurt Kendall (Kairos Growth Advisors)
+[19:20:04] ✅ Lead completed: Matthew Ward -> Priority 1 (34/144)
+[19:20:04] 🎯 Target: Kurt Kendall (Co-CEO, Chief AI Officer) @ Kairos Growth Advisors
+[19:20:04] 🌐 [Web Scraper] Fetching company website: http://www.kairosgrowthadvisors.com
+[19:20:04]    ↳ [Status 200] Extracted content from http://www.kairosgrowthadvisors.com "Kairos Growth Advisors..." (scrapling_fetcher)
+[19:20:04] 🧅 [Tor + DuckDuckGo] Searching 'Kurt Kendall Kairos Growth Advisors' via Tor SOCKS5...
+[19:20:05]    ↳ [Tor Results] Found 6 search results for 'Gabe Bar'
+[19:20:05]    ↳ Top Bio: Gabe Bar - Co-Founder, CEO & CTO at Be Belong, cre
+[19:20:05] ⭐ [Scoring] Gabe Bar -> Priority 0 (Score: 100, Sources: 8)
+[19:20:05] 🎯 Researching: Andrew Silver (Tango Networks)
+[19:20:05] ✅ Lead completed: Gabe Bar -> Priority 0 (35/144)
+[19:20:05] 🎯 Target: Andrew Silver (CTO, CISO & Co-founder) @ Tango Networks
+[19:20:05] 🌐 [Web Scraper] Fetching company website: http://www.tango-networks.com
+[19:20:06]    ↳ [Tor Results] Found 6 search results for 'Jimit M'
+[19:20:06]    ↳ Top Bio: Jimit Mehta - Author at Abmatic AI
+[19:20:06] ⭐ [Scoring] Jimit M -> Priority 0 (Score: 100, Sources: 8)
+[19:20:06] 🎯 Researching: Robin Babu (Tevaera)
+[19:20:06] 🎯 Target: Robin Babu (CEO, CTO & Co-Founder) @ Tevaera
+[19:20:06] ✅ Lead completed: Jimit M -> Priority 0 (36/144)
+[19:20:06] 🌐 [Web Scraper] Fetching company website: http://www.tevaera.com
+[19:20:07]    ↳ [Status 200] Extracted content from http://www.tevaera.com "Tevaera - onchain gaming ecosystem..." (scrapling_fetcher)
+[19:20:07] 🧅 [Tor + DuckDuckGo] Searching 'Robin Babu Tevaera' via Tor SOCKS5...
+[19:20:08]    ↳ [Tor Results] Found 6 search results for 'Wez I'
+[19:20:08]    ↳ Top Bio: Wez Ireland, HCISPP, CISSP - EvoTechnica | LinkedI
+[19:20:08] ⭐ [Scoring] Wez I -> Priority 0 (Score: 88, Sources: 8)
+[19:20:08] 🎯 Researching: Marty S (Valer)
+[19:20:08] ✅ Lead completed: Wez I -> Priority 0 (37/144)
+[19:20:08] 🎯 Target: Marty S (Co-Founder, CTO, CISO) @ Valer
+[19:20:08] 🌐 [Web Scraper] Fetching company website: http://www.valer.health
+[19:20:09]    ↳ [Status 200] Extracted content from http://www.valer.health "Valer Home - Valer..." (scrapling_fetcher)
+[19:20:09] 🧅 [Tor + DuckDuckGo] Searching 'Marty S Valer' via Tor SOCKS5...
+[19:20:09]    ↳ [Tor Results] Found 6 search results for 'Kurt Kendall'
+[19:20:09]    ↳ Top Bio: About — Kairos Growth Advisors
+[19:20:09] ⭐ [Scoring] Kurt Kendall -> Priority 0 (Score: 100, Sources: 8)
+[19:20:09] 🎯 Researching: Girish Kotte (Wysera)
+[19:20:09] ✅ Lead completed: Kurt Kendall -> Priority 0 (38/144)
+[19:20:09] 🎯 Target: Girish Kotte (Founder, CEO & CTO) @ Wysera
+[19:20:09] 🌐 [Web Scraper] Fetching company website: https://wysera.ai
+[19:20:09]    ↳ [Status 200] Extracted content from https://wysera.ai "Wysera: One AI to run sales, marketing & ops ..." (scrapling_fetcher)
+[19:20:09] 🧅 [Tor + DuckDuckGo] Searching 'Girish Kotte Wysera' via Tor SOCKS5...
+[19:20:11]    ↳ [Status 200] Extracted content from http://www.tango-networks.com "Tango Extend — Business Mobile for Every UC P..." (scrapling_fetcher)
+[19:20:11] 🧅 [Tor + DuckDuckGo] Searching 'Andrew Silver Tango Networks' via Tor SOCKS5...
+[19:20:12]    ↳ [Tor Results] Found 6 search results for 'Robin Babu'
+[19:20:12]    ↳ Top Bio: Robin Babu - Co-Founder @ Tevaera I Building Degen
+[19:20:12] ⭐ [Scoring] Robin Babu -> Priority 0 (Score: 90, Sources: 8)
+[19:20:12] 🎯 Researching: Paulo Silva (Cloud Fortress LLC)
+[19:20:12] ✅ Lead completed: Robin Babu -> Priority 0 (39/144)
+[19:20:12] 🎯 Target: Paulo Silva (Co-Founder, CISO and Chief Technology Officer) @ Cloud Fortress LLC
+[19:20:12] 🌐 [Web Scraper] Fetching company website: http://www.cloudfortress.ai
+[19:20:13]    ↳ [Status 403] Extracted content from http://www.cloudfortress.ai "Attention Required! | Cloudflare..." (scrapling_stealth_browser)
+[19:20:13] 🧅 [Tor + DuckDuckGo] Searching 'Paulo Silva Cloud Fortress LLC' via Tor SOCKS5...
+[19:20:13]    ↳ [Tor Results] Found 6 search results for 'Marty S'
+[19:20:13]    ↳ Top Bio: Marty Staszak - Chief Technology Officer at Valer
+[19:20:13] ⭐ [Scoring] Marty S -> Priority 0 (Score: 100, Sources: 8)
+[19:20:13] 🎯 Researching: Ken Evans (Konexial)
+[19:20:13] ✅ Lead completed: Marty S -> Priority 0 (40/144)
+[19:20:13] 🎯 Target: Ken Evans (CEO, CTO, and Founder) @ Konexial
+[19:20:13] 🌐 [Web Scraper] Fetching company website: http://www.konexial.com
+[19:20:14]    ↳ [Tor Results] Found 6 search results for 'Girish Kotte'
+[19:20:14]    ↳ Top Bio: Girish Kotte | AI Architect Who Ships - 4 Startups
+[19:20:14] ⭐ [Scoring] Girish Kotte -> Priority 0 (Score: 100, Sources: 8)
+[19:20:14] 🎯 Researching: Matthew Webster (Cyvergence)
+[19:20:14] ✅ Lead completed: Girish Kotte -> Priority 0 (41/144)
+[19:20:14] 🎯 Target: Matthew Webster (Founder / CEO / CISO) @ Cyvergence
+[19:20:14] 🌐 [Web Scraper] Fetching company website: http://www.cyvergence.biz
+[19:20:15]    ↳ [Status 200] Extracted content from http://www.konexial.com "Fleet Management Software Enhancing Business ..." (scrapling_fetcher)
+[19:20:15] 🧅 [Tor + DuckDuckGo] Searching 'Ken Evans Konexial' via Tor SOCKS5...
+[19:20:15]    ↳ [Status 200] Extracted content from http://www.cyvergence.biz "Cybersecurity Leadership | Cyvergence..." (scrapling_fetcher)
+[19:20:15] 🧅 [Tor + DuckDuckGo] Searching 'Matthew Webster Cyvergence' via Tor SOCKS5...
+[19:20:16]    ↳ [Tor Results] Found 6 search results for 'Andrew Silver'
+[19:20:16]    ↳ Top Bio: Andrew Silver - CTO, CISO & Co-founder at Tango Ne
+[19:20:16] ⭐ [Scoring] Andrew Silver -> Priority 0 (Score: 88, Sources: 8)
+[19:20:16] 🎯 Researching: Vincent C (Pivotal Technologies, LLC)
+[19:20:16] ✅ Lead completed: Andrew Silver -> Priority 0 (42/144)
+[19:20:16] 🎯 Target: Vincent C (CEO / CIO / CTO / Ciso) @ Pivotal Technologies, LLC
+[19:20:16] 🌐 [Web Scraper] Fetching company website: http://www.pivotaltech.tech
+[19:20:18]    ↳ [Tor Results] Found 6 search results for 'Paulo Silva'
+[19:20:18]    ↳ Top Bio: Paulo Silva (M.S.L., CISSP, CISA, IRCA) - Cloud Fo
+[19:20:18] ⭐ [Scoring] Paulo Silva -> Priority 1 (Score: 75, Sources: 8)
+[19:20:18] 🎯 Researching: Jared M (Mirror Engine)
+[19:20:18] ✅ Lead completed: Paulo Silva -> Priority 1 (43/144)
+[19:20:18] 🎯 Target: Jared M (Founder/CEO/CTO) @ Mirror Engine
+[19:20:18] 🌐 [Web Scraper] Fetching company website: http://www.mirrorengine.io
+[19:20:18]    ↳ [Status 200] Extracted content from http://www.pivotaltech.tech "Pivotal Technologies — Precision and Trust, E..." (scrapling_fetcher)
+[19:20:18] 🧅 [Tor + DuckDuckGo] Searching 'Vincent C Pivotal Technologies, LLC' via Tor SOCKS5...
+[19:20:19]    ↳ [Status 200] Extracted content from http://www.mirrorengine.io "Mirror Engine | All-in-One Game Engine..." (scrapling_fetcher)
+[19:20:19] 🧅 [Tor + DuckDuckGo] Searching 'Jared M Mirror Engine' via Tor SOCKS5...
+[19:20:19]    ↳ [Tor Results] Found 6 search results for 'Ken Evans'
+[19:20:19]    ↳ Top Bio: Ken Evans - Konexial | LinkedIn
+[19:20:19] ⭐ [Scoring] Ken Evans -> Priority 1 (Score: 75, Sources: 8)
+[19:20:19] 🎯 Researching: Dinanath G (360 World, Inc)
+[19:20:19] ✅ Lead completed: Ken Evans -> Priority 1 (44/144)
+[19:20:19] 🎯 Target: Dinanath G (Founder, CEO & CTO) @ 360 World, Inc
+[19:20:19] 🌐 [Web Scraper] Fetching company website: http://www.360world.com
+[19:20:20]    ↳ [Tor Results] Found 6 search results for 'Matthew Webster'
+[19:20:20]    ↳ Top Bio: Matthew Webster - Cyvergence | LinkedIn
+[19:20:20] ⭐ [Scoring] Matthew Webster -> Priority 0 (Score: 100, Sources: 8)
+[19:20:20] 🎯 Researching: Scott Withers (CenseoAI - AI Innovation & Adoption)
+[19:20:20] ✅ Lead completed: Matthew Webster -> Priority 0 (45/144)
+[19:20:20] 🎯 Target: Scott Withers (Founder / Owner / CEO & Chief AI Officer (CAIO)) @ CenseoAI - AI Innovation & Adoption
+[19:20:20] 🌐 [Web Scraper] Fetching company website: http://www.censeoai.ai
+[19:20:21]    ↳ [Status 200] Extracted content from http://www.censeoai.ai "AI Consulting & Training for Professional Ser..." (scrapling_fetcher)
+[19:20:21] 🧅 [Tor + DuckDuckGo] Searching 'Scott Withers CenseoAI - AI Innovation & Adoption' via Tor SOCKS5...
+[19:20:23]    ↳ [Tor Results] Found 6 search results for 'Vincent C'
+[19:20:23]    ↳ Top Bio: Vincent Cirel - CEO / CIO / CTO / CISO | AI, Cyber
+[19:20:23] ⭐ [Scoring] Vincent C -> Priority 0 (Score: 100, Sources: 8)
+[19:20:23] 🎯 Researching: Basil B (Furtherium)
+[19:20:23] ✅ Lead completed: Vincent C -> Priority 0 (46/144)
+[19:20:23] 🎯 Target: Basil B (Co-Founder & CEO / CTO) @ Furtherium
+[19:20:23] 🌐 [Web Scraper] Fetching company website: http://www.furtherium.com
+[19:20:23]    ↳ [Tor Results] Found 6 search results for 'Jared M'
+[19:20:23]    ↳ Top Bio: Jared McCluskey - Mirror Engine | LinkedIn
+[19:20:23] ⭐ [Scoring] Jared M -> Priority 1 (Score: 75, Sources: 8)
+[19:20:23] 🎯 Researching: Ronald Lintag (Paper Doll AI, Inc.)
+[19:20:23] ✅ Lead completed: Jared M -> Priority 1 (47/144)
+[19:20:23] 🎯 Target: Ronald Lintag (Co-Founder and Ceo/cto) @ Paper Doll AI, Inc.
+[19:20:23] 🌐 [Web Scraper] Fetching company website: http://www.paperdollai.com
+[19:20:25]    ↳ [Status 402] Extracted content from http://www.paperdollai.com "Store unavailable..." (scrapling_stealth_browser)
+[19:20:25] 🧅 [Tor + DuckDuckGo] Searching 'Ronald Lintag Paper Doll AI, Inc.' via Tor SOCKS5...
+[19:20:25]    ↳ [Tor Results] Found 6 search results for 'Scott Withers'
+[19:20:25]    ↳ Top Bio: About CenseoAI | AI Expert Traverse City | Scott W
+[19:20:25] ⭐ [Scoring] Scott Withers -> Priority 0 (Score: 88, Sources: 8)
+[19:20:25] 🎯 Researching: Sundu R (Chain-Sys Corporation)
+[19:20:25] ✅ Lead completed: Scott Withers -> Priority 0 (48/144)
+[19:20:25] 🎯 Target: Sundu R (Founder, CEO and CTO) @ Chain-Sys Corporation
+[19:20:25] 🌐 [Web Scraper] Fetching company website: http://www.chainsys.ai
+[19:20:26]    ↳ [Status 200] Extracted content from http://www.chainsys.ai "ChainSys Smart Data Platform | Data Migration..." (scrapling_fetcher)
+[19:20:26] 🧅 [Tor + DuckDuckGo] Searching 'Sundu R Chain-Sys Corporation' via Tor SOCKS5...
+[19:20:30]    ↳ [Tor Results] Found 6 search results for 'Ronald Lintag'
+[19:20:30]    ↳ Top Bio: Ronald Lintag - Founder and CEO/CTO at Paper Doll 
+[19:20:30] ⭐ [Scoring] Ronald Lintag -> Priority 1 (Score: 83, Sources: 8)
+[19:20:30]    ↳ [Status 200] Extracted content from http://www.furtherium.com "Home - AI-powered Tactical Situational Awaren..." (scrapling_stealth_browser)
+[19:20:30] 🎯 Researching: Alexander Oraevsky (TomoWave, Inc.)
+[19:20:30] ✅ Lead completed: Ronald Lintag -> Priority 1 (49/144)
+[19:20:30] 🧅 [Tor + DuckDuckGo] Searching 'Basil B Furtherium' via Tor SOCKS5...
+[19:20:30] 🎯 Target: Alexander Oraevsky (Founder, Chief Executive Officer and Chief Technology Officer) @ TomoWave, Inc.
+[19:20:30] 🌐 [Web Scraper] Fetching company website: http://www.tomowave.com
+[19:20:30]    ↳ [Status 200] Extracted content from http://www.tomowave.com "Index of /..." (scrapling_fetcher)
+[19:20:30] 🧅 [Tor + DuckDuckGo] Searching 'Alexander Oraevsky TomoWave, Inc.' via Tor SOCKS5...
+[19:20:31]    ↳ [Status 200] Extracted content from http://www.360world.com "360World: Creating a World without Distance..." (scrapling_stealth_browser)
+[19:20:31] 🧅 [Tor + DuckDuckGo] Searching 'Dinanath G 360 World, Inc' via Tor SOCKS5...
+[19:20:31]    ↳ [Tor Results] Found 6 search results for 'Sundu R'
+[19:20:31]    ↳ Top Bio: Sundu Rathinam - Founder, CEO and CTO for ChainSys
+[19:20:31] ⭐ [Scoring] Sundu R -> Priority 0 (Score: 100, Sources: 8)
+[19:20:31] 🎯 Researching: Todd Wolff (Clarivus AI Consulting LLC)
+[19:20:31] ✅ Lead completed: Sundu R -> Priority 0 (50/144)
+[19:20:31] 🎯 Target: Todd Wolff (Co-Founder, CEO & CTO) @ Clarivus AI Consulting LLC
+[19:20:31] 🌐 [Web Scraper] Fetching company website: http://www.clarivusaiconsulting.com
+[19:20:33]    ↳ [Status 200] Extracted content from http://www.clarivusaiconsulting.com "clarivusaiconsulting.com – From AI Investment..." (scrapling_stealth_browser)
+[19:20:33] 🧅 [Tor + DuckDuckGo] Searching 'Todd Wolff Clarivus AI Consulting LLC' via Tor SOCKS5...
+[19:20:34]    ↳ [Tor Results] Found 6 search results for 'Basil B'
+[19:20:34]    ↳ Top Bio: Our Story - Furtherium
+[19:20:34] ⭐ [Scoring] Basil B -> Priority 1 (Score: 75, Sources: 8)
+[19:20:34] 🎯 Researching: Raj Patel (Citra Tech)
+[19:20:34] ✅ Lead completed: Basil B -> Priority 1 (51/144)
+[19:20:34] 🎯 Target: Raj Patel (Co-Founder | CEO | CTO) @ Citra Tech
+[19:20:34] 🌐 [Web Scraper] Fetching company website: http://www.citratech.com
+[19:20:35]    ↳ [Tor Results] Found 6 search results for 'Alexander Oraevsky'
+[19:20:35]    ↳ Top Bio: Dr. Alexander Oraevsky - Founder, President and CT
+[19:20:35] ⭐ [Scoring] Alexander Oraevsky -> Priority 1 (Score: 58, Sources: 8)
+[19:20:35] 🎯 Researching: Henry S (SMS-iT)
+[19:20:35] ✅ Lead completed: Alexander Oraevsky -> Priority 1 (52/144)
+[19:20:35] 🎯 Target: Henry S (Founder/CEO/CTO) @ SMS-iT
+[19:20:35] 🌐 [Web Scraper] Fetching company website: http://www.smsit.ai
+[19:20:35]    ↳ [Status 200] Extracted content from http://www.citratech.com "Custom Crafted LED Lighting Solutions & Techn..." (scrapling_fetcher)
+[19:20:35] 🧅 [Tor + DuckDuckGo] Searching 'Raj Patel Citra Tech' via Tor SOCKS5...
+[19:20:35]    ↳ [Tor Results] Found 6 search results for 'Dinanath G'
+[19:20:35]    ↳ Top Bio: Dinanath Gupt - Founder, CEO & CTO at Omnira, Inc 
+[19:20:35] ⭐ [Scoring] Dinanath G -> Priority 0 (Score: 100, Sources: 8)
+[19:20:35] 🎯 Researching: Chris Baker (Further)
+[19:20:35] ✅ Lead completed: Dinanath G -> Priority 0 (53/144)
+[19:20:35] 🎯 Target: Chris Baker (Co-Founder, COO & Head of AI) @ Further
+[19:20:35] 🌐 [Web Scraper] Fetching company website: http://www.further.group
+[19:20:36]    ↳ [Status 200] Extracted content from http://www.further.group "Further – Formerly DesignStudio | Creative, B..." (scrapling_fetcher)
+[19:20:36] 🧅 [Tor + DuckDuckGo] Searching 'Chris Baker Further' via Tor SOCKS5...
+[19:20:36]    ↳ [Status 200] Extracted content from http://www.smsit.ai "SMS-iT | No-Stack Agentic AI RAAS Platform - ..." (scrapling_fetcher)
+[19:20:36] 🧅 [Tor + DuckDuckGo] Searching 'Henry S SMS-iT' via Tor SOCKS5...
+[19:20:38]    ↳ [Tor Results] Found 6 search results for 'Todd Wolff'
+[19:20:38]    ↳ Top Bio: About - clarivusaiconsulting.com
+[19:20:38] ⭐ [Scoring] Todd Wolff -> Priority 0 (Score: 88, Sources: 8)
+[19:20:38] 🎯 Researching: Rahul P (Atman Health)
+[19:20:38] ✅ Lead completed: Todd Wolff -> Priority 0 (54/144)
+[19:20:38] 🎯 Target: Rahul P (Co-founder, CEO & CTO) @ Atman Health
+[19:20:38] 🌐 [Web Scraper] Fetching company website: https://atmanhealth.com
+[19:20:39]    ↳ [Status 200] Extracted content from https://atmanhealth.com "Atman Health — Reimagining cardiovascular car..." (scrapling_fetcher)
+[19:20:39] 🧅 [Tor + DuckDuckGo] Searching 'Rahul P Atman Health' via Tor SOCKS5...
+[19:20:40]    ↳ [Tor Results] Found 6 search results for 'Raj Patel'
+[19:20:40]    ↳ Top Bio: Raj Patel - HVAC UV System Design | Peer-Reviewed 
+[19:20:40] ⭐ [Scoring] Raj Patel -> Priority 1 (Score: 65, Sources: 8)
+[19:20:40] 🎯 Researching: Tommy Mehl (Rashi)
+[19:20:40] ✅ Lead completed: Raj Patel -> Priority 1 (55/144)
+[19:20:40] 🎯 Target: Tommy Mehl (Founder, CEO & CTO) @ Rashi
+[19:20:40] 🌐 [Web Scraper] Fetching company website: http://www.rashi.ai
+[19:20:40]    ↳ [Tor Results] Found 6 search results for 'Chris Baker'
+[19:20:40]    ↳ Top Bio: Chris Baker - Further | LinkedIn
+[19:20:40] ⭐ [Scoring] Chris Baker -> Priority 0 (Score: 78, Sources: 8)
+[19:20:40] 🎯 Researching: Johnny M (Monsarrat - Can You Come Out to Play?)
+[19:20:40] ✅ Lead completed: Chris Baker -> Priority 0 (56/144)
+[19:20:40] 🎯 Target: Johnny M (Founder, CEO, CTO) @ Monsarrat - Can You Come Out to Play?
+[19:20:40] 🌐 [Web Scraper] Fetching company website: http://www.monsarrat.com
+[19:20:41]    ↳ [Tor Results] Found 6 search results for 'Henry S'
+[19:20:41]    ↳ Top Bio: Henry Skull - AI-native technical founder-operator
+[19:20:41] ⭐ [Scoring] Henry S -> Priority 0 (Score: 100, Sources: 8)
+[19:20:41] 🎯 Researching: Nikhil K (C3 AI)
+[19:20:41] ✅ Lead completed: Henry S -> Priority 0 (57/144)
+[19:20:41] 🎯 Target: Nikhil K (Chief AI Officer and CTO) @ C3 AI
+[19:20:41] 🌐 [Web Scraper] Fetching company website: http://www.c3.ai
+[19:20:41]    ↳ [Status 200] Extracted content from http://www.rashi.ai "Rashi.AI - Turn any Content into a New Class ..." (scrapling_fetcher)
+[19:20:41] 🧅 [Tor + DuckDuckGo] Searching 'Tommy Mehl Rashi' via Tor SOCKS5...
+[19:20:41]    ↳ [Status 200] Extracted content from http://www.c3.ai "Home Page | C3 AI..." (scrapling_fetcher)
+[19:20:41] 🧅 [Tor + DuckDuckGo] Searching 'Nikhil K C3 AI' via Tor SOCKS5...
+[19:20:44]    ↳ [Status 200] Extracted content from http://www.monsarrat.com "Monsarrat | Games for Life. Your Real Life...." (scrapling_fetcher)
+[19:20:44] 🧅 [Tor + DuckDuckGo] Searching 'Johnny M Monsarrat - Can You Come Out to Play?' via Tor SOCKS5...
+[19:20:44]    ↳ [Tor Results] Found 6 search results for 'Rahul P'
+[19:20:44]    ↳ Top Bio: Rahul Patel - Co-founder, CEO & CTO @ Atman Health
+[19:20:44] ⭐ [Scoring] Rahul P -> Priority 0 (Score: 100, Sources: 8)
+[19:20:44] 🎯 Researching: Imran Q (b.well Connected Health)
+[19:20:44] ✅ Lead completed: Rahul P -> Priority 0 (58/144)
+[19:20:44] 🎯 Target: Imran Q (CTO & Chief AI Officer) @ b.well Connected Health
+[19:20:44] 🌐 [Web Scraper] Fetching company website: https://icanbwell.com
+[19:20:45]    ↳ [Status 200] Extracted content from https://icanbwell.com "b.well Connected Health | Next-Generation Dig..." (scrapling_fetcher)
+[19:20:45] 🧅 [Tor + DuckDuckGo] Searching 'Imran Q b.well Connected Health' via Tor SOCKS5...
+[19:20:46]    ↳ [Tor Results] Found 6 search results for 'Tommy Mehl'
+[19:20:46]    ↳ Top Bio: Tommy Mehl - Founder CEO & CTO @ Rashi - LinkedIn
+[19:20:46] ⭐ [Scoring] Tommy Mehl -> Priority 1 (Score: 75, Sources: 8)
+[19:20:46] 🎯 Researching: Segev Shmueli (ProductiveHub)
+[19:20:46] 🎯 Target: Segev Shmueli (Chief AI Officer & CTO) @ ProductiveHub
+[19:20:46] ✅ Lead completed: Tommy Mehl -> Priority 1 (59/144)
+[19:20:46] 🌐 [Web Scraper] Fetching company website: http://www.productivehub.com
+[19:20:46]    ↳ [Tor Results] Found 6 search results for 'Nikhil K'
+[19:20:46]    ↳ Top Bio: Nikhil Krishnan - C3 AI | LinkedIn
+[19:20:46] ⭐ [Scoring] Nikhil K -> Priority 0 (Score: 100, Sources: 8)
+[19:20:46] 🎯 Researching: Dave Kearney (AskVet)
+[19:20:46] ✅ Lead completed: Nikhil K -> Priority 0 (60/144)
+[19:20:46] 🎯 Target: Dave Kearney (Chief Technology Officer/Chief AI Officer) @ AskVet
+[19:20:46] 🌐 [Web Scraper] Fetching company website: http://www.askvet.app
+[19:20:46]    ↳ [Status 200] Extracted content from http://www.productivehub.com "ProductiveHub — Fractional CTO & CAIO leaders..." (scrapling_fetcher)
+[19:20:46] 🧅 [Tor + DuckDuckGo] Searching 'Segev Shmueli ProductiveHub' via Tor SOCKS5...
+[19:20:47]    ↳ [Status 200] Extracted content from http://www.askvet.app "AskVet – Healthier Pets, Happier Humans..." (scrapling_fetcher)
+[19:20:47] 🧅 [Tor + DuckDuckGo] Searching 'Dave Kearney AskVet' via Tor SOCKS5...
+[19:20:49]    ↳ [Tor Results] Found 6 search results for 'Johnny M'
+[19:20:49]    ↳ Top Bio: Monsarrat | Games for Life. Your Real Life.
+[19:20:49] ⭐ [Scoring] Johnny M -> Priority 1 (Score: 65, Sources: 8)
+[19:20:49] 🎯 Researching: Kshitij K (Data-Hat AI)
+[19:20:49] 🎯 Target: Kshitij K (Chief AI Officer and CEO) @ Data-Hat AI
+[19:20:49] ✅ Lead completed: Johnny M -> Priority 1 (61/144)
+[19:20:49] 🌐 [Web Scraper] Fetching company website: http://www.data-hat.com
+[19:20:49]    ↳ [Status 200] Extracted content from http://www.data-hat.com "Orkestra: the AI decision layer for retail | ..." (scrapling_fetcher)
+[19:20:49] 🧅 [Tor + DuckDuckGo] Searching 'Kshitij K Data-Hat AI' via Tor SOCKS5...
+[19:20:49]    ↳ [Tor Results] Found 6 search results for 'Imran Q'
+[19:20:49]    ↳ Top Bio: Imran Qureshi - CTO & Chief AI Officer @ b.well Co
+[19:20:49] ⭐ [Scoring] Imran Q -> Priority 0 (Score: 100, Sources: 8)
+[19:20:49] 🎯 Researching: Gautam G (CommentSold)
+[19:20:49] 🎯 Target: Gautam G (CEO & Chief AI Officer) @ CommentSold
+[19:20:49] ✅ Lead completed: Imran Q -> Priority 0 (62/144)
+[19:20:49] 🌐 [Web Scraper] Fetching company website: http://www.commentsold.com
+[19:20:50]    ↳ [Tor Results] Found 6 search results for 'Segev Shmueli'
+[19:20:50]    ↳ Top Bio: About ProductiveHub | We Build AI Agents, Platform
+[19:20:50] ⭐ [Scoring] Segev Shmueli -> Priority 0 (Score: 100, Sources: 8)
+[19:20:50] 🎯 Researching: Thomas Watson (Healiom)
+[19:20:50] ✅ Lead completed: Segev Shmueli -> Priority 0 (63/144)
+[19:20:50] 🎯 Target: Thomas Watson (CTO / Chief AI Officer) @ Healiom
+[19:20:50] 🌐 [Web Scraper] Fetching company website: https://healiom.com
+[19:20:51]    ↳ [Tor Results] Found 6 search results for 'Dave Kearney'
+[19:20:51]    ↳ Top Bio: Dave Kearney - Chief AI & Technical Officer | Link
+[19:20:51] ⭐ [Scoring] Dave Kearney -> Priority 0 (Score: 100, Sources: 8)
+[19:20:51] 🎯 Researching: Drew Bollmann (Orange Development)
+[19:20:51] ✅ Lead completed: Dave Kearney -> Priority 0 (64/144)
+[19:20:51] 🎯 Target: Drew Bollmann (Chief AI Officer and CTO) @ Orange Development
+[19:20:51] 🌐 [Web Scraper] Fetching company website: http://www.orangedevelopment.co
+[19:20:52]    ↳ [Status 200] Extracted content from https://healiom.com "Home - Healiom..." (scrapling_fetcher)
+[19:20:52] 🧅 [Tor + DuckDuckGo] Searching 'Thomas Watson Healiom' via Tor SOCKS5...
+[19:20:52]    ↳ [Status 200] Extracted content from http://www.commentsold.com "CommentSold - The #1 Video Commerce & Live Se..." (scrapling_fetcher)
+[19:20:52] 🧅 [Tor + DuckDuckGo] Searching 'Gautam G CommentSold' via Tor SOCKS5...
+[19:20:52]    ↳ [Status 200] Extracted content from http://www.orangedevelopment.co "Orange Development..." (scrapling_fetcher)
+[19:20:52] 🧅 [Tor + DuckDuckGo] Searching 'Drew Bollmann Orange Development' via Tor SOCKS5...
+[19:20:54]    ↳ [Tor Results] Found 6 search results for 'Kshitij K'
+[19:20:54]    ↳ Top Bio: About Us | Data-Hat AI
+[19:20:54] ⭐ [Scoring] Kshitij K -> Priority 0 (Score: 88, Sources: 8)
+[19:20:54] 🎯 Researching: Peter Mulford (BTS)
+[19:20:54] ✅ Lead completed: Kshitij K -> Priority 0 (65/144)
+[19:20:54] 🎯 Target: Peter Mulford (Chief Artificial Intelligence Officer, Global Head, AI and Innovation Practice) @ BTS
+[19:20:54] 🌐 [Web Scraper] Fetching company website: http://www.bts.com
+[19:20:55]    ↳ [Status 200] Extracted content from http://www.bts.com "BTS | Strategy made personal..." (scrapling_fetcher)
+[19:20:55] 🧅 [Tor + DuckDuckGo] Searching 'Peter Mulford BTS' via Tor SOCKS5...
+[19:20:56]    ↳ [Tor Results] Found 6 search results for 'Thomas Watson'
+[19:20:56]    ↳ Top Bio: Thomas Watson - CTO / CAIO | Production AI in Heal
+[19:20:56] ⭐ [Scoring] Thomas Watson -> Priority 0 (Score: 100, Sources: 8)
+[19:20:56] 🎯 Researching: Manuel M (Automizers)
+[19:20:56] ✅ Lead completed: Thomas Watson -> Priority 0 (66/144)
+[19:20:56] 🎯 Target: Manuel M (CEO and Chief AI Officer) @ Automizers
+[19:20:56] 🌐 [Web Scraper] Fetching company website: http://www.automizers.ai
+[19:20:56]    ↳ [Status 200] Extracted content from http://www.automizers.ai "Automizers — Stop losing leads and start book..." (scrapling_fetcher)
+[19:20:56] 🧅 [Tor + DuckDuckGo] Searching 'Manuel M Automizers' via Tor SOCKS5...
+[19:20:57]    ↳ [Tor Results] Found 6 search results for 'Gautam G'
+[19:20:57]    ↳ Top Bio: Gautam Goswami - Founder at ECHO-ME.AI. CEO at COM
+[19:20:57] ⭐ [Scoring] Gautam G -> Priority 0 (Score: 100, Sources: 8)
+[19:20:57] 🎯 Researching: Roy Timor (25madison)
+[19:20:57] ✅ Lead completed: Gautam G -> Priority 0 (67/144)
+[19:20:57] 🎯 Target: Roy Timor (Head of AI & Incubation fractional-CTO) @ 25madison
+[19:20:57] 🌐 [Web Scraper] Fetching company website: https://25madison.com
+[19:20:57]    ↳ [Tor Results] Found 6 search results for 'Drew Bollmann'
+[19:20:57]    ↳ Top Bio: Drew Bollmann - Principal AI Engineer - LLMs, RAG,
+[19:20:57] ⭐ [Scoring] Drew Bollmann -> Priority 0 (Score: 100, Sources: 8)
+[19:20:57] 🎯 Researching: Alex Pire (Percidian AI)
+[19:20:57] ✅ Lead completed: Drew Bollmann -> Priority 0 (68/144)
+[19:20:57] 🎯 Target: Alex Pire (Co-Founder, CEO & CTO @ Percidian AI) @ Percidian AI
+[19:20:57] 🌐 [Web Scraper] Fetching company website: http://www.percidian.com
+[19:20:58]    ↳ [Status 200] Extracted content from https://25madison.com "25madison - Bringing Applied AI to Legacy Ind..." (scrapling_fetcher)
+[19:20:58] 🧅 [Tor + DuckDuckGo] Searching 'Roy Timor 25madison' via Tor SOCKS5...
+[19:20:58]    ↳ [Status 200] Extracted content from http://www.percidian.com "Business Understanding Infrastructure for AI ..." (scrapling_fetcher)
+[19:20:58] 🧅 [Tor + DuckDuckGo] Searching 'Alex Pire Percidian AI' via Tor SOCKS5...
+[19:20:59]    ↳ [Tor Results] Found 6 search results for 'Peter Mulford'
+[19:20:59]    ↳ Top Bio: Peter Mulford EVP, Chief Artificial Intelligence O
+[19:20:59] ⭐ [Scoring] Peter Mulford -> Priority 1 (Score: 48, Sources: 8)
+[19:20:59] 🎯 Researching: Warren Master (Convergence Inc)
+[19:20:59] ✅ Lead completed: Peter Mulford -> Priority 1 (69/144)
+[19:20:59] 🎯 Target: Warren Master (Chief Technology Officer & Head of AI Research and Development) @ Convergence Inc
+[19:20:59] 🌐 [Web Scraper] Fetching company website: https://convergenceinc.com
+[19:21:00]    ↳ [Status 200] Extracted content from https://convergenceinc.com "Welcome | Convergence, Inc..." (scrapling_fetcher)
+[19:21:00] 🧅 [Tor + DuckDuckGo] Searching 'Warren Master Convergence Inc' via Tor SOCKS5...
+[19:21:01]    ↳ [Tor Results] Found 6 search results for 'Manuel M'
+[19:21:01]    ↳ Top Bio: PDF
+ Automizer - Maintenance Manual - 2007957-03
+[19:21:01] ⭐ [Scoring] Manuel M -> Priority 1 (Score: 83, Sources: 8)
+[19:21:01] 🎯 Researching: Brian W (ITECH Solutions)
+[19:21:01] ✅ Lead completed: Manuel M -> Priority 1 (70/144)
+[19:21:01] 🎯 Target: Brian W (CEO, Chief AI Officer & Strategic Technology Advisor) @ ITECH Solutions
+[19:21:01] 🌐 [Web Scraper] Fetching company website: http://www.itech-solutions.com
+[19:21:02]    ↳ [Tor Results] Found 6 search results for 'Roy Timor'
+[19:21:02]    ↳ Top Bio: 25madison Team Member | Roy Timor
+[19:21:02] ⭐ [Scoring] Roy Timor -> Priority 0 (Score: 100, Sources: 8)
+[19:21:02] 🎯 Researching: Lin Y (Newfront)
+[19:21:02] ✅ Lead completed: Roy Timor -> Priority 0 (71/144)
+[19:21:02] 🎯 Target: Lin Y (Chief AI Officer, EVP of Engineering) @ Newfront
+[19:21:02] 🌐 [Web Scraper] Fetching company website: http://www.newfront.com
+[19:21:03]    ↳ [Tor Results] Found 6 search results for 'Alex Pire'
+[19:21:03]    ↳ Top Bio: Alex Pire — Co-Founder, CEO & CTO, Percidian AI
+[19:21:03] ⭐ [Scoring] Alex Pire -> Priority 0 (Score: 100, Sources: 8)
+[19:21:03] 🎯 Researching: Matt F (AI X Network - Unlock Your AI Assets & Network: Boost Traffic, Insights & Talent)
+[19:21:03] ✅ Lead completed: Alex Pire -> Priority 0 (72/144)
+[19:21:03] 🎯 Target: Matt F (CEO & Founder & CAIO (Chief AI Officer)) @ AI X Network - Unlock Your AI Assets & Network: Boost Traffic, Insights & Talent
+[19:21:03] 🌐 [Web Scraper] Fetching company website: http://www.aixnetwork.net
+[19:21:03]    ↳ [Status 200] Extracted content from http://www.newfront.com "Modern Business Insurance Company - Benefits ..." (scrapling_fetcher)
+[19:21:03] 🧅 [Tor + DuckDuckGo] Searching 'Lin Y Newfront' via Tor SOCKS5...
+[19:21:04]    ↳ [Status 200] Extracted content from http://www.itech-solutions.com "IT Solutions Provider in San Luis Obispo | IT..." (scrapling_fetcher)
+[19:21:04] 🧅 [Tor + DuckDuckGo] Searching 'Brian W ITECH Solutions' via Tor SOCKS5...
+[19:21:05]    ↳ [Status 200] Extracted content from http://www.aixnetwork.net "AI X Network — Make Your Entire Ecosystem Wor..." (scrapling_fetcher)
+[19:21:05] 🧅 [Tor + DuckDuckGo] Searching 'Matt F AI X Network - Unlock Your AI Assets & Network: Boost Traffic, Insights & Talent' via Tor SOCKS5...
+[19:21:05]    ↳ [Tor Results] Found 6 search results for 'Warren Master'
+[19:21:05]    ↳ Top Bio: Warren Master - Chief Technology Officer/ Head of 
+[19:21:05] ⭐ [Scoring] Warren Master -> Priority 0 (Score: 100, Sources: 8)
+[19:21:05] 🎯 Researching: Morgan Templar (First CDO Partners)
+[19:21:05] ✅ Lead completed: Warren Master -> Priority 0 (73/144)
+[19:21:05] 🎯 Target: Morgan Templar (Chief AI Officer, CEO, CDO, Founder) @ First CDO Partners
+[19:21:05] 🌐 [Web Scraper] Fetching company website: http://www.firstcdopartners.com
+[19:21:05]    ↳ [Status 200] Extracted content from http://www.firstcdopartners.com "Home | FirstCDOPartners | Data Management Con..." (scrapling_fetcher)
+[19:21:05] 🧅 [Tor + DuckDuckGo] Searching 'Morgan Templar First CDO Partners' via Tor SOCKS5...
+[19:21:08]    ↳ [Tor Results] Found 6 search results for 'Lin Y'
+[19:21:08]    ↳ Top Bio: Lin Yuan - Chief AI Officer & EVP of Engineering @
+[19:21:08] ⭐ [Scoring] Lin Y -> Priority 0 (Score: 100, Sources: 8)
+[19:21:08] 🎯 Researching: Guillermo Fisher (Kuzaa LLC)
+[19:21:08] ✅ Lead completed: Lin Y -> Priority 0 (74/144)
+[19:21:08] 🎯 Target: Guillermo Fisher (CEO and Fractional Cto/ciso) @ Kuzaa LLC
+[19:21:08] 🌐 [Web Scraper] Fetching company website: http://www.wearekuzaa.com
+[19:21:08]    ↳ [Tor Results] Found 6 search results for 'Brian W'
+[19:21:08]    ↳ Top Bio: Brian J. Weiss - CEO, ITECH Solutions | Fractional
+[19:21:08] ⭐ [Scoring] Brian W -> Priority 0 (Score: 100, Sources: 8)
+[19:21:08] 🎯 Researching: Loren Charnley (Resonant Circuit Labs, Inc.)
+[19:21:08] ✅ Lead completed: Brian W -> Priority 0 (75/144)
+[19:21:08] 🎯 Target: Loren Charnley (CEO / CTO / VP Engineering) @ Resonant Circuit Labs, Inc.
+[19:21:08] 🌐 [Web Scraper] Fetching company website: http://www.resonantcircuitlabs.com
+[19:21:09]    ↳ [Status 200] Extracted content from http://www.wearekuzaa.com "Kuzaa LLC | Guillermo A. Fisher | Helping mis..." (scrapling_fetcher)
+[19:21:09] 🧅 [Tor + DuckDuckGo] Searching 'Guillermo Fisher Kuzaa LLC' via Tor SOCKS5...
+[19:21:09]    ↳ [Tor Results] Found 6 search results for 'Matt F'
+[19:21:09]    ↳ Top Bio: AI X Network - Unlock Your AI Assets & Network: Bo
+[19:21:09] ⭐ [Scoring] Matt F -> Priority 0 (Score: 90, Sources: 8)
+[19:21:09] 🎯 Researching: Kenneth Xu (Axiom Bank, N.A.)
+[19:21:09] 🎯 Target: Kenneth Xu (EVP, Chief Operations Officer, Chief Technology Officer, Chief AI Officer) @ Axiom Bank, N.A.
+[19:21:09] ✅ Lead completed: Matt F -> Priority 0 (76/144)
+[19:21:09] 🌐 [Web Scraper] Fetching company website: http://www.axiombanking.com
+[19:21:10]    ↳ [Status 200] Extracted content from http://www.axiombanking.com "Florida Bank | Banks in Florida | Axiom Bank..." (scrapling_fetcher)
+[19:21:10] 🧅 [Tor + DuckDuckGo] Searching 'Kenneth Xu Axiom Bank, N.A.' via Tor SOCKS5...
+[19:21:10]    ↳ [Status 200] Extracted content from http://www.resonantcircuitlabs.com "Resonant Circuit Labs | Technology, Sufficien..." (scrapling_fetcher)
+[19:21:10] 🧅 [Tor + DuckDuckGo] Searching 'Loren Charnley Resonant Circuit Labs, Inc.' via Tor SOCKS5...
+[19:21:10]    ↳ [Tor Results] Found 6 search results for 'Morgan Templar'
+[19:21:10]    ↳ Top Bio: About | FirstCDOPartners
+[19:21:10] ⭐ [Scoring] Morgan Templar -> Priority 0 (Score: 100, Sources: 8)
+[19:21:10] 🎯 Researching: Shonte Amato-Grill (Orchid Surgical)
+[19:21:10] ✅ Lead completed: Morgan Templar -> Priority 0 (77/144)
+[19:21:10] 🎯 Target: Shonte Amato-Grill (Co-Founder, CISO, VP Engineering) @ Orchid Surgical
+[19:21:10] 🌐 [Web Scraper] Fetching company website: https://orchidsurgical.com
+[19:21:11]    ↳ [Status 200] Extracted content from https://orchidsurgical.com "Orchid Surgical Camera | Head-Mounted HD/2K O..." (scrapling_fetcher)
+[19:21:11] 🧅 [Tor + DuckDuckGo] Searching 'Shonte Amato-Grill Orchid Surgical' via Tor SOCKS5...
+[19:21:13]    ↳ [Tor Results] Found 6 search results for 'Guillermo Fisher'
+[19:21:13]    ↳ Top Bio: Kuzaa LLC | About Guillermo
+[19:21:13] ⭐ [Scoring] Guillermo Fisher -> Priority 0 (Score: 100, Sources: 8)
+[19:21:13] 🎯 Researching: Jason S (Midi Health)
+[19:21:13] ✅ Lead completed: Guillermo Fisher -> Priority 0 (78/144)
+[19:21:13] 🎯 Target: Jason S (Head of Product and Chief AI Officer) @ Midi Health
+[19:21:13] 🌐 [Web Scraper] Fetching company website: https://joinmidi.com
+[19:21:14]    ↳ [Tor Results] Found 6 search results for 'Kenneth Xu'
+[19:21:14]    ↳ Top Bio: Kenneth Xu, Ph.D. - EVP, COO | CTO | CAIO - Linked
+[19:21:14] ⭐ [Scoring] Kenneth Xu -> Priority 0 (Score: 100, Sources: 8)
+[19:21:14] 🎯 Researching: Jason Lee (Tradeify)
+[19:21:14] ✅ Lead completed: Kenneth Xu -> Priority 0 (79/144)
+[19:21:14] 🎯 Target: Jason Lee (Chief Product Officer & Head of AI) @ Tradeify
+[19:21:14] 🌐 [Web Scraper] Fetching company website: https://tradeify.co
+[19:21:14]    ↳ [Status 200] Extracted content from https://joinmidi.com "Meet Midi: Insurance-Covered Care from Women'..." (scrapling_fetcher)
+[19:21:14] 🧅 [Tor + DuckDuckGo] Searching 'Jason S Midi Health' via Tor SOCKS5...
+[19:21:14]    ↳ [Status 200] Extracted content from https://tradeify.co "Best Futures Prop Firm - Instant Funding & Da..." (scrapling_fetcher)
+[19:21:14] 🧅 [Tor + DuckDuckGo] Searching 'Jason Lee Tradeify' via Tor SOCKS5...
+[19:21:14]    ↳ [Tor Results] Found 6 search results for 'Loren Charnley'
+[19:21:14]    ↳ Top Bio: Loren Charnley - Resonant Circuit Labs | LinkedIn
+[19:21:14] ⭐ [Scoring] Loren Charnley -> Priority 1 (Score: 75, Sources: 8)
+[19:21:14] 🎯 Researching: Nabil M (Cue Traders)
+[19:21:14] ✅ Lead completed: Loren Charnley -> Priority 1 (80/144)
+[19:21:14] 🎯 Target: Nabil M (CTO, Head of AI-ML Research and Development) @ Cue Traders
+[19:21:14] 🌐 [Web Scraper] Fetching company website: https://cuetraders.com
+[19:21:15]    ↳ [Tor Results] Found 6 search results for 'Shonte Amato-Grill'
+[19:21:15]    ↳ Top Bio: Shonte Amato-Grill - Serial tech entrepreneur, tec
+[19:21:15] ⭐ [Scoring] Shonte Amato-Grill -> Priority 0 (Score: 100, Sources: 8)
+[19:21:15] 🎯 Researching: Graham W (MDCalc)
+[19:21:15] ✅ Lead completed: Shonte Amato-Grill -> Priority 0 (81/144)
+[19:21:15] 🎯 Target: Graham W (Co-founder & Head of AI) @ MDCalc
+[19:21:15] 🌐 [Web Scraper] Fetching company website: https://mdcalc.com
+[19:21:16]    ↳ [Status 200] Extracted content from https://mdcalc.com "MDCalc - Medical calculators, equations, scor..." (scrapling_fetcher)
+[19:21:16] 🧅 [Tor + DuckDuckGo] Searching 'Graham W MDCalc' via Tor SOCKS5...
+[19:21:19]    ↳ [Tor Results] Found 6 search results for 'Jason S'
+[19:21:19]    ↳ Top Bio: Leadership Team | Midi Health
+[19:21:19] ⭐ [Scoring] Jason S -> Priority 0 (Score: 90, Sources: 8)
+[19:21:19] 🎯 Researching: Tracy Anumolu (ClarityOps)
+[19:21:19] ✅ Lead completed: Jason S -> Priority 0 (82/144)
+[19:21:19] 🎯 Target: Tracy Anumolu (Co-Founder and Chief AI Officer) @ ClarityOps
+[19:21:19] 🌐 [Web Scraper] Fetching company website: https://clarityops.app
+[19:21:19]    ↳ [Status 200] Extracted content from https://cuetraders.com "Cue Traders..." (scrapling_stealth_browser)
+[19:21:19] 🧅 [Tor + DuckDuckGo] Searching 'Nabil M Cue Traders' via Tor SOCKS5...
+[19:21:19]    ↳ [Tor Results] Found 6 search results for 'Jason Lee'
+[19:21:19]    ↳ Top Bio: Jason Lee - Chief Product Officer of Tradeify - Li
+[19:21:19] ⭐ [Scoring] Jason Lee -> Priority 0 (Score: 90, Sources: 8)
+[19:21:19] 🎯 Researching: Shubhro Ghosh (Bank of America)
+[19:21:19] ✅ Lead completed: Jason Lee -> Priority 0 (83/144)
+[19:21:19] 🎯 Target: Shubhro Ghosh (Head of AI Engineering, CFO Technology) @ Bank of America
+[19:21:19] 🌐 [Web Scraper] Fetching company website: https://bankofamerica.com
+[19:21:19]    ↳ [Status 200] Extracted content from https://clarityops.app "ClarityOps - Institutional Intelligence Infra..." (scrapling_fetcher)
+[19:21:19] 🧅 [Tor + DuckDuckGo] Searching 'Tracy Anumolu ClarityOps' via Tor SOCKS5...
+[19:21:20]    ↳ [Status 200] Extracted content from https://bankofamerica.com "Bank of America - Banking, Credit Cards, Loan..." (scrapling_fetcher)
+[19:21:20] 🧅 [Tor + DuckDuckGo] Searching 'Shubhro Ghosh Bank of America' via Tor SOCKS5...
+[19:21:21]    ↳ [Tor Results] Found 6 search results for 'Graham W'
+[19:21:21]    ↳ Top Bio: Graham Walker, MD - Co-founder & Head of AI @ MDCa
+[19:21:21] ⭐ [Scoring] Graham W -> Priority 0 (Score: 90, Sources: 8)
+[19:21:21] 🎯 Researching: Zach Veigulis (Claimable, Inc.)
+[19:21:21] ✅ Lead completed: Graham W -> Priority 0 (84/144)
+[19:21:21] 🎯 Target: Zach Veigulis (Co-Founder & Chief AI Officer) @ Claimable, Inc.
+[19:21:21] 🌐 [Web Scraper] Fetching company website: https://getclaimable.com
+[19:21:22]    ↳ [Status 200] Extracted content from https://getclaimable.com "Claimable | Easily Appeal Denied Health Insur..." (scrapling_fetcher)
+[19:21:22] 🧅 [Tor + DuckDuckGo] Searching 'Zach Veigulis Claimable, Inc.' via Tor SOCKS5...
+[19:21:23]    ↳ [Tor Results] Found 6 search results for 'Nabil M'
+[19:21:23]    ↳ Top Bio: Cue Traders - 2025 Company Profile & Team - Tracxn
+[19:21:23] ⭐ [Scoring] Nabil M -> Priority 0 (Score: 90, Sources: 8)
+[19:21:23] 🎯 Researching: Beau N (Qualified Health)
+[19:21:23] ✅ Lead completed: Nabil M -> Priority 0 (85/144)
+[19:21:23] 🎯 Target: Beau N (Co-Founder and Chief AI Officer) @ Qualified Health
+[19:21:23] 🌐 [Web Scraper] Fetching company website: https://qualifiedhealthai.com
+[19:21:24]    ↳ [Tor Results] Found 6 search results for 'Tracy Anumolu'
+[19:21:24]    ↳ Top Bio: ClarityOps - Tracy Anumolu
+[19:21:24] ⭐ [Scoring] Tracy Anumolu -> Priority 0 (Score: 100, Sources: 8)
+[19:21:24] 🎯 Researching: Saum Mathur (Paro)
+[19:21:24] ✅ Lead completed: Tracy Anumolu -> Priority 0 (86/144)
+[19:21:24] 🎯 Target: Saum Mathur (Chief Operating Officer, Chief Technology Officer, and Chief AI Officer) @ Paro
+[19:21:24] 🌐 [Web Scraper] Fetching company website: https://paro.ai
+[19:21:24]    ↳ [Status 200] Extracted content from https://qualifiedhealthai.com "Enterprise AI Platform for Health Systems | Q..." (scrapling_fetcher)
+[19:21:24] 🧅 [Tor + DuckDuckGo] Searching 'Beau N Qualified Health' via Tor SOCKS5...
+[19:21:24]    ↳ [Status 200] Extracted content from https://paro.ai "Home | Paro - Professional Business Finance a..." (scrapling_fetcher)
+[19:21:24] 🧅 [Tor + DuckDuckGo] Searching 'Saum Mathur Paro' via Tor SOCKS5...
+[19:21:24]    ↳ [Tor Results] Found 6 search results for 'Shubhro Ghosh'
+[19:21:24]    ↳ Top Bio: Shubhro Ghosh - Head of AI Engineering, CFO Techno
+[19:21:24] ⭐ [Scoring] Shubhro Ghosh -> Priority 0 (Score: 100, Sources: 8)
+[19:21:24] 🎯 Researching: Keven Sticher (Collective Health)
+[19:21:24] ✅ Lead completed: Shubhro Ghosh -> Priority 0 (87/144)
+[19:21:24] 🎯 Target: Keven Sticher (CISO and VP Engineering) @ Collective Health
+[19:21:24] 🌐 [Web Scraper] Fetching company website: https://collectivehealth.com
+[19:21:26]    ↳ [Status 200] Extracted content from https://collectivehealth.com "Collective Health: Self Funded Employer Healt..." (scrapling_fetcher)
+[19:21:26] 🧅 [Tor + DuckDuckGo] Searching 'Keven Sticher Collective Health' via Tor SOCKS5...
+[19:21:27]    ↳ [Tor Results] Found 6 search results for 'Zach Veigulis'
+[19:21:27]    ↳ Top Bio: Zach Veigulis - Co-Founder & Chief AI Officer | Cl
+[19:21:27] ⭐ [Scoring] Zach Veigulis -> Priority 0 (Score: 100, Sources: 8)
+[19:21:27] 🎯 Researching: Simon L (M1)
+[19:21:27] ✅ Lead completed: Zach Veigulis -> Priority 0 (88/144)
+[19:21:27] 🎯 Target: Simon L (VP of Engineering & CISO) @ M1
+[19:21:27] 🌐 [Web Scraper] Fetching company website: https://m1.com
+[19:21:27]    ↳ [Status 200] Extracted content from https://m1.com "M1: Your AI wealth management platform..." (scrapling_fetcher)
+[19:21:27] 🧅 [Tor + DuckDuckGo] Searching 'Simon L M1' via Tor SOCKS5...
+[19:21:29]    ↳ [Tor Results] Found 6 search results for 'Beau N'
+[19:21:29]    ↳ Top Bio: Beau Norgeot, PhD - Atul Butte: Visionary, Mentor,
+[19:21:29] ⭐ [Scoring] Beau N -> Priority 0 (Score: 100, Sources: 8)
+[19:21:29] 🎯 Researching: Koyuki Nakamori (Halo Ai)
+[19:21:29] ✅ Lead completed: Beau N -> Priority 0 (89/144)
+[19:21:29] 🎯 Target: Koyuki Nakamori (Chief AI Officer | Co-Founder) @ Halo Ai
+[19:21:29] 🌐 [Web Scraper] Fetching company website: https://gohalo.ai
+[19:21:29]    ↳ [Tor Results] Found 6 search results for 'Saum Mathur'
+[19:21:29]    ↳ Top Bio: Saum Mathur - COO @ Paro.ai | Founder and AI Exper
+[19:21:29] ⭐ [Scoring] Saum Mathur -> Priority 0 (Score: 100, Sources: 8)
+[19:21:29] 🎯 Researching: Owen McGettrick (Twiage (acquired by TigerConnect))
+[19:21:29] ✅ Lead completed: Saum Mathur -> Priority 0 (90/144)
+[19:21:29] 🎯 Target: Owen McGettrick (CTO, Ciso) @ Twiage (acquired by TigerConnect)
+[19:21:29] 🌐 [Web Scraper] Fetching company website: https://twiagemed.com
+[19:21:29]    ↳ [Status 200] Extracted content from https://gohalo.ai "Halo Ai — Verified Trust at Scale..." (scrapling_fetcher)
+[19:21:29] 🧅 [Tor + DuckDuckGo] Searching 'Koyuki Nakamori Halo Ai' via Tor SOCKS5...
+[19:21:31]    ↳ [Tor Results] Found 6 search results for 'Keven Sticher'
+[19:21:31]    ↳ Top Bio: Keven S. - CISO | CIO | Chief Information Security
+[19:21:31] ⭐ [Scoring] Keven Sticher -> Priority 0 (Score: 100, Sources: 8)
+[19:21:31] 🎯 Researching: Eric Santiago (Clinical Care Medical Centers)
+[19:21:31] ✅ Lead completed: Keven Sticher -> Priority 0 (91/144)
+[19:21:31] 🎯 Target: Eric Santiago (Chief Technology Officer & CISO) @ Clinical Care Medical Centers
+[19:21:31] 🌐 [Web Scraper] Fetching company website: https://clinicalcaremc.com
+[19:21:31]    ↳ [Notice] Company website notice: Website could not be reached via HTTP or Browser.
+[19:21:31] 🧅 [Tor + DuckDuckGo] Searching 'Owen McGettrick Twiage (acquired by TigerConnect)' via Tor SOCKS5...
+[19:21:31]    ↳ [Tor Results] Found 6 search results for 'Simon L'
+[19:21:31]    ↳ Top Bio: Simon L. - M1 | LinkedIn
+[19:21:31] ⭐ [Scoring] Simon L -> Priority 0 (Score: 100, Sources: 8)
+[19:21:31] 🎯 Researching: Gregory Plog (Argent Institutional Trust Company)
+[19:21:31] ✅ Lead completed: Simon L -> Priority 0 (92/144)
+[19:21:31] 🎯 Target: Gregory Plog (CTO / Ciso) @ Argent Institutional Trust Company
+[19:21:31] 🌐 [Web Scraper] Fetching company website: https://tmico.com
+[19:21:34]    ↳ [Tor Results] Found 6 search results for 'Koyuki Nakamori'
+[19:21:34]    ↳ Top Bio: Koyuki N. - AI | Web3 | Founder | Advisor | Linked
+[19:21:34] ⭐ [Scoring] Koyuki Nakamori -> Priority 0 (Score: 90, Sources: 8)
+[19:21:34] 🎯 Researching: Hooks Joe (Children's Hospital of The King's Daughters)
+[19:21:34] ✅ Lead completed: Koyuki Nakamori -> Priority 0 (93/144)
+[19:21:34] 🎯 Target: Hooks Joe (CTO, Ciso) @ Children's Hospital of The King's Daughters
+[19:21:34] 🌐 [Web Scraper] Fetching company website: https://chkd.org
+[19:21:35]    ↳ [Status 403] Extracted content from https://clinicalcaremc.com (scrapling_stealth_browser)
+[19:21:35] 🧅 [Tor + DuckDuckGo] Searching 'Eric Santiago Clinical Care Medical Centers' via Tor SOCKS5...
+[19:21:36]    ↳ [Tor Results] Found 6 search results for 'Owen McGettrick'
+[19:21:36]    ↳ Top Bio: Owen McGettrick - CTO, CISO at Twiage | LinkedIn
+[19:21:36] ⭐ [Scoring] Owen McGettrick -> Priority 0 (Score: 90, Sources: 7)
+[19:21:36] 🎯 Researching: Pete P (Causeway Capital Management)
+[19:21:36] ✅ Lead completed: Owen McGettrick -> Priority 0 (94/144)
+[19:21:36] 🎯 Target: Pete P (Cto/ciso) @ Causeway Capital Management
+[19:21:36] 🌐 [Web Scraper] Fetching company website: https://causewaycap.com
+[19:21:37]    ↳ [Status 200] Extracted content from https://tmico.com "Argent Institutional Trust Company |..." (scrapling_stealth_browser)
+[19:21:37] 🧅 [Tor + DuckDuckGo] Searching 'Gregory Plog Argent Institutional Trust Company' via Tor SOCKS5...
+[19:21:37]    ↳ [Status 200] Extracted content from https://chkd.org "Children's Hospital of The King's Daughters |..." (scrapling_fetcher)
+[19:21:37] 🧅 [Tor + DuckDuckGo] Searching 'Hooks Joe Children's Hospital of The King's Daughters' via Tor SOCKS5...
+[19:21:37]    ↳ [Status 200] Extracted content from https://causewaycap.com "Causeway Capital Management: Home — Global in..." (scrapling_fetcher)
+[19:21:37] 🧅 [Tor + DuckDuckGo] Searching 'Pete P Causeway Capital Management' via Tor SOCKS5...
+[19:21:39]    ↳ [Tor Results] Found 6 search results for 'Eric Santiago'
+[19:21:39]    ↳ Top Bio: Eric Santiago, CISA,CDPSE - Chief Technology Offic
+[19:21:39] ⭐ [Scoring] Eric Santiago -> Priority 1 (Score: 83, Sources: 8)
+[19:21:39] 🎯 Researching: Steve Wedig (Tuple Health)
+[19:21:39] ✅ Lead completed: Eric Santiago -> Priority 1 (95/144)
+[19:21:39] 🎯 Target: Steve Wedig (CTO & Ciso) @ Tuple Health
+[19:21:39] 🌐 [Web Scraper] Fetching company website: https://tuplehealth.com
+[19:21:40]    ↳ [Status 200] Extracted content from https://tuplehealth.com "Tuple Health..." (scrapling_fetcher)
+[19:21:40] 🧅 [Tor + DuckDuckGo] Searching 'Steve Wedig Tuple Health' via Tor SOCKS5...
+[19:21:41]    ↳ [Tor Results] Found 6 search results for 'Gregory Plog'
+[19:21:41]    ↳ Top Bio: Gregory Plog - IT Transformation & Strategy | Clou
+[19:21:41] ⭐ [Scoring] Gregory Plog -> Priority 0 (Score: 100, Sources: 8)
+[19:21:41] 🎯 Researching: Allen C (Bannockburn Capital Markets)
+[19:21:41] ✅ Lead completed: Gregory Plog -> Priority 0 (96/144)
+[19:21:41] 🎯 Target: Allen C (CTO, Ciso) @ Bannockburn Capital Markets
+[19:21:41] 🌐 [Web Scraper] Fetching company website: https://bannockburnglobal.com
+[19:21:42]    ↳ [Tor Results] Found 6 search results for 'Hooks Joe'
+[19:21:42]    ↳ [Tor Results] Found 6 search results for 'Pete P'
+[19:21:42]    ↳ Top Bio: Hooks Joe - CTO, CISO at Children's Hospital of Th
+[19:21:42] ⭐ [Scoring] Hooks Joe -> Priority 0 (Score: 90, Sources: 8)
+[19:21:42]    ↳ Top Bio: Causeway Capital Management: People —Pete Petersen
+[19:21:42] 🎯 Researching: Mikkel Finsen (Open Door Care Network)
+[19:21:42] ✅ Lead completed: Hooks Joe -> Priority 0 (97/144)
+[19:21:42] ⭐ [Scoring] Pete P -> Priority 0 (Score: 100, Sources: 8)
+[19:21:42] 🎯 Target: Mikkel Finsen (Chief Technology Officer & CISO) @ Open Door Care Network
+[19:21:42] 🎯 Researching: Anthony Foley (Resource Capital Funds)
+[19:21:42] 🌐 [Web Scraper] Fetching company website: https://opendoorcarenetwork.org
+[19:21:42] 🎯 Target: Anthony Foley (Cto/ciso) @ Resource Capital Funds
+[19:21:42] 🌐 [Web Scraper] Fetching company website: https://resourcecapitalfunds.com
+[19:21:42] ✅ Lead completed: Pete P -> Priority 0 (98/144)
+[19:21:43]    ↳ [Status 200] Extracted content from https://opendoorcarenetwork.org "Homepage - Open Door Care Network..." (scrapling_fetcher)
+[19:21:43] 🧅 [Tor + DuckDuckGo] Searching 'Mikkel Finsen Open Door Care Network' via Tor SOCKS5...
+[19:21:43]    ↳ [Status 200] Extracted content from https://resourcecapitalfunds.com "Resource Capital Funds | Private Equity for M..." (scrapling_fetcher)
+[19:21:43] 🧅 [Tor + DuckDuckGo] Searching 'Anthony Foley Resource Capital Funds' via Tor SOCKS5...
+[19:21:45]    ↳ [Tor Results] Found 6 search results for 'Steve Wedig'
+[19:21:45]    ↳ Top Bio: Steve Wedig - CTO & CISO at Tuple Health | LinkedI
+[19:21:45] ⭐ [Scoring] Steve Wedig -> Priority 0 (Score: 90, Sources: 8)
+[19:21:45] 🎯 Researching: Sanjay Mathew (Fundamental Advisors)
+[19:21:45] ✅ Lead completed: Steve Wedig -> Priority 0 (99/144)
+[19:21:45] 🎯 Target: Sanjay Mathew (CTO & Ciso) @ Fundamental Advisors
+[19:21:45] 🌐 [Web Scraper] Fetching company website: https://fundamental.com
+[19:21:46]    ↳ [Status 200] Extracted content from https://bannockburnglobal.com (scrapling_stealth_browser)
+[19:21:46] 🧅 [Tor + DuckDuckGo] Searching 'Allen C Bannockburn Capital Markets' via Tor SOCKS5...
+[19:21:47]    ↳ [Tor Results] Found 6 search results for 'Mikkel Finsen'
+[19:21:47]    ↳ Top Bio: Mikkel Finsen MBA CHCIO - Digital, Information &am
+[19:21:47] ⭐ [Scoring] Mikkel Finsen -> Priority 1 (Score: 75, Sources: 8)
+[19:21:47] 🎯 Researching: Tuan P (Symmetry Lending)
+[19:21:47] ✅ Lead completed: Mikkel Finsen -> Priority 1 (100/144)
+[19:21:47] 🎯 Target: Tuan P (CTO & Ciso) @ Symmetry Lending
+[19:21:47] 🌐 [Web Scraper] Fetching company website: https://symmetrylending.com
+[19:21:48]    ↳ [Tor Results] Found 6 search results for 'Anthony Foley'
+[19:21:48]    ↳ Top Bio: Anthony Foley, CISSP - Resource Capital Funds | Li
+[19:21:48] ⭐ [Scoring] Anthony Foley -> Priority 0 (Score: 100, Sources: 8)
+[19:21:48] 🎯 Researching: Tony K (Omniwire, Inc.)
+[19:21:48] ✅ Lead completed: Anthony Foley -> Priority 0 (101/144)
+[19:21:48] 🎯 Target: Tony K (Cto/ciso) @ Omniwire, Inc.
+[19:21:48] 🌐 [Web Scraper] Fetching company website: https://omniwire.com
+[19:21:49]    ↳ [Status 200] Extracted content from https://omniwire.com "U.S. Banking Infrastructure API | Omniwire Su..." (scrapling_fetcher)
+[19:21:49] 🧅 [Tor + DuckDuckGo] Searching 'Tony K Omniwire, Inc.' via Tor SOCKS5...
+[19:21:50]    ↳ [Status 403] Extracted content from https://symmetrylending.com "403 Forbidden..." (scrapling_stealth_browser)
+[19:21:50] 🧅 [Tor + DuckDuckGo] Searching 'Tuan P Symmetry Lending' via Tor SOCKS5...
+[19:21:50]    ↳ [Tor Results] Found 6 search results for 'Allen C'
+[19:21:50]    ↳ Top Bio: Allen Campbell - Bannockburn Global Forex | Linked
+[19:21:50] ⭐ [Scoring] Allen C -> Priority 1 (Score: 65, Sources: 8)
+[19:21:50] 🎯 Researching: Chris Spears (CareLink Mobile Practice Manager)
+[19:21:50] ✅ Lead completed: Allen C -> Priority 1 (102/144)
+[19:21:50] 🎯 Target: Chris Spears (CTO / Ciso) @ CareLink Mobile Practice Manager
+[19:21:50] 🌐 [Web Scraper] Fetching company website: https://mymobilepracticemanager.com
+[19:21:51]    ↳ [Status 200] Extracted content from https://fundamental.com "Fundamental..." (scrapling_fetcher)
+[19:21:51] 🧅 [Tor + DuckDuckGo] Searching 'Sanjay Mathew Fundamental Advisors' via Tor SOCKS5...
+[19:21:52]    ↳ [Status 403] Extracted content from https://mymobilepracticemanager.com "Attention Required! | Cloudflare..." (scrapling_stealth_browser)
+[19:21:52] 🧅 [Tor + DuckDuckGo] Searching 'Chris Spears CareLink Mobile Practice Manager' via Tor SOCKS5...
+[19:21:53]    ↳ [Tor Results] Found 6 search results for 'Tony K'
+[19:21:53]    ↳ Top Bio: Tony Keith - CTO/CISO at Omniwire, Inc. | LinkedIn
+[19:21:53] ⭐ [Scoring] Tony K -> Priority 0 (Score: 100, Sources: 8)
+[19:21:53] 🎯 Researching: Max Porter (Sumora)
+[19:21:53] ✅ Lead completed: Tony K -> Priority 0 (103/144)
+[19:21:53] 🎯 Target: Max Porter (Founder, CEO, CTO) @ Sumora
+[19:21:53] 🌐 [Web Scraper] Fetching company website: https://sumorainvest.com
+[19:21:54]    ↳ [Status 200] Extracted content from https://sumorainvest.com "INTRODUCING SUMORA - Sumora..." (scrapling_fetcher)
+[19:21:54] 🧅 [Tor + DuckDuckGo] Searching 'Max Porter Sumora' via Tor SOCKS5...
+[19:21:54]    ↳ [Tor Results] Found 6 search results for 'Tuan P'
+[19:21:54]    ↳ Top Bio: Tuan Pham - CTO & CISO | CIO | AI & Data Platform 
+[19:21:54] ⭐ [Scoring] Tuan P -> Priority 0 (Score: 100, Sources: 8)
+[19:21:54] 🎯 Researching: Helen Chen (semcorèl Inc.)
+[19:21:54] ✅ Lead completed: Tuan P -> Priority 0 (104/144)
+[19:21:54] 🎯 Target: Helen Chen (Founder, CEO & CTO) @ semcorèl Inc.
+[19:21:54] 🌐 [Web Scraper] Fetching company website: https://semcorel.com
+[19:21:55]    ↳ [Status 200] Extracted content from https://semcorel.com "Solutions..." (scrapling_fetcher)
+[19:21:55] 🧅 [Tor + DuckDuckGo] Searching 'Helen Chen semcorèl Inc.' via Tor SOCKS5...
+[19:21:57]    ↳ [Tor Results] Found 6 search results for 'Sanjay Mathew'
+[19:21:57]    ↳ [Tor Results] Found 6 search results for 'Chris Spears'
+[19:21:57]    ↳ Top Bio: Sanjay M. - CTO & CISO | LinkedIn
+[19:21:57]    ↳ Top Bio: Chris Spears - CTO / CISO at CareLink Mobile Pract
+[19:21:57] ⭐ [Scoring] Sanjay Mathew -> Priority 0 (Score: 90, Sources: 8)
+[19:21:57] ⭐ [Scoring] Chris Spears -> Priority 1 (Score: 75, Sources: 8)
+[19:21:57] 🎯 Researching: Mike N (Shiftwave)
+[19:21:57] ✅ Lead completed: Sanjay Mathew -> Priority 0 (105/144)
+[19:21:57] 🎯 Researching: Morgan M (Caire)
+[19:21:57] 🎯 Target: Mike N (Ceo/cto & Cofounder) @ Shiftwave
+[19:21:57] 🎯 Target: Morgan M (Founder & Ceo/cto) @ Caire
+[19:21:57] 🌐 [Web Scraper] Fetching company website: https://shiftwave.co
+[19:21:57] 🌐 [Web Scraper] Fetching company website: https://hellocaire.com
+[19:21:57] ✅ Lead completed: Chris Spears -> Priority 1 (106/144)
+[19:21:57]    ↳ [Status 200] Extracted content from https://shiftwave.co "Shiftwave | Full-Body Vibration + Guided Brea..." (scrapling_fetcher)
+[19:21:57] 🧅 [Tor + DuckDuckGo] Searching 'Mike N Shiftwave' via Tor SOCKS5...
+[19:21:59]    ↳ [Status 200] Extracted content from https://hellocaire.com "Caire — In an optimized world, the only compe..." (scrapling_fetcher)
+[19:21:59] 🧅 [Tor + DuckDuckGo] Searching 'Morgan M Caire' via Tor SOCKS5...
+[19:22:05]    ↳ [Tor Results] Found 6 search results for 'Helen Chen'
+[19:22:05]    ↳ Top Bio: Helen Chen - semcorèl Inc. | LinkedIn
+[19:22:05] ⭐ [Scoring] Helen Chen -> Priority 0 (Score: 100, Sources: 8)
+[19:22:05] 🎯 Researching: Edwin Co (EVVO)
+[19:22:05] ✅ Lead completed: Helen Chen -> Priority 0 (107/144)
+[19:22:05] 🎯 Target: Edwin Co (Chief Technology Officer, Founder | CEO) @ EVVO
+[19:22:05] 🌐 [Web Scraper] Fetching company website: https://evvofinancial.com
+[19:22:05]    ↳ [Status 200] Extracted content from https://evvofinancial.com "EVVO – The Personal Loan Marketplace Portal..." (scrapling_fetcher)
+[19:22:05] 🧅 [Tor + DuckDuckGo] Searching 'Edwin Co EVVO' via Tor SOCKS5...
+[19:22:06]    ↳ [Tor Results] Found 6 search results for 'Max Porter'
+[19:22:06]    ↳ Top Bio: Max Porter - Founder, CEO, and CTO of Sumora, Seni
+[19:22:06] ⭐ [Scoring] Max Porter -> Priority 1 (Score: 83, Sources: 8)
+[19:22:06] 🎯 Researching: Subhash T (SpeedsPath Inc.)
+[19:22:06] ✅ Lead completed: Max Porter -> Priority 1 (108/144)
+[19:22:06] 🎯 Target: Subhash T (Founder, CEO & CTO) @ SpeedsPath Inc.
+[19:22:06] 🌐 [Web Scraper] Fetching company website: https://speedspath.com
+[19:22:06]    ↳ [Tor Results] Found 6 search results for 'Mike N'
+[19:22:06]    ↳ Top Bio: About Shiftwave | Born in a Lab. Built for Real Li
+[19:22:06] ⭐ [Scoring] Mike N -> Priority 1 (Score: 58, Sources: 8)
+[19:22:06] 🎯 Researching: David Nandwa (HoneyCoin)
+[19:22:06] ✅ Lead completed: Mike N -> Priority 1 (109/144)
+[19:22:06] 🎯 Target: David Nandwa (Chief Executive Officer & CTO, Founder) @ HoneyCoin
+[19:22:06] 🌐 [Web Scraper] Fetching company website: https://honeycoin.app
+[19:22:07]    ↳ [Status 200] Extracted content from https://honeycoin.app "HoneyCoin for Businesses | Global Payments & ..." (scrapling_fetcher)
+[19:22:07] 🧅 [Tor + DuckDuckGo] Searching 'David Nandwa HoneyCoin' via Tor SOCKS5...
+[19:22:07]    ↳ [Tor Results] Found 6 search results for 'Morgan M'
+[19:22:07]    ↳ Top Bio: Morgan Mercer - Caire | LinkedIn
+[19:22:07] ⭐ [Scoring] Morgan M -> Priority 0 (Score: 100, Sources: 8)
+[19:22:07] 🎯 Researching: Irene Waldridge (Eva Medtec, Inc.)
+[19:22:07] ✅ Lead completed: Morgan M -> Priority 0 (110/144)
+[19:22:07] 🎯 Target: Irene Waldridge (Founder and Ceo/cto) @ Eva Medtec, Inc.
+[19:22:07] 🌐 [Web Scraper] Fetching company website: https://evamedtecinvestment.com
+[19:22:08]    ↳ [Status 200] Extracted content from https://speedspath.com "Anatomic Pathology LIS, Advanced Surgical Lab..." (scrapling_fetcher)
+[19:22:08] 🧅 [Tor + DuckDuckGo] Searching 'Subhash T SpeedsPath Inc.' via Tor SOCKS5...
+[19:22:08]    ↳ [Notice] Company website notice: Website could not be reached via HTTP or Browser.
+[19:22:08] 🧅 [Tor + DuckDuckGo] Searching 'Irene Waldridge Eva Medtec, Inc.' via Tor SOCKS5...
+[19:22:10]    ↳ [Tor Results] Found 6 search results for 'Edwin Co'
+[19:22:10]    ↳ Top Bio: Edwin Co - Help source and run the best software d
+[19:22:10] ⭐ [Scoring] Edwin Co -> Priority 0 (Score: 90, Sources: 8)
+[19:22:10] 🎯 Researching: Eric Maslowski (MoxyTech)
+[19:22:10] ✅ Lead completed: Edwin Co -> Priority 0 (111/144)
+[19:22:10] 🎯 Target: Eric Maslowski (Ceo/cto, Co-Founder) @ MoxyTech
+[19:22:10] 🌐 [Web Scraper] Fetching company website: https://geopain.com
+[19:22:11]    ↳ [Status 200] Extracted content from https://geopain.com "GeoPain: The Best in Chronic Pain Communicati..." (scrapling_fetcher)
+[19:22:11] 🧅 [Tor + DuckDuckGo] Searching 'Eric Maslowski MoxyTech' via Tor SOCKS5...
+[19:22:11]    ↳ [Tor Results] Found 6 search results for 'David Nandwa'
+[19:22:11]    ↳ Top Bio: David Nandwa - Business Daily - Top 40 Under 40
+[19:22:11] ⭐ [Scoring] David Nandwa -> Priority 0 (Score: 100, Sources: 8)
+[19:22:11] 🎯 Researching: Tayaru Bayyana (SereniCare AI)
+[19:22:11] ✅ Lead completed: David Nandwa -> Priority 0 (112/144)
+[19:22:11] 🎯 Target: Tayaru Bayyana (CEO, CTO & Founder) @ SereniCare AI
+[19:22:11] 🌐 [Web Scraper] Fetching company website: https://serenicare.ai
+[19:22:11]    ↳ [Status 200] Extracted content from https://serenicare.ai "SereniCare: AI-Driven Palliative Care Solutio..." (scrapling_fetcher)
+[19:22:11] 🧅 [Tor + DuckDuckGo] Searching 'Tayaru Bayyana SereniCare AI' via Tor SOCKS5...
+[19:22:12]    ↳ [Tor Results] Found 6 search results for 'Subhash T'
+[19:22:12]    ↳ Top Bio: Subhash Tandon - Founder & CEO, SpeedsPath, Inc. |
+[19:22:12] ⭐ [Scoring] Subhash T -> Priority 0 (Score: 100, Sources: 8)
+[19:22:12] 🎯 Researching: Amer Abukhadra (myCardioGuard)
+[19:22:12] ✅ Lead completed: Subhash T -> Priority 0 (113/144)
+[19:22:12] 🎯 Target: Amer Abukhadra (Chief Executive Officer, Chief Technology Officer and Founder) @ myCardioGuard
+[19:22:12] 🌐 [Web Scraper] Fetching company website: https://mycardioguard.com
+[19:22:13]    ↳ [Tor Results] Found 6 search results for 'Irene Waldridge'
+[19:22:13]    ↳ Top Bio: Irene Waldridge - Founder & CEO | Medical Device I
+[19:22:13] ⭐ [Scoring] Irene Waldridge -> Priority 1 (Score: 65, Sources: 7)
+[19:22:13] 🎯 Researching: Charlie Ticer (Ticer Financial Enterprises, LLC)
+[19:22:13] ✅ Lead completed: Irene Waldridge -> Priority 1 (114/144)
+[19:22:13] 🎯 Target: Charlie Ticer (Founder, CEO, and CTO) @ Ticer Financial Enterprises, LLC
+[19:22:13] 🌐 [Web Scraper] Fetching company website: https://ticerfinancial.com
+[19:22:14]    ↳ [Status 200] Extracted content from https://ticerfinancial.com "Ticer Financial Enterprises - Fractional CIO,..." (scrapling_fetcher)
+[19:22:14] 🧅 [Tor + DuckDuckGo] Searching 'Charlie Ticer Ticer Financial Enterprises, LLC' via Tor SOCKS5...
+[19:22:14]    ↳ [Status 200] Extracted content from https://mycardioguard.com "myCardioGuard® – 15 Minute Heart Disease Scre..." (scrapling_fetcher)
+[19:22:14] 🧅 [Tor + DuckDuckGo] Searching 'Amer Abukhadra myCardioGuard' via Tor SOCKS5...
+[19:22:16]    ↳ [Tor Results] Found 6 search results for 'Eric Maslowski'
+[19:22:16]    ↳ Top Bio: Eric Maslowski - CEO/CTO, Technology Strategist & 
+[19:22:16] ⭐ [Scoring] Eric Maslowski -> Priority 0 (Score: 100, Sources: 8)
+[19:22:16] 🎯 Researching: Cisco C (Abundera, Inc.)
+[19:22:16] ✅ Lead completed: Eric Maslowski -> Priority 0 (115/144)
+[19:22:16] 🎯 Target: Cisco C (Founder, CTO & CEO) @ Abundera, Inc.
+[19:22:16] 🌐 [Web Scraper] Fetching company website: https://abundera.ai
+[19:22:16]    ↳ [Tor Results] Found 6 search results for 'Tayaru Bayyana'
+[19:22:16]    ↳ Top Bio: Tayaru Bayyana - SereniCare AI | LinkedIn
+[19:22:16] ⭐ [Scoring] Tayaru Bayyana -> Priority 0 (Score: 100, Sources: 8)
+[19:22:16] 🎯 Researching: Sarah Y (BlissBot.AI)
+[19:22:16] ✅ Lead completed: Tayaru Bayyana -> Priority 0 (116/144)
+[19:22:16] 🎯 Target: Sarah Y (Founder, Ceo&cto) @ BlissBot.AI
+[19:22:16] 🌐 [Web Scraper] Fetching company website: https://blissbot.ai
+[19:22:16]    ↳ [Status 200] Extracted content from https://abundera.ai "Abundera | AI Financial Advocacy Platform..." (scrapling_fetcher)
+[19:22:16] 🧅 [Tor + DuckDuckGo] Searching 'Cisco C Abundera, Inc.' via Tor SOCKS5...
+[19:22:16]    ↳ [Status 200] Extracted content from https://blissbot.ai "BlissBot | Frontier Technology for Human Heal..." (scrapling_fetcher)
+[19:22:16] 🧅 [Tor + DuckDuckGo] Searching 'Sarah Y BlissBot.AI' via Tor SOCKS5...
+[19:22:18]    ↳ [Tor Results] Found 6 search results for 'Charlie Ticer'
+[19:22:18]    ↳ Top Bio: Charlie Ticer - Founder, CEO, and CTO of Ticer Fin
+[19:22:18] ⭐ [Scoring] Charlie Ticer -> Priority 1 (Score: 83, Sources: 8)
+[19:22:18] 🎯 Researching: Myra D'Souza (Autyn)
+[19:22:18] ✅ Lead completed: Charlie Ticer -> Priority 1 (117/144)
+[19:22:18] 🎯 Target: Myra D'Souza (Founder Ceo/cto) @ Autyn
+[19:22:18] 🌐 [Web Scraper] Fetching company website: https://autyn.ai
+[19:22:19]    ↳ [Tor Results] Found 6 search results for 'Amer Abukhadra'
+[19:22:19]    ↳ Top Bio: Amer Abukhadra - CEO of myCardioGuard | LinkedIn
+[19:22:19] ⭐ [Scoring] Amer Abukhadra -> Priority 1 (Score: 58, Sources: 8)
+[19:22:19] 🎯 Researching: Monique P (Sendana)
+[19:22:19] ✅ Lead completed: Amer Abukhadra -> Priority 1 (118/144)
+[19:22:19] 🎯 Target: Monique P (Founder, CEO & CTO) @ Sendana
+[19:22:19] 🌐 [Web Scraper] Fetching company website: https://usesendana.com
+[19:22:20]    ↳ [Status 200] Extracted content from https://usesendana.com "Sendana | Get Paid Worldwide, Withdraw in Min..." (scrapling_fetcher)
+[19:22:20] 🧅 [Tor + DuckDuckGo] Searching 'Monique P Sendana' via Tor SOCKS5...
+[19:22:20]    ↳ [Status 200] Extracted content from https://autyn.ai "Autyn | AI Loan Processing for Mortgage Teams..." (scrapling_fetcher)
+[19:22:20] 🧅 [Tor + DuckDuckGo] Searching 'Myra D'Souza Autyn' via Tor SOCKS5...
+[19:22:21]    ↳ [Tor Results] Found 6 search results for 'Cisco C'
+[19:22:21]    ↳ Top Bio: Cisco Caceres - Abundera, Inc. | LinkedIn
+[19:22:21] ⭐ [Scoring] Cisco C -> Priority 0 (Score: 90, Sources: 8)
+[19:22:21] 🎯 Researching: Louis Shi (CashClever)
+[19:22:21] ✅ Lead completed: Cisco C -> Priority 0 (119/144)
+[19:22:21] 🎯 Target: Louis Shi (CEO / CTO - Founder) @ CashClever
+[19:22:21] 🌐 [Web Scraper] Fetching company website: https://cashclever.net
+[19:22:22]    ↳ [Tor Results] Found 6 search results for 'Sarah Y'
+[19:22:22]    ↳ Top Bio: Founder Story | BlissBot
+[19:22:22] ⭐ [Scoring] Sarah Y -> Priority 0 (Score: 100, Sources: 8)
+[19:22:22] 🎯 Researching: Emi Gal (Ezra)
+[19:22:22] ✅ Lead completed: Sarah Y -> Priority 0 (120/144)
+[19:22:22] 🎯 Target: Emi Gal (Founder & CEO / CTO) @ Ezra
+[19:22:22] 🌐 [Web Scraper] Fetching company website: https://ezra.com
+[19:22:22]    ↳ [Status 200] Extracted content from https://cashclever.net "CashClever..." (scrapling_fetcher)
+[19:22:22] 🧅 [Tor + DuckDuckGo] Searching 'Louis Shi CashClever' via Tor SOCKS5...
+[19:22:22]    ↳ [Status 200] Extracted content from https://ezra.com "MRI Screening Service..." (scrapling_fetcher)
+[19:22:22] 🧅 [Tor + DuckDuckGo] Searching 'Emi Gal Ezra' via Tor SOCKS5...
+[19:22:24]    ↳ [Tor Results] Found 6 search results for 'Monique P'
+[19:22:24]    ↳ Top Bio: Monique Powell - Founder & CEO of Sendana & QuickC
+[19:22:24] ⭐ [Scoring] Monique P -> Priority 0 (Score: 90, Sources: 8)
+[19:22:24] 🎯 Researching: Sri S (Hellman & Friedman)
+[19:22:24] ✅ Lead completed: Monique P -> Priority 0 (121/144)
+[19:22:24] 🎯 Target: Sri S (Chief AI Officer) @ Hellman & Friedman
+[19:22:24] 🌐 [Web Scraper] Fetching company website: https://hf.com
+[19:22:25]    ↳ [Status 200] Extracted content from https://hf.com "Hellman & Friedman Private Equity San Francis..." (scrapling_fetcher)
+[19:22:25] 🧅 [Tor + DuckDuckGo] Searching 'Sri S Hellman & Friedman' via Tor SOCKS5...
+[19:22:25]    ↳ [Tor Results] Found 6 search results for 'Myra D'Souza'
+[19:22:25]    ↳ Top Bio: Myra D'Souza - Co-Founder & CEO, Autyn | AI agents
+[19:22:25] ⭐ [Scoring] Myra D'Souza -> Priority 0 (Score: 100, Sources: 8)
+[19:22:25] 🎯 Researching: Vijay Sankararaman (Novant Health)
+[19:22:25] 🎯 Target: Vijay Sankararaman (Chief AI Officer) @ Novant Health
+[19:22:25] ✅ Lead completed: Myra D'Souza -> Priority 0 (122/144)
+[19:22:25] 🌐 [Web Scraper] Fetching company website: https://novanthealth.org
+[19:22:27]    ↳ [Tor Results] Found 6 search results for 'Louis Shi'
+[19:22:27]    ↳ Top Bio: Louis Shi - CashClever | LinkedIn
+[19:22:27] ⭐ [Scoring] Louis Shi -> Priority 1 (Score: 83, Sources: 8)
+[19:22:27] 🎯 Researching: Mike Pawlowski (Egg Healthy Pregnancy)
+[19:22:27] 🎯 Target: Mike Pawlowski (Chief Technology Officer, Interim CEO, Founder) @ Egg Healthy Pregnancy
+[19:22:27] ✅ Lead completed: Louis Shi -> Priority 1 (123/144)
+[19:22:27] 🌐 [Web Scraper] Fetching company website: https://egghp.com
+[19:22:27]    ↳ [Tor Results] Found 6 search results for 'Emi Gal'
+[19:22:27]    ↳ Top Bio: Emi Gal
+[19:22:27] ⭐ [Scoring] Emi Gal -> Priority 1 (Score: 83, Sources: 8)
+[19:22:27] 🎯 Researching: Dalia Powers (FINRA)
+[19:22:27] 🎯 Target: Dalia Powers (CTO & EVP of Engineering) @ FINRA
+[19:22:27] ✅ Lead completed: Emi Gal -> Priority 1 (124/144)
+[19:22:27] 🌐 [Web Scraper] Fetching company website: https://finra.org
+[19:22:27]    ↳ [Status 200] Extracted content from https://egghp.com "Natally | AI-Powered Pregnancy Health Compani..." (scrapling_fetcher)
+[19:22:27] 🧅 [Tor + DuckDuckGo] Searching 'Mike Pawlowski Egg Healthy Pregnancy' via Tor SOCKS5...
+[19:22:29]    ↳ [Status 200] Extracted content from https://novanthealth.org "Novant Health - Serving NC & SC | Remarkable ..." (scrapling_fetcher)
+[19:22:29] 🧅 [Tor + DuckDuckGo] Searching 'Vijay Sankararaman Novant Health' via Tor SOCKS5...
+[19:22:29]    ↳ [Tor Results] Found 6 search results for 'Sri S'
+[19:22:29]    ↳ Top Bio: Sri Srinivasan - Hellman & Friedman | LinkedIn
+[19:22:29] ⭐ [Scoring] Sri S -> Priority 0 (Score: 100, Sources: 8)
+[19:22:29] 🎯 Researching: Theo K (IntraVu, Inc.)
+[19:22:29] ✅ Lead completed: Sri S -> Priority 0 (125/144)
+[19:22:29] 🎯 Target: Theo K (Chief Executive Officer (interim), CTO, Co-founder) @ IntraVu, Inc.
+[19:22:29] 🌐 [Web Scraper] Fetching company website: https://intravumedical.com
+[19:22:30]    ↳ [Status 200] Extracted content from https://intravumedical.com (scrapling_fetcher)
+[19:22:30] 🧅 [Tor + DuckDuckGo] Searching 'Theo K IntraVu, Inc.' via Tor SOCKS5...
+[19:22:31]    ↳ [Tor Results] Found 6 search results for 'Mike Pawlowski'
+[19:22:31]    ↳ Top Bio: Company | EGG Healthy Pregnancy - natal.ly
+[19:22:31] ⭐ [Scoring] Mike Pawlowski -> Priority 1 (Score: 58, Sources: 8)
+[19:22:31] 🎯 Researching: Steve Munini (Helios Software)
+[19:22:31] ✅ Lead completed: Mike Pawlowski -> Priority 1 (126/144)
+[19:22:31] 🎯 Target: Steve Munini (CEO and CTO) @ Helios Software
+[19:22:31] 🌐 [Web Scraper] Fetching company website: https://heliossoftware.com
+[19:22:32]    ↳ [Status 200] Extracted content from https://heliossoftware.com "Helios Software - HL7® FHIR® Healthcare Produ..." (scrapling_fetcher)
+[19:22:32] 🧅 [Tor + DuckDuckGo] Searching 'Steve Munini Helios Software' via Tor SOCKS5...
+[19:22:33]    ↳ [Status 200] Extracted content from https://finra.org "A vibrant market is at its best when it works..." (scrapling_stealth_browser)
+[19:22:33] 🧅 [Tor + DuckDuckGo] Searching 'Dalia Powers FINRA' via Tor SOCKS5...
+[19:22:34]    ↳ [Tor Results] Found 6 search results for 'Vijay Sankararaman'
+[19:22:34]    ↳ Top Bio: Vijay Sankararaman - Chief AI Officer | Board Advi
+[19:22:34] ⭐ [Scoring] Vijay Sankararaman -> Priority 0 (Score: 90, Sources: 8)
+[19:22:34] 🎯 Researching: Mike Wolfel (Savana)
+[19:22:34] ✅ Lead completed: Vijay Sankararaman -> Priority 0 (127/144)
+[19:22:34] 🎯 Target: Mike Wolfel (CEO & CTO) @ Savana
+[19:22:34] 🌐 [Web Scraper] Fetching company website: https://savanainc.com
+[19:22:34]    ↳ [Tor Results] Found 6 search results for 'Theo K'
+[19:22:34]    ↳ Top Bio: Theo Kotseroglou - IntraVu, Inc. | LinkedIn
+[19:22:34] ⭐ [Scoring] Theo K -> Priority 1 (Score: 83, Sources: 8)
+[19:22:34] 🎯 Researching: Gabriel Sanchez (Multikrd)
+[19:22:34] ✅ Lead completed: Theo K -> Priority 1 (128/144)
+[19:22:34] 🎯 Target: Gabriel Sanchez (Chief Executive Officer | Chief Technology Officer) @ Multikrd
+[19:22:34] 🌐 [Web Scraper] Fetching company website: https://multikrd.com
+[19:22:34]    ↳ [Status 200] Extracted content from https://savanainc.com "Home | Savana — Unified Banking Platform..." (scrapling_fetcher)
+[19:22:34] 🧅 [Tor + DuckDuckGo] Searching 'Mike Wolfel Savana' via Tor SOCKS5...
+[19:22:37]    ↳ [Notice] Company website notice: Website could not be reached via HTTP or Browser.
+[19:22:37] 🧅 [Tor + DuckDuckGo] Searching 'Gabriel Sanchez Multikrd' via Tor SOCKS5...
+[19:22:37]    ↳ [Tor Results] Found 6 search results for 'Steve Munini'
+[19:22:37]    ↳ Top Bio: The Helios Team - Helios Software
+[19:22:37] ⭐ [Scoring] Steve Munini -> Priority 0 (Score: 100, Sources: 8)
+[19:22:37] 🎯 Researching: Narinder Makin (Healthper USA, Inc.)
+[19:22:37] ✅ Lead completed: Steve Munini -> Priority 0 (129/144)
+[19:22:37] 🎯 Target: Narinder Makin (Ceo/cto) @ Healthper USA, Inc.
+[19:22:37] 🌐 [Web Scraper] Fetching company website: https://healthper.com
+[19:22:37]    ↳ [Tor Results] Found 6 search results for 'Dalia Powers'
+[19:22:37]    ↳ Top Bio: Dalia Powers - CTO & EVP of Engineering at FINRA -
+[19:22:37] ⭐ [Scoring] Dalia Powers -> Priority 0 (Score: 100, Sources: 8)
+[19:22:37] 🎯 Researching: Matthew Whitaker (PayTomorrow)
+[19:22:37] ✅ Lead completed: Dalia Powers -> Priority 0 (130/144)
+[19:22:37] 🎯 Target: Matthew Whitaker (Chief Executive Officer / Chief Technology Officer) @ PayTomorrow
+[19:22:37] 🌐 [Web Scraper] Fetching company website: https://paytomorrow.com
+[19:22:38]    ↳ [Status 200] Extracted content from https://healthper.com "Employee Well-Being Platform and Services..." (scrapling_fetcher)
+[19:22:38] 🧅 [Tor + DuckDuckGo] Searching 'Narinder Makin Healthper USA, Inc.' via Tor SOCKS5...
+[19:22:38]    ↳ [Status 200] Extracted content from https://paytomorrow.com "PayTomorrow - Home..." (scrapling_fetcher)
+[19:22:38] 🧅 [Tor + DuckDuckGo] Searching 'Matthew Whitaker PayTomorrow' via Tor SOCKS5...
+[19:22:39]    ↳ [Tor Results] Found 6 search results for 'Mike Wolfel'
+[19:22:39]    ↳ Top Bio: Mike Wolfel - CEO at Savana, Inc. | LinkedIn
+[19:22:39] ⭐ [Scoring] Mike Wolfel -> Priority 0 (Score: 100, Sources: 8)
+[19:22:39] 🎯 Researching: Jeremy Milliner (Exonetics)
+[19:22:39] ✅ Lead completed: Mike Wolfel -> Priority 0 (131/144)
+[19:22:39] 🎯 Target: Jeremy Milliner (CEO & CTO) @ Exonetics
+[19:22:39] 🌐 [Web Scraper] Fetching company website: https://exonetics.io
+[19:22:41]    ↳ [Tor Results] Found 6 search results for 'Gabriel Sanchez'
+[19:22:41]    ↳ Top Bio: Gabriel Sanchez - Technology leader transforming I
+[19:22:41] ⭐ [Scoring] Gabriel Sanchez -> Priority 0 (Score: 90, Sources: 7)
+[19:22:41] 🎯 Researching: Mark Myers (NeuroDyne Inc)
+[19:22:41] ✅ Lead completed: Gabriel Sanchez -> Priority 0 (132/144)
+[19:22:41] 🎯 Target: Mark Myers (Ceo/cto) @ NeuroDyne Inc
+[19:22:41] 🌐 [Web Scraper] Fetching company website: https://neurodyneinc.com
+[19:22:42]    ↳ [Status 200] Extracted content from https://exonetics.io "Exonetics..." (scrapling_stealth_browser)
+[19:22:42] 🧅 [Tor + DuckDuckGo] Searching 'Jeremy Milliner Exonetics' via Tor SOCKS5...
+[19:22:42]    ↳ [Tor Results] Found 6 search results for 'Narinder Makin'
+[19:22:42]    ↳ Top Bio: Narinder Makin - CEO/CTO at Healthper USA Inc. | L
+[19:22:42] ⭐ [Scoring] Narinder Makin -> Priority 1 (Score: 75, Sources: 8)
+[19:22:42] 🎯 Researching: Christian Lehinger (Connected Mind®)
+[19:22:42] ✅ Lead completed: Narinder Makin -> Priority 1 (133/144)
+[19:22:42] 🎯 Target: Christian Lehinger (CEO, CTO) @ Connected Mind®
+[19:22:42] 🌐 [Web Scraper] Fetching company website: https://connectedmind.me
+[19:22:42]    ↳ [Status 200] Extracted content from https://neurodyneinc.com "Neuro Diagnostics | NeuroDyne..." (scrapling_fetcher)
+[19:22:42] 🧅 [Tor + DuckDuckGo] Searching 'Mark Myers NeuroDyne Inc' via Tor SOCKS5...
+[19:22:43]    ↳ [Tor Results] Found 6 search results for 'Matthew Whitaker'
+[19:22:43]    ↳ Top Bio: Matthew Whitaker - PayTomorrow | LinkedIn
+[19:22:43] ⭐ [Scoring] Matthew Whitaker -> Priority 1 (Score: 77, Sources: 8)
+[19:22:43] 🎯 Researching: Keith Thornton (AirWay Technologies, Inc.)
+[19:22:43] ✅ Lead completed: Matthew Whitaker -> Priority 1 (134/144)
+[19:22:43] 🎯 Target: Keith Thornton (CEO and Chief Technology Officer) @ AirWay Technologies, Inc.
+[19:22:43] 🌐 [Web Scraper] Fetching company website: https://sleepwellsolutions.com
+[19:22:43]    ↳ [Status 200] Extracted content from https://connectedmind.me "Connected Mind — Multi-Condition Mental Healt..." (scrapling_fetcher)
+[19:22:43] 🧅 [Tor + DuckDuckGo] Searching 'Christian Lehinger Connected Mind®' via Tor SOCKS5...
+[19:22:45]    ↳ [Status 200] Extracted content from https://sleepwellsolutions.com "SleepWell Solutions | Stop Snoring Today | Da..." (scrapling_fetcher)
+[19:22:45] 🧅 [Tor + DuckDuckGo] Searching 'Keith Thornton AirWay Technologies, Inc.' via Tor SOCKS5...
+[19:22:46]    ↳ [Tor Results] Found 6 search results for 'Jeremy Milliner'
+[19:22:46]    ↳ Top Bio: About — Exonetics
+[19:22:46] ⭐ [Scoring] Jeremy Milliner -> Priority 0 (Score: 90, Sources: 8)
+[19:22:46] 🎯 Researching: Hsin Hsiao (應援科技 OenTech)
+[19:22:46] ✅ Lead completed: Jeremy Milliner -> Priority 0 (135/144)
+[19:22:46] 🎯 Target: Hsin Hsiao (Ceo/cto) @ 應援科技 OenTech
+[19:22:46] 🌐 [Web Scraper] Fetching company website: https://oen.tw
+[19:22:46]    ↳ [Status 200] Extracted content from https://oen.tw "OEN — 金流 × CRM 最強數位支持系統..." (scrapling_fetcher)
+[19:22:46] 🧅 [Tor + DuckDuckGo] Searching 'Hsin Hsiao 應援科技 OenTech' via Tor SOCKS5...
+[19:22:47]    ↳ [Tor Results] Found 6 search results for 'Mark Myers'
+[19:22:47]    ↳ Top Bio: Mark H. Myers, Ph.D. - CEO/CTO NeuroDyne, Inc., As
+[19:22:47] ⭐ [Scoring] Mark Myers -> Priority 1 (Score: 65, Sources: 8)
+[19:22:47] 🎯 Researching: Mateus Mattos (Site.com.br)
+[19:22:47] ✅ Lead completed: Mark Myers -> Priority 1 (136/144)
+[19:22:47] 🎯 Target: Mateus Mattos (CEO and CTO) @ Site.com.br
+[19:22:47] 🌐 [Web Scraper] Fetching company website: https://site.com.br
+[19:22:48]    ↳ [Tor Results] Found 6 search results for 'Christian Lehinger'
+[19:22:48]    ↳ Top Bio: Christian Lehinger - CEO, CTO at Connected Mind | 
+[19:22:48] ⭐ [Scoring] Christian Lehinger -> Priority 0 (Score: 90, Sources: 8)
+[19:22:48] 🎯 Researching: Christian G (Detecta AI)
+[19:22:48] ✅ Lead completed: Christian Lehinger -> Priority 0 (137/144)
+[19:22:48] 🎯 Target: Christian G (CEO & CTO) @ Detecta AI
+[19:22:48] 🌐 [Web Scraper] Fetching company website: https://detecta-ai.com
+[19:22:48]    ↳ [Status 200] Extracted content from https://detecta-ai.com "Detecta AI | Precision Epilepsy Care & Clinic..." (scrapling_fetcher)
+[19:22:48] 🧅 [Tor + DuckDuckGo] Searching 'Christian G Detecta AI' via Tor SOCKS5...
+[19:22:49]    ↳ [Tor Results] Found 6 search results for 'Keith Thornton'
+[19:22:49]    ↳ Top Bio: Keith Thornton - CEO and Chief Technology Officer 
+[19:22:49] ⭐ [Scoring] Keith Thornton -> Priority 1 (Score: 83, Sources: 8)
+[19:22:49] 🎯 Researching: Gregor Siwinski (Payability)
+[19:22:49] ✅ Lead completed: Keith Thornton -> Priority 1 (138/144)
+[19:22:49] 🎯 Target: Gregor Siwinski (Ceo/cto) @ Payability
+[19:22:49] 🌐 [Web Scraper] Fetching company website: https://payability.com
+[19:22:50]    ↳ [Status 200] Extracted content from https://payability.com "Free Access | Get Your Amazon payments instan..." (scrapling_fetcher)
+[19:22:50] 🧅 [Tor + DuckDuckGo] Searching 'Gregor Siwinski Payability' via Tor SOCKS5...
+[19:22:50]    ↳ [Tor Results] Found 6 search results for 'Hsin Hsiao'
+[19:22:50]    ↳ Top Bio: Hsin Hsiao - CEO/CTO at Oen Tech focused on produc
+[19:22:50] ⭐ [Scoring] Hsin Hsiao -> Priority 0 (Score: 100, Sources: 8)
+[19:22:50] 🎯 Researching: Barton W (DexaFit)
+[19:22:50] ✅ Lead completed: Hsin Hsiao -> Priority 0 (139/144)
+[19:22:50] 🎯 Target: Barton W (Chief Executive Officer/Chief Technology Officer) @ DexaFit
+[19:22:50] 🌐 [Web Scraper] Fetching company website: https://dexafitdx.com
+[19:22:50]    ↳ [Status 200] Extracted content from https://site.com.br "Criar site – Sites ilimitados, Emails ilimita..." (scrapling_fetcher)
+[19:22:50] 🧅 [Tor + DuckDuckGo] Searching 'Mateus Mattos Site.com.br' via Tor SOCKS5...
+[19:22:51]    ↳ [Status 200] Extracted content from https://dexafitdx.com "DexaFit Dx..." (scrapling_fetcher)
+[19:22:51] 🧅 [Tor + DuckDuckGo] Searching 'Barton W DexaFit' via Tor SOCKS5...
+[19:22:54]    ↳ [Tor Results] Found 6 search results for 'Christian G'
+[19:22:54]    ↳ Top Bio: Christian Gatto - CEO & CTO @ Detecta AI - LinkedI
+[19:22:54] ⭐ [Scoring] Christian G -> Priority 0 (Score: 90, Sources: 8)
+[19:22:54] 🎯 Researching: Haden Land (Safely2Prosperity)
+[19:22:54] ✅ Lead completed: Christian G -> Priority 0 (140/144)
+[19:22:54] 🎯 Target: Haden Land (Chief Executive Officer & Chief Technology Officer) @ Safely2Prosperity
+[19:22:54] 🌐 [Web Scraper] Fetching company website: https://safely2prosperity.com
+[19:22:54]    ↳ [Tor Results] Found 6 search results for 'Gregor Siwinski'
+[19:22:54]    ↳ Top Bio: Gregor Siwinski - CEO/CTO E-Commerce & Financial S
+[19:22:54] ⭐ [Scoring] Gregor Siwinski -> Priority 0 (Score: 90, Sources: 8)
+[19:22:54] ✅ Lead completed: Gregor Siwinski -> Priority 0 (141/144)
+[19:22:55]    ↳ [Tor Results] Found 6 search results for 'Mateus Mattos'
+[19:22:55]    ↳ Top Bio: Cívil - Mateus Mattos - Advocacia Especializada
+[19:22:55] ⭐ [Scoring] Mateus Mattos -> Priority 1 (Score: 83, Sources: 8)
+[19:22:55] ✅ Lead completed: Mateus Mattos -> Priority 1 (142/144)
+[19:22:55]    ↳ [Tor Results] Found 6 search results for 'Barton W'
+[19:22:55]    ↳ Top Bio: Barton Wells - DexaFit Dx | LinkedIn
+[19:22:55] ⭐ [Scoring] Barton W -> Priority 1 (Score: 83, Sources: 8)
+[19:22:55] ✅ Lead completed: Barton W -> Priority 1 (143/144)
+[19:22:55]    ↳ [Status 200] Extracted content from https://safely2prosperity.com "Safely2Prosperity S2P | COVID-19 risk-managem..." (scrapling_fetcher)
+[19:22:55] 🧅 [Tor + DuckDuckGo] Searching 'Haden Land Safely2Prosperity' via Tor SOCKS5...
+[19:23:00]    ↳ [Tor Results] Found 6 search results for 'Haden Land'
+[19:23:00]    ↳ Top Bio: Haden Land | Safely2Prosperity S2P
+[19:23:00] ⭐ [Scoring] Haden Land -> Priority 0 (Score: 100, Sources: 8)
+[19:23:00] ✅ Lead completed: Haden Land -> Priority 0 (144/144)
+[19:23:12] 🏁 Batch completed successfully. All research profiles and exports generated.

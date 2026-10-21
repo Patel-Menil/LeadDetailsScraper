@@ -1,0 +1,251 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_79a085724c50",
+  "input_snapshot": {
+    "Linkedin Url": "",
+    "Full Name": "Jason S",
+    "First Name": "Jason",
+    "Last Name": "S",
+    "Email": "jstrober@joinmidi.com",
+    "Email Status": "verified",
+    "Job Title": "Head of Product and Chief AI Officer",
+    "Company Name": "Midi Health",
+    "Company Website": "https://joinmidi.com",
+    "City": "Menlo Park",
+    "State": "California",
+    "Country": "United States",
+    "Industry": "hospital & health care,medical practice",
+    "Keywords": "hospitals & health care,b2c,symptom tracking,menopause sleep solutions,cancer survivorship care,mental health support,d2c,metabolism boosting supplements,diagnostic testing support,services,symptom relief,personalized treatment,sexual wellness for women,offices of all other health practitioners,telehealth,personalized midlife care,skin care,evidence-based care,age-related health solutions,hair care,remote health management,midlife health,b2b,women's health advocacy,diagnostic blood tests,hair and skin health,clinician-led treatment,insurance-covered telehealth,medical services,women's health,women's aging health,evidence-based medicine,patient-centered care,women's health specialists,perimenopause management,virtual women's health,customized health protocols,mental health,health history assessment,custom supplements,menopause treatment,healthcare,brain fog relief,holistic health plans,insurance coverage,midlife hormone support,supplement development,virtual care platform,holistic wellness,virtual care,menopause management,midlife symptom management,menopause,perimenopause,hormone replacement therapy,symptom management,integrative medicine,personalized care,anxiety relief,sleep disorders,weight management,breast cancer care,sexual health,vaginal dryness,mood swings,hot flashes,night sweats,brain fog,joint pain,bone health,osteoporosis,gynecological health,long-term care,preventative care,hormonal balance,wellness coaching,medical history assessment,clinical protocols,prescriptions management,virtual consultations,empowered care,women-centered approach,patient education,self-care strategies,supportive care,personalized treatment plans,patient satisfaction,effective communication,community health,well-woman visits,integrated health services,healthcare partnerships,long-term healthcare solutions,clinical expertise,team-based care,patient empowerment,saas,hospital & health care,health care,health, wellness & fitness,long term care,computer software,information technology & services",
+    "Employees": "800",
+    "Company City": "",
+    "Company State": "",
+    "Company Country": "",
+    "Company Linkedin Url": "http://www.linkedin.com/company/midi-health",
+    "Company Twitter Url": "",
+    "Company Facebook Url": "https://www.facebook.com/joinmidi",
+    "Company Phone Numbers": "+1 888-731-8994",
+    "Twitter Url": "",
+    "Facebook Url": ""
+  },
+  "identity": {
+    "name": "Jason S",
+    "first_name": "Jason",
+    "last_name": "S",
+    "job_title": "Head of Product and Chief AI Officer",
+    "company": "Midi Health",
+    "industry": "hospital & health care,medical practice",
+    "linkedin_url": "",
+    "company_website": "https://joinmidi.com",
+    "professional_email": "jstrober@joinmidi.com",
+    "city": "Menlo Park",
+    "state": "California",
+    "country": "United States"
+  },
+  "contact": {
+    "email": "jstrober@joinmidi.com",
+    "email_type": "work",
+    "email_verification_status": "syntax_valid_unprobed",
+    "linkedin_url": "",
+    "contact_channel_status": "available"
+  },
+  "company": {
+    "name": "Midi Health",
+    "website": "https://joinmidi.com",
+    "domain": "joinmidi.com",
+    "industry": "hospital & health care,medical practice",
+    "verified": false
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at Midi Health",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Generative AI & LLM Infrastructure",
+      "Healthcare Data Privacy (HIPAA) & Safe Exchange"
+    ],
+    "public_projects": [
+      "Platform development and operations for Midi Health"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at Midi Health"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Jason S (Head of Product and Chief AI Officer at Midi Health) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails",
+        "Privacy-Preserving Data Exchange & Compliance"
+      ],
+      "evidence_points": [
+        "Role 'Head of Product and Chief AI Officer' makes architecture decisions for emerging AI capabilities",
+        "Regulated vertical 'hospital & health care,medical practice' mandates strict API access controls and audited data flow"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 1,
+    "reason": "Priority 1 (Medium Fit): Head of Product and Chief AI Officer at Midi Health is in a relevant role or vertical, but requires further qualification of immediate security/AI deployment urgency.",
+    "score": 90.0,
+    "confidence": 0.24,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'Head of Product and Chief AI Officer'",
+      "Target enterprise vertical matching SealAPI: 'hospital & health care'",
+      "Moderate AI/API infrastructure signals: ai, saas"
+    ]
+  },
+  "sources": [
+    {
+      "source_id": "src_input_lead_79a",
+      "source_url": "lead_import_record",
+      "source_type": "user_input",
+      "title": null,
+      "publisher": null,
+      "retrieval_timestamp": "2026-10-20T15:16:10.323430+00:00",
+      "published_at": null,
+      "relevant_excerpt": null,
+      "evidence_quality": 0.6,
+      "supports_claim_ids": [],
+      "facts_supported": [
+        "Imported Name: Jason S",
+        "Imported Job Title: Head of Product and Chief AI Officer",
+        "Imported Company: Midi Health",
+        "Imported Industry: hospital & health care,medical practice",
+        "Imported Professional Email: jstrober@joinmidi.com",
+        "Imported Company Website: https://joinmidi.com"
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "clm_name",
+      "field": "name",
+      "value": "Jason S",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_79a"
+      ],
+      "confidence": 0.5,
+      "last_verified_at": null,
+      "review_reason": "Surname is abbreviated; requires full name evidence"
+    },
+    {
+      "claim_id": "clm_company",
+      "field": "company",
+      "value": "Midi Health",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_79a"
+      ],
+      "confidence": 0.7,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_title",
+      "field": "job_title",
+      "value": "Head of Product and Chief AI Officer",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_79a"
+      ],
+      "confidence": 0.65,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_email",
+      "field": "professional_email",
+      "value": "jstrober@joinmidi.com",
+      "status": "unverified",
+      "source_ids": [
+        "src_input_lead_79a"
+      ],
+      "confidence": 0.5,
+      "last_verified_at": null,
+      "review_reason": "Syntax valid from import; deliverability probe not performed"
+    }
+  ],
+  "public_signals": [],
+  "icebreaker": {
+    "text": "Given Midi Health's focus in hospital & health care,medical practice, data privacy governance and auditable API exchanges are typically paramount.",
+    "icebreaker_type": "general_question",
+    "source_ids": [
+      "src_input_lead_79a"
+    ],
+    "confidence": 0.6,
+    "why_it_matters": "Regulated verticals require verifiable controls to ensure sensitive data does not cross unauthorized API boundaries.",
+    "potential_pain_point": "Hypothesis: Ensuring third-party integrations and internal models comply with strict compliance audits.",
+    "conversation_question": "How does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?",
+    "personalization_status": "needs_review",
+    "outreach_draft": {
+      "subject": "API security & AI infrastructure at Midi Health",
+      "greeting": "Hi Jason,",
+      "opener": "Given Midi Health's focus in hospital & health care,medical practice, data privacy governance and auditable API exchanges are typically paramount.",
+      "sealapi_connection": "At SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.",
+      "low_pressure_ask": "How does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?",
+      "full_body": "Hi Jason,\n\nGiven Midi Health's focus in hospital & health care,medical practice, data privacy governance and auditable API exchanges are typically paramount.\n\nAt SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.\n\nHow does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?\n\nBest regards,\nSealAPI Research & Partnerships"
+    }
+  },
+  "scoring": {
+    "lead_fit_score": 90.0,
+    "role_fit_score": 35.0,
+    "industry_fit_score": 30.0,
+    "technical_need_score": 15.0,
+    "verification_confidence": 0.24,
+    "readiness_status": "needs_research",
+    "explanations": [
+      "High-authority security/AI decision maker role: 'Head of Product and Chief AI Officer'",
+      "Target enterprise vertical matching SealAPI: 'hospital & health care'",
+      "Moderate AI/API infrastructure signals: ai, saas"
+    ]
+  },
+  "contact_readiness": {
+    "status": "needs_research",
+    "has_name": true,
+    "has_verified_role": true,
+    "has_company_context": true,
+    "has_usable_contact_channel": true,
+    "has_evidence_based_icebreaker": false,
+    "blockers": [
+      "identity_not_verified",
+      "icebreaker_needs_review"
+    ]
+  },
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as Head of Product and Chief AI Officer at Midi Health.",
+      "Focus on Generative AI & LLM Infrastructure, Healthcare Data Privacy (HIPAA) & Safe Exchange.",
+      "Evidence-based opener: Given Midi Health's focus in hospital & health care,medical practice, data privacy governance and auditable API exchanges are typically paramount."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for hospital & health care,medical practice.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "How does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly.",
+      "Do not assume delivered email address guarantees personal inbox delivery without validation."
+    ],
+    "missing_verification_points": [
+      "Icebreaker status: needs_review (human review recommended)."
+    ]
+  },
+  "research_metadata": {
+    "schema_version": "2.0.0",
+    "batch_id": "batch_20261020T151604Z_b82e6829",
+    "pipeline_version": "2.0.0",
+    "researched_at": "2026-10-20T15:16:10.323430+00:00",
+    "execution_status": "partial",
+    "verification_status": "unverified",
+    "source_count": 1,
+    "review_required": true,
+    "cache_fingerprint": "a5e2e164567fd57ed9ea97d3a7209438925aaa6c63f8f1fed2e014ba384a6219",
+    "errors_and_limitations": [],
+    "research_status": "partial",
+    "last_research_timestamp": "2026-10-20T15:16:10.323430+00:00",
+    "sources_examined": 1
+  }
+}

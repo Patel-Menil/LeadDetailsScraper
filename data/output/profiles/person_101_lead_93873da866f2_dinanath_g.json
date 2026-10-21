@@ -1,0 +1,103 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_93873da866f2",
+  "identity": {
+    "name": "Dinanath G",
+    "first_name": "Dinanath",
+    "last_name": "G",
+    "job_title": "Founder, CEO & CTO",
+    "company": "360 World, Inc",
+    "industry": "information technology & services",
+    "linkedin_url": "",
+    "company_website": "http://www.360world.com",
+    "professional_email": "dgupt@360world.com",
+    "city": "San Francisco",
+    "state": "California",
+    "country": "United States"
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at 360 World, Inc",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "API Security & Microservices"
+    ],
+    "public_projects": [
+      "Platform development and operations for 360 World, Inc"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at 360 World, Inc"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Dinanath G (Founder, CEO & CTO at 360 World, Inc) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails"
+      ],
+      "evidence_points": [
+        "Role 'Founder, CEO & CTO' makes key architecture decisions for emerging AI capabilities"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 1,
+    "reason": "Priority 1 (Medium Fit): Founder, CEO & CTO at 360 World, Inc is in a relevant role or vertical, but requires further qualification of immediate security/AI deployment urgency.",
+    "score": 83.0,
+    "confidence": 0.9,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'Founder, CEO & CTO'",
+      "Target enterprise vertical matching SealAPI: 'information technology'",
+      "Limited technical keywords: saas",
+      "Verified business email domain: dgupt@360world.com"
+    ]
+  },
+  "sources": [
+    {
+      "source_url": "lead_import_record",
+      "source_type": "input_data",
+      "retrieval_timestamp": "2026-10-20T19:10:29.691220+00:00",
+      "facts_supported": [
+        "Verified Name: Dinanath G",
+        "Declared Job Title: Founder, CEO & CTO",
+        "Company: 360 World, Inc",
+        "Industry: information technology & services",
+        "Verified Professional Email: dgupt@360world.com",
+        "Reported Location: San Francisco, California, United States",
+        "Company Keywords: technology, information & internet,cutting-edge technology,innovative solutions,groundbreaking impact,transformative solutions,technology company,complex challenges,global impact,t"
+      ]
+    },
+    {
+      "source_url": "http://www.360world.com",
+      "source_type": "company_website",
+      "retrieval_timestamp": "2026-10-20T19:10:31Z",
+      "facts_supported": [
+        "Website Title: 360World: Creating a World without Distance",
+        "Company Mission/Description: With Xeniq by 360 World, earn money by sharing real-world views anonymously. Instant access, zero surveillance, global opportunities."
+      ]
+    }
+  ],
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as Founder, CEO & CTO at 360 World, Inc.",
+      "Focus on API Security & Microservices."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for information technology & services.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "Would you be open to a 10-minute technical exchange next Tuesday to explore how SealAPI shields AI and API endpoints for teams like 360 World, Inc?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly."
+    ],
+    "missing_verification_points": []
+  },
+  "research_metadata": {
+    "research_status": "completed",
+    "last_research_timestamp": "2026-10-20T19:10:29.691220+00:00",
+    "sources_examined": 2,
+    "errors_and_limitations": []
+  }
+}

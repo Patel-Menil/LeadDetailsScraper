@@ -1,0 +1,252 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_425693e46e4e",
+  "input_snapshot": {
+    "Linkedin Url": "http://www.linkedin.com/in/k-nakamori",
+    "Full Name": "Koyuki Nakamori",
+    "First Name": "Koyuki",
+    "Last Name": "Nakamori",
+    "Email": "koyuki@gohalo.ai",
+    "Email Status": "verified",
+    "Job Title": "Chief AI Officer | Co-Founder",
+    "Company Name": "Halo Ai",
+    "Company Website": "https://gohalo.ai",
+    "City": "",
+    "State": "",
+    "Country": "United States",
+    "Industry": "financial services",
+    "Keywords": "tprm,enterprise risk,vendor management,regulatory framework,cyber security risk,interconnected risk,compounded risk,third party risk,compliance,audit ready,financial risk,risk signals,geopolitical risk,operational risk,reputational risk,strategic risk,sentiment analysis,adverse media news,sanctions regulatory filing,credit risk,esgcsr risk",
+    "Employees": "11",
+    "Company City": "San Francisco",
+    "Company State": "California",
+    "Company Country": "United States",
+    "Company Linkedin Url": "http://www.linkedin.com/company/gohalo-ai",
+    "Company Twitter Url": "",
+    "Company Facebook Url": "",
+    "Company Phone Numbers": "",
+    "Twitter Url": "",
+    "Facebook Url": ""
+  },
+  "identity": {
+    "name": "Koyuki Nakamori",
+    "first_name": "Koyuki",
+    "last_name": "Nakamori",
+    "job_title": "Chief AI Officer | Co-Founder",
+    "company": "Halo Ai",
+    "industry": "financial services",
+    "linkedin_url": "http://www.linkedin.com/in/k-nakamori",
+    "company_website": "https://gohalo.ai",
+    "professional_email": "koyuki@gohalo.ai",
+    "city": "",
+    "state": "",
+    "country": "United States"
+  },
+  "contact": {
+    "email": "koyuki@gohalo.ai",
+    "email_type": "work",
+    "email_verification_status": "syntax_valid_unprobed",
+    "linkedin_url": "http://www.linkedin.com/in/k-nakamori",
+    "contact_channel_status": "available"
+  },
+  "company": {
+    "name": "Halo Ai",
+    "website": "https://gohalo.ai",
+    "domain": "gohalo.ai",
+    "industry": "financial services",
+    "verified": false
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at Halo Ai",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Generative AI & LLM Infrastructure"
+    ],
+    "public_projects": [
+      "Platform development and operations for Halo Ai"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at Halo Ai"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Koyuki Nakamori (Chief AI Officer | Co-Founder at Halo Ai) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails",
+        "Privacy-Preserving Data Exchange & Compliance"
+      ],
+      "evidence_points": [
+        "Role 'Chief AI Officer | Co-Founder' makes architecture decisions for emerging AI capabilities",
+        "Regulated vertical 'financial services' mandates strict API access controls and audited data flow"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 1,
+    "reason": "Priority 1 (Medium Fit): Chief AI Officer | Co-Founder at Halo Ai is in a relevant role or vertical, but requires further qualification of immediate security/AI deployment urgency.",
+    "score": 90.0,
+    "confidence": 0.33,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'Chief AI Officer | Co-Founder'",
+      "Target enterprise vertical matching SealAPI: 'financial services'",
+      "Moderate AI/API infrastructure signals: ai, security, compliance"
+    ]
+  },
+  "sources": [
+    {
+      "source_id": "src_input_lead_425",
+      "source_url": "lead_import_record",
+      "source_type": "user_input",
+      "title": null,
+      "publisher": null,
+      "retrieval_timestamp": "2026-10-20T15:16:10.344921+00:00",
+      "published_at": null,
+      "relevant_excerpt": null,
+      "evidence_quality": 0.6,
+      "supports_claim_ids": [],
+      "facts_supported": [
+        "Imported Name: Koyuki Nakamori",
+        "Imported Job Title: Chief AI Officer | Co-Founder",
+        "Imported Company: Halo Ai",
+        "Imported Industry: financial services",
+        "Imported Professional Email: koyuki@gohalo.ai",
+        "Imported Company Website: https://gohalo.ai"
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "clm_name",
+      "field": "name",
+      "value": "Koyuki Nakamori",
+      "status": "verified",
+      "source_ids": [
+        "src_input_lead_425"
+      ],
+      "confidence": 0.75,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_company",
+      "field": "company",
+      "value": "Halo Ai",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_425"
+      ],
+      "confidence": 0.7,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_title",
+      "field": "job_title",
+      "value": "Chief AI Officer | Co-Founder",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_425"
+      ],
+      "confidence": 0.65,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_email",
+      "field": "professional_email",
+      "value": "koyuki@gohalo.ai",
+      "status": "unverified",
+      "source_ids": [
+        "src_input_lead_425"
+      ],
+      "confidence": 0.5,
+      "last_verified_at": null,
+      "review_reason": "Syntax valid from import; deliverability probe not performed"
+    }
+  ],
+  "public_signals": [],
+  "icebreaker": {
+    "text": "Given Halo Ai's focus in financial services, data privacy governance and auditable API exchanges are typically paramount.",
+    "icebreaker_type": "general_question",
+    "source_ids": [
+      "src_input_lead_425"
+    ],
+    "confidence": 0.6,
+    "why_it_matters": "Regulated verticals require verifiable controls to ensure sensitive data does not cross unauthorized API boundaries.",
+    "potential_pain_point": "Hypothesis: Ensuring third-party integrations and internal models comply with strict compliance audits.",
+    "conversation_question": "How does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?",
+    "personalization_status": "needs_review",
+    "outreach_draft": {
+      "subject": "API security & AI infrastructure at Halo Ai",
+      "greeting": "Hi Koyuki,",
+      "opener": "Given Halo Ai's focus in financial services, data privacy governance and auditable API exchanges are typically paramount.",
+      "sealapi_connection": "At SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.",
+      "low_pressure_ask": "How does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?",
+      "full_body": "Hi Koyuki,\n\nGiven Halo Ai's focus in financial services, data privacy governance and auditable API exchanges are typically paramount.\n\nAt SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.\n\nHow does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?\n\nBest regards,\nSealAPI Research & Partnerships"
+    }
+  },
+  "scoring": {
+    "lead_fit_score": 90.0,
+    "role_fit_score": 35.0,
+    "industry_fit_score": 30.0,
+    "technical_need_score": 15.0,
+    "verification_confidence": 0.33,
+    "readiness_status": "ready_with_caveat",
+    "explanations": [
+      "High-authority security/AI decision maker role: 'Chief AI Officer | Co-Founder'",
+      "Target enterprise vertical matching SealAPI: 'financial services'",
+      "Moderate AI/API infrastructure signals: ai, security, compliance"
+    ]
+  },
+  "contact_readiness": {
+    "status": "ready_with_caveat",
+    "has_name": true,
+    "has_verified_role": true,
+    "has_company_context": true,
+    "has_usable_contact_channel": true,
+    "has_evidence_based_icebreaker": false,
+    "blockers": [
+      "identity_not_verified",
+      "icebreaker_needs_review"
+    ]
+  },
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as Chief AI Officer | Co-Founder at Halo Ai.",
+      "Focus on Generative AI & LLM Infrastructure.",
+      "Evidence-based opener: Given Halo Ai's focus in financial services, data privacy governance and auditable API exchanges are typically paramount."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for financial services.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "How does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly.",
+      "Do not assume delivered email address guarantees personal inbox delivery without validation."
+    ],
+    "missing_verification_points": [
+      "Icebreaker status: needs_review (human review recommended)."
+    ]
+  },
+  "research_metadata": {
+    "schema_version": "2.0.0",
+    "batch_id": "batch_20261020T151604Z_b82e6829",
+    "pipeline_version": "2.0.0",
+    "researched_at": "2026-10-20T15:16:10.344921+00:00",
+    "execution_status": "partial",
+    "verification_status": "unverified",
+    "source_count": 1,
+    "review_required": true,
+    "cache_fingerprint": "a5e2e164567fd57ed9ea97d3a7209438925aaa6c63f8f1fed2e014ba384a6219",
+    "errors_and_limitations": [
+      "LinkedIn URL (http://www.linkedin.com/in/k-nakamori) is behind an authentication wall; public domain records used for verified evidence."
+    ],
+    "research_status": "partial",
+    "last_research_timestamp": "2026-10-20T15:16:10.344921+00:00",
+    "sources_examined": 1
+  }
+}

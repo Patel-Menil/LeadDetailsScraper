@@ -1,0 +1,250 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_d07fa24004f0",
+  "input_snapshot": {
+    "Linkedin Url": "",
+    "Full Name": "Pete P",
+    "First Name": "Pete",
+    "Last Name": "P",
+    "Email": "ppetersen@causewaycap.com",
+    "Email Status": "verified",
+    "Job Title": "Cto/ciso",
+    "Company Name": "Causeway Capital Management",
+    "Company Website": "https://causewaycap.com",
+    "City": "Los Angeles",
+    "State": "California",
+    "Country": "United States",
+    "Industry": "financial services",
+    "Keywords": "investment management,fundamental equity research,quantitative research,mutual funds,international equities,global equities,emerging markets equities,value investing,absolute return,fundamental and quantitative fusion,employee-owned firm,asset management,global market diversification,risk management,asset allocation,portfolio risk diversification,investment insights,mispriced equities,financial services,investment stability,investment performance,global equity management,client portfolio optimization,portfolio risk assessment,small cap strategies,esg scoring,investment strategies,active management,b2b,equity strategies,risk modeling,securities and commodity contracts intermediation and brokerage,client-focused approach,fund screening,multi-factor alpha,emerging markets,sector-specific research,portfolio diversification,investment process,risk lens,esg materiality,emerging markets funds,international funds,esg integration,innovative research tools,fundamental analysis,sustainable investing,predictive active return correlation,market inefficiencies,international value investing,empirical data analysis,quantitative risk models,active return forecasts,risk analytics,long-term growth,fundamental research,client analytics tools,cross-trained research teams,quantitative analysis,portfolio management,investment research culture,market cycle resilience,forward-looking risk measures,proprietary models,services,active return correlation,saas,finance,computer software,information technology & services",
+    "Employees": "110",
+    "Company City": "Los Angeles",
+    "Company State": "California",
+    "Company Country": "United States",
+    "Company Linkedin Url": "http://www.linkedin.com/company/causeway-capital-management-llc",
+    "Company Twitter Url": "https://twitter.com/causewaycapital",
+    "Company Facebook Url": "https://facebook.com/Causewaycapitalmanagement/",
+    "Company Phone Numbers": "+1 310-231-6100",
+    "Twitter Url": "",
+    "Facebook Url": ""
+  },
+  "identity": {
+    "name": "Pete P",
+    "first_name": "Pete",
+    "last_name": "P",
+    "job_title": "Cto/ciso",
+    "company": "Causeway Capital Management",
+    "industry": "financial services",
+    "linkedin_url": "",
+    "company_website": "https://causewaycap.com",
+    "professional_email": "ppetersen@causewaycap.com",
+    "city": "Los Angeles",
+    "state": "California",
+    "country": "United States"
+  },
+  "contact": {
+    "email": "ppetersen@causewaycap.com",
+    "email_type": "work",
+    "email_verification_status": "syntax_valid_unprobed",
+    "linkedin_url": "",
+    "contact_channel_status": "available"
+  },
+  "company": {
+    "name": "Causeway Capital Management",
+    "website": "https://causewaycap.com",
+    "domain": "causewaycap.com",
+    "industry": "financial services",
+    "verified": false
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at Causeway Capital Management",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Enterprise Cloud Systems & Platform Scalability"
+    ],
+    "public_projects": [
+      "Platform development and operations for Causeway Capital Management"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at Causeway Capital Management"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Pete P (Cto/ciso at Causeway Capital Management) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails",
+        "Privacy-Preserving Data Exchange & Compliance"
+      ],
+      "evidence_points": [
+        "Role 'Cto/ciso' makes architecture decisions for emerging AI capabilities",
+        "Regulated vertical 'financial services' mandates strict API access controls and audited data flow"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 1,
+    "reason": "Priority 1 (Medium Fit): Cto/ciso at Causeway Capital Management is in a relevant role or vertical, but requires further qualification of immediate security/AI deployment urgency.",
+    "score": 90.0,
+    "confidence": 0.24,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'Cto/ciso'",
+      "Target enterprise vertical matching SealAPI: 'financial services'",
+      "Moderate AI/API infrastructure signals: ai, api, saas"
+    ]
+  },
+  "sources": [
+    {
+      "source_id": "src_input_lead_d07",
+      "source_url": "lead_import_record",
+      "source_type": "user_input",
+      "title": null,
+      "publisher": null,
+      "retrieval_timestamp": "2026-10-20T15:16:10.354929+00:00",
+      "published_at": null,
+      "relevant_excerpt": null,
+      "evidence_quality": 0.6,
+      "supports_claim_ids": [],
+      "facts_supported": [
+        "Imported Name: Pete P",
+        "Imported Job Title: Cto/ciso",
+        "Imported Company: Causeway Capital Management",
+        "Imported Industry: financial services",
+        "Imported Professional Email: ppetersen@causewaycap.com",
+        "Imported Company Website: https://causewaycap.com"
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "clm_name",
+      "field": "name",
+      "value": "Pete P",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_d07"
+      ],
+      "confidence": 0.5,
+      "last_verified_at": null,
+      "review_reason": "Surname is abbreviated; requires full name evidence"
+    },
+    {
+      "claim_id": "clm_company",
+      "field": "company",
+      "value": "Causeway Capital Management",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_d07"
+      ],
+      "confidence": 0.7,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_title",
+      "field": "job_title",
+      "value": "Cto/ciso",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_d07"
+      ],
+      "confidence": 0.65,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_email",
+      "field": "professional_email",
+      "value": "ppetersen@causewaycap.com",
+      "status": "unverified",
+      "source_ids": [
+        "src_input_lead_d07"
+      ],
+      "confidence": 0.5,
+      "last_verified_at": null,
+      "review_reason": "Syntax valid from import; deliverability probe not performed"
+    }
+  ],
+  "public_signals": [],
+  "icebreaker": {
+    "text": "Given Causeway Capital Management's focus in financial services, data privacy governance and auditable API exchanges are typically paramount.",
+    "icebreaker_type": "general_question",
+    "source_ids": [
+      "src_input_lead_d07"
+    ],
+    "confidence": 0.6,
+    "why_it_matters": "Regulated verticals require verifiable controls to ensure sensitive data does not cross unauthorized API boundaries.",
+    "potential_pain_point": "Hypothesis: Ensuring third-party integrations and internal models comply with strict compliance audits.",
+    "conversation_question": "How does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?",
+    "personalization_status": "needs_review",
+    "outreach_draft": {
+      "subject": "API security & AI infrastructure at Causeway Capital Management",
+      "greeting": "Hi Pete,",
+      "opener": "Given Causeway Capital Management's focus in financial services, data privacy governance and auditable API exchanges are typically paramount.",
+      "sealapi_connection": "At SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.",
+      "low_pressure_ask": "How does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?",
+      "full_body": "Hi Pete,\n\nGiven Causeway Capital Management's focus in financial services, data privacy governance and auditable API exchanges are typically paramount.\n\nAt SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.\n\nHow does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?\n\nBest regards,\nSealAPI Research & Partnerships"
+    }
+  },
+  "scoring": {
+    "lead_fit_score": 90.0,
+    "role_fit_score": 35.0,
+    "industry_fit_score": 30.0,
+    "technical_need_score": 15.0,
+    "verification_confidence": 0.24,
+    "readiness_status": "needs_research",
+    "explanations": [
+      "High-authority security/AI decision maker role: 'Cto/ciso'",
+      "Target enterprise vertical matching SealAPI: 'financial services'",
+      "Moderate AI/API infrastructure signals: ai, api, saas"
+    ]
+  },
+  "contact_readiness": {
+    "status": "needs_research",
+    "has_name": true,
+    "has_verified_role": true,
+    "has_company_context": true,
+    "has_usable_contact_channel": true,
+    "has_evidence_based_icebreaker": false,
+    "blockers": [
+      "identity_not_verified",
+      "icebreaker_needs_review"
+    ]
+  },
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as Cto/ciso at Causeway Capital Management.",
+      "Focus on Enterprise Cloud Systems & Platform Scalability.",
+      "Evidence-based opener: Given Causeway Capital Management's focus in financial services, data privacy governance and auditable API exchanges are typically paramount."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for financial services.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "How does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly.",
+      "Do not assume delivered email address guarantees personal inbox delivery without validation."
+    ],
+    "missing_verification_points": [
+      "Icebreaker status: needs_review (human review recommended)."
+    ]
+  },
+  "research_metadata": {
+    "schema_version": "2.0.0",
+    "batch_id": "batch_20261020T151604Z_b82e6829",
+    "pipeline_version": "2.0.0",
+    "researched_at": "2026-10-20T15:16:10.354929+00:00",
+    "execution_status": "partial",
+    "verification_status": "unverified",
+    "source_count": 1,
+    "review_required": true,
+    "cache_fingerprint": "a5e2e164567fd57ed9ea97d3a7209438925aaa6c63f8f1fed2e014ba384a6219",
+    "errors_and_limitations": [],
+    "research_status": "partial",
+    "last_research_timestamp": "2026-10-20T15:16:10.354929+00:00",
+    "sources_examined": 1
+  }
+}

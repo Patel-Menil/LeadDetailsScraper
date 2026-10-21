@@ -1,0 +1,164 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_44286b667d43",
+  "identity": {
+    "name": "Subhash T",
+    "first_name": "Subhash",
+    "last_name": "T",
+    "job_title": "Founder, CEO & CTO",
+    "company": "SpeedsPath Inc.",
+    "industry": "information technology & services,hospital & health care",
+    "linkedin_url": "",
+    "company_website": "https://speedspath.com",
+    "professional_email": "standon@speedspath.com",
+    "city": "Fremont",
+    "state": "California",
+    "country": "United States"
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at SpeedsPath Inc.",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Generative AI & LLM Infrastructure",
+      "API Security & Microservices",
+      "Healthcare Data Privacy (HIPAA) & Safe Exchange"
+    ],
+    "public_projects": [
+      "Platform development and operations for SpeedsPath Inc."
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at SpeedsPath Inc.",
+      "Subhash  received amaster's degree degree from Case Western Reserve University"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Subhash T (Founder, CEO & CTO at SpeedsPath Inc.) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails",
+        "Privacy-Preserving Data Exchange & Compliance"
+      ],
+      "evidence_points": [
+        "Role 'Founder, CEO & CTO' makes key architecture decisions for emerging AI capabilities",
+        "Regulated domain 'information technology & services,hospital & health care' mandates strict API access controls and audited data flow"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 0,
+    "reason": "Priority 0 (Highest Fit): Founder, CEO & CTO at SpeedsPath Inc. matches core decision-maker criteria in a regulated/tech-driven industry with active AI/API needs.",
+    "score": 100.0,
+    "confidence": 1.0,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'Founder, CEO & CTO'",
+      "Target enterprise vertical matching SealAPI: 'information technology'",
+      "Strong verified AI/API security need (matched signals: ai, api, security, compliance, cloud, saas)",
+      "Verified business email domain: standon@speedspath.com"
+    ]
+  },
+  "sources": [
+    {
+      "source_url": "lead_import_record",
+      "source_type": "input_data",
+      "retrieval_timestamp": "2026-10-10T19:22:06.366336+00:00",
+      "facts_supported": [
+        "Verified Name: Subhash T",
+        "Declared Job Title: Founder, CEO & CTO",
+        "Company: SpeedsPath Inc.",
+        "Industry: information technology & services,hospital & health care",
+        "Verified Professional Email: standon@speedspath.com",
+        "Reported Location: Fremont, California, United States",
+        "Company Keywords: pathology lab software,laboratory information system,anatomic laboratory information system,molecular laboratory information system,lab information system,it services & it consulti"
+      ]
+    },
+    {
+      "source_url": "https://speedspath.com",
+      "source_type": "company_website",
+      "retrieval_timestamp": "2026-10-10T19:22:08Z",
+      "facts_supported": [
+        "Website Title: Anatomic Pathology LIS, Advanced Surgical Lab Software | SpeedsPath",
+        "Company Mission/Description: Enhance efficiency in your anatomic pathology lab with SpeedsPath LIS software. Improve workflow, ensure accurate reporting, streamline specimen tracking.",
+        "Core Offerings: SpeedsPath LIS: Advanced Lab Software to Automate Reporting, Billing, and Workflow Efficiency, Automate Your Pathology Lab with SpeedsPath Anatomic Pathology Lab Software for Productivity and Efficiency, Why Choose SpeedsPath Laboratory Information System (LIS)?, Smart Lab Management"
+      ]
+    },
+    {
+      "source_url": "https://www.linkedin.com/in/subhashtandon",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:22:12.781639+00:00",
+      "facts_supported": [
+        "Public Profile: Subhash Tandon - Founder & CEO, SpeedsPath, Inc. | LinkedIn",
+        "Verified Career & Background: Founder &amp; CEO, \nSpeedsPath\n, \nInc.\n · • Effective software technology, process, and team leader. • Hands-on software design and development leader with a focus on satisfying customer and ..."
+      ]
+    },
+    {
+      "source_url": "https://blog.speedspath.com/author/spi_blogadmin/",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:22:12.781691+00:00",
+      "facts_supported": [
+        "Public Profile: Subhash Tandon, Founder & CEO, Author at SpeedsPath",
+        "Verified Career & Background: In today's interconnected world, data security isn't just a buzzword - it's a critical pillar of operational integrity. For laboratories, where sensitive research data, patient information, and valuable intellectual property are handled daily, the stakes are exceptionally high. \nSpeedsPath\n is the c"
+      ]
+    },
+    {
+      "source_url": "https://www.bizapedia.com/ca/speedspath-inc.html",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:22:12.781707+00:00",
+      "facts_supported": [
+        "Public Profile: SPEEDSPATH, INC. in Fremont, CA | Company Info & Reviews",
+        "Verified Career & Background: The Registered Agent on file is \nSubhash\n Tandon, located at 4299 Palisade Terr Fremont, CA 94539. The company's leadership includes Meena Tandon, who serves as Secretary and is associated with an address at 4299 Palisade Terr Fremont, CA 94539 and \nSubhash\n Tandon, who serves as Chief Executive Off"
+      ]
+    },
+    {
+      "source_url": "https://www.zoominfo.com/p/Subhash-Tandon/2036659",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:22:12.781719+00:00",
+      "facts_supported": [
+        "Public Profile: Subhash Tandon - Founder & Chief Executive Officer & Chief ... - ZoomInfo",
+        "Verified Career & Background: Subhash\n Tandon is the Founder & Chief Executive Officer & Chief Technology Officer at \nSpeedsPath\n based in Fremont, California. \nSubhash\n received amaster's degree degree from Case Western Reserve University.Read more"
+      ]
+    },
+    {
+      "source_url": "https://rocketreach.co/speedspath-profile_b40de672ffafbcc2",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:22:12.781725+00:00",
+      "facts_supported": [
+        "Public Profile: SpeedsPath Information - RocketReach",
+        "Verified Career & Background: SpeedsPath\n Questions Who is the Founder, CEO and CTO of \nSpeedsPath\n? \nSubhash\n Tandon is the Founder, CEO and CTO of \nSpeedsPath\n."
+      ]
+    },
+    {
+      "source_url": "https://rocketreach.co/speedspath-management_b40de672ffafbcc2",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:22:12.781731+00:00",
+      "facts_supported": [
+        "Public Profile: SpeedsPath Management Team | Org Chart - RocketReach",
+        "Verified Career & Background: SpeedsPath\n employs 4 employees. The \nSpeedsPath\n management team includes \nSubhash\n Tandon (Founder, CEO and CTO), Pradeep Kumar (Senior Marketing Manager), and Mukesh Verma (Senior Software Engineer). Looking for a particular \nSpeedsPath\n employee's phone or email?"
+      ]
+    }
+  ],
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as Founder, CEO & CTO at SpeedsPath Inc..",
+      "Focus on Generative AI & LLM Infrastructure, API Security & Microservices.",
+      "Background: Subhash  received amaster's degree degree from Case Western Reserve University..."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for information technology & services,hospital & health care.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "Would you be open to a 10-minute technical exchange next Tuesday to explore how SealAPI shields AI and API endpoints for teams like SpeedsPath Inc.?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly."
+    ],
+    "missing_verification_points": []
+  },
+  "research_metadata": {
+    "research_status": "completed",
+    "last_research_timestamp": "2026-10-10T19:22:06.366336+00:00",
+    "sources_examined": 8,
+    "errors_and_limitations": []
+  }
+}

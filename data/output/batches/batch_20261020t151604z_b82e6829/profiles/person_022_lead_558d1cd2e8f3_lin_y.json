@@ -1,0 +1,250 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_558d1cd2e8f3",
+  "input_snapshot": {
+    "Linkedin Url": "",
+    "Full Name": "Lin Y",
+    "First Name": "Lin",
+    "Last Name": "Y",
+    "Email": "lin.yuan@newfront.com",
+    "Email Status": "verified",
+    "Job Title": "Chief AI Officer, EVP of Engineering",
+    "Company Name": "Newfront",
+    "Company Website": "http://www.newfront.com",
+    "City": "San Francisco",
+    "State": "California",
+    "Country": "United States",
+    "Industry": "insurance",
+    "Keywords": "data management,employee benefits,claims resolution,digital insurance,ai-powered insurance platform,insurance technology suite,insurance industry digital transformation,ai-driven insurance,claims advocacy,enterprise risk management,insurance innovation,insurance technology,technology,vendor compliance automation,digital insurance platform,structured data modeling,automated document analysis,claims automation,coverage gap analysis tools,policy management,client retention,risk analytics,ai in claims processing,contract review ai,insurance brokerage,insurance policy automation,coverage analysis,structured data,risk mitigation,insurance claims,digital health,insurance consulting,coverage gap analysis,automated document processing,total rewards,insurance risk assessment,insurance solutions,risk management analytics,insurance platform,proprietary platform,consulting,healthcare,benchmarking,predictive modeling,insurance,carrier negotiation tools,risk management,vendor management,industry-specific insurance,financial services,manufacturing,b2b,insurance claims advocacy,specialty insurance,predictive analytics,contract review,insurance agencies and brokerages,global insurance,client portal,automated workflows,telemedicine,services,client-centric approach,insurance industry innovation,transportation & logistics,multi-industry coverage,insurance services,data analytics,enterprise insurance,insurance industry benchmarking,insurance data analytics,machine learning,carrier negotiations,global insurance coverage,insurance benchmarking,global insurance solutions,machine learning in insurance,risk benchmarking,compliance monitoring,construction & real estate,retail,compliance,client portal for insurance,nonprofit & social enterprise,coverage analysis tools,business insurance,cyber risk,executive risk,workers compensation,property insurance,surety bonds,retirement benefits,mergers and acquisitions,causal risk,alternative risk financing,data-driven decision making,claims management,technology solutions,online insurance platform,ai-powered insurance,client advocacy,workplace safety,employee wellness,financial security,agriculture insurance,automotive insurance,aviation insurance,construction risk,fintech insurance,life sciences insurance,nonprofit insurance,public sector insurance,real estate insurance,retail and wholesale insurance,transportation insurance,venture capital insurance,market intelligence,customized insurance solutions,insurance policy management,insurance compliance,finance,education,non-profit,distribution,consumer products & retail,health, wellness & fitness,information technology & services,health care,hospital & health care,mechanical or industrial engineering,enterprise software,enterprises,computer software,insurance agencies & brokerages,health care information technology,artificial intelligence,mergers & acquisitions,nonprofit organization management",
+    "Employees": "620",
+    "Company City": "San Francisco",
+    "Company State": "California",
+    "Company Country": "United States",
+    "Company Linkedin Url": "http://www.linkedin.com/company/newfront",
+    "Company Twitter Url": "https://twitter.com/newfronthq",
+    "Company Facebook Url": "https://www.facebook.com/newfrontinsurance/",
+    "Company Phone Numbers": "+1 650-488-8565",
+    "Twitter Url": "",
+    "Facebook Url": ""
+  },
+  "identity": {
+    "name": "Lin Y",
+    "first_name": "Lin",
+    "last_name": "Y",
+    "job_title": "Chief AI Officer, EVP of Engineering",
+    "company": "Newfront",
+    "industry": "insurance",
+    "linkedin_url": "",
+    "company_website": "http://www.newfront.com",
+    "professional_email": "lin.yuan@newfront.com",
+    "city": "San Francisco",
+    "state": "California",
+    "country": "United States"
+  },
+  "contact": {
+    "email": "lin.yuan@newfront.com",
+    "email_type": "work",
+    "email_verification_status": "syntax_valid_unprobed",
+    "linkedin_url": "",
+    "contact_channel_status": "available"
+  },
+  "company": {
+    "name": "Newfront",
+    "website": "http://www.newfront.com",
+    "domain": "newfront.com",
+    "industry": "insurance",
+    "verified": false
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at Newfront",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Generative AI & LLM Infrastructure"
+    ],
+    "public_projects": [
+      "Platform development and operations for Newfront"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at Newfront"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Lin Y (Chief AI Officer, EVP of Engineering at Newfront) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails",
+        "Privacy-Preserving Data Exchange & Compliance"
+      ],
+      "evidence_points": [
+        "Role 'Chief AI Officer, EVP of Engineering' makes architecture decisions for emerging AI capabilities",
+        "Regulated vertical 'insurance' mandates strict API access controls and audited data flow"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 1,
+    "reason": "Priority 1 (Medium Fit): Chief AI Officer, EVP of Engineering at Newfront is in a relevant role or vertical, but requires further qualification of immediate security/AI deployment urgency.",
+    "score": 100.0,
+    "confidence": 0.24,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'Chief AI Officer, EVP of Engineering'",
+      "Target enterprise vertical matching SealAPI: 'insurance'",
+      "Strong verified AI/API security need (matched signals: ai, artificial intelligence, machine learning, api, security, compliance)"
+    ]
+  },
+  "sources": [
+    {
+      "source_id": "src_input_lead_558",
+      "source_url": "lead_import_record",
+      "source_type": "user_input",
+      "title": null,
+      "publisher": null,
+      "retrieval_timestamp": "2026-10-20T15:16:10.309219+00:00",
+      "published_at": null,
+      "relevant_excerpt": null,
+      "evidence_quality": 0.6,
+      "supports_claim_ids": [],
+      "facts_supported": [
+        "Imported Name: Lin Y",
+        "Imported Job Title: Chief AI Officer, EVP of Engineering",
+        "Imported Company: Newfront",
+        "Imported Industry: insurance",
+        "Imported Professional Email: lin.yuan@newfront.com",
+        "Imported Company Website: http://www.newfront.com"
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "clm_name",
+      "field": "name",
+      "value": "Lin Y",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_558"
+      ],
+      "confidence": 0.5,
+      "last_verified_at": null,
+      "review_reason": "Surname is abbreviated; requires full name evidence"
+    },
+    {
+      "claim_id": "clm_company",
+      "field": "company",
+      "value": "Newfront",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_558"
+      ],
+      "confidence": 0.7,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_title",
+      "field": "job_title",
+      "value": "Chief AI Officer, EVP of Engineering",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_558"
+      ],
+      "confidence": 0.65,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_email",
+      "field": "professional_email",
+      "value": "lin.yuan@newfront.com",
+      "status": "unverified",
+      "source_ids": [
+        "src_input_lead_558"
+      ],
+      "confidence": 0.5,
+      "last_verified_at": null,
+      "review_reason": "Syntax valid from import; deliverability probe not performed"
+    }
+  ],
+  "public_signals": [],
+  "icebreaker": {
+    "text": "Given Newfront's focus in insurance, data privacy governance and auditable API exchanges are typically paramount.",
+    "icebreaker_type": "general_question",
+    "source_ids": [
+      "src_input_lead_558"
+    ],
+    "confidence": 0.6,
+    "why_it_matters": "Regulated verticals require verifiable controls to ensure sensitive data does not cross unauthorized API boundaries.",
+    "potential_pain_point": "Hypothesis: Ensuring third-party integrations and internal models comply with strict compliance audits.",
+    "conversation_question": "How does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?",
+    "personalization_status": "needs_review",
+    "outreach_draft": {
+      "subject": "API security & AI infrastructure at Newfront",
+      "greeting": "Hi Lin,",
+      "opener": "Given Newfront's focus in insurance, data privacy governance and auditable API exchanges are typically paramount.",
+      "sealapi_connection": "At SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.",
+      "low_pressure_ask": "How does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?",
+      "full_body": "Hi Lin,\n\nGiven Newfront's focus in insurance, data privacy governance and auditable API exchanges are typically paramount.\n\nAt SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.\n\nHow does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?\n\nBest regards,\nSealAPI Research & Partnerships"
+    }
+  },
+  "scoring": {
+    "lead_fit_score": 100.0,
+    "role_fit_score": 35.0,
+    "industry_fit_score": 30.0,
+    "technical_need_score": 25.0,
+    "verification_confidence": 0.24,
+    "readiness_status": "needs_research",
+    "explanations": [
+      "High-authority security/AI decision maker role: 'Chief AI Officer, EVP of Engineering'",
+      "Target enterprise vertical matching SealAPI: 'insurance'",
+      "Strong verified AI/API security need (matched signals: ai, artificial intelligence, machine learning, api, security, compliance)"
+    ]
+  },
+  "contact_readiness": {
+    "status": "needs_research",
+    "has_name": true,
+    "has_verified_role": true,
+    "has_company_context": true,
+    "has_usable_contact_channel": true,
+    "has_evidence_based_icebreaker": false,
+    "blockers": [
+      "identity_not_verified",
+      "icebreaker_needs_review"
+    ]
+  },
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as Chief AI Officer, EVP of Engineering at Newfront.",
+      "Focus on Generative AI & LLM Infrastructure.",
+      "Evidence-based opener: Given Newfront's focus in insurance, data privacy governance and auditable API exchanges are typically paramount."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for insurance.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "How does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly.",
+      "Do not assume delivered email address guarantees personal inbox delivery without validation."
+    ],
+    "missing_verification_points": [
+      "Icebreaker status: needs_review (human review recommended)."
+    ]
+  },
+  "research_metadata": {
+    "schema_version": "2.0.0",
+    "batch_id": "batch_20261020T151604Z_b82e6829",
+    "pipeline_version": "2.0.0",
+    "researched_at": "2026-10-20T15:16:10.309219+00:00",
+    "execution_status": "partial",
+    "verification_status": "unverified",
+    "source_count": 1,
+    "review_required": true,
+    "cache_fingerprint": "a5e2e164567fd57ed9ea97d3a7209438925aaa6c63f8f1fed2e014ba384a6219",
+    "errors_and_limitations": [],
+    "research_status": "partial",
+    "last_research_timestamp": "2026-10-20T15:16:10.309219+00:00",
+    "sources_examined": 1
+  }
+}

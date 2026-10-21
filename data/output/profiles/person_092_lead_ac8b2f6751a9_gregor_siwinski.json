@@ -1,0 +1,166 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_ac8b2f6751a9",
+  "identity": {
+    "name": "Gregor Siwinski",
+    "first_name": "Gregor",
+    "last_name": "Siwinski",
+    "job_title": "Ceo/cto",
+    "company": "Payability",
+    "industry": "financial services",
+    "linkedin_url": "http://www.linkedin.com/in/gregor-siwinski",
+    "company_website": "https://payability.com",
+    "professional_email": "gregors@payability.com",
+    "city": "New York",
+    "state": "New York",
+    "country": "United States"
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at Payability",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Generative AI & LLM Infrastructure",
+      "API Security & Microservices",
+      "Financial Data Governance & Compliance"
+    ],
+    "public_projects": [
+      "Platform development and operations for Payability"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at Payability",
+      "Gregor Siwinski  is an accomplished Chief Technology Officer with over 7 years of experience in leading the development and delivery of flexible funding and cash flow solutions for eCommerce sellers at  Payability"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Gregor Siwinski (Ceo/cto at Payability) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails",
+        "Privacy-Preserving Data Exchange & Compliance"
+      ],
+      "evidence_points": [
+        "Role 'Ceo/cto' makes key architecture decisions for emerging AI capabilities",
+        "Regulated domain 'financial services' mandates strict API access controls and audited data flow"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 0,
+    "reason": "Priority 0 (Highest Fit): Ceo/cto at Payability matches core decision-maker criteria in a regulated/tech-driven industry with active AI/API needs.",
+    "score": 90.0,
+    "confidence": 1.0,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'Ceo/cto'",
+      "Target enterprise vertical matching SealAPI: 'financial services'",
+      "Moderate AI/API infrastructure signals: ai, api, security",
+      "Verified business email domain: gregors@payability.com"
+    ]
+  },
+  "sources": [
+    {
+      "source_url": "lead_import_record",
+      "source_type": "input_data",
+      "retrieval_timestamp": "2026-10-10T19:22:49.689406+00:00",
+      "facts_supported": [
+        "Verified Name: Gregor Siwinski",
+        "Declared Job Title: Ceo/cto",
+        "Company: Payability",
+        "Industry: financial services",
+        "Verified Professional Email: gregors@payability.com",
+        "Reported Location: New York, New York, United States",
+        "Company Keywords: finance,technology,payments,ecommerce,financial services,finance technology,consumer internet,internet,information technology,inventory financing,ecommerce banking,business funding"
+      ]
+    },
+    {
+      "source_url": "https://payability.com",
+      "source_type": "company_website",
+      "retrieval_timestamp": "2026-10-10T19:22:50Z",
+      "facts_supported": [
+        "Website Title: Free Access | Get Your Amazon payments instantly, for free",
+        "Company Mission/Description: Payability Free Access makes your Amazon payout and marketplace payout available immediately. Get access to your payments immediately.",
+        "Core Offerings: Fast Funding for Amazon & Walmart Sellers, Amazon-approved third-party software partner, Over \n$6 billion\n in daily payments made\nto more than \n10,000 Amazon sellers since 2015, Why use Payability?"
+      ]
+    },
+    {
+      "source_url": "https://www.linkedin.com/in/gregor-siwinski",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:22:54.743561+00:00",
+      "facts_supported": [
+        "Public Profile: Gregor Siwinski - CEO/CTO E-Commerce & Financial Services | LinkedIn",
+        "Verified Career & Background: CEO/CTO E-Commerce &amp; Financial Services · As Chief Technology Officer at \nPayability\n I have contributed to empowering eCommerce sellers through innovative funding solutions. By leveraging my ..."
+      ]
+    },
+    {
+      "source_url": "https://theorg.com/org/payability/org-chart/gregor-siwinski",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:22:54.743610+00:00",
+      "facts_supported": [
+        "Public Profile: Gregor Siwinski - CTO at Payability | The Org",
+        "Verified Career & Background: Gregor\nSiwinski\n serves as the Chief Technology Officer at \nPayability\n since September 2016, where the focus is on providing eCommerce sellers with flexible funding and cash flow solutions, having facilitated over $4 billion in funding."
+      ]
+    },
+    {
+      "source_url": "https://www.payability.com/blog/author/gregor/",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:22:54.743617+00:00",
+      "facts_supported": [
+        "Public Profile: Gregor Siwinski, Author at Payability",
+        "Verified Career & Background: Gregor\nSiwinski\n, Author at \nPayability"
+      ]
+    },
+    {
+      "source_url": "https://me.sh/profile/gregor-siwinski",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:22:54.743626+00:00",
+      "facts_supported": [
+        "Public Profile: Gregor Siwinski - LinkedIn",
+        "Verified Career & Background: Gregor\nSiwinski\n is an accomplished Chief Technology Officer with over 7 years of experience in leading the development and delivery of flexible funding and cash flow solutions for eCommerce sellers at \nPayability\n. He has facilitated the scaling of numerous eCommerce businesses by providing over $4"
+      ]
+    },
+    {
+      "source_url": "https://people.equilar.com/bio/person/gregor-siwinski-payability/34954142",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:22:54.743632+00:00",
+      "facts_supported": [
+        "Public Profile: Gregor Siwinski - Executive Bio, Work History, and Contacts - Equilar ...",
+        "Verified Career & Background: View the executive profile of \nGregor\nSiwinski\n, Chief Technology Officer at \nPayability\n, on Equilar ExecAtlas to see current and past work history and gain access to \nGregor\nSiwinski's\n network of 13 business contacts."
+      ]
+    },
+    {
+      "source_url": "https://www.youtube.com/watch?v=FeMvVHm8ucs",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:22:54.743639+00:00",
+      "facts_supported": [
+        "Public Profile: From 9 Months to 3 Days | Gregor Siwinski on AI and the New ... - YouTube",
+        "Verified Career & Background: In this episode of From Code to C-Suite, Liam sits down with \nGregor\nSiwinski\n, CEO/CTO at \nPayability\n, to explore how AI is changing software development, fintech and the way modern engineering ..."
+      ]
+    }
+  ],
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as Ceo/cto at Payability.",
+      "Focus on Generative AI & LLM Infrastructure, API Security & Microservices.",
+      "Background: Gregor Siwinski  is an accomplished Chief Technology Officer with over 7 years of experience in leading the development ..."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for financial services.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "Would you be open to a 10-minute technical exchange next Tuesday to explore how SealAPI shields AI and API endpoints for teams like Payability?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly."
+    ],
+    "missing_verification_points": []
+  },
+  "research_metadata": {
+    "research_status": "completed",
+    "last_research_timestamp": "2026-10-10T19:22:49.689406+00:00",
+    "sources_examined": 8,
+    "errors_and_limitations": [
+      "LinkedIn profile (http://www.linkedin.com/in/gregor-siwinski) is behind an authentication wall; public domain records used for verified evidence."
+    ]
+  }
+}

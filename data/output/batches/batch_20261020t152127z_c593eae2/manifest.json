@@ -1,0 +1,60 @@
+{
+  "batch_id": "batch_20261020T152127Z_c593eae2",
+  "schema_version": "2.0.0",
+  "pipeline_version": "2.0.0",
+  "started_at": "2026-10-20T15:21:33.274148+00:00",
+  "completed_at": "2026-10-20T15:21:52.331391+00:00",
+  "status": "completed",
+  "input_file": "newlead.csv",
+  "input_sha256": "b81b1d80656ffd07d5caed750525c900a1f51eda8397ed1c901bb50b299e53a9",
+  "total_processed": 2,
+  "counts": {
+    "total": 2,
+    "processed": 2,
+    "completed": 2,
+    "partial": 0,
+    "failed": 0,
+    "outreach_ready": 2,
+    "needs_review": 0,
+    "identity_conflicts": 0
+  },
+  "priority_distribution": {
+    "0": 1,
+    "1": 1,
+    "2": 0
+  },
+  "research_status_distribution": {
+    "completed": 2,
+    "partial": 0,
+    "failed": 0
+  },
+  "contact_readiness_distribution": {
+    "ready": 2,
+    "needs_review": 0
+  },
+  "csv_path": "data\\output\\batches\\batch_20261020t152127z_c593eae2\\leads_prioritized.csv",
+  "errors_path": "data\\output\\batches\\batch_20261020t152127z_c593eae2\\errors.csv",
+  "profiles_count": 2,
+  "files": {
+    "leads_prioritized_csv": "data\\output\\batches\\batch_20261020t152127z_c593eae2\\leads_prioritized.csv",
+    "outreach_ready_csv": "data\\output\\batches\\batch_20261020t152127z_c593eae2\\outreach_ready.csv",
+    "needs_review_csv": "data\\output\\batches\\batch_20261020t152127z_c593eae2\\needs_review.csv",
+    "input_snapshot_csv": "data\\output\\batches\\batch_20261020t152127z_c593eae2\\leads_input_snapshot.csv",
+    "lead_profiles_jsonl": "data\\output\\batches\\batch_20261020t152127z_c593eae2\\lead_profiles.jsonl",
+    "sources_jsonl": "data\\output\\batches\\batch_20261020t152127z_c593eae2\\sources.jsonl",
+    "claims_jsonl": "data\\output\\batches\\batch_20261020t152127z_c593eae2\\claims.jsonl",
+    "errors_csv": "data\\output\\batches\\batch_20261020t152127z_c593eae2\\errors.csv",
+    "manifest_json": "data\\output\\batches\\batch_20261020t152127z_c593eae2\\manifest.json",
+    "summary_json": "data\\output\\batches\\batch_20261020t152127z_c593eae2\\summary.json"
+  },
+  "metadata": {
+    "input_filename": "newlead.csv",
+    "input_sha256": "b81b1d80656ffd07d5caed750525c900a1f51eda8397ed1c901bb50b299e53a9",
+    "started_at": "2026-10-20T15:21:33.274148+00:00",
+    "dry_run": false,
+    "resume": true,
+    "total_input_rows": 144,
+    "duplicate_records": 0,
+    "malformed_rows": 0
+  }
+}

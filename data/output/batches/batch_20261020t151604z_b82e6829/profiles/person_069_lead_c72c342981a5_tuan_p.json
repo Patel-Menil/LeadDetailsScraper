@@ -1,0 +1,250 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_c72c342981a5",
+  "input_snapshot": {
+    "Linkedin Url": "",
+    "Full Name": "Tuan P",
+    "First Name": "Tuan",
+    "Last Name": "P",
+    "Email": "tuan.pham@symmetrylending.com",
+    "Email Status": "verified",
+    "Job Title": "CTO & Ciso",
+    "Company Name": "Symmetry Lending",
+    "Company Website": "https://symmetrylending.com",
+    "City": "Irvine",
+    "State": "California",
+    "Country": "United States",
+    "Industry": "financial services",
+    "Keywords": "helocs,second mortgages,loan servicing technology,heloc loans,capital markets,mortgage loan portfolio diversification,mortgage broker services,risk management,mortgage industry support,operational efficiency,secondary market loans,b2b,mortgage broker support,loan documentation,credit tiers,loan submission forms,capital markets technology,standalone heloc,loan participation,portfolio diversification,real estate and rental and leasing,investor relations,piggyback heloc,other activities related to credit intermediation,loan purchase,finance and insurance,loan servicing,loan fulfillment services,loan submission process,broker fees,rate reduction,heloc solutions,credit union partnerships,heloc products,loan portfolio management,post-close heloc,1st lien heloc,home equity lines of credit,loan performance reporting,compliance,loan servicing analytics,portfolio management,loan trading,services,finance,distribution,fintech,financial services,finance technology,information technology & services",
+    "Employees": "180",
+    "Company City": "Atlanta",
+    "Company State": "Georgia",
+    "Company Country": "United States",
+    "Company Linkedin Url": "http://www.linkedin.com/company/symmetryheloc",
+    "Company Twitter Url": "https://twitter.com/symmetryheloc",
+    "Company Facebook Url": "https://facebook.com/symmetryheloc",
+    "Company Phone Numbers": "+1 678-597-9771",
+    "Twitter Url": "",
+    "Facebook Url": ""
+  },
+  "identity": {
+    "name": "Tuan P",
+    "first_name": "Tuan",
+    "last_name": "P",
+    "job_title": "CTO & Ciso",
+    "company": "Symmetry Lending",
+    "industry": "financial services",
+    "linkedin_url": "",
+    "company_website": "https://symmetrylending.com",
+    "professional_email": "tuan.pham@symmetrylending.com",
+    "city": "Irvine",
+    "state": "California",
+    "country": "United States"
+  },
+  "contact": {
+    "email": "tuan.pham@symmetrylending.com",
+    "email_type": "work",
+    "email_verification_status": "syntax_valid_unprobed",
+    "linkedin_url": "",
+    "contact_channel_status": "available"
+  },
+  "company": {
+    "name": "Symmetry Lending",
+    "website": "https://symmetrylending.com",
+    "domain": "symmetrylending.com",
+    "industry": "financial services",
+    "verified": false
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at Symmetry Lending",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Enterprise Cloud Systems & Platform Scalability"
+    ],
+    "public_projects": [
+      "Platform development and operations for Symmetry Lending"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at Symmetry Lending"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Tuan P (CTO & Ciso at Symmetry Lending) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails",
+        "Privacy-Preserving Data Exchange & Compliance"
+      ],
+      "evidence_points": [
+        "Role 'CTO & Ciso' makes architecture decisions for emerging AI capabilities",
+        "Regulated vertical 'financial services' mandates strict API access controls and audited data flow"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 1,
+    "reason": "Priority 1 (Medium Fit): CTO & Ciso at Symmetry Lending is in a relevant role or vertical, but requires further qualification of immediate security/AI deployment urgency.",
+    "score": 90.0,
+    "confidence": 0.24,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'CTO & Ciso'",
+      "Target enterprise vertical matching SealAPI: 'financial services'",
+      "Moderate AI/API infrastructure signals: llm, api, compliance"
+    ]
+  },
+  "sources": [
+    {
+      "source_id": "src_input_lead_c72",
+      "source_url": "lead_import_record",
+      "source_type": "user_input",
+      "title": null,
+      "publisher": null,
+      "retrieval_timestamp": "2026-10-20T15:16:10.367707+00:00",
+      "published_at": null,
+      "relevant_excerpt": null,
+      "evidence_quality": 0.6,
+      "supports_claim_ids": [],
+      "facts_supported": [
+        "Imported Name: Tuan P",
+        "Imported Job Title: CTO & Ciso",
+        "Imported Company: Symmetry Lending",
+        "Imported Industry: financial services",
+        "Imported Professional Email: tuan.pham@symmetrylending.com",
+        "Imported Company Website: https://symmetrylending.com"
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "clm_name",
+      "field": "name",
+      "value": "Tuan P",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_c72"
+      ],
+      "confidence": 0.5,
+      "last_verified_at": null,
+      "review_reason": "Surname is abbreviated; requires full name evidence"
+    },
+    {
+      "claim_id": "clm_company",
+      "field": "company",
+      "value": "Symmetry Lending",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_c72"
+      ],
+      "confidence": 0.7,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_title",
+      "field": "job_title",
+      "value": "CTO & Ciso",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_c72"
+      ],
+      "confidence": 0.65,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_email",
+      "field": "professional_email",
+      "value": "tuan.pham@symmetrylending.com",
+      "status": "unverified",
+      "source_ids": [
+        "src_input_lead_c72"
+      ],
+      "confidence": 0.5,
+      "last_verified_at": null,
+      "review_reason": "Syntax valid from import; deliverability probe not performed"
+    }
+  ],
+  "public_signals": [],
+  "icebreaker": {
+    "text": "Given Symmetry Lending's focus in financial services, data privacy governance and auditable API exchanges are typically paramount.",
+    "icebreaker_type": "general_question",
+    "source_ids": [
+      "src_input_lead_c72"
+    ],
+    "confidence": 0.6,
+    "why_it_matters": "Regulated verticals require verifiable controls to ensure sensitive data does not cross unauthorized API boundaries.",
+    "potential_pain_point": "Hypothesis: Ensuring third-party integrations and internal models comply with strict compliance audits.",
+    "conversation_question": "How does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?",
+    "personalization_status": "needs_review",
+    "outreach_draft": {
+      "subject": "API security & AI infrastructure at Symmetry Lending",
+      "greeting": "Hi Tuan,",
+      "opener": "Given Symmetry Lending's focus in financial services, data privacy governance and auditable API exchanges are typically paramount.",
+      "sealapi_connection": "At SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.",
+      "low_pressure_ask": "How does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?",
+      "full_body": "Hi Tuan,\n\nGiven Symmetry Lending's focus in financial services, data privacy governance and auditable API exchanges are typically paramount.\n\nAt SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.\n\nHow does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?\n\nBest regards,\nSealAPI Research & Partnerships"
+    }
+  },
+  "scoring": {
+    "lead_fit_score": 90.0,
+    "role_fit_score": 35.0,
+    "industry_fit_score": 30.0,
+    "technical_need_score": 15.0,
+    "verification_confidence": 0.24,
+    "readiness_status": "needs_research",
+    "explanations": [
+      "High-authority security/AI decision maker role: 'CTO & Ciso'",
+      "Target enterprise vertical matching SealAPI: 'financial services'",
+      "Moderate AI/API infrastructure signals: llm, api, compliance"
+    ]
+  },
+  "contact_readiness": {
+    "status": "needs_research",
+    "has_name": true,
+    "has_verified_role": true,
+    "has_company_context": true,
+    "has_usable_contact_channel": true,
+    "has_evidence_based_icebreaker": false,
+    "blockers": [
+      "identity_not_verified",
+      "icebreaker_needs_review"
+    ]
+  },
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as CTO & Ciso at Symmetry Lending.",
+      "Focus on Enterprise Cloud Systems & Platform Scalability.",
+      "Evidence-based opener: Given Symmetry Lending's focus in financial services, data privacy governance and auditable API exchanges are typically paramount."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for financial services.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "How does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly.",
+      "Do not assume delivered email address guarantees personal inbox delivery without validation."
+    ],
+    "missing_verification_points": [
+      "Icebreaker status: needs_review (human review recommended)."
+    ]
+  },
+  "research_metadata": {
+    "schema_version": "2.0.0",
+    "batch_id": "batch_20261020T151604Z_b82e6829",
+    "pipeline_version": "2.0.0",
+    "researched_at": "2026-10-20T15:16:10.367707+00:00",
+    "execution_status": "partial",
+    "verification_status": "unverified",
+    "source_count": 1,
+    "review_required": true,
+    "cache_fingerprint": "a5e2e164567fd57ed9ea97d3a7209438925aaa6c63f8f1fed2e014ba384a6219",
+    "errors_and_limitations": [],
+    "research_status": "partial",
+    "last_research_timestamp": "2026-10-20T15:16:10.367707+00:00",
+    "sources_examined": 1
+  }
+}

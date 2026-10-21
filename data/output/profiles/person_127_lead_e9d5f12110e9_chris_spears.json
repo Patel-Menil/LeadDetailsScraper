@@ -1,0 +1,166 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_e9d5f12110e9",
+  "identity": {
+    "name": "Chris Spears",
+    "first_name": "Chris",
+    "last_name": "Spears",
+    "job_title": "CTO / Ciso",
+    "company": "CareLink Mobile Practice Manager",
+    "industry": "health, wellness & fitness",
+    "linkedin_url": "http://www.linkedin.com/in/chrisspears",
+    "company_website": "https://mymobilepracticemanager.com",
+    "professional_email": "chris@mymobilepracticemanager.com",
+    "city": "Chandler",
+    "state": "Arizona",
+    "country": "United States"
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at CareLink Mobile Practice Manager",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Generative AI & LLM Infrastructure",
+      "API Security & Microservices",
+      "Healthcare Data Privacy (HIPAA) & Safe Exchange"
+    ],
+    "public_projects": [
+      "Platform development and operations for CareLink Mobile Practice Manager"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at CareLink Mobile Practice Manager",
+      "· Experience:  CareLink Mobile Practice Manager  · Location: Chandler · 500+ connections on LinkedIn",
+      "Chris Spears  brings experience from previous roles at Streamline VRS | Vacation Rental Software and Intel Corporation",
+      "Previously,  Chris  was the Executive Vice President & Chief Information Security Officer at Streamline VRS and also held positions at Intel,  CareLink , Arizona House Calls, Dell, Motorola Semiconductor, Steelcase, GM"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Chris Spears (CTO / Ciso at CareLink Mobile Practice Manager) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails",
+        "Privacy-Preserving Data Exchange & Compliance"
+      ],
+      "evidence_points": [
+        "Role 'CTO / Ciso' makes key architecture decisions for emerging AI capabilities",
+        "Regulated domain 'health, wellness & fitness' mandates strict API access controls and audited data flow"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 1,
+    "reason": "Priority 1 (Medium Fit): CTO / Ciso at CareLink Mobile Practice Manager is in a relevant role or vertical, but requires further qualification of immediate security/AI deployment urgency.",
+    "score": 75.0,
+    "confidence": 1.0,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'CTO / Ciso'",
+      "Strong verified AI/API security need (matched signals: ai, api, security, hipaa, compliance, cloud)",
+      "Verified business email domain: chris@mymobilepracticemanager.com"
+    ]
+  },
+  "sources": [
+    {
+      "source_url": "lead_import_record",
+      "source_type": "input_data",
+      "retrieval_timestamp": "2026-10-10T19:21:50.603576+00:00",
+      "facts_supported": [
+        "Verified Name: Chris Spears",
+        "Declared Job Title: CTO / Ciso",
+        "Company: CareLink Mobile Practice Manager",
+        "Industry: health, wellness & fitness",
+        "Verified Professional Email: chris@mymobilepracticemanager.com",
+        "Reported Location: Chandler, Arizona, United States",
+        "Company Keywords: primary care house call practice management software,telehealth,care coordination,emr integration,patient engagement crm,mobile app for providers,home health face-to-face forms,dis"
+      ]
+    },
+    {
+      "source_url": "https://mymobilepracticemanager.com",
+      "source_type": "company_website",
+      "retrieval_timestamp": "2026-10-10T19:21:52Z",
+      "facts_supported": [
+        "Website Title: Attention Required! | Cloudflare",
+        "Core Offerings: Sorry, you have been blocked, You are unable to access\n mymobilepracticemanager.com, Why have I been blocked?, What can I do to resolve this?"
+      ]
+    },
+    {
+      "source_url": "https://www.linkedin.com/in/chrisspears",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:21:57.163598+00:00",
+      "facts_supported": [
+        "Public Profile: Chris Spears - CTO / CISO at CareLink Mobile Practice Manager | LinkedIn",
+        "Verified Career & Background: · Experience: \nCareLink\nMobile\nPractice\nManager\n · Location: Chandler · 500+ connections on LinkedIn. View \nChris\nSpears'\n profile on LinkedIn, a professional community of 1 billion members."
+      ]
+    },
+    {
+      "source_url": "https://rocketreach.co/chris-spears-email_56514016",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:21:57.163642+00:00",
+      "facts_supported": [
+        "Public Profile: Chris Spears Email & Phone Number | CareLink Mobile Practice Manager ...",
+        "Verified Career & Background: Chris\nSpears\n, based in Chandler, AZ, US, is currently a CTO and CISO at \nCareLink\nMobile\nPractice\nManager\n. \nChris\nSpears\n brings experience from previous roles at Streamline VRS | Vacation Rental Software and Intel Corporation."
+      ]
+    },
+    {
+      "source_url": "https://rocketreach.co/carelink-mobile-practice-manager-management_b4358959c1f1b171",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:21:57.163651+00:00",
+      "facts_supported": [
+        "Public Profile: CareLink Mobile Practice Manager Management Team | Org Chart - RocketReach",
+        "Verified Career & Background: CareLink\nMobile\nPractice\nManager\n employs 4 employees. The \nCareLink\nMobile\nPractice\nManager\n management team includes Derek \nSpears\n (Digital Marketing \nManager\n), and \nChris\nSpears\n (CTO and CISO). Looking for a particular \nCareLink\nMobile\nPractice\nManager\n employee's phone or email?"
+      ]
+    },
+    {
+      "source_url": "https://www.linkedin.com/company/my-mobile-practice-manager",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:21:57.163657+00:00",
+      "facts_supported": [
+        "Public Profile: CareLink Mobile Practice Manager - LinkedIn",
+        "Verified Career & Background: CareLink\n is a powerful \npractice\n management tool specifically designed to meet the needs of \nmobile\n primary care providers."
+      ]
+    },
+    {
+      "source_url": "https://growjo.com/employee/Chris-Spears-19204383",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:21:57.163664+00:00",
+      "facts_supported": [
+        "Public Profile: Chris Spears Email for CareLink Mobile Practice Manager",
+        "Verified Career & Background: Free access to \nChris\n Spears's email at \nCareLink\nMobile\nPractice\nManager\n (c****@mymobilepracticemanager.com). Check out the free Growjo B2B dataset."
+      ]
+    },
+    {
+      "source_url": "https://www.zoominfo.com/p/Chris-Spears/1637123583",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:21:57.163690+00:00",
+      "facts_supported": [
+        "Public Profile: Chris Spears Email & Phone Number | Chief Technology Officer ... - ZoomInfo",
+        "Verified Career & Background: About \nChris\nSpears\nChris\nSpears\n is the Chief Technology Officer & Chief Information Security Officer at \nCareLink\n based in Gilbert, Arizona. Previously, \nChris\n was the Executive Vice President & Chief Information Security Officer at Streamline VRS and also held positions at Intel, \nCareLink\n, Ar"
+      ]
+    }
+  ],
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as CTO / Ciso at CareLink Mobile Practice Manager.",
+      "Focus on Generative AI & LLM Infrastructure, API Security & Microservices.",
+      "Background: · Experience:  CareLink Mobile Practice Manager  · Location: Chandler · 500+ connections on LinkedIn..."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for health, wellness & fitness.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "Would you be open to a 10-minute technical exchange next Tuesday to explore how SealAPI shields AI and API endpoints for teams like CareLink Mobile Practice Manager?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly."
+    ],
+    "missing_verification_points": []
+  },
+  "research_metadata": {
+    "research_status": "completed",
+    "last_research_timestamp": "2026-10-10T19:21:50.603576+00:00",
+    "sources_examined": 8,
+    "errors_and_limitations": [
+      "LinkedIn profile (http://www.linkedin.com/in/chrisspears) is behind an authentication wall; public domain records used for verified evidence."
+    ]
+  }
+}

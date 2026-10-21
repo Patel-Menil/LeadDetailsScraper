@@ -1,0 +1,253 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_d6f68f7da724",
+  "input_snapshot": {
+    "Linkedin Url": "http://www.linkedin.com/in/shubhro-ghosh-39b3388",
+    "Full Name": "Shubhro Ghosh",
+    "First Name": "Shubhro",
+    "Last Name": "Ghosh",
+    "Email": "shubhro.ghosh@bofa.com",
+    "Email Status": "verified",
+    "Job Title": "Head of AI Engineering, CFO Technology",
+    "Company Name": "Bank of America",
+    "Company Website": "https://bankofamerica.com",
+    "City": "",
+    "State": "",
+    "Country": "United States",
+    "Industry": "banking,investment banking,investment management,financial services",
+    "Keywords": "financial services,finance,major banks,global operations,wealth planning,community investment,banking innovation,atms,banking services,client financial health,banking digitalization,fintech integration,community development,global banking,government,credit cards,client services,loans,sustainable finance,community engagement,client support,sustainable investing,small business loans,financial products,institutional banking,financial advisory,mobile banking app,client portal,client onboarding,client engagement tools,wealth advisory,banking platform,financial technology,digital security,financial services innovation,commercial banking,financial literacy,consumer banking,banking technology,asset growth strategies,mobile banking,corporate banking,digital security protocols,b2c,online banking,fintech,banking compliance,investment solutions,payment processing,services,disaster recovery finance,asset protection,financial analytics,customer satisfaction,community support,client experience enhancement,financial planning,consumer finance,digital wallet,social impact investing,financial inclusion,investment management,banking infrastructure,asset allocation,risk management,mobile app,banking customer insights,bank branches,auto loans,investment banking,retail banking,asset management,financial innovation,digital banking security,digital banking,client onboarding technology,corporate finance,institutional services,financial empowerment,customer experience,risk assessment,retail,digital transformation,wealth management,trust services,financial education programs,client data security,capital markets,b2b,small business banking,mortgages,client relationship management,disaster relief,online payments,banking,loan services,environmental sustainability,customer engagement,banking security,transaction management,customer service,mergers and acquisitions,personal banking,investment services,debit cards,home equity loans,savings accounts,checking accounts,iras,cds,deposit accounts,merrill lynch,financial security,preferred rewards,cash back,rewards points,account management,business checking,student banking,home buying assistance,real estate financing,expense management,fraud protection,economic opportunity,racial equality,diversity and inclusion,client resources,loan applications,financial education,dispute resolution,feedback and assessment,membership benefits,strategic advice,non-profit,financial consulting,consulting,management consulting,finance technology,information technology & services,mergers & acquisitions,conflict resolution,nonprofit organization management,banks & credit unions,mortgage brokers,real estate",
+    "Employees": "211000",
+    "Company City": "",
+    "Company State": "",
+    "Company Country": "",
+    "Company Linkedin Url": "http://www.linkedin.com/company/bank-of-america",
+    "Company Twitter Url": "https://twitter.com/BankofAmerica",
+    "Company Facebook Url": "https://facebook.com/BankofAmerica",
+    "Company Phone Numbers": "+1 704-386-5681",
+    "Twitter Url": "",
+    "Facebook Url": ""
+  },
+  "identity": {
+    "name": "Shubhro Ghosh",
+    "first_name": "Shubhro",
+    "last_name": "Ghosh",
+    "job_title": "Head of AI Engineering, CFO Technology",
+    "company": "Bank of America",
+    "industry": "banking,investment banking,investment management,financial services",
+    "linkedin_url": "http://www.linkedin.com/in/shubhro-ghosh-39b3388",
+    "company_website": "https://bankofamerica.com",
+    "professional_email": "shubhro.ghosh@bofa.com",
+    "city": "",
+    "state": "",
+    "country": "United States"
+  },
+  "contact": {
+    "email": "shubhro.ghosh@bofa.com",
+    "email_type": "work",
+    "email_verification_status": "syntax_valid_unprobed",
+    "linkedin_url": "http://www.linkedin.com/in/shubhro-ghosh-39b3388",
+    "contact_channel_status": "available"
+  },
+  "company": {
+    "name": "Bank of America",
+    "website": "https://bankofamerica.com",
+    "domain": "bankofamerica.com",
+    "industry": "banking,investment banking,investment management,financial services",
+    "verified": false
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at Bank of America",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Generative AI & LLM Infrastructure",
+      "Financial Data Governance & Compliance"
+    ],
+    "public_projects": [
+      "Platform development and operations for Bank of America"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at Bank of America"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Shubhro Ghosh (Head of AI Engineering, CFO Technology at Bank of America) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails",
+        "Privacy-Preserving Data Exchange & Compliance"
+      ],
+      "evidence_points": [
+        "Role 'Head of AI Engineering, CFO Technology' makes architecture decisions for emerging AI capabilities",
+        "Regulated vertical 'banking,investment banking,investment management,financial services' mandates strict API access controls and audited data flow"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 1,
+    "reason": "Priority 1 (Medium Fit): Head of AI Engineering, CFO Technology at Bank of America is in a relevant role or vertical, but requires further qualification of immediate security/AI deployment urgency.",
+    "score": 100.0,
+    "confidence": 0.33,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'Head of AI Engineering, CFO Technology'",
+      "Target enterprise vertical matching SealAPI: 'financial services'",
+      "Strong verified AI/API security need (matched signals: ai, api, security, compliance, infrastructure)"
+    ]
+  },
+  "sources": [
+    {
+      "source_id": "src_input_lead_d6f",
+      "source_url": "lead_import_record",
+      "source_type": "user_input",
+      "title": null,
+      "publisher": null,
+      "retrieval_timestamp": "2026-10-20T15:16:10.333407+00:00",
+      "published_at": null,
+      "relevant_excerpt": null,
+      "evidence_quality": 0.6,
+      "supports_claim_ids": [],
+      "facts_supported": [
+        "Imported Name: Shubhro Ghosh",
+        "Imported Job Title: Head of AI Engineering, CFO Technology",
+        "Imported Company: Bank of America",
+        "Imported Industry: banking,investment banking,investment management,financial services",
+        "Imported Professional Email: shubhro.ghosh@bofa.com",
+        "Imported Company Website: https://bankofamerica.com"
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "clm_name",
+      "field": "name",
+      "value": "Shubhro Ghosh",
+      "status": "verified",
+      "source_ids": [
+        "src_input_lead_d6f"
+      ],
+      "confidence": 0.75,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_company",
+      "field": "company",
+      "value": "Bank of America",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_d6f"
+      ],
+      "confidence": 0.7,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_title",
+      "field": "job_title",
+      "value": "Head of AI Engineering, CFO Technology",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_d6f"
+      ],
+      "confidence": 0.65,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_email",
+      "field": "professional_email",
+      "value": "shubhro.ghosh@bofa.com",
+      "status": "unverified",
+      "source_ids": [
+        "src_input_lead_d6f"
+      ],
+      "confidence": 0.5,
+      "last_verified_at": null,
+      "review_reason": "Syntax valid from import; deliverability probe not performed"
+    }
+  ],
+  "public_signals": [],
+  "icebreaker": {
+    "text": "Given Bank of America's focus in banking,investment banking,investment management,financial services, data privacy governance and auditable API exchanges are typically paramount.",
+    "icebreaker_type": "general_question",
+    "source_ids": [
+      "src_input_lead_d6f"
+    ],
+    "confidence": 0.6,
+    "why_it_matters": "Regulated verticals require verifiable controls to ensure sensitive data does not cross unauthorized API boundaries.",
+    "potential_pain_point": "Hypothesis: Ensuring third-party integrations and internal models comply with strict compliance audits.",
+    "conversation_question": "How does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?",
+    "personalization_status": "needs_review",
+    "outreach_draft": {
+      "subject": "API security & AI infrastructure at Bank of America",
+      "greeting": "Hi Shubhro,",
+      "opener": "Given Bank of America's focus in banking,investment banking,investment management,financial services, data privacy governance and auditable API exchanges are typically paramount.",
+      "sealapi_connection": "At SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.",
+      "low_pressure_ask": "How does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?",
+      "full_body": "Hi Shubhro,\n\nGiven Bank of America's focus in banking,investment banking,investment management,financial services, data privacy governance and auditable API exchanges are typically paramount.\n\nAt SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.\n\nHow does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?\n\nBest regards,\nSealAPI Research & Partnerships"
+    }
+  },
+  "scoring": {
+    "lead_fit_score": 100.0,
+    "role_fit_score": 35.0,
+    "industry_fit_score": 30.0,
+    "technical_need_score": 25.0,
+    "verification_confidence": 0.33,
+    "readiness_status": "ready_with_caveat",
+    "explanations": [
+      "High-authority security/AI decision maker role: 'Head of AI Engineering, CFO Technology'",
+      "Target enterprise vertical matching SealAPI: 'financial services'",
+      "Strong verified AI/API security need (matched signals: ai, api, security, compliance, infrastructure)"
+    ]
+  },
+  "contact_readiness": {
+    "status": "ready_with_caveat",
+    "has_name": true,
+    "has_verified_role": true,
+    "has_company_context": true,
+    "has_usable_contact_channel": true,
+    "has_evidence_based_icebreaker": false,
+    "blockers": [
+      "identity_not_verified",
+      "icebreaker_needs_review"
+    ]
+  },
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as Head of AI Engineering, CFO Technology at Bank of America.",
+      "Focus on Generative AI & LLM Infrastructure, Financial Data Governance & Compliance.",
+      "Evidence-based opener: Given Bank of America's focus in banking,investment banking,investment management,financial services, data privacy governance and auditable API exchanges are typically paramount."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for banking,investment banking,investment management,financial services.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "How does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly.",
+      "Do not assume delivered email address guarantees personal inbox delivery without validation."
+    ],
+    "missing_verification_points": [
+      "Icebreaker status: needs_review (human review recommended)."
+    ]
+  },
+  "research_metadata": {
+    "schema_version": "2.0.0",
+    "batch_id": "batch_20261020T151604Z_b82e6829",
+    "pipeline_version": "2.0.0",
+    "researched_at": "2026-10-20T15:16:10.333407+00:00",
+    "execution_status": "partial",
+    "verification_status": "unverified",
+    "source_count": 1,
+    "review_required": true,
+    "cache_fingerprint": "a5e2e164567fd57ed9ea97d3a7209438925aaa6c63f8f1fed2e014ba384a6219",
+    "errors_and_limitations": [
+      "LinkedIn URL (http://www.linkedin.com/in/shubhro-ghosh-39b3388) is behind an authentication wall; public domain records used for verified evidence."
+    ],
+    "research_status": "partial",
+    "last_research_timestamp": "2026-10-20T15:16:10.333407+00:00",
+    "sources_examined": 1
+  }
+}

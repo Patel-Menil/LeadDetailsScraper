@@ -1,0 +1,248 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_daefd2d55aef",
+  "input_snapshot": {
+    "Linkedin Url": "http://www.linkedin.com/in/peter-mulford-8793875",
+    "Full Name": "Peter Mulford",
+    "First Name": "Peter",
+    "Last Name": "Mulford",
+    "Email": "peter.mulford@bts.com",
+    "Email Status": "verified",
+    "Job Title": "Chief Artificial Intelligence Officer, Global Head, AI and Innovation Practice",
+    "Company Name": "BTS",
+    "Company Website": "http://www.bts.com",
+    "City": "New York",
+    "State": "New York",
+    "Country": "United States",
+    "Industry": "management consulting",
+    "Keywords": "strategy execution,business acumen,sales transformation,coaching,business transformation,organizational change,digital transformation,talent strategy,business simulations,succession planning,leadership assessment,leadership development,ai transformation,operating model design,innovation capability,gotomarket strategy,sales enablement,ai adoption,ai strategy,business consulting & services,leadership enablement,behavioral change,global business consulting,executive coaching,digital learning for transformation,change leadership,behavioral change programs,role-play simulations,leadership coaching,digital learning experiences,business simulation models,team development,organizational culture,talent assessment,business strategy alignment,leadership mindsets,custom leadership programs,digital tools,behavioral science in business,digital simulations,learning & development platforms,behavioral science,talent insights & assessment,custom digital learning,human-centered design,leadership assessment tools,organizational effectiveness,performance metrics,talent development strategies,experiential business learning,simulations for leadership,performance management,sales acceleration,coaching platforms,leadership culture building,digital learning platforms,corporate training,ai & innovation,employee engagement,workforce transformation,management consulting,digital ecosystem integration,management consulting services,leadership culture,strategic alignment,culture change,corporate culture,digital learning,learning technology,talent development,global consulting,organizational culture change tools,employee development,learning experiences,leadership development tech,team coaching,experiential learning,change management,mindset shifts,sales & marketing leadership,mindset transformation,client impact,change & transformation,organizational agility,business agility,digital ecosystems,performance improvement,performance & behavior analytics,team performance,client-centric solutions,workforce strategy,leadership agility,workplace culture innovation,leadership coaching platforms,digital coaching,leadership training,leadership mindset shifts,performance coaching,simulations & role plays,transformation programs,business results,leadership skills development,customer engagement,leadership skills,leadership behavior modeling,behavioral insights in leadership,behavioral change technology,talent pipeline,market acceleration,assessment tools,global offices,hybrid learning,digital ecosystem,seismic shifts leadership,social impact programs,sales & marketing,diversity initiatives,coaching culture,diversity equity inclusion,simulation-based learning,behavioral modeling,professional, scientific, and technical services,inclusion strategies,digital experiences,cultural change,sustainable leadership,strategy implementation,future-back thinking,b2b,education,professional training & coaching",
+    "Employees": "1100",
+    "Company City": "",
+    "Company State": "Stockholms laen",
+    "Company Country": "Sweden",
+    "Company Linkedin Url": "http://www.linkedin.com/company/bts",
+    "Company Twitter Url": "https://twitter.com/btsgroupab",
+    "Company Facebook Url": "https://www.facebook.com/btsworldwide",
+    "Company Phone Numbers": "+46 8 587 070 00",
+    "Twitter Url": "",
+    "Facebook Url": ""
+  },
+  "identity": {
+    "name": "Peter Mulford",
+    "first_name": "Peter",
+    "last_name": "Mulford",
+    "job_title": "Chief Artificial Intelligence Officer, Global Head, AI and Innovation Practice",
+    "company": "BTS",
+    "industry": "management consulting",
+    "linkedin_url": "http://www.linkedin.com/in/peter-mulford-8793875",
+    "company_website": "http://www.bts.com",
+    "professional_email": "peter.mulford@bts.com",
+    "city": "New York",
+    "state": "New York",
+    "country": "United States"
+  },
+  "contact": {
+    "email": "peter.mulford@bts.com",
+    "email_type": "work",
+    "email_verification_status": "syntax_valid_unprobed",
+    "linkedin_url": "http://www.linkedin.com/in/peter-mulford-8793875",
+    "contact_channel_status": "available"
+  },
+  "company": {
+    "name": "BTS",
+    "website": "http://www.bts.com",
+    "domain": "bts.com",
+    "industry": "management consulting",
+    "verified": false
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Managing technology operations and solution architecture at BTS"
+    ],
+    "technical_interests": [
+      "Generative AI & LLM Infrastructure"
+    ],
+    "public_projects": [
+      "Platform development and operations for BTS"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at BTS"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Peter Mulford (Chief Artificial Intelligence Officer, Global Head, AI and Innovation Practice at BTS) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails"
+      ],
+      "evidence_points": [
+        "Role 'Chief Artificial Intelligence Officer, Global Head, AI and Innovation Practice' makes architecture decisions for emerging AI capabilities"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 1,
+    "reason": "Priority 1 (Medium Fit): Chief Artificial Intelligence Officer, Global Head, AI and Innovation Practice at BTS is in a relevant role or vertical, but requires further qualification of immediate security/AI deployment urgency.",
+    "score": 48.0,
+    "confidence": 0.33,
+    "supporting_evidence": [
+      "Non-technical or unverified role: 'Chief Artificial Intelligence Officer, Global Head, AI and Innovation Practice'",
+      "Adjacent vertical: 'management consulting'",
+      "Moderate AI/API infrastructure signals: ai, artificial intelligence"
+    ]
+  },
+  "sources": [
+    {
+      "source_id": "src_input_lead_dae",
+      "source_url": "lead_import_record",
+      "source_type": "user_input",
+      "title": null,
+      "publisher": null,
+      "retrieval_timestamp": "2026-10-20T15:16:10.298617+00:00",
+      "published_at": null,
+      "relevant_excerpt": null,
+      "evidence_quality": 0.6,
+      "supports_claim_ids": [],
+      "facts_supported": [
+        "Imported Name: Peter Mulford",
+        "Imported Job Title: Chief Artificial Intelligence Officer, Global Head, AI and Innovation Practice",
+        "Imported Company: BTS",
+        "Imported Industry: management consulting",
+        "Imported Professional Email: peter.mulford@bts.com",
+        "Imported Company Website: http://www.bts.com"
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "clm_name",
+      "field": "name",
+      "value": "Peter Mulford",
+      "status": "verified",
+      "source_ids": [
+        "src_input_lead_dae"
+      ],
+      "confidence": 0.75,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_company",
+      "field": "company",
+      "value": "BTS",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_dae"
+      ],
+      "confidence": 0.7,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_title",
+      "field": "job_title",
+      "value": "Chief Artificial Intelligence Officer, Global Head, AI and Innovation Practice",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_dae"
+      ],
+      "confidence": 0.65,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_email",
+      "field": "professional_email",
+      "value": "peter.mulford@bts.com",
+      "status": "unverified",
+      "source_ids": [
+        "src_input_lead_dae"
+      ],
+      "confidence": 0.5,
+      "last_verified_at": null,
+      "review_reason": "Syntax valid from import; deliverability probe not performed"
+    }
+  ],
+  "public_signals": [],
+  "icebreaker": {
+    "text": "I have been following how technology teams in the management consulting sector are managing API and AI endpoint security.",
+    "icebreaker_type": "general_question",
+    "source_ids": [
+      "src_input_lead_dae"
+    ],
+    "confidence": 0.45,
+    "why_it_matters": "SealAPI helps organizations protect APIs from token leakage, prompt injection, and credential abuse with zero-trust gateways.",
+    "potential_pain_point": "Hypothesis: Preventing credential leakage and unauthorized API consumption in production.",
+    "conversation_question": "Would you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?",
+    "personalization_status": "generic_fallback",
+    "outreach_draft": {
+      "subject": "API security & AI infrastructure at BTS",
+      "greeting": "Hi Peter,",
+      "opener": "I have been following how technology teams in the management consulting sector are managing API and AI endpoint security.",
+      "sealapi_connection": "At SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.",
+      "low_pressure_ask": "Would you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?",
+      "full_body": "Hi Peter,\n\nI have been following how technology teams in the management consulting sector are managing API and AI endpoint security.\n\nAt SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.\n\nWould you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?\n\nBest regards,\nSealAPI Research & Partnerships"
+    }
+  },
+  "scoring": {
+    "lead_fit_score": 48.0,
+    "role_fit_score": 5.0,
+    "industry_fit_score": 18.0,
+    "technical_need_score": 15.0,
+    "verification_confidence": 0.33,
+    "readiness_status": "ready_with_caveat",
+    "explanations": [
+      "Non-technical or unverified role: 'Chief Artificial Intelligence Officer, Global Head, AI and Innovation Practice'",
+      "Adjacent vertical: 'management consulting'",
+      "Moderate AI/API infrastructure signals: ai, artificial intelligence"
+    ]
+  },
+  "contact_readiness": {
+    "status": "ready_with_caveat",
+    "has_name": true,
+    "has_verified_role": false,
+    "has_company_context": true,
+    "has_usable_contact_channel": true,
+    "has_evidence_based_icebreaker": false,
+    "blockers": [
+      "identity_not_verified"
+    ]
+  },
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as Chief Artificial Intelligence Officer, Global Head, AI and Innovation Practice at BTS.",
+      "Focus on Generative AI & LLM Infrastructure.",
+      "Evidence-based opener: I have been following how technology teams in the management consulting sector are managing API and AI endpoint security."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for management consulting.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "Would you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly.",
+      "Do not assume delivered email address guarantees personal inbox delivery without validation."
+    ],
+    "missing_verification_points": [
+      "Icebreaker status: generic_fallback (human review recommended)."
+    ]
+  },
+  "research_metadata": {
+    "schema_version": "2.0.0",
+    "batch_id": "batch_20261020T151604Z_b82e6829",
+    "pipeline_version": "2.0.0",
+    "researched_at": "2026-10-20T15:16:10.298617+00:00",
+    "execution_status": "partial",
+    "verification_status": "unverified",
+    "source_count": 1,
+    "review_required": true,
+    "cache_fingerprint": "a5e2e164567fd57ed9ea97d3a7209438925aaa6c63f8f1fed2e014ba384a6219",
+    "errors_and_limitations": [
+      "LinkedIn URL (http://www.linkedin.com/in/peter-mulford-8793875) is behind an authentication wall; public domain records used for verified evidence."
+    ],
+    "research_status": "partial",
+    "last_research_timestamp": "2026-10-20T15:16:10.298617+00:00",
+    "sources_examined": 1
+  }
+}

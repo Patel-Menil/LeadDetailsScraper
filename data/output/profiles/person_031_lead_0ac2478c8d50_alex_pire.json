@@ -1,0 +1,109 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_0ac2478c8d50",
+  "identity": {
+    "name": "Alex Pire",
+    "first_name": "Alex",
+    "last_name": "Pire",
+    "job_title": "Co-Founder, CEO & CTO @ Percidian AI",
+    "company": "Percidian AI",
+    "industry": "information technology & services",
+    "linkedin_url": "http://www.linkedin.com/in/apire",
+    "company_website": "http://www.percidian.com",
+    "professional_email": "alex@percidian.com",
+    "city": "Boston",
+    "state": "Massachusetts",
+    "country": "United States"
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at Percidian AI",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Generative AI & LLM Infrastructure",
+      "API Security & Microservices"
+    ],
+    "public_projects": [
+      "Platform development and operations for Percidian AI"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at Percidian AI",
+      "People and agents begin with the full context, carry knowledge forward, and get to work without rebuilding what the organization already knows"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Alex Pire (Co-Founder, CEO & CTO @ Percidian AI at Percidian AI) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails"
+      ],
+      "evidence_points": [
+        "Role 'Co-Founder, CEO & CTO @ Percidian AI' makes key architecture decisions for emerging AI capabilities"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 0,
+    "reason": "Priority 0 (Highest Fit): Co-Founder, CEO & CTO @ Percidian AI at Percidian AI matches core decision-maker criteria in a regulated/tech-driven industry with active AI/API needs.",
+    "score": 100.0,
+    "confidence": 0.9,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'Co-Founder, CEO & CTO @ Percidian AI'",
+      "Target enterprise vertical matching SealAPI: 'information technology'",
+      "Strong verified AI/API security need (matched signals: ai, api, security, saas, infrastructure, token)",
+      "Verified business email domain: alex@percidian.com"
+    ]
+  },
+  "sources": [
+    {
+      "source_url": "lead_import_record",
+      "source_type": "input_data",
+      "retrieval_timestamp": "2026-10-20T19:11:12.230641+00:00",
+      "facts_supported": [
+        "Verified Name: Alex Pire",
+        "Declared Job Title: Co-Founder, CEO & CTO @ Percidian AI",
+        "Company: Percidian AI",
+        "Industry: information technology & services",
+        "Verified Professional Email: alex@percidian.com",
+        "Reported Location: Boston, Massachusetts, United States",
+        "Company Keywords: software development,b2b,saas,consulting,information technology & services,computer software"
+      ]
+    },
+    {
+      "source_url": "http://www.percidian.com",
+      "source_type": "company_website",
+      "retrieval_timestamp": "2026-10-20T19:11:13Z",
+      "facts_supported": [
+        "Website Title: Business Understanding Infrastructure for AI | Percidian",
+        "Company Mission/Description: Give every approved AI system permissioned understanding of your business, persistent institutional memory, and cited context across agents and models.",
+        "Core Offerings: Make every AI your team uses understand your \nbusiness., AI can access your company. It still does not understand your business., AI that arrives ready for the work., Understand the business"
+      ]
+    }
+  ],
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as Co-Founder, CEO & CTO @ Percidian AI at Percidian AI.",
+      "Focus on Generative AI & LLM Infrastructure, API Security & Microservices.",
+      "Background: People and agents begin with the full context, carry knowledge forward, and get to work without rebuilding what the orga..."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for information technology & services.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "Would you be open to a 10-minute technical exchange next Tuesday to explore how SealAPI shields AI and API endpoints for teams like Percidian AI?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly."
+    ],
+    "missing_verification_points": []
+  },
+  "research_metadata": {
+    "research_status": "completed",
+    "last_research_timestamp": "2026-10-20T19:11:12.230641+00:00",
+    "sources_examined": 2,
+    "errors_and_limitations": [
+      "LinkedIn profile (http://www.linkedin.com/in/apire) is behind an authentication wall; public domain records used for verified evidence."
+    ]
+  }
+}

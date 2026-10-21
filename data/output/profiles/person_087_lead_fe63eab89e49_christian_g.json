@@ -1,0 +1,107 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_fe63eab89e49",
+  "identity": {
+    "name": "Christian G",
+    "first_name": "Christian",
+    "last_name": "G",
+    "job_title": "CEO & CTO",
+    "company": "Detecta AI",
+    "industry": "hospital & health care,information technology & services",
+    "linkedin_url": "",
+    "company_website": "https://detecta-ai.com",
+    "professional_email": "christian@detecta-ai.com",
+    "city": "San Francisco",
+    "state": "California",
+    "country": "United States"
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at Detecta AI",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Generative AI & LLM Infrastructure",
+      "API Security & Microservices",
+      "Healthcare Data Privacy (HIPAA) & Safe Exchange"
+    ],
+    "public_projects": [
+      "Platform development and operations for Detecta AI"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at Detecta AI"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Christian G (CEO & CTO at Detecta AI) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails",
+        "Privacy-Preserving Data Exchange & Compliance"
+      ],
+      "evidence_points": [
+        "Role 'CEO & CTO' makes key architecture decisions for emerging AI capabilities",
+        "Regulated domain 'hospital & health care,information technology & services' mandates strict API access controls and audited data flow"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 0,
+    "reason": "Priority 0 (Highest Fit): CEO & CTO at Detecta AI matches core decision-maker criteria in a regulated/tech-driven industry with active AI/API needs.",
+    "score": 90.0,
+    "confidence": 0.9,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'CEO & CTO'",
+      "Target enterprise vertical matching SealAPI: 'information technology'",
+      "Moderate AI/API infrastructure signals: ai, saas",
+      "Verified business email domain: christian@detecta-ai.com"
+    ]
+  },
+  "sources": [
+    {
+      "source_url": "lead_import_record",
+      "source_type": "input_data",
+      "retrieval_timestamp": "2026-10-20T19:21:21.081757+00:00",
+      "facts_supported": [
+        "Verified Name: Christian G",
+        "Declared Job Title: CEO & CTO",
+        "Company: Detecta AI",
+        "Industry: hospital & health care,information technology & services",
+        "Verified Professional Email: christian@detecta-ai.com",
+        "Reported Location: San Francisco, California, United States",
+        "Company Keywords: hospitals & health care,saas,b2b,hospital & health care,computer software,information technology & services"
+      ]
+    },
+    {
+      "source_url": "https://detecta-ai.com",
+      "source_type": "company_website",
+      "retrieval_timestamp": "2026-10-20T19:21:21Z",
+      "facts_supported": [
+        "Website Title: Detecta AI | Precision Epilepsy Care & Clinical AI",
+        "Company Mission/Description: Clinical decision support, epilepsy drug therapy generator & seizure diary AI. 24/7 precision neurology care for patients & clinicians."
+      ]
+    }
+  ],
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as CEO & CTO at Detecta AI.",
+      "Focus on Generative AI & LLM Infrastructure, API Security & Microservices."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for hospital & health care,information technology & services.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "Would you be open to a 10-minute technical exchange next Tuesday to explore how SealAPI shields AI and API endpoints for teams like Detecta AI?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly."
+    ],
+    "missing_verification_points": []
+  },
+  "research_metadata": {
+    "research_status": "completed",
+    "last_research_timestamp": "2026-10-20T19:21:21.081757+00:00",
+    "sources_examined": 2,
+    "errors_and_limitations": []
+  }
+}

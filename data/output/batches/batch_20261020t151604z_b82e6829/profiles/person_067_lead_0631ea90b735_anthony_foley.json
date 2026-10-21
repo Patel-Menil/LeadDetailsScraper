@@ -1,0 +1,252 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_0631ea90b735",
+  "input_snapshot": {
+    "Linkedin Url": "http://www.linkedin.com/in/anthonyfoleyit",
+    "Full Name": "Anthony Foley",
+    "First Name": "Anthony",
+    "Last Name": "Foley",
+    "Email": "tfoley@rcflp.com",
+    "Email Status": "verified",
+    "Job Title": "Cto/ciso",
+    "Company Name": "Resource Capital Funds",
+    "Company Website": "https://resourcecapitalfunds.com",
+    "City": "Denver",
+    "State": "Colorado",
+    "Country": "United States",
+    "Industry": "financial services,venture capital & private equity,investment management",
+    "Keywords": "private equity,mining,commodities,minerals,metals,alternative investments,critical minerals,battery metals,investments,mining technology,investing,private capital,finance,energy transition,private markets,mining innovation,real assets,natural resources,copper,lithium,mining investment,metals investment,portfolio management,esg reporting,mining project capital,mining project scale-up,environmental impact assessment,esg,regulatory compliance,mine optimization tools,mining project discovery,social license,exploration,capital raising,engineering,exploration drilling,stakeholder engagement,pre-feasibility studies,mining project feasibility,sustainable practices,long-term investment,social impact assessment,closure,mining project closure,innovative mining technologies,mining project construction,high-grade mineral deposits,mining project development stages,sustainable development,esg in mining,mining project lifecycle,mining project development,tailings management,metals and mining investments,metallurgy,remote mining operations,technology commercialization,metals & mining,project management,innovation in mining,private equity for energy transition,securities and commodity contracts intermediation and brokerage,climate resilience,commodity diversification,mine closure innovations,mining lifecycle investment,project de-risking,geostatistical modeling,mining project risk management,energy transition metals,operation,innovation,risk management,sustainable resource development,tailings consolidation,project optimization,sustainability,community engagement,mine planning,b2b,esg standards in mining,mining innovation funding,sustainable land rehabilitation,mining project exploration,esg integration,stakeholder relations,mining private equity,resource estimation,advanced exploration techniques,esg standards,mining project de-risking,project development,mining project operational support,mine closure planning,tailings management solutions,technical expertise,mineral exploration funding,capital markets,community-focused mining,services,environmental management,mining project funding,community engagement in mining,feasibility,development,sustainable mining,project financing,climate change mitigation,global mining projects,critical minerals investment,mining project resource definition,off-grid mining solutions,geology,long-life mines,digital mining innovations,mining project financing,risk assessment,community relations,esg responsible mining,construction,environmental remediation technologies,mining technical expertise,autonomous mining equipment,regulatory permits,resource definition,decarbonization in mining,exploration phase,investment strategies,esg compliance,technological advancements,economic development,metals market,mining lifecycle,capital mobilization,preferred investors,fundraising,strategic partnerships,mineral resources,environmental stewardship,social responsibility,governance frameworks,investment returns,diversification strategies,collaboration,market analysis,financial structuring,construction phase,mining operations,closure planning,local procurement,ongoing monitoring,portfolio companies,production scaling,investment excellence,due diligence,reporting frameworks,mining technologies,mineral extraction,resource recovery,capacity building,innovative solutions,non-profit,financial services,investment management,environmental services,renewables & environment,productivity,fund-raising,nonprofit organization management",
+    "Employees": "68",
+    "Company City": "",
+    "Company State": "",
+    "Company Country": "",
+    "Company Linkedin Url": "http://www.linkedin.com/company/resource-capital-funds",
+    "Company Twitter Url": "https://twitter.com/rcf_management",
+    "Company Facebook Url": "https://facebook.com/Resource-Capital-Funds-159080424122354",
+    "Company Phone Numbers": "+1 720-946-1444",
+    "Twitter Url": "",
+    "Facebook Url": ""
+  },
+  "identity": {
+    "name": "Anthony Foley",
+    "first_name": "Anthony",
+    "last_name": "Foley",
+    "job_title": "Cto/ciso",
+    "company": "Resource Capital Funds",
+    "industry": "financial services,venture capital & private equity,investment management",
+    "linkedin_url": "http://www.linkedin.com/in/anthonyfoleyit",
+    "company_website": "https://resourcecapitalfunds.com",
+    "professional_email": "tfoley@rcflp.com",
+    "city": "Denver",
+    "state": "Colorado",
+    "country": "United States"
+  },
+  "contact": {
+    "email": "tfoley@rcflp.com",
+    "email_type": "work",
+    "email_verification_status": "syntax_valid_unprobed",
+    "linkedin_url": "http://www.linkedin.com/in/anthonyfoleyit",
+    "contact_channel_status": "available"
+  },
+  "company": {
+    "name": "Resource Capital Funds",
+    "website": "https://resourcecapitalfunds.com",
+    "domain": "resourcecapitalfunds.com",
+    "industry": "financial services,venture capital & private equity,investment management",
+    "verified": false
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at Resource Capital Funds",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "API Security & Microservices"
+    ],
+    "public_projects": [
+      "Platform development and operations for Resource Capital Funds"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at Resource Capital Funds"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Anthony Foley (Cto/ciso at Resource Capital Funds) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails",
+        "Privacy-Preserving Data Exchange & Compliance"
+      ],
+      "evidence_points": [
+        "Role 'Cto/ciso' makes architecture decisions for emerging AI capabilities",
+        "Regulated vertical 'financial services,venture capital & private equity,investment management' mandates strict API access controls and audited data flow"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 1,
+    "reason": "Priority 1 (Medium Fit): Cto/ciso at Resource Capital Funds is in a relevant role or vertical, but requires further qualification of immediate security/AI deployment urgency.",
+    "score": 90.0,
+    "confidence": 0.33,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'Cto/ciso'",
+      "Target enterprise vertical matching SealAPI: 'financial services'",
+      "Moderate AI/API infrastructure signals: ai, api, compliance"
+    ]
+  },
+  "sources": [
+    {
+      "source_id": "src_input_lead_063",
+      "source_url": "lead_import_record",
+      "source_type": "user_input",
+      "title": null,
+      "publisher": null,
+      "retrieval_timestamp": "2026-10-20T15:16:10.363353+00:00",
+      "published_at": null,
+      "relevant_excerpt": null,
+      "evidence_quality": 0.6,
+      "supports_claim_ids": [],
+      "facts_supported": [
+        "Imported Name: Anthony Foley",
+        "Imported Job Title: Cto/ciso",
+        "Imported Company: Resource Capital Funds",
+        "Imported Industry: financial services,venture capital & private equity,investment management",
+        "Imported Professional Email: tfoley@rcflp.com",
+        "Imported Company Website: https://resourcecapitalfunds.com"
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "clm_name",
+      "field": "name",
+      "value": "Anthony Foley",
+      "status": "verified",
+      "source_ids": [
+        "src_input_lead_063"
+      ],
+      "confidence": 0.75,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_company",
+      "field": "company",
+      "value": "Resource Capital Funds",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_063"
+      ],
+      "confidence": 0.7,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_title",
+      "field": "job_title",
+      "value": "Cto/ciso",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_063"
+      ],
+      "confidence": 0.65,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_email",
+      "field": "professional_email",
+      "value": "tfoley@rcflp.com",
+      "status": "unverified",
+      "source_ids": [
+        "src_input_lead_063"
+      ],
+      "confidence": 0.5,
+      "last_verified_at": null,
+      "review_reason": "Syntax valid from import; deliverability probe not performed"
+    }
+  ],
+  "public_signals": [],
+  "icebreaker": {
+    "text": "Given Resource Capital Funds's focus in financial services,venture capital & private equity,investment management, data privacy governance and auditable API exchanges are typically paramount.",
+    "icebreaker_type": "general_question",
+    "source_ids": [
+      "src_input_lead_063"
+    ],
+    "confidence": 0.6,
+    "why_it_matters": "Regulated verticals require verifiable controls to ensure sensitive data does not cross unauthorized API boundaries.",
+    "potential_pain_point": "Hypothesis: Ensuring third-party integrations and internal models comply with strict compliance audits.",
+    "conversation_question": "How does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?",
+    "personalization_status": "needs_review",
+    "outreach_draft": {
+      "subject": "API security & AI infrastructure at Resource Capital Funds",
+      "greeting": "Hi Anthony,",
+      "opener": "Given Resource Capital Funds's focus in financial services,venture capital & private equity,investment management, data privacy governance and auditable API exchanges are typically paramount.",
+      "sealapi_connection": "At SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.",
+      "low_pressure_ask": "How does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?",
+      "full_body": "Hi Anthony,\n\nGiven Resource Capital Funds's focus in financial services,venture capital & private equity,investment management, data privacy governance and auditable API exchanges are typically paramount.\n\nAt SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.\n\nHow does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?\n\nBest regards,\nSealAPI Research & Partnerships"
+    }
+  },
+  "scoring": {
+    "lead_fit_score": 90.0,
+    "role_fit_score": 35.0,
+    "industry_fit_score": 30.0,
+    "technical_need_score": 15.0,
+    "verification_confidence": 0.33,
+    "readiness_status": "ready_with_caveat",
+    "explanations": [
+      "High-authority security/AI decision maker role: 'Cto/ciso'",
+      "Target enterprise vertical matching SealAPI: 'financial services'",
+      "Moderate AI/API infrastructure signals: ai, api, compliance"
+    ]
+  },
+  "contact_readiness": {
+    "status": "ready_with_caveat",
+    "has_name": true,
+    "has_verified_role": true,
+    "has_company_context": true,
+    "has_usable_contact_channel": true,
+    "has_evidence_based_icebreaker": false,
+    "blockers": [
+      "identity_not_verified",
+      "icebreaker_needs_review"
+    ]
+  },
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as Cto/ciso at Resource Capital Funds.",
+      "Focus on API Security & Microservices.",
+      "Evidence-based opener: Given Resource Capital Funds's focus in financial services,venture capital & private equity,investment management, data privacy governance and auditable API exchanges are typically paramount."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for financial services,venture capital & private equity,investment management.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "How does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly.",
+      "Do not assume delivered email address guarantees personal inbox delivery without validation."
+    ],
+    "missing_verification_points": [
+      "Icebreaker status: needs_review (human review recommended)."
+    ]
+  },
+  "research_metadata": {
+    "schema_version": "2.0.0",
+    "batch_id": "batch_20261020T151604Z_b82e6829",
+    "pipeline_version": "2.0.0",
+    "researched_at": "2026-10-20T15:16:10.363353+00:00",
+    "execution_status": "partial",
+    "verification_status": "unverified",
+    "source_count": 1,
+    "review_required": true,
+    "cache_fingerprint": "a5e2e164567fd57ed9ea97d3a7209438925aaa6c63f8f1fed2e014ba384a6219",
+    "errors_and_limitations": [
+      "LinkedIn URL (http://www.linkedin.com/in/anthonyfoleyit) is behind an authentication wall; public domain records used for verified evidence."
+    ],
+    "research_status": "partial",
+    "last_research_timestamp": "2026-10-20T15:16:10.363353+00:00",
+    "sources_examined": 1
+  }
+}

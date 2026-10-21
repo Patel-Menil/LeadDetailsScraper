@@ -1,0 +1,247 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_8d9683685a3f",
+  "input_snapshot": {
+    "Linkedin Url": "http://www.linkedin.com/in/steve-metcalf-bbj",
+    "Full Name": "Steve Metcalf",
+    "First Name": "Steve",
+    "Last Name": "Metcalf",
+    "Email": "steve@imagineai.live",
+    "Email Status": "verified",
+    "Job Title": "Founder, CEO, & Chief AI Officer",
+    "Company Name": "IMAGINE AI LIVE",
+    "Company Website": "http://www.imagineai.live",
+    "City": "Minneapolis",
+    "State": "Minnesota",
+    "Country": "United States",
+    "Industry": "information services",
+    "Keywords": "ai automation,ai for hr and recruitment,ai-driven content marketing,ai tools,ai automation platforms,ai technology showcase,ai in legal tech,predictive analytics,ai for autonomous workflows,education,ai in finance,ai in healthcare diagnostics,ai masterclasses,computer systems design and related services,innovation,ai expert interviews,ai for enterprise data management,b2b,ai community forums,ai for enterprise security,ai for financial services,ai for sales,ai industry insights,ai in influencer marketing,ai applications,ai for brand storytelling,manufacturing,ai strategies,ai for enterprise transformation,ai in real estate,information technology,ai content subscriptions,ai in creative arts,ai in legal compliance,ai in manufacturing,ai in compliance management,ai conference,ai networking,ai platform partnerships,ai for customer engagement,ai for manufacturing optimization,ai-powered workflows,ai app development platforms,consulting,ai community networking,ai in content moderation,legal services,finance,healthcare,ai content library,ai ethics and governance,ai in music and video production,ai content on demand,ai event sponsorship,ai in healthcare,ai for business automation,ai for data analytics,ai industry reports,ai for business intelligence,ai community membership,ai in creative design tools,ai for personalized marketing,ai workshops,ai in customer support,customer engagement,ai in financial modeling,ai creative tools,ai ethics frameworks,ai for estate planning,ai for digital media,ai community,ai in creative design,ai content sharing,ai marketing platforms,ai enterprise solutions,services,ai in manufacturing quality control,ai thought leadership,ai for productivity,ai innovation labs,enterprise ai,ai content creation,ai industry trends,digital transformation,ai platform integration,ai content curation,ai for virtual collaboration,ai for supply chain,ai industry leaders,ai industry collaboration,ai content downloads,ai developer tools,ai virtual events,ai for leadership,ai in education tech,ai in predictive maintenance,ai for app building,ai governance models,ai in content production,generative ai,ai in advertising,ai community membership benefits,ai for business,ai-driven marketing,ai in wearable tech,ai keynote speakers,ai event recordings,ai productivity tools,ai content creation tools,ai education,ai case studies,ai strategy,ai technologies,machine learning,ai agents,prompt engineering,workflow automation,ai creativity,real-time data analysis,ai ethics,ai governance,ai innovation,business transformation,ai speakers,ai training,ai personal productivity,natural language processing,ai showcase,hands-on ai,ai solutions,ai learning,large language models,ai collaborations,workshops for ai professionals,ai engagement,ai business cases,ai thought leaders,networking opportunities in ai,ai insights,self-service ai,ai for startups,ai in organizations,ai for healthcare,ai for education,ai for creative industries,ai data insights,content personalization with ai,ai in marketing,ai in sales,ai development platforms,legal,distribution,information technology & services,enterprise software,enterprises,computer software,mechanical or industrial engineering,financial services,health care,health, wellness & fitness,hospital & health care,artificial intelligence,analytics",
+    "Employees": "8",
+    "Company City": "Las Vegas",
+    "Company State": "Nevada",
+    "Company Country": "United States",
+    "Company Linkedin Url": "http://www.linkedin.com/company/imagineailive",
+    "Company Twitter Url": "",
+    "Company Facebook Url": "",
+    "Company Phone Numbers": "",
+    "Twitter Url": "",
+    "Facebook Url": ""
+  },
+  "identity": {
+    "name": "Steve Metcalf",
+    "first_name": "Steve",
+    "last_name": "Metcalf",
+    "job_title": "Founder, CEO, & Chief AI Officer",
+    "company": "IMAGINE AI LIVE",
+    "industry": "information services",
+    "linkedin_url": "http://www.linkedin.com/in/steve-metcalf-bbj",
+    "company_website": "http://www.imagineai.live",
+    "professional_email": "steve@imagineai.live",
+    "city": "Minneapolis",
+    "state": "Minnesota",
+    "country": "United States"
+  },
+  "contact": {
+    "email": "steve@imagineai.live",
+    "email_type": "work",
+    "email_verification_status": "syntax_valid_unprobed",
+    "linkedin_url": "http://www.linkedin.com/in/steve-metcalf-bbj",
+    "contact_channel_status": "available"
+  },
+  "company": {
+    "name": "IMAGINE AI LIVE",
+    "website": "http://www.imagineai.live",
+    "domain": "imagineai.live",
+    "industry": "information services",
+    "verified": false
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at IMAGINE AI LIVE",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Generative AI & LLM Infrastructure"
+    ],
+    "public_projects": [
+      "Platform development and operations for IMAGINE AI LIVE"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at IMAGINE AI LIVE"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Steve Metcalf (Founder, CEO, & Chief AI Officer at IMAGINE AI LIVE) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails"
+      ],
+      "evidence_points": [
+        "Role 'Founder, CEO, & Chief AI Officer' makes architecture decisions for emerging AI capabilities"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 1,
+    "reason": "Priority 1 (Medium Fit): Founder, CEO, & Chief AI Officer at IMAGINE AI LIVE is in a relevant role or vertical, but requires further qualification of immediate security/AI deployment urgency.",
+    "score": 75.0,
+    "confidence": 0.33,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'Founder, CEO, & Chief AI Officer'",
+      "Strong verified AI/API security need (matched signals: ai, artificial intelligence, machine learning, generative ai, security, compliance)"
+    ]
+  },
+  "sources": [
+    {
+      "source_id": "src_input_lead_8d9",
+      "source_url": "lead_import_record",
+      "source_type": "user_input",
+      "title": null,
+      "publisher": null,
+      "retrieval_timestamp": "2026-10-20T15:16:10.228958+00:00",
+      "published_at": null,
+      "relevant_excerpt": null,
+      "evidence_quality": 0.6,
+      "supports_claim_ids": [],
+      "facts_supported": [
+        "Imported Name: Steve Metcalf",
+        "Imported Job Title: Founder, CEO, & Chief AI Officer",
+        "Imported Company: IMAGINE AI LIVE",
+        "Imported Industry: information services",
+        "Imported Professional Email: steve@imagineai.live",
+        "Imported Company Website: http://www.imagineai.live"
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "clm_name",
+      "field": "name",
+      "value": "Steve Metcalf",
+      "status": "verified",
+      "source_ids": [
+        "src_input_lead_8d9"
+      ],
+      "confidence": 0.75,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_company",
+      "field": "company",
+      "value": "IMAGINE AI LIVE",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_8d9"
+      ],
+      "confidence": 0.7,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_title",
+      "field": "job_title",
+      "value": "Founder, CEO, & Chief AI Officer",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_8d9"
+      ],
+      "confidence": 0.65,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_email",
+      "field": "professional_email",
+      "value": "steve@imagineai.live",
+      "status": "unverified",
+      "source_ids": [
+        "src_input_lead_8d9"
+      ],
+      "confidence": 0.5,
+      "last_verified_at": null,
+      "review_reason": "Syntax valid from import; deliverability probe not performed"
+    }
+  ],
+  "public_signals": [],
+  "icebreaker": {
+    "text": "I have been following how technology teams in the information services sector are managing API and AI endpoint security.",
+    "icebreaker_type": "general_question",
+    "source_ids": [
+      "src_input_lead_8d9"
+    ],
+    "confidence": 0.45,
+    "why_it_matters": "SealAPI helps organizations protect APIs from token leakage, prompt injection, and credential abuse with zero-trust gateways.",
+    "potential_pain_point": "Hypothesis: Preventing credential leakage and unauthorized API consumption in production.",
+    "conversation_question": "Would you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?",
+    "personalization_status": "generic_fallback",
+    "outreach_draft": {
+      "subject": "API security & AI infrastructure at IMAGINE AI LIVE",
+      "greeting": "Hi Steve,",
+      "opener": "I have been following how technology teams in the information services sector are managing API and AI endpoint security.",
+      "sealapi_connection": "At SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.",
+      "low_pressure_ask": "Would you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?",
+      "full_body": "Hi Steve,\n\nI have been following how technology teams in the information services sector are managing API and AI endpoint security.\n\nAt SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.\n\nWould you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?\n\nBest regards,\nSealAPI Research & Partnerships"
+    }
+  },
+  "scoring": {
+    "lead_fit_score": 75.0,
+    "role_fit_score": 35.0,
+    "industry_fit_score": 5.0,
+    "technical_need_score": 25.0,
+    "verification_confidence": 0.33,
+    "readiness_status": "ready_with_caveat",
+    "explanations": [
+      "High-authority security/AI decision maker role: 'Founder, CEO, & Chief AI Officer'",
+      "Strong verified AI/API security need (matched signals: ai, artificial intelligence, machine learning, generative ai, security, compliance)"
+    ]
+  },
+  "contact_readiness": {
+    "status": "ready_with_caveat",
+    "has_name": true,
+    "has_verified_role": true,
+    "has_company_context": true,
+    "has_usable_contact_channel": true,
+    "has_evidence_based_icebreaker": false,
+    "blockers": [
+      "identity_not_verified"
+    ]
+  },
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as Founder, CEO, & Chief AI Officer at IMAGINE AI LIVE.",
+      "Focus on Generative AI & LLM Infrastructure.",
+      "Evidence-based opener: I have been following how technology teams in the information services sector are managing API and AI endpoint security."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for information services.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "Would you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly.",
+      "Do not assume delivered email address guarantees personal inbox delivery without validation."
+    ],
+    "missing_verification_points": [
+      "Icebreaker status: generic_fallback (human review recommended)."
+    ]
+  },
+  "research_metadata": {
+    "schema_version": "2.0.0",
+    "batch_id": "batch_20261020T151604Z_b82e6829",
+    "pipeline_version": "2.0.0",
+    "researched_at": "2026-10-20T15:16:10.228958+00:00",
+    "execution_status": "partial",
+    "verification_status": "unverified",
+    "source_count": 1,
+    "review_required": true,
+    "cache_fingerprint": "a5e2e164567fd57ed9ea97d3a7209438925aaa6c63f8f1fed2e014ba384a6219",
+    "errors_and_limitations": [
+      "LinkedIn URL (http://www.linkedin.com/in/steve-metcalf-bbj) is behind an authentication wall; public domain records used for verified evidence."
+    ],
+    "research_status": "partial",
+    "last_research_timestamp": "2026-10-20T15:16:10.228958+00:00",
+    "sources_examined": 1
+  }
+}

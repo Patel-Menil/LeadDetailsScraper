@@ -1,0 +1,252 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_189813ddde89",
+  "input_snapshot": {
+    "Linkedin Url": "http://www.linkedin.com/in/eric-santiago-cisa-cdpse-062aa2b",
+    "Full Name": "Eric Santiago",
+    "First Name": "Eric",
+    "Last Name": "Santiago",
+    "Email": "eric.santiago@clinicalcaremc.com",
+    "Email Status": "verified",
+    "Job Title": "Chief Technology Officer & CISO",
+    "Company Name": "Clinical Care Medical Centers",
+    "Company Website": "https://clinicalcaremc.com",
+    "City": "Miami",
+    "State": "Florida",
+    "Country": "United States",
+    "Industry": "hospital & health care",
+    "Keywords": "managed network,patient transportation,primary care,internal medicine,telehealth,pharmacy,diagnostic testing,ultrasound,cardiology,psychiatry,optometry,dental,podiatry,nutritionists,dermatology,arthritis,wellness programs,pain management,behavioral health,endocrinology,acupuncture,access,neuropathic,247 urgent care hotline,optica,general medicine,hospitals & health care,healthcare,remote patient monitoring,medical practice florida,patient-centered medical home,personalized care,wellness centers,patient relationships,preventive care,community healthcare,integrated healthcare,value-based care,care coordination,holistic health,healthcare technology,medical treatment innovation,prp therapy,medical group,care management,specialty services,multispecialty healthcare,telemedicine,patient engagement,home healthcare,ncqa certification,services,urgent care,offices of physicians,medical technology,healthcare services,florida clinics,healthcare accessibility,family medicine,b2c,medical,health care,health, wellness & fitness,hospital & health care,health care information technology",
+    "Employees": "700",
+    "Company City": "Miami Beach",
+    "Company State": "Florida",
+    "Company Country": "United States",
+    "Company Linkedin Url": "http://www.linkedin.com/company/clinicalcaremedicalcenters",
+    "Company Twitter Url": "https://twitter.com/ClinicalCareMC",
+    "Company Facebook Url": "https://facebook.com/ClinicalCareMC",
+    "Company Phone Numbers": "",
+    "Twitter Url": "",
+    "Facebook Url": ""
+  },
+  "identity": {
+    "name": "Eric Santiago",
+    "first_name": "Eric",
+    "last_name": "Santiago",
+    "job_title": "Chief Technology Officer & CISO",
+    "company": "Clinical Care Medical Centers",
+    "industry": "hospital & health care",
+    "linkedin_url": "http://www.linkedin.com/in/eric-santiago-cisa-cdpse-062aa2b",
+    "company_website": "https://clinicalcaremc.com",
+    "professional_email": "eric.santiago@clinicalcaremc.com",
+    "city": "Miami",
+    "state": "Florida",
+    "country": "United States"
+  },
+  "contact": {
+    "email": "eric.santiago@clinicalcaremc.com",
+    "email_type": "work",
+    "email_verification_status": "syntax_valid_unprobed",
+    "linkedin_url": "http://www.linkedin.com/in/eric-santiago-cisa-cdpse-062aa2b",
+    "contact_channel_status": "available"
+  },
+  "company": {
+    "name": "Clinical Care Medical Centers",
+    "website": "https://clinicalcaremc.com",
+    "domain": "clinicalcaremc.com",
+    "industry": "hospital & health care",
+    "verified": false
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at Clinical Care Medical Centers",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Healthcare Data Privacy (HIPAA) & Safe Exchange"
+    ],
+    "public_projects": [
+      "Platform development and operations for Clinical Care Medical Centers"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at Clinical Care Medical Centers"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Eric Santiago (Chief Technology Officer & CISO at Clinical Care Medical Centers) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails",
+        "Privacy-Preserving Data Exchange & Compliance"
+      ],
+      "evidence_points": [
+        "Role 'Chief Technology Officer & CISO' makes architecture decisions for emerging AI capabilities",
+        "Regulated vertical 'hospital & health care' mandates strict API access controls and audited data flow"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 1,
+    "reason": "Priority 1 (Medium Fit): Chief Technology Officer & CISO at Clinical Care Medical Centers is in a relevant role or vertical, but requires further qualification of immediate security/AI deployment urgency.",
+    "score": 83.0,
+    "confidence": 0.33,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'Chief Technology Officer & CISO'",
+      "Target enterprise vertical matching SealAPI: 'hospital & health care'",
+      "Limited technical keywords: ai"
+    ]
+  },
+  "sources": [
+    {
+      "source_id": "src_input_lead_189",
+      "source_url": "lead_import_record",
+      "source_type": "user_input",
+      "title": null,
+      "publisher": null,
+      "retrieval_timestamp": "2026-10-20T15:16:10.349454+00:00",
+      "published_at": null,
+      "relevant_excerpt": null,
+      "evidence_quality": 0.6,
+      "supports_claim_ids": [],
+      "facts_supported": [
+        "Imported Name: Eric Santiago",
+        "Imported Job Title: Chief Technology Officer & CISO",
+        "Imported Company: Clinical Care Medical Centers",
+        "Imported Industry: hospital & health care",
+        "Imported Professional Email: eric.santiago@clinicalcaremc.com",
+        "Imported Company Website: https://clinicalcaremc.com"
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "clm_name",
+      "field": "name",
+      "value": "Eric Santiago",
+      "status": "verified",
+      "source_ids": [
+        "src_input_lead_189"
+      ],
+      "confidence": 0.75,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_company",
+      "field": "company",
+      "value": "Clinical Care Medical Centers",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_189"
+      ],
+      "confidence": 0.7,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_title",
+      "field": "job_title",
+      "value": "Chief Technology Officer & CISO",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_189"
+      ],
+      "confidence": 0.65,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_email",
+      "field": "professional_email",
+      "value": "eric.santiago@clinicalcaremc.com",
+      "status": "unverified",
+      "source_ids": [
+        "src_input_lead_189"
+      ],
+      "confidence": 0.5,
+      "last_verified_at": null,
+      "review_reason": "Syntax valid from import; deliverability probe not performed"
+    }
+  ],
+  "public_signals": [],
+  "icebreaker": {
+    "text": "Given Clinical Care Medical Centers's focus in hospital & health care, data privacy governance and auditable API exchanges are typically paramount.",
+    "icebreaker_type": "general_question",
+    "source_ids": [
+      "src_input_lead_189"
+    ],
+    "confidence": 0.6,
+    "why_it_matters": "Regulated verticals require verifiable controls to ensure sensitive data does not cross unauthorized API boundaries.",
+    "potential_pain_point": "Hypothesis: Ensuring third-party integrations and internal models comply with strict compliance audits.",
+    "conversation_question": "How does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?",
+    "personalization_status": "needs_review",
+    "outreach_draft": {
+      "subject": "API security & AI infrastructure at Clinical Care Medical Centers",
+      "greeting": "Hi Eric,",
+      "opener": "Given Clinical Care Medical Centers's focus in hospital & health care, data privacy governance and auditable API exchanges are typically paramount.",
+      "sealapi_connection": "At SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.",
+      "low_pressure_ask": "How does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?",
+      "full_body": "Hi Eric,\n\nGiven Clinical Care Medical Centers's focus in hospital & health care, data privacy governance and auditable API exchanges are typically paramount.\n\nAt SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.\n\nHow does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?\n\nBest regards,\nSealAPI Research & Partnerships"
+    }
+  },
+  "scoring": {
+    "lead_fit_score": 83.0,
+    "role_fit_score": 35.0,
+    "industry_fit_score": 30.0,
+    "technical_need_score": 8.0,
+    "verification_confidence": 0.33,
+    "readiness_status": "ready_with_caveat",
+    "explanations": [
+      "High-authority security/AI decision maker role: 'Chief Technology Officer & CISO'",
+      "Target enterprise vertical matching SealAPI: 'hospital & health care'",
+      "Limited technical keywords: ai"
+    ]
+  },
+  "contact_readiness": {
+    "status": "ready_with_caveat",
+    "has_name": true,
+    "has_verified_role": true,
+    "has_company_context": true,
+    "has_usable_contact_channel": true,
+    "has_evidence_based_icebreaker": false,
+    "blockers": [
+      "identity_not_verified",
+      "icebreaker_needs_review"
+    ]
+  },
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as Chief Technology Officer & CISO at Clinical Care Medical Centers.",
+      "Focus on Healthcare Data Privacy (HIPAA) & Safe Exchange.",
+      "Evidence-based opener: Given Clinical Care Medical Centers's focus in hospital & health care, data privacy governance and auditable API exchanges are typically paramount."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for hospital & health care.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "How does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly.",
+      "Do not assume delivered email address guarantees personal inbox delivery without validation."
+    ],
+    "missing_verification_points": [
+      "Icebreaker status: needs_review (human review recommended)."
+    ]
+  },
+  "research_metadata": {
+    "schema_version": "2.0.0",
+    "batch_id": "batch_20261020T151604Z_b82e6829",
+    "pipeline_version": "2.0.0",
+    "researched_at": "2026-10-20T15:16:10.349454+00:00",
+    "execution_status": "partial",
+    "verification_status": "unverified",
+    "source_count": 1,
+    "review_required": true,
+    "cache_fingerprint": "a5e2e164567fd57ed9ea97d3a7209438925aaa6c63f8f1fed2e014ba384a6219",
+    "errors_and_limitations": [
+      "LinkedIn URL (http://www.linkedin.com/in/eric-santiago-cisa-cdpse-062aa2b) is behind an authentication wall; public domain records used for verified evidence."
+    ],
+    "research_status": "partial",
+    "last_research_timestamp": "2026-10-20T15:16:10.349454+00:00",
+    "sources_examined": 1
+  }
+}

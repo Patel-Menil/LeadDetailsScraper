@@ -1,0 +1,163 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_4833169efb0d",
+  "identity": {
+    "name": "Vincent C",
+    "first_name": "Vincent",
+    "last_name": "C",
+    "job_title": "CEO / CIO / CTO / Ciso",
+    "company": "Pivotal Technologies, LLC",
+    "industry": "information technology & services",
+    "linkedin_url": "",
+    "company_website": "http://www.pivotaltech.tech",
+    "professional_email": "vincent@pivotaltech.tech",
+    "city": "Las Vegas",
+    "state": "Nevada",
+    "country": "United States"
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at Pivotal Technologies, LLC",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Generative AI & LLM Infrastructure",
+      "Healthcare Data Privacy (HIPAA) & Safe Exchange"
+    ],
+    "public_projects": [
+      "Platform development and operations for Pivotal Technologies, LLC"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at Pivotal Technologies, LLC",
+      "AI Platforms · Operations · GRC · Security We architect commercial-grade AI platforms and operations: able Precision and Trust  — Engineered",
+      "We treat them as foundational architecture",
+      "Full-lifecycle AI product engineering — architecture, deployment, and self-healing operations"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Vincent C (CEO / CIO / CTO / Ciso at Pivotal Technologies, LLC) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails"
+      ],
+      "evidence_points": [
+        "Role 'CEO / CIO / CTO / Ciso' makes key architecture decisions for emerging AI capabilities"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 0,
+    "reason": "Priority 0 (Highest Fit): CEO / CIO / CTO / Ciso at Pivotal Technologies, LLC matches core decision-maker criteria in a regulated/tech-driven industry with active AI/API needs.",
+    "score": 100.0,
+    "confidence": 1.0,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'CEO / CIO / CTO / Ciso'",
+      "Target enterprise vertical matching SealAPI: 'information technology'",
+      "Strong verified AI/API security need (matched signals: ai, agentic, security, compliance)",
+      "Verified business email domain: vincent@pivotaltech.tech"
+    ]
+  },
+  "sources": [
+    {
+      "source_url": "lead_import_record",
+      "source_type": "input_data",
+      "retrieval_timestamp": "2026-10-10T19:20:16.455006+00:00",
+      "facts_supported": [
+        "Verified Name: Vincent C",
+        "Declared Job Title: CEO / CIO / CTO / Ciso",
+        "Company: Pivotal Technologies, LLC",
+        "Industry: information technology & services",
+        "Verified Professional Email: vincent@pivotaltech.tech",
+        "Reported Location: Las Vegas, Nevada, United States",
+        "Company Keywords: it services & it consulting,information technology & services"
+      ]
+    },
+    {
+      "source_url": "http://www.pivotaltech.tech",
+      "source_type": "company_website",
+      "retrieval_timestamp": "2026-10-10T19:20:18Z",
+      "facts_supported": [
+        "Website Title: Pivotal Technologies — Precision and Trust, Engineered",
+        "Company Mission/Description: Pivotal Technologies architects commercial-grade AI platforms and operations. Governance, security, and compliance engineered in from the first commit. Home of Healist.AI and AIMist.AI.",
+        "Core Offerings: We architect commercial-grade\nAI platforms and operations:, Three vectors to bring AI to market — correctly., What the discipline produces., Healist\n.AI"
+      ]
+    },
+    {
+      "source_url": "https://www.linkedin.com/in/vincentcirel",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:20:23.058325+00:00",
+      "facts_supported": [
+        "Public Profile: Vincent Cirel - CEO / CIO / CTO / CISO | AI, Cybersecurity ... - LinkedIn",
+        "Verified Career & Background: View mutual connections with \nVincent\nVincent\n can introduce you to 1 people at \nPivotal\nTechnologies,\nLLC\n Email or phone Password Show"
+      ]
+    },
+    {
+      "source_url": "https://pivotaltech.tech/company/",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:20:23.058363+00:00",
+      "facts_supported": [
+        "Public Profile: Company — Pivotal Technologies",
+        "Verified Career & Background: As Co-Founder and Chief Commercial Officer at \nPivotal\nTechnologies,\nLLC\n, a technology-driven innovator and the parent company of Healist.ai, Siva brings over four decades of premier enterprise leadership and technology architecture experience to the firm."
+      ]
+    },
+    {
+      "source_url": "https://avasant.com/team/vincent-cirel/",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:20:23.058371+00:00",
+      "facts_supported": [
+        "Public Profile: Vincent Cirel - Avasant",
+        "Verified Career & Background: Vincent\n Cirel Founder and Managing Director at \nPivotal\nTechnologies,\nLLC\nVincent\n is a seasoned technology, engineering, and transformation executive with 20+ years' experience including his CISSP certification. He holds a BS degree in Mathematics and a MS degree in Electrical Engineering from UAB"
+      ]
+    },
+    {
+      "source_url": "https://www.grcworldforums.com/vincent-cirel/6492.article",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:20:23.058378+00:00",
+      "facts_supported": [
+        "Public Profile: Vincent Cirel | Profiles | GRC World Forums",
+        "Verified Career & Background: Advisory board member for graduate MBA / MIS programs, frequent guest lecturer for global organizations/events, and volunteer via multiple fellowships and other advisory bodies. • Since early 2021 \nVincent\n has served as Founder and Managing Director of \nPivotal\nTechnologies,\nLLC\n based in Las Vegas"
+      ]
+    },
+    {
+      "source_url": "https://contactout.com/Vincent-Cirel-95714",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:20:23.058384+00:00",
+      "facts_supported": [
+        "Public Profile: Vincent Cirel Email & Phone Number - ContactOut",
+        "Verified Career & Background: What company does \nVincent\n Cirel work for? \nVincent\n Cirel works for \nPivotal\nTechnologies,\nLLC"
+      ]
+    },
+    {
+      "source_url": "https://www.linkedin.com/company/pivotaltech",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:20:23.058390+00:00",
+      "facts_supported": [
+        "Public Profile: Pivotal Technologies, LLC - LinkedIn",
+        "Verified Career & Background: Pivotal\nTechnologies,\nLLC\n | 33 followers on LinkedIn. AI Consulting, Advisory, Compliance, and Development Services | Most AI is shipped first and secured later. \nPivotal\nTechnologies\n inverts that ..."
+      ]
+    }
+  ],
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as CEO / CIO / CTO / Ciso at Pivotal Technologies, LLC.",
+      "Focus on Generative AI & LLM Infrastructure, Healthcare Data Privacy (HIPAA) & Safe Exchange.",
+      "Background: AI Platforms · Operations · GRC · Security We architect commercial-grade AI platforms and operations: able Precision and..."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for information technology & services.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "Would you be open to a 10-minute technical exchange next Tuesday to explore how SealAPI shields AI and API endpoints for teams like Pivotal Technologies, LLC?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly."
+    ],
+    "missing_verification_points": []
+  },
+  "research_metadata": {
+    "research_status": "completed",
+    "last_research_timestamp": "2026-10-10T19:20:16.455006+00:00",
+    "sources_examined": 8,
+    "errors_and_limitations": []
+  }
+}

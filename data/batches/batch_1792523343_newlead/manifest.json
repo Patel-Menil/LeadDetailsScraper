@@ -1,0 +1,25 @@
+{
+  "batch_id": "batch_1792523343_newlead",
+  "total_processed": 144,
+  "priority_distribution": {
+    "0": 98,
+    "1": 46,
+    "2": 0
+  },
+  "research_status_distribution": {
+    "completed": 139,
+    "partial": 5,
+    "failed": 0
+  },
+  "csv_path": "/app/data/batches/batch_1792523343_newlead/leads_prioritized.csv",
+  "errors_path": "/app/data/batches/batch_1792523343_newlead/errors.csv",
+  "profiles_count": 144,
+  "metadata": {
+    "input_filename": "batch_1792523343_newlead.csv",
+    "dry_run": false,
+    "resume": true,
+    "total_input_rows": 144,
+    "duplicate_records": 0,
+    "malformed_rows": 0
+  }
+}

@@ -1,0 +1,250 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_bc19b8456ce7",
+  "input_snapshot": {
+    "Linkedin Url": "http://www.linkedin.com/in/keith-thornton-bb453017",
+    "Full Name": "Keith Thornton",
+    "First Name": "Keith",
+    "Last Name": "Thornton",
+    "Email": "keith@sleepwellsolutions.com",
+    "Email Status": "verified",
+    "Job Title": "CEO and Chief Technology Officer",
+    "Company Name": "AirWay Technologies, Inc.",
+    "Company Website": "https://sleepwellsolutions.com",
+    "City": "Dallas",
+    "State": "Texas",
+    "Country": "United States",
+    "Industry": "medical devices,health, wellness & fitness,hospital & health care",
+    "Keywords": "medical equipment manufacturing,dental sleep medicine,oral appliance therapy,mandibular advancement device,complex airway management,snoring management,patient-centered care,spinal injury patients,airway management,cpap alternative,sleep quality enhancement,mytap,medicare coverage,cpap mask solutions,oral appliance,custom oral devices,custom sleep solutions,sleep study,healthcare,sleep apnea treatment,respiratory collaboration,sleep disordered breathing,micro-adjustments,sleep therapy,custom sleep devices,severe sleep apnea,d2c,dream tap,sleep health,combination therapy,sleep therapy solutions,out-of-network insurance,offices of all other health practitioners,sleep disordered breathing spectrum,services,sleep apnea,tap-pap nasal pillow mask,sleep health education,patient care,b2c,snoring,sleep disorder treatment,airway collapse prevention,sleep health improvement,airway therapy,post-polio syndrome,b2b,medical devices,hospital & health care,health care,health, wellness & fitness",
+    "Employees": "4",
+    "Company City": "",
+    "Company State": "",
+    "Company Country": "",
+    "Company Linkedin Url": "http://www.linkedin.com/company/airway-technologies-inc.",
+    "Company Twitter Url": "",
+    "Company Facebook Url": "",
+    "Company Phone Numbers": "+1 214-987-4827",
+    "Twitter Url": "",
+    "Facebook Url": ""
+  },
+  "identity": {
+    "name": "Keith Thornton",
+    "first_name": "Keith",
+    "last_name": "Thornton",
+    "job_title": "CEO and Chief Technology Officer",
+    "company": "AirWay Technologies, Inc.",
+    "industry": "medical devices,health, wellness & fitness,hospital & health care",
+    "linkedin_url": "http://www.linkedin.com/in/keith-thornton-bb453017",
+    "company_website": "https://sleepwellsolutions.com",
+    "professional_email": "keith@sleepwellsolutions.com",
+    "city": "Dallas",
+    "state": "Texas",
+    "country": "United States"
+  },
+  "contact": {
+    "email": "keith@sleepwellsolutions.com",
+    "email_type": "work",
+    "email_verification_status": "syntax_valid_unprobed",
+    "linkedin_url": "http://www.linkedin.com/in/keith-thornton-bb453017",
+    "contact_channel_status": "available"
+  },
+  "company": {
+    "name": "AirWay Technologies, Inc.",
+    "website": "https://sleepwellsolutions.com",
+    "domain": "sleepwellsolutions.com",
+    "industry": "medical devices,health, wellness & fitness,hospital & health care",
+    "verified": false
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at AirWay Technologies, Inc.",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Healthcare Data Privacy (HIPAA) & Safe Exchange"
+    ],
+    "public_projects": [
+      "Platform development and operations for AirWay Technologies, Inc."
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at AirWay Technologies, Inc."
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Keith Thornton (CEO and Chief Technology Officer at AirWay Technologies, Inc.) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Privacy-Preserving Data Exchange & Compliance"
+      ],
+      "evidence_points": [
+        "Regulated vertical 'medical devices,health, wellness & fitness,hospital & health care' mandates strict API access controls and audited data flow"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 1,
+    "reason": "Priority 1 (Medium Fit): CEO and Chief Technology Officer at AirWay Technologies, Inc. is in a relevant role or vertical, but requires further qualification of immediate security/AI deployment urgency.",
+    "score": 83.0,
+    "confidence": 0.33,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'CEO and Chief Technology Officer'",
+      "Target enterprise vertical matching SealAPI: 'hospital & health care'",
+      "Limited technical keywords: ai"
+    ]
+  },
+  "sources": [
+    {
+      "source_id": "src_input_lead_bc1",
+      "source_url": "lead_import_record",
+      "source_type": "user_input",
+      "title": null,
+      "publisher": null,
+      "retrieval_timestamp": "2026-10-20T15:16:10.436157+00:00",
+      "published_at": null,
+      "relevant_excerpt": null,
+      "evidence_quality": 0.6,
+      "supports_claim_ids": [],
+      "facts_supported": [
+        "Imported Name: Keith Thornton",
+        "Imported Job Title: CEO and Chief Technology Officer",
+        "Imported Company: AirWay Technologies, Inc.",
+        "Imported Industry: medical devices,health, wellness & fitness,hospital & health care",
+        "Imported Professional Email: keith@sleepwellsolutions.com",
+        "Imported Company Website: https://sleepwellsolutions.com"
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "clm_name",
+      "field": "name",
+      "value": "Keith Thornton",
+      "status": "verified",
+      "source_ids": [
+        "src_input_lead_bc1"
+      ],
+      "confidence": 0.75,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_company",
+      "field": "company",
+      "value": "AirWay Technologies, Inc.",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_bc1"
+      ],
+      "confidence": 0.7,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_title",
+      "field": "job_title",
+      "value": "CEO and Chief Technology Officer",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_bc1"
+      ],
+      "confidence": 0.65,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_email",
+      "field": "professional_email",
+      "value": "keith@sleepwellsolutions.com",
+      "status": "unverified",
+      "source_ids": [
+        "src_input_lead_bc1"
+      ],
+      "confidence": 0.5,
+      "last_verified_at": null,
+      "review_reason": "Syntax valid from import; deliverability probe not performed"
+    }
+  ],
+  "public_signals": [],
+  "icebreaker": {
+    "text": "Given AirWay Technologies, Inc.'s focus in medical devices,health, wellness & fitness,hospital & health care, data privacy governance and auditable API exchanges are typically paramount.",
+    "icebreaker_type": "general_question",
+    "source_ids": [
+      "src_input_lead_bc1"
+    ],
+    "confidence": 0.6,
+    "why_it_matters": "Regulated verticals require verifiable controls to ensure sensitive data does not cross unauthorized API boundaries.",
+    "potential_pain_point": "Hypothesis: Ensuring third-party integrations and internal models comply with strict compliance audits.",
+    "conversation_question": "How does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?",
+    "personalization_status": "needs_review",
+    "outreach_draft": {
+      "subject": "API security & AI infrastructure at AirWay Technologies, Inc.",
+      "greeting": "Hi Keith,",
+      "opener": "Given AirWay Technologies, Inc.'s focus in medical devices,health, wellness & fitness,hospital & health care, data privacy governance and auditable API exchanges are typically paramount.",
+      "sealapi_connection": "At SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.",
+      "low_pressure_ask": "How does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?",
+      "full_body": "Hi Keith,\n\nGiven AirWay Technologies, Inc.'s focus in medical devices,health, wellness & fitness,hospital & health care, data privacy governance and auditable API exchanges are typically paramount.\n\nAt SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.\n\nHow does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?\n\nBest regards,\nSealAPI Research & Partnerships"
+    }
+  },
+  "scoring": {
+    "lead_fit_score": 83.0,
+    "role_fit_score": 35.0,
+    "industry_fit_score": 30.0,
+    "technical_need_score": 8.0,
+    "verification_confidence": 0.33,
+    "readiness_status": "ready_with_caveat",
+    "explanations": [
+      "High-authority security/AI decision maker role: 'CEO and Chief Technology Officer'",
+      "Target enterprise vertical matching SealAPI: 'hospital & health care'",
+      "Limited technical keywords: ai"
+    ]
+  },
+  "contact_readiness": {
+    "status": "ready_with_caveat",
+    "has_name": true,
+    "has_verified_role": true,
+    "has_company_context": true,
+    "has_usable_contact_channel": true,
+    "has_evidence_based_icebreaker": false,
+    "blockers": [
+      "identity_not_verified",
+      "icebreaker_needs_review"
+    ]
+  },
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as CEO and Chief Technology Officer at AirWay Technologies, Inc..",
+      "Focus on Healthcare Data Privacy (HIPAA) & Safe Exchange.",
+      "Evidence-based opener: Given AirWay Technologies, Inc.'s focus in medical devices,health, wellness & fitness,hospital & health care, data privacy governance and auditable API exchanges are typically paramount."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for medical devices,health, wellness & fitness,hospital & health care.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "How does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly.",
+      "Do not assume delivered email address guarantees personal inbox delivery without validation."
+    ],
+    "missing_verification_points": [
+      "Icebreaker status: needs_review (human review recommended)."
+    ]
+  },
+  "research_metadata": {
+    "schema_version": "2.0.0",
+    "batch_id": "batch_20261020T151604Z_b82e6829",
+    "pipeline_version": "2.0.0",
+    "researched_at": "2026-10-20T15:16:10.436157+00:00",
+    "execution_status": "partial",
+    "verification_status": "unverified",
+    "source_count": 1,
+    "review_required": true,
+    "cache_fingerprint": "a5e2e164567fd57ed9ea97d3a7209438925aaa6c63f8f1fed2e014ba384a6219",
+    "errors_and_limitations": [
+      "LinkedIn URL (http://www.linkedin.com/in/keith-thornton-bb453017) is behind an authentication wall; public domain records used for verified evidence."
+    ],
+    "research_status": "partial",
+    "last_research_timestamp": "2026-10-20T15:16:10.436157+00:00",
+    "sources_examined": 1
+  }
+}

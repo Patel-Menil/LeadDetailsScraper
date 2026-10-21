@@ -1,0 +1,247 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_edd24fee2c67",
+  "input_snapshot": {
+    "Linkedin Url": "",
+    "Full Name": "Matt F",
+    "First Name": "Matt",
+    "Last Name": "F",
+    "Email": "mfok@aixnetwork.net",
+    "Email Status": "verified",
+    "Job Title": "CEO & Founder & CAIO (Chief AI Officer)",
+    "Company Name": "AI X Network - Unlock Your AI Assets & Network: Boost Traffic, Insights & Talent",
+    "Company Website": "http://www.aixnetwork.net",
+    "City": "San Francisco",
+    "State": "California",
+    "Country": "United States",
+    "Industry": "information technology & services",
+    "Keywords": "ai,digital transformation,hybrid event,ai chatbot,knowledge transfer,partner network,partner development,lead generation,technology, information & internet,marketing & advertising,sales,information technology & services",
+    "Employees": "1",
+    "Company City": "San Mateo",
+    "Company State": "California",
+    "Company Country": "United States",
+    "Company Linkedin Url": "http://www.linkedin.com/company/ai-x-network",
+    "Company Twitter Url": "",
+    "Company Facebook Url": "",
+    "Company Phone Numbers": "+1 415-533-8866",
+    "Twitter Url": "",
+    "Facebook Url": ""
+  },
+  "identity": {
+    "name": "Matt F",
+    "first_name": "Matt",
+    "last_name": "F",
+    "job_title": "CEO & Founder & CAIO (Chief AI Officer)",
+    "company": "AI X Network - Unlock Your AI Assets & Network: Boost Traffic, Insights & Talent",
+    "industry": "information technology & services",
+    "linkedin_url": "",
+    "company_website": "http://www.aixnetwork.net",
+    "professional_email": "mfok@aixnetwork.net",
+    "city": "San Francisco",
+    "state": "California",
+    "country": "United States"
+  },
+  "contact": {
+    "email": "mfok@aixnetwork.net",
+    "email_type": "work",
+    "email_verification_status": "syntax_valid_unprobed",
+    "linkedin_url": "",
+    "contact_channel_status": "available"
+  },
+  "company": {
+    "name": "AI X Network - Unlock Your AI Assets & Network: Boost Traffic, Insights & Talent",
+    "website": "http://www.aixnetwork.net",
+    "domain": "aixnetwork.net",
+    "industry": "information technology & services",
+    "verified": false
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at AI X Network - Unlock Your AI Assets & Network: Boost Traffic, Insights & Talent",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Generative AI & LLM Infrastructure"
+    ],
+    "public_projects": [
+      "Platform development and operations for AI X Network - Unlock Your AI Assets & Network: Boost Traffic, Insights & Talent"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at AI X Network - Unlock Your AI Assets & Network: Boost Traffic, Insights & Talent"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Matt F (CEO & Founder & CAIO (Chief AI Officer) at AI X Network - Unlock Your AI Assets & Network: Boost Traffic, Insights & Talent) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails"
+      ],
+      "evidence_points": [
+        "Role 'CEO & Founder & CAIO (Chief AI Officer)' makes architecture decisions for emerging AI capabilities"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 1,
+    "reason": "Priority 1 (Medium Fit): CEO & Founder & CAIO (Chief AI Officer) at AI X Network - Unlock Your AI Assets & Network: Boost Traffic, Insights & Talent is in a relevant role or vertical, but requires further qualification of immediate security/AI deployment urgency.",
+    "score": 83.0,
+    "confidence": 0.24,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'CEO & Founder & CAIO (Chief AI Officer)'",
+      "Target enterprise vertical matching SealAPI: 'information technology'",
+      "Limited technical keywords: ai"
+    ]
+  },
+  "sources": [
+    {
+      "source_id": "src_input_lead_edd",
+      "source_url": "lead_import_record",
+      "source_type": "user_input",
+      "title": null,
+      "publisher": null,
+      "retrieval_timestamp": "2026-10-20T15:16:10.311397+00:00",
+      "published_at": null,
+      "relevant_excerpt": null,
+      "evidence_quality": 0.6,
+      "supports_claim_ids": [],
+      "facts_supported": [
+        "Imported Name: Matt F",
+        "Imported Job Title: CEO & Founder & CAIO (Chief AI Officer)",
+        "Imported Company: AI X Network - Unlock Your AI Assets & Network: Boost Traffic, Insights & Talent",
+        "Imported Industry: information technology & services",
+        "Imported Professional Email: mfok@aixnetwork.net",
+        "Imported Company Website: http://www.aixnetwork.net"
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "clm_name",
+      "field": "name",
+      "value": "Matt F",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_edd"
+      ],
+      "confidence": 0.5,
+      "last_verified_at": null,
+      "review_reason": "Surname is abbreviated; requires full name evidence"
+    },
+    {
+      "claim_id": "clm_company",
+      "field": "company",
+      "value": "AI X Network - Unlock Your AI Assets & Network: Boost Traffic, Insights & Talent",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_edd"
+      ],
+      "confidence": 0.7,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_title",
+      "field": "job_title",
+      "value": "CEO & Founder & CAIO (Chief AI Officer)",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_edd"
+      ],
+      "confidence": 0.65,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_email",
+      "field": "professional_email",
+      "value": "mfok@aixnetwork.net",
+      "status": "unverified",
+      "source_ids": [
+        "src_input_lead_edd"
+      ],
+      "confidence": 0.5,
+      "last_verified_at": null,
+      "review_reason": "Syntax valid from import; deliverability probe not performed"
+    }
+  ],
+  "public_signals": [],
+  "icebreaker": {
+    "text": "I have been following how technology teams in the information technology & services sector are managing API and AI endpoint security.",
+    "icebreaker_type": "general_question",
+    "source_ids": [
+      "src_input_lead_edd"
+    ],
+    "confidence": 0.45,
+    "why_it_matters": "SealAPI helps organizations protect APIs from token leakage, prompt injection, and credential abuse with zero-trust gateways.",
+    "potential_pain_point": "Hypothesis: Preventing credential leakage and unauthorized API consumption in production.",
+    "conversation_question": "Would you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?",
+    "personalization_status": "generic_fallback",
+    "outreach_draft": {
+      "subject": "API security & AI infrastructure at AI X Network - Unlock Your AI Assets & Network: Boost Traffic, Insights & Talent",
+      "greeting": "Hi Matt,",
+      "opener": "I have been following how technology teams in the information technology & services sector are managing API and AI endpoint security.",
+      "sealapi_connection": "At SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.",
+      "low_pressure_ask": "Would you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?",
+      "full_body": "Hi Matt,\n\nI have been following how technology teams in the information technology & services sector are managing API and AI endpoint security.\n\nAt SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.\n\nWould you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?\n\nBest regards,\nSealAPI Research & Partnerships"
+    }
+  },
+  "scoring": {
+    "lead_fit_score": 83.0,
+    "role_fit_score": 35.0,
+    "industry_fit_score": 30.0,
+    "technical_need_score": 8.0,
+    "verification_confidence": 0.24,
+    "readiness_status": "needs_research",
+    "explanations": [
+      "High-authority security/AI decision maker role: 'CEO & Founder & CAIO (Chief AI Officer)'",
+      "Target enterprise vertical matching SealAPI: 'information technology'",
+      "Limited technical keywords: ai"
+    ]
+  },
+  "contact_readiness": {
+    "status": "needs_research",
+    "has_name": true,
+    "has_verified_role": true,
+    "has_company_context": true,
+    "has_usable_contact_channel": true,
+    "has_evidence_based_icebreaker": false,
+    "blockers": [
+      "identity_not_verified"
+    ]
+  },
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as CEO & Founder & CAIO (Chief AI Officer) at AI X Network - Unlock Your AI Assets & Network: Boost Traffic, Insights & Talent.",
+      "Focus on Generative AI & LLM Infrastructure.",
+      "Evidence-based opener: I have been following how technology teams in the information technology & services sector are managing API and AI endpoint security."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for information technology & services.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "Would you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly.",
+      "Do not assume delivered email address guarantees personal inbox delivery without validation."
+    ],
+    "missing_verification_points": [
+      "Icebreaker status: generic_fallback (human review recommended)."
+    ]
+  },
+  "research_metadata": {
+    "schema_version": "2.0.0",
+    "batch_id": "batch_20261020T151604Z_b82e6829",
+    "pipeline_version": "2.0.0",
+    "researched_at": "2026-10-20T15:16:10.311397+00:00",
+    "execution_status": "partial",
+    "verification_status": "unverified",
+    "source_count": 1,
+    "review_required": true,
+    "cache_fingerprint": "a5e2e164567fd57ed9ea97d3a7209438925aaa6c63f8f1fed2e014ba384a6219",
+    "errors_and_limitations": [],
+    "research_status": "partial",
+    "last_research_timestamp": "2026-10-20T15:16:10.311397+00:00",
+    "sources_examined": 1
+  }
+}

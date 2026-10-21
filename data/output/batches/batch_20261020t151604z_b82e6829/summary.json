@@ -1,0 +1,15 @@
+{
+  "batch_id": "batch_20261020T151604Z_b82e6829",
+  "total_leads": 144,
+  "completed_count": 0,
+  "partial_count": 144,
+  "failed_count": 0,
+  "outreach_ready_count": 0,
+  "needs_review_count": 144,
+  "priority_counts": {
+    "0": 0,
+    "1": 144,
+    "2": 0
+  },
+  "exported_at": "2026-10-20T15:16:10.884663+00:00"
+}

@@ -1,0 +1,249 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_5113dc4cd895",
+  "input_snapshot": {
+    "Linkedin Url": "http://www.linkedin.com/in/atifmfarid",
+    "Full Name": "Atif Mohammad",
+    "First Name": "Atif",
+    "Last Name": "Mohammad",
+    "Email": "atif@cyquent.com",
+    "Email Status": "verified",
+    "Job Title": "Chief AI Officer / CISO",
+    "Company Name": "Cyquent, Inc.",
+    "Company Website": "http://www.cyquent.com",
+    "City": "Grand Forks",
+    "State": "North Dakota",
+    "Country": "United States",
+    "Industry": "information technology & services",
+    "Keywords": "business intelligence,data analytics,cloud enablement,agile consulting,project program management,app development,enterprise architecture,application modernization,digital transformation,quality assurance,staff augmentation,b2b,consulting,services,analytics,information technology & services,apps,software development",
+    "Employees": "72",
+    "Company City": "Rockville",
+    "Company State": "Maryland",
+    "Company Country": "United States",
+    "Company Linkedin Url": "http://www.linkedin.com/company/cyquent",
+    "Company Twitter Url": "",
+    "Company Facebook Url": "https://facebook.com/CyquentInc",
+    "Company Phone Numbers": "+1 240-292-0230",
+    "Twitter Url": "",
+    "Facebook Url": ""
+  },
+  "identity": {
+    "name": "Atif Mohammad",
+    "first_name": "Atif",
+    "last_name": "Mohammad",
+    "job_title": "Chief AI Officer / CISO",
+    "company": "Cyquent, Inc.",
+    "industry": "information technology & services",
+    "linkedin_url": "http://www.linkedin.com/in/atifmfarid",
+    "company_website": "http://www.cyquent.com",
+    "professional_email": "atif@cyquent.com",
+    "city": "Grand Forks",
+    "state": "North Dakota",
+    "country": "United States"
+  },
+  "contact": {
+    "email": "atif@cyquent.com",
+    "email_type": "work",
+    "email_verification_status": "syntax_valid_unprobed",
+    "linkedin_url": "http://www.linkedin.com/in/atifmfarid",
+    "contact_channel_status": "available"
+  },
+  "company": {
+    "name": "Cyquent, Inc.",
+    "website": "http://www.cyquent.com",
+    "domain": "cyquent.com",
+    "industry": "information technology & services",
+    "verified": false
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at Cyquent, Inc.",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Generative AI & LLM Infrastructure"
+    ],
+    "public_projects": [
+      "Platform development and operations for Cyquent, Inc."
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at Cyquent, Inc."
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Atif Mohammad (Chief AI Officer / CISO at Cyquent, Inc.) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails"
+      ],
+      "evidence_points": [
+        "Role 'Chief AI Officer / CISO' makes architecture decisions for emerging AI capabilities"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 1,
+    "reason": "Priority 1 (Medium Fit): Chief AI Officer / CISO at Cyquent, Inc. is in a relevant role or vertical, but requires further qualification of immediate security/AI deployment urgency.",
+    "score": 90.0,
+    "confidence": 0.33,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'Chief AI Officer / CISO'",
+      "Target enterprise vertical matching SealAPI: 'information technology'",
+      "Moderate AI/API infrastructure signals: ai, cloud"
+    ]
+  },
+  "sources": [
+    {
+      "source_id": "src_input_lead_511",
+      "source_url": "lead_import_record",
+      "source_type": "user_input",
+      "title": null,
+      "publisher": null,
+      "retrieval_timestamp": "2026-10-20T15:16:10.225221+00:00",
+      "published_at": null,
+      "relevant_excerpt": null,
+      "evidence_quality": 0.6,
+      "supports_claim_ids": [],
+      "facts_supported": [
+        "Imported Name: Atif Mohammad",
+        "Imported Job Title: Chief AI Officer / CISO",
+        "Imported Company: Cyquent, Inc.",
+        "Imported Industry: information technology & services",
+        "Imported Professional Email: atif@cyquent.com",
+        "Imported Company Website: http://www.cyquent.com"
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "clm_name",
+      "field": "name",
+      "value": "Atif Mohammad",
+      "status": "verified",
+      "source_ids": [
+        "src_input_lead_511"
+      ],
+      "confidence": 0.75,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_company",
+      "field": "company",
+      "value": "Cyquent, Inc.",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_511"
+      ],
+      "confidence": 0.7,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_title",
+      "field": "job_title",
+      "value": "Chief AI Officer / CISO",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_511"
+      ],
+      "confidence": 0.65,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_email",
+      "field": "professional_email",
+      "value": "atif@cyquent.com",
+      "status": "unverified",
+      "source_ids": [
+        "src_input_lead_511"
+      ],
+      "confidence": 0.5,
+      "last_verified_at": null,
+      "review_reason": "Syntax valid from import; deliverability probe not performed"
+    }
+  ],
+  "public_signals": [],
+  "icebreaker": {
+    "text": "I have been following how technology teams in the information technology & services sector are managing API and AI endpoint security.",
+    "icebreaker_type": "general_question",
+    "source_ids": [
+      "src_input_lead_511"
+    ],
+    "confidence": 0.45,
+    "why_it_matters": "SealAPI helps organizations protect APIs from token leakage, prompt injection, and credential abuse with zero-trust gateways.",
+    "potential_pain_point": "Hypothesis: Preventing credential leakage and unauthorized API consumption in production.",
+    "conversation_question": "Would you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?",
+    "personalization_status": "generic_fallback",
+    "outreach_draft": {
+      "subject": "API security & AI infrastructure at Cyquent, Inc.",
+      "greeting": "Hi Atif,",
+      "opener": "I have been following how technology teams in the information technology & services sector are managing API and AI endpoint security.",
+      "sealapi_connection": "At SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.",
+      "low_pressure_ask": "Would you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?",
+      "full_body": "Hi Atif,\n\nI have been following how technology teams in the information technology & services sector are managing API and AI endpoint security.\n\nAt SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.\n\nWould you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?\n\nBest regards,\nSealAPI Research & Partnerships"
+    }
+  },
+  "scoring": {
+    "lead_fit_score": 90.0,
+    "role_fit_score": 35.0,
+    "industry_fit_score": 30.0,
+    "technical_need_score": 15.0,
+    "verification_confidence": 0.33,
+    "readiness_status": "ready_with_caveat",
+    "explanations": [
+      "High-authority security/AI decision maker role: 'Chief AI Officer / CISO'",
+      "Target enterprise vertical matching SealAPI: 'information technology'",
+      "Moderate AI/API infrastructure signals: ai, cloud"
+    ]
+  },
+  "contact_readiness": {
+    "status": "ready_with_caveat",
+    "has_name": true,
+    "has_verified_role": true,
+    "has_company_context": true,
+    "has_usable_contact_channel": true,
+    "has_evidence_based_icebreaker": false,
+    "blockers": [
+      "identity_not_verified"
+    ]
+  },
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as Chief AI Officer / CISO at Cyquent, Inc..",
+      "Focus on Generative AI & LLM Infrastructure.",
+      "Evidence-based opener: I have been following how technology teams in the information technology & services sector are managing API and AI endpoint security."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for information technology & services.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "Would you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly.",
+      "Do not assume delivered email address guarantees personal inbox delivery without validation."
+    ],
+    "missing_verification_points": [
+      "Icebreaker status: generic_fallback (human review recommended)."
+    ]
+  },
+  "research_metadata": {
+    "schema_version": "2.0.0",
+    "batch_id": "batch_20261020T151604Z_b82e6829",
+    "pipeline_version": "2.0.0",
+    "researched_at": "2026-10-20T15:16:10.225221+00:00",
+    "execution_status": "partial",
+    "verification_status": "unverified",
+    "source_count": 1,
+    "review_required": true,
+    "cache_fingerprint": "a5e2e164567fd57ed9ea97d3a7209438925aaa6c63f8f1fed2e014ba384a6219",
+    "errors_and_limitations": [
+      "LinkedIn URL (http://www.linkedin.com/in/atifmfarid) is behind an authentication wall; public domain records used for verified evidence."
+    ],
+    "research_status": "partial",
+    "last_research_timestamp": "2026-10-20T15:16:10.225221+00:00",
+    "sources_examined": 1
+  }
+}

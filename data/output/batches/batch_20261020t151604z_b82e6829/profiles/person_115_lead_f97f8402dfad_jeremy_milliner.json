@@ -1,0 +1,253 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_f97f8402dfad",
+  "input_snapshot": {
+    "Linkedin Url": "http://www.linkedin.com/in/jeremy-milliner-9764b937",
+    "Full Name": "Jeremy Milliner",
+    "First Name": "Jeremy",
+    "Last Name": "Milliner",
+    "Email": "jeremy@exonetics.io",
+    "Email Status": "verified",
+    "Job Title": "CEO & CTO",
+    "Company Name": "Exonetics",
+    "Company Website": "https://exonetics.io",
+    "City": "Denver",
+    "State": "Colorado",
+    "Country": "United States",
+    "Industry": "information technology & services,health, wellness & fitness,computer software",
+    "Keywords": "body mobility flaws,health tech,b2b,performance optimization,injury prevention,sports & recreation,rehabilitation,healthcare,wearable sensor technology,medical devices,motion capture,functional movement diagnosis,frictionless sensors,services,injury detection,medical equipment and supplies manufacturing,real-time movement analysis,advanced algorithms,wireless data,data analytics,predictive analytics,injury prediction,body movement monitoring,digital health,ar/vr integration,healthcare technology,performance assessment,faster rehabilitation,biotechnology,accurate results,safety parameters,talent evaluation,health care,health, wellness & fitness,hospital & health care,human computer interaction,information technology & services,enterprise software,enterprises,computer software",
+    "Employees": "2",
+    "Company City": "",
+    "Company State": "",
+    "Company Country": "",
+    "Company Linkedin Url": "http://www.linkedin.com/company/exoneticstech",
+    "Company Twitter Url": "",
+    "Company Facebook Url": "",
+    "Company Phone Numbers": "+1 937-831-0832",
+    "Twitter Url": "",
+    "Facebook Url": ""
+  },
+  "identity": {
+    "name": "Jeremy Milliner",
+    "first_name": "Jeremy",
+    "last_name": "Milliner",
+    "job_title": "CEO & CTO",
+    "company": "Exonetics",
+    "industry": "information technology & services,health, wellness & fitness,computer software",
+    "linkedin_url": "http://www.linkedin.com/in/jeremy-milliner-9764b937",
+    "company_website": "https://exonetics.io",
+    "professional_email": "jeremy@exonetics.io",
+    "city": "Denver",
+    "state": "Colorado",
+    "country": "United States"
+  },
+  "contact": {
+    "email": "jeremy@exonetics.io",
+    "email_type": "work",
+    "email_verification_status": "syntax_valid_unprobed",
+    "linkedin_url": "http://www.linkedin.com/in/jeremy-milliner-9764b937",
+    "contact_channel_status": "available"
+  },
+  "company": {
+    "name": "Exonetics",
+    "website": "https://exonetics.io",
+    "domain": "exonetics.io",
+    "industry": "information technology & services,health, wellness & fitness,computer software",
+    "verified": false
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at Exonetics",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "API Security & Microservices",
+      "Healthcare Data Privacy (HIPAA) & Safe Exchange"
+    ],
+    "public_projects": [
+      "Platform development and operations for Exonetics"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at Exonetics"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Jeremy Milliner (CEO & CTO at Exonetics) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails",
+        "Privacy-Preserving Data Exchange & Compliance"
+      ],
+      "evidence_points": [
+        "Role 'CEO & CTO' makes architecture decisions for emerging AI capabilities",
+        "Regulated vertical 'information technology & services,health, wellness & fitness,computer software' mandates strict API access controls and audited data flow"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 1,
+    "reason": "Priority 1 (Medium Fit): CEO & CTO at Exonetics is in a relevant role or vertical, but requires further qualification of immediate security/AI deployment urgency.",
+    "score": 77.0,
+    "confidence": 0.33,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'CEO & CTO'",
+      "Target enterprise vertical matching SealAPI: 'information technology'",
+      "Minimal technical/security keywords detected"
+    ]
+  },
+  "sources": [
+    {
+      "source_id": "src_input_lead_f97",
+      "source_url": "lead_import_record",
+      "source_type": "user_input",
+      "title": null,
+      "publisher": null,
+      "retrieval_timestamp": "2026-10-20T15:16:10.429807+00:00",
+      "published_at": null,
+      "relevant_excerpt": null,
+      "evidence_quality": 0.6,
+      "supports_claim_ids": [],
+      "facts_supported": [
+        "Imported Name: Jeremy Milliner",
+        "Imported Job Title: CEO & CTO",
+        "Imported Company: Exonetics",
+        "Imported Industry: information technology & services,health, wellness & fitness,computer software",
+        "Imported Professional Email: jeremy@exonetics.io",
+        "Imported Company Website: https://exonetics.io"
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "clm_name",
+      "field": "name",
+      "value": "Jeremy Milliner",
+      "status": "verified",
+      "source_ids": [
+        "src_input_lead_f97"
+      ],
+      "confidence": 0.75,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_company",
+      "field": "company",
+      "value": "Exonetics",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_f97"
+      ],
+      "confidence": 0.7,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_title",
+      "field": "job_title",
+      "value": "CEO & CTO",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_f97"
+      ],
+      "confidence": 0.65,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_email",
+      "field": "professional_email",
+      "value": "jeremy@exonetics.io",
+      "status": "unverified",
+      "source_ids": [
+        "src_input_lead_f97"
+      ],
+      "confidence": 0.5,
+      "last_verified_at": null,
+      "review_reason": "Syntax valid from import; deliverability probe not performed"
+    }
+  ],
+  "public_signals": [],
+  "icebreaker": {
+    "text": "Given Exonetics's focus in information technology & services,health, wellness & fitness,computer software, data privacy governance and auditable API exchanges are typically paramount.",
+    "icebreaker_type": "general_question",
+    "source_ids": [
+      "src_input_lead_f97"
+    ],
+    "confidence": 0.6,
+    "why_it_matters": "Regulated verticals require verifiable controls to ensure sensitive data does not cross unauthorized API boundaries.",
+    "potential_pain_point": "Hypothesis: Ensuring third-party integrations and internal models comply with strict compliance audits.",
+    "conversation_question": "How does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?",
+    "personalization_status": "needs_review",
+    "outreach_draft": {
+      "subject": "API security & AI infrastructure at Exonetics",
+      "greeting": "Hi Jeremy,",
+      "opener": "Given Exonetics's focus in information technology & services,health, wellness & fitness,computer software, data privacy governance and auditable API exchanges are typically paramount.",
+      "sealapi_connection": "At SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.",
+      "low_pressure_ask": "How does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?",
+      "full_body": "Hi Jeremy,\n\nGiven Exonetics's focus in information technology & services,health, wellness & fitness,computer software, data privacy governance and auditable API exchanges are typically paramount.\n\nAt SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.\n\nHow does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?\n\nBest regards,\nSealAPI Research & Partnerships"
+    }
+  },
+  "scoring": {
+    "lead_fit_score": 77.0,
+    "role_fit_score": 35.0,
+    "industry_fit_score": 30.0,
+    "technical_need_score": 2.0,
+    "verification_confidence": 0.33,
+    "readiness_status": "ready_with_caveat",
+    "explanations": [
+      "High-authority security/AI decision maker role: 'CEO & CTO'",
+      "Target enterprise vertical matching SealAPI: 'information technology'",
+      "Minimal technical/security keywords detected"
+    ]
+  },
+  "contact_readiness": {
+    "status": "ready_with_caveat",
+    "has_name": true,
+    "has_verified_role": true,
+    "has_company_context": true,
+    "has_usable_contact_channel": true,
+    "has_evidence_based_icebreaker": false,
+    "blockers": [
+      "identity_not_verified",
+      "icebreaker_needs_review"
+    ]
+  },
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as CEO & CTO at Exonetics.",
+      "Focus on API Security & Microservices, Healthcare Data Privacy (HIPAA) & Safe Exchange.",
+      "Evidence-based opener: Given Exonetics's focus in information technology & services,health, wellness & fitness,computer software, data privacy governance and auditable API exchanges are typically paramount."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for information technology & services,health, wellness & fitness,computer software.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "How does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly.",
+      "Do not assume delivered email address guarantees personal inbox delivery without validation."
+    ],
+    "missing_verification_points": [
+      "Icebreaker status: needs_review (human review recommended)."
+    ]
+  },
+  "research_metadata": {
+    "schema_version": "2.0.0",
+    "batch_id": "batch_20261020T151604Z_b82e6829",
+    "pipeline_version": "2.0.0",
+    "researched_at": "2026-10-20T15:16:10.429807+00:00",
+    "execution_status": "partial",
+    "verification_status": "unverified",
+    "source_count": 1,
+    "review_required": true,
+    "cache_fingerprint": "a5e2e164567fd57ed9ea97d3a7209438925aaa6c63f8f1fed2e014ba384a6219",
+    "errors_and_limitations": [
+      "LinkedIn URL (http://www.linkedin.com/in/jeremy-milliner-9764b937) is behind an authentication wall; public domain records used for verified evidence."
+    ],
+    "research_status": "partial",
+    "last_research_timestamp": "2026-10-20T15:16:10.429807+00:00",
+    "sources_examined": 1
+  }
+}

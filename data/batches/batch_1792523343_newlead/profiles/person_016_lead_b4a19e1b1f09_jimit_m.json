@@ -1,0 +1,109 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_b4a19e1b1f09",
+  "identity": {
+    "name": "Jimit M",
+    "first_name": "Jimit",
+    "last_name": "M",
+    "job_title": "CEO/CTO/Co-Founder",
+    "company": "Abmatic AI",
+    "industry": "information technology & services",
+    "linkedin_url": "",
+    "company_website": "http://www.abmatic.ai",
+    "professional_email": "jimit@abmatic.ai",
+    "city": "San Francisco",
+    "state": "California",
+    "country": "United States"
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at Abmatic AI",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Generative AI & LLM Infrastructure",
+      "API Security & Microservices"
+    ],
+    "public_projects": [
+      "Platform development and operations for Abmatic AI"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at Abmatic AI",
+      "The platform One platform for every ABM motion Explore the platform  → Campaigns  Personalization Inbound Personalized web experiences via a visual editor",
+      "Outbound Hyper-personalized landing page experiences",
+      "✓ Visual no-code editor ✓ 1:1 account experiences ✓ Continuous A/B testing 200% more signups · Ketch [ 02 ] /  Campaigns Every play to win the account,  in one place Personalization, advertising and autonomous agents"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Jimit M (CEO/CTO/Co-Founder at Abmatic AI) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails"
+      ],
+      "evidence_points": [
+        "Role 'CEO/CTO/Co-Founder' makes key architecture decisions for emerging AI capabilities"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 0,
+    "reason": "Priority 0 (Highest Fit): CEO/CTO/Co-Founder at Abmatic AI matches core decision-maker criteria in a regulated/tech-driven industry with active AI/API needs.",
+    "score": 100.0,
+    "confidence": 0.9,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'CEO/CTO/Co-Founder'",
+      "Target enterprise vertical matching SealAPI: 'information technology'",
+      "Strong verified AI/API security need (matched signals: ai, agentic, security, compliance, saas)",
+      "Verified business email domain: jimit@abmatic.ai"
+    ]
+  },
+  "sources": [
+    {
+      "source_url": "lead_import_record",
+      "source_type": "input_data",
+      "retrieval_timestamp": "2026-10-20T19:10:11.398713+00:00",
+      "facts_supported": [
+        "Verified Name: Jimit M",
+        "Declared Job Title: CEO/CTO/Co-Founder",
+        "Company: Abmatic AI",
+        "Industry: information technology & services",
+        "Verified Professional Email: jimit@abmatic.ai",
+        "Reported Location: San Francisco, California, United States",
+        "Company Keywords: martech,accountbased marketing,abm,ai agent,technology, information & internet,inbound marketing,retargeting,marketing and advertising,ai automation,hyper-personalized landing page"
+      ]
+    },
+    {
+      "source_url": "http://www.abmatic.ai",
+      "source_type": "company_website",
+      "retrieval_timestamp": "2026-10-20T19:10:13Z",
+      "facts_supported": [
+        "Website Title: Abmatic AI | Transforming Account-Based Marketing",
+        "Company Mission/Description: One AI platform for your whole ABM stack: visitor identification, website personalization, intent, ads, outbound and attribution. It replaces your point tools and syncs to your CRM.",
+        "Core Offerings: One AI platform.\nYour whole \nABM stack\n., One platform for \nevery ABM motion, Hyper-personalize every touchpoint, Every play to win the account, \nin one place"
+      ]
+    }
+  ],
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as CEO/CTO/Co-Founder at Abmatic AI.",
+      "Focus on Generative AI & LLM Infrastructure, API Security & Microservices.",
+      "Background: The platform One platform for every ABM motion Explore the platform  → Campaigns  Personalization Inbound Personalized w..."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for information technology & services.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "Would you be open to a 10-minute technical exchange next Tuesday to explore how SealAPI shields AI and API endpoints for teams like Abmatic AI?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly."
+    ],
+    "missing_verification_points": []
+  },
+  "research_metadata": {
+    "research_status": "completed",
+    "last_research_timestamp": "2026-10-20T19:10:11.398713+00:00",
+    "sources_examined": 2,
+    "errors_and_limitations": []
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_06a1ce0c2bae",
+  "identity": {
+    "name": "Wez I",
+    "first_name": "Wez",
+    "last_name": "I",
+    "job_title": "Founder, CISO, CTO",
+    "company": "EvoTechnica",
+    "industry": "management consulting",
+    "linkedin_url": "",
+    "company_website": "http://www.evotechnica.com",
+    "professional_email": "w@evotechnica.com",
+    "city": "San Francisco",
+    "state": "California",
+    "country": "United States"
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at EvoTechnica",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Generative AI & LLM Infrastructure",
+      "Healthcare Data Privacy (HIPAA) & Safe Exchange"
+    ],
+    "public_projects": [
+      "Platform development and operations for EvoTechnica"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at EvoTechnica"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Wez I (Founder, CISO, CTO at EvoTechnica) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails"
+      ],
+      "evidence_points": [
+        "Role 'Founder, CISO, CTO' makes key architecture decisions for emerging AI capabilities"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 0,
+    "reason": "Priority 0 (Highest Fit): Founder, CISO, CTO at EvoTechnica matches core decision-maker criteria in a regulated/tech-driven industry with active AI/API needs.",
+    "score": 88.0,
+    "confidence": 0.9,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'Founder, CISO, CTO'",
+      "Adjacent vertical: 'management consulting'",
+      "Strong verified AI/API security need (matched signals: ai, security, hipaa, compliance)",
+      "Verified business email domain: w@evotechnica.com"
+    ]
+  },
+  "sources": [
+    {
+      "source_url": "lead_import_record",
+      "source_type": "input_data",
+      "retrieval_timestamp": "2026-10-20T19:10:12.294385+00:00",
+      "facts_supported": [
+        "Verified Name: Wez I",
+        "Declared Job Title: Founder, CISO, CTO",
+        "Company: EvoTechnica",
+        "Industry: management consulting",
+        "Verified Professional Email: w@evotechnica.com",
+        "Reported Location: San Francisco, California, United States",
+        "Company Keywords: business consulting & services,management consulting"
+      ]
+    },
+    {
+      "source_url": "http://www.evotechnica.com",
+      "source_type": "company_website",
+      "retrieval_timestamp": "2026-10-20T19:10:18Z",
+      "facts_supported": [
+        "Website Title: EvoTechnica",
+        "Company Mission/Description: EvoTechnica helps stealth-mode and early-stage startups meet the security and compliance control standards that regulated customers, investors and partners require.",
+        "Core Offerings: SOC 2.\nISO.\nHITRUST., For stealth-mode and greenfield startups, How we work, Frameworks"
+      ]
+    }
+  ],
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as Founder, CISO, CTO at EvoTechnica.",
+      "Focus on Generative AI & LLM Infrastructure, Healthcare Data Privacy (HIPAA) & Safe Exchange."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for management consulting.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "Would you be open to a 10-minute technical exchange next Tuesday to explore how SealAPI shields AI and API endpoints for teams like EvoTechnica?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly."
+    ],
+    "missing_verification_points": []
+  },
+  "research_metadata": {
+    "research_status": "completed",
+    "last_research_timestamp": "2026-10-20T19:10:12.294385+00:00",
+    "sources_examined": 2,
+    "errors_and_limitations": []
+  }
+}

@@ -1,0 +1,247 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_b4a19e1b1f09",
+  "input_snapshot": {
+    "Linkedin Url": "",
+    "Full Name": "Jimit M",
+    "First Name": "Jimit",
+    "Last Name": "M",
+    "Email": "jimit@abmatic.ai",
+    "Email Status": "verified",
+    "Job Title": "CEO/CTO/Co-Founder",
+    "Company Name": "Abmatic AI",
+    "Company Website": "http://www.abmatic.ai",
+    "City": "San Francisco",
+    "State": "California",
+    "Country": "United States",
+    "Industry": "information technology & services",
+    "Keywords": "martech,accountbased marketing,abm,ai agent,technology, information & internet,inbound marketing,retargeting,marketing and advertising,ai automation,hyper-personalized landing pages,website visitor reveal,customer engagement,intent signal scanning,behavioral analytics,ai campaign orchestration,linkedin ads,demand generation,integrated marketing ecosystem,hyper-targeted campaigns,display ads optimization,web personalization,crm integration,campaign orchestration,real-time engagement,ai-powered retargeting,conversion rate optimization,account-based marketing,marketing analytics,visitor identification,soc 2,ai-driven campaign optimization,intent data,automated marketing workflows,personalization at scale,information technology and services,marketing roi,b2b saas,data analytics,ai personalization,ad bidding optimization,audience segmentation,hyper-personalization,computer systems design and related services,roi measurement,b2b,multi-channel marketing,email sequencing,attribution analytics,ai-powered customer insights,campaign performance tracking,conversion optimization,b2b marketing,campaign optimization,lead generation,customer targeting,multi-channel ad management,automated audience discovery,security and compliance,data-driven marketing,ai agents,marketing automation,a/b testing,campaign analytics,ai for b2b marketing,custom dashboards,demand gen tools,personalized marketing,ai-powered marketing agents,intent signal analysis,software as a service,software development,multi-channel campaigns,ai-driven abm,ai bid optimization,ai marketing platform,demand generation automation,campaign automation,campaign management,automated content personalization,services,ai-driven attribution,abm solutions,ai-driven marketing,personalization engine,automated campaign management,multi-channel advertising,linkedin ads management,intent data analysis,customer engagement strategies,data integration,analytics and attribution,ai dynamic bidding,a/b testing tools,sales sequencing,retargeting campaigns,real-time engagement tracking,custom reporting,performance optimization,outbound marketing,predictive analysis,target account identification,multi-touch attribution,digital marketing,marketing insights,lead nurturing,user experience enhancement,banners and pop-ups,growth marketing strategies,marketing dashboard,ai agent automation,data-driven decisions,revenue operations,pipeline scaling,customer retention strategies,information technology & services,marketing & advertising,marketing,sales,saas,computer software,enterprise software,enterprises",
+    "Employees": "4",
+    "Company City": "San Francisco",
+    "Company State": "California",
+    "Company Country": "United States",
+    "Company Linkedin Url": "http://www.linkedin.com/company/abmatic-ai",
+    "Company Twitter Url": "https://twitter.com/abmaticai",
+    "Company Facebook Url": "",
+    "Company Phone Numbers": "+1 317-993-2160",
+    "Twitter Url": "",
+    "Facebook Url": ""
+  },
+  "identity": {
+    "name": "Jimit M",
+    "first_name": "Jimit",
+    "last_name": "M",
+    "job_title": "CEO/CTO/Co-Founder",
+    "company": "Abmatic AI",
+    "industry": "information technology & services",
+    "linkedin_url": "",
+    "company_website": "http://www.abmatic.ai",
+    "professional_email": "jimit@abmatic.ai",
+    "city": "San Francisco",
+    "state": "California",
+    "country": "United States"
+  },
+  "contact": {
+    "email": "jimit@abmatic.ai",
+    "email_type": "work",
+    "email_verification_status": "syntax_valid_unprobed",
+    "linkedin_url": "",
+    "contact_channel_status": "available"
+  },
+  "company": {
+    "name": "Abmatic AI",
+    "website": "http://www.abmatic.ai",
+    "domain": "abmatic.ai",
+    "industry": "information technology & services",
+    "verified": false
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at Abmatic AI",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Enterprise Cloud Systems & Platform Scalability"
+    ],
+    "public_projects": [
+      "Platform development and operations for Abmatic AI"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at Abmatic AI"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Jimit M (CEO/CTO/Co-Founder at Abmatic AI) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails"
+      ],
+      "evidence_points": [
+        "Role 'CEO/CTO/Co-Founder' makes architecture decisions for emerging AI capabilities"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 1,
+    "reason": "Priority 1 (Medium Fit): CEO/CTO/Co-Founder at Abmatic AI is in a relevant role or vertical, but requires further qualification of immediate security/AI deployment urgency.",
+    "score": 100.0,
+    "confidence": 0.24,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'CEO/CTO/Co-Founder'",
+      "Target enterprise vertical matching SealAPI: 'information technology'",
+      "Strong verified AI/API security need (matched signals: ai, security, compliance, saas)"
+    ]
+  },
+  "sources": [
+    {
+      "source_id": "src_input_lead_b4a",
+      "source_url": "lead_import_record",
+      "source_type": "user_input",
+      "title": null,
+      "publisher": null,
+      "retrieval_timestamp": "2026-10-20T15:16:10.238498+00:00",
+      "published_at": null,
+      "relevant_excerpt": null,
+      "evidence_quality": 0.6,
+      "supports_claim_ids": [],
+      "facts_supported": [
+        "Imported Name: Jimit M",
+        "Imported Job Title: CEO/CTO/Co-Founder",
+        "Imported Company: Abmatic AI",
+        "Imported Industry: information technology & services",
+        "Imported Professional Email: jimit@abmatic.ai",
+        "Imported Company Website: http://www.abmatic.ai"
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "clm_name",
+      "field": "name",
+      "value": "Jimit M",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_b4a"
+      ],
+      "confidence": 0.5,
+      "last_verified_at": null,
+      "review_reason": "Surname is abbreviated; requires full name evidence"
+    },
+    {
+      "claim_id": "clm_company",
+      "field": "company",
+      "value": "Abmatic AI",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_b4a"
+      ],
+      "confidence": 0.7,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_title",
+      "field": "job_title",
+      "value": "CEO/CTO/Co-Founder",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_b4a"
+      ],
+      "confidence": 0.65,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_email",
+      "field": "professional_email",
+      "value": "jimit@abmatic.ai",
+      "status": "unverified",
+      "source_ids": [
+        "src_input_lead_b4a"
+      ],
+      "confidence": 0.5,
+      "last_verified_at": null,
+      "review_reason": "Syntax valid from import; deliverability probe not performed"
+    }
+  ],
+  "public_signals": [],
+  "icebreaker": {
+    "text": "I have been following how technology teams in the information technology & services sector are managing API and AI endpoint security.",
+    "icebreaker_type": "general_question",
+    "source_ids": [
+      "src_input_lead_b4a"
+    ],
+    "confidence": 0.45,
+    "why_it_matters": "SealAPI helps organizations protect APIs from token leakage, prompt injection, and credential abuse with zero-trust gateways.",
+    "potential_pain_point": "Hypothesis: Preventing credential leakage and unauthorized API consumption in production.",
+    "conversation_question": "Would you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?",
+    "personalization_status": "generic_fallback",
+    "outreach_draft": {
+      "subject": "API security & AI infrastructure at Abmatic AI",
+      "greeting": "Hi Jimit,",
+      "opener": "I have been following how technology teams in the information technology & services sector are managing API and AI endpoint security.",
+      "sealapi_connection": "At SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.",
+      "low_pressure_ask": "Would you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?",
+      "full_body": "Hi Jimit,\n\nI have been following how technology teams in the information technology & services sector are managing API and AI endpoint security.\n\nAt SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.\n\nWould you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?\n\nBest regards,\nSealAPI Research & Partnerships"
+    }
+  },
+  "scoring": {
+    "lead_fit_score": 100.0,
+    "role_fit_score": 35.0,
+    "industry_fit_score": 30.0,
+    "technical_need_score": 25.0,
+    "verification_confidence": 0.24,
+    "readiness_status": "needs_research",
+    "explanations": [
+      "High-authority security/AI decision maker role: 'CEO/CTO/Co-Founder'",
+      "Target enterprise vertical matching SealAPI: 'information technology'",
+      "Strong verified AI/API security need (matched signals: ai, security, compliance, saas)"
+    ]
+  },
+  "contact_readiness": {
+    "status": "needs_research",
+    "has_name": true,
+    "has_verified_role": true,
+    "has_company_context": true,
+    "has_usable_contact_channel": true,
+    "has_evidence_based_icebreaker": false,
+    "blockers": [
+      "identity_not_verified"
+    ]
+  },
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as CEO/CTO/Co-Founder at Abmatic AI.",
+      "Focus on Enterprise Cloud Systems & Platform Scalability.",
+      "Evidence-based opener: I have been following how technology teams in the information technology & services sector are managing API and AI endpoint security."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for information technology & services.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "Would you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly.",
+      "Do not assume delivered email address guarantees personal inbox delivery without validation."
+    ],
+    "missing_verification_points": [
+      "Icebreaker status: generic_fallback (human review recommended)."
+    ]
+  },
+  "research_metadata": {
+    "schema_version": "2.0.0",
+    "batch_id": "batch_20261020T151604Z_b82e6829",
+    "pipeline_version": "2.0.0",
+    "researched_at": "2026-10-20T15:16:10.238498+00:00",
+    "execution_status": "partial",
+    "verification_status": "unverified",
+    "source_count": 1,
+    "review_required": true,
+    "cache_fingerprint": "a5e2e164567fd57ed9ea97d3a7209438925aaa6c63f8f1fed2e014ba384a6219",
+    "errors_and_limitations": [],
+    "research_status": "partial",
+    "last_research_timestamp": "2026-10-20T15:16:10.238498+00:00",
+    "sources_examined": 1
+  }
+}

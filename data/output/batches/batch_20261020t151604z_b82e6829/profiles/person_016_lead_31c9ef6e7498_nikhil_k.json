@@ -1,0 +1,247 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_31c9ef6e7498",
+  "input_snapshot": {
+    "Linkedin Url": "",
+    "Full Name": "Nikhil K",
+    "First Name": "Nikhil",
+    "Last Name": "K",
+    "Email": "nikhil.krishnan@c3.ai",
+    "Email Status": "verified",
+    "Job Title": "Chief AI Officer and CTO",
+    "Company Name": "C3 AI",
+    "Company Website": "http://www.c3.ai",
+    "City": "Redwood City",
+    "State": "California",
+    "Country": "United States",
+    "Industry": "information technology & services",
+    "Keywords": "generative ai,ai,enterprise ai,genai,agentic ai,ai agents,big data,artificial intelligence,analytics,machine learning,information technology,enterprise software,deep information technology,software,computer software: prepackaged software,technology,software development,ai for financial services,ai research,aerospace,ai solutions,supply network risk,customer success,inventory optimization,ai collaboration tools,ai for iot integration,ai for industry,ai training and prototyping,predictive maintenance,manufacturing ai,ai for energy efficiency,ai for energy grid management,ai for energy,scalability,oil & gas,generative ai for insights,data-driven decision-making,ai for transportation,data analytics,financial services,telecommunications,ai security,application development,enterprise ai for defense,ai for fraud detection,ai platform as a service,ai for telecommunications networks,ai for supply chain resilience,ai for financial institutions,computer systems design and related services,ai for health diagnostics,ai for compliance,industry-specific solutions,ai model tuning,transportation,ai platform,b2b,utilities ai,ai for demand forecasting,automation,ai for asset management,real-time insights,no code ai solutions,ai cloud deployment,ai for government agencies,ai lifecycle management,ai for retail personalization,financial services ai,ai for transportation logistics,energy management,natural language processing,healthcare ai,customer engagement,ai integration,ai performance evaluation,predictive analytics,ai for aerospace industry,ai innovation,fraud detection,ai for risk management,ai for government,ai for predictive maintenance,ai for energy sector,business intelligence,ai saas,ai for healthcare,utilities,ai for industrial automation,ai application deployment,ai data analytics,ai for manufacturing plants,ai for telecommunications,government,ai for utilities,ai application scaling,ai for law enforcement,defense & intelligence,ai for healthcare providers,ai for property valuation,government ai,supply chain management,ai for iot,ai for manufacturing,ai cloud solutions,large organizations,ai model management,ai for energy grid optimization,ai for asset optimization,ai for retail,energy efficiency,ai data integration,manufacturing,ai for aerospace,customer relationship management,innovation,ai for customer service,cloud solutions,operational efficiency,healthcare,process optimization,ai for smart cities,defense,ai for defense,services,digital transformation,risk management,ai development tools,low code ai development,ai for customer engagement,ai for utilities companies,partner ecosystem,retail,ai applications,ai software,c3 ai applications,supply chain optimization,anti-money laundering,healthcare ai solutions,intelligent automation,crm applications,demand forecasting,reliability engineering,production scheduling,property appraisal,smart lending,sourcing optimization,operation efficiency,ai-driven insights,training automation,virtual agents,self-service solutions,customer sentiment analysis,strategic advantage,real-time data analysis,flexible solutions,ai model performance,ai ethics,industry best practices,customer satisfaction,enterprise applications,low code development,no code solutions,ai case studies,product innovation,collaborative development tools,finance,legal,transportation & logistics,energy & utilities,saas,enterprises,computer software,information technology & services,oil & energy,app development,apps,computer & network security,logistics & supply chain,environmental services,renewables & environment,mechanical or industrial engineering,crm,sales,cloud computing,health care,health, wellness & fitness,hospital & health care",
+    "Employees": "770",
+    "Company City": "Redwood City",
+    "Company State": "California",
+    "Company Country": "United States",
+    "Company Linkedin Url": "http://www.linkedin.com/company/c3-ai-enterprise-ai",
+    "Company Twitter Url": "http://www.twitter.com/C3Energy",
+    "Company Facebook Url": "https://facebook.com/C3.ai.Marketing/",
+    "Company Phone Numbers": "+1 650-503-2200",
+    "Twitter Url": "",
+    "Facebook Url": ""
+  },
+  "identity": {
+    "name": "Nikhil K",
+    "first_name": "Nikhil",
+    "last_name": "K",
+    "job_title": "Chief AI Officer and CTO",
+    "company": "C3 AI",
+    "industry": "information technology & services",
+    "linkedin_url": "",
+    "company_website": "http://www.c3.ai",
+    "professional_email": "nikhil.krishnan@c3.ai",
+    "city": "Redwood City",
+    "state": "California",
+    "country": "United States"
+  },
+  "contact": {
+    "email": "nikhil.krishnan@c3.ai",
+    "email_type": "work",
+    "email_verification_status": "syntax_valid_unprobed",
+    "linkedin_url": "",
+    "contact_channel_status": "available"
+  },
+  "company": {
+    "name": "C3 AI",
+    "website": "http://www.c3.ai",
+    "domain": "c3.ai",
+    "industry": "information technology & services",
+    "verified": false
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at C3 AI",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Generative AI & LLM Infrastructure"
+    ],
+    "public_projects": [
+      "Platform development and operations for C3 AI"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at C3 AI"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Nikhil K (Chief AI Officer and CTO at C3 AI) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails"
+      ],
+      "evidence_points": [
+        "Role 'Chief AI Officer and CTO' makes architecture decisions for emerging AI capabilities"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 1,
+    "reason": "Priority 1 (Medium Fit): Chief AI Officer and CTO at C3 AI is in a relevant role or vertical, but requires further qualification of immediate security/AI deployment urgency.",
+    "score": 100.0,
+    "confidence": 0.24,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'Chief AI Officer and CTO'",
+      "Target enterprise vertical matching SealAPI: 'information technology'",
+      "Strong verified AI/API security need (matched signals: ai, artificial intelligence, machine learning, genai, generative ai, agentic)"
+    ]
+  },
+  "sources": [
+    {
+      "source_id": "src_input_lead_31c",
+      "source_url": "lead_import_record",
+      "source_type": "user_input",
+      "title": null,
+      "publisher": null,
+      "retrieval_timestamp": "2026-10-20T15:16:10.281641+00:00",
+      "published_at": null,
+      "relevant_excerpt": null,
+      "evidence_quality": 0.6,
+      "supports_claim_ids": [],
+      "facts_supported": [
+        "Imported Name: Nikhil K",
+        "Imported Job Title: Chief AI Officer and CTO",
+        "Imported Company: C3 AI",
+        "Imported Industry: information technology & services",
+        "Imported Professional Email: nikhil.krishnan@c3.ai",
+        "Imported Company Website: http://www.c3.ai"
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "clm_name",
+      "field": "name",
+      "value": "Nikhil K",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_31c"
+      ],
+      "confidence": 0.5,
+      "last_verified_at": null,
+      "review_reason": "Surname is abbreviated; requires full name evidence"
+    },
+    {
+      "claim_id": "clm_company",
+      "field": "company",
+      "value": "C3 AI",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_31c"
+      ],
+      "confidence": 0.7,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_title",
+      "field": "job_title",
+      "value": "Chief AI Officer and CTO",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_31c"
+      ],
+      "confidence": 0.65,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_email",
+      "field": "professional_email",
+      "value": "nikhil.krishnan@c3.ai",
+      "status": "unverified",
+      "source_ids": [
+        "src_input_lead_31c"
+      ],
+      "confidence": 0.5,
+      "last_verified_at": null,
+      "review_reason": "Syntax valid from import; deliverability probe not performed"
+    }
+  ],
+  "public_signals": [],
+  "icebreaker": {
+    "text": "I have been following how technology teams in the information technology & services sector are managing API and AI endpoint security.",
+    "icebreaker_type": "general_question",
+    "source_ids": [
+      "src_input_lead_31c"
+    ],
+    "confidence": 0.45,
+    "why_it_matters": "SealAPI helps organizations protect APIs from token leakage, prompt injection, and credential abuse with zero-trust gateways.",
+    "potential_pain_point": "Hypothesis: Preventing credential leakage and unauthorized API consumption in production.",
+    "conversation_question": "Would you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?",
+    "personalization_status": "generic_fallback",
+    "outreach_draft": {
+      "subject": "API security & AI infrastructure at C3 AI",
+      "greeting": "Hi Nikhil,",
+      "opener": "I have been following how technology teams in the information technology & services sector are managing API and AI endpoint security.",
+      "sealapi_connection": "At SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.",
+      "low_pressure_ask": "Would you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?",
+      "full_body": "Hi Nikhil,\n\nI have been following how technology teams in the information technology & services sector are managing API and AI endpoint security.\n\nAt SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.\n\nWould you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?\n\nBest regards,\nSealAPI Research & Partnerships"
+    }
+  },
+  "scoring": {
+    "lead_fit_score": 100.0,
+    "role_fit_score": 35.0,
+    "industry_fit_score": 30.0,
+    "technical_need_score": 25.0,
+    "verification_confidence": 0.24,
+    "readiness_status": "needs_research",
+    "explanations": [
+      "High-authority security/AI decision maker role: 'Chief AI Officer and CTO'",
+      "Target enterprise vertical matching SealAPI: 'information technology'",
+      "Strong verified AI/API security need (matched signals: ai, artificial intelligence, machine learning, genai, generative ai, agentic)"
+    ]
+  },
+  "contact_readiness": {
+    "status": "needs_research",
+    "has_name": true,
+    "has_verified_role": true,
+    "has_company_context": true,
+    "has_usable_contact_channel": true,
+    "has_evidence_based_icebreaker": false,
+    "blockers": [
+      "identity_not_verified"
+    ]
+  },
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as Chief AI Officer and CTO at C3 AI.",
+      "Focus on Generative AI & LLM Infrastructure.",
+      "Evidence-based opener: I have been following how technology teams in the information technology & services sector are managing API and AI endpoint security."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for information technology & services.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "Would you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly.",
+      "Do not assume delivered email address guarantees personal inbox delivery without validation."
+    ],
+    "missing_verification_points": [
+      "Icebreaker status: generic_fallback (human review recommended)."
+    ]
+  },
+  "research_metadata": {
+    "schema_version": "2.0.0",
+    "batch_id": "batch_20261020T151604Z_b82e6829",
+    "pipeline_version": "2.0.0",
+    "researched_at": "2026-10-20T15:16:10.281641+00:00",
+    "execution_status": "partial",
+    "verification_status": "unverified",
+    "source_count": 1,
+    "review_required": true,
+    "cache_fingerprint": "a5e2e164567fd57ed9ea97d3a7209438925aaa6c63f8f1fed2e014ba384a6219",
+    "errors_and_limitations": [],
+    "research_status": "partial",
+    "last_research_timestamp": "2026-10-20T15:16:10.281641+00:00",
+    "sources_examined": 1
+  }
+}

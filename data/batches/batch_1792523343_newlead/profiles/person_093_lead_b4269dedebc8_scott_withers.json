@@ -1,0 +1,112 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_b4269dedebc8",
+  "identity": {
+    "name": "Scott Withers",
+    "first_name": "Scott",
+    "last_name": "Withers",
+    "job_title": "Founder / Owner / CEO & Chief AI Officer (CAIO)",
+    "company": "CenseoAI - AI Innovation & Adoption",
+    "industry": "management consulting",
+    "linkedin_url": "http://www.linkedin.com/in/scottwithers",
+    "company_website": "http://www.censeoai.ai",
+    "professional_email": "scott@censeoai.ai",
+    "city": "Traverse City",
+    "state": "Michigan",
+    "country": "United States"
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at CenseoAI - AI Innovation & Adoption",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Generative AI & LLM Infrastructure",
+      "API Security & Microservices",
+      "Healthcare Data Privacy (HIPAA) & Safe Exchange"
+    ],
+    "public_projects": [
+      "Platform development and operations for CenseoAI - AI Innovation & Adoption"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at CenseoAI - AI Innovation & Adoption",
+      "AI Consulting & Training for Professional Services | CenseoAI Home Services  All Services Elevaite AI™ Process Diagnosis + Quick Wins Process Systematization Ongoing Optimization Professional Services Professional Services Hub Accounting & CPA Firms Law Firms Architecture & Engineering Financial Advisors & Wealth Management Consultants & Consulting Firms Agentic AI Cohort AI Consulting Traverse City Real Estate Traverse City Real Estate AI Real Estate AI Audit HVAC & Home Services HVAC AI Automation Roofing Lead Automation Landscaping Revenue Systems Industries Healthcare Resources FAQ Response Lens AI Training  AI Training Traverse City Claude Training Small Business AI Training Solutions How It Works FAQ About Try Demo Call Now Try Demo Book a Call Free Consult Call Book a Call Free Consult Under 8 Min Lead Response Time, In Progress Northern Michigan Real Estate Team Northern Michigan Business Owners Are Leaving Revenue on the Table, and They Don't Even Know It!  We Stop the Leak",
+      "We design-build integrated AI systems for accounting, law, consulting, and architecture and engineering firms, plus real estate, HVAC, MEP, and construction, across Northern Michigan",
+      "Leads fall through the cracks between your CRM and your operations software"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Scott Withers (Founder / Owner / CEO & Chief AI Officer (CAIO) at CenseoAI - AI Innovation & Adoption) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails"
+      ],
+      "evidence_points": [
+        "Role 'Founder / Owner / CEO & Chief AI Officer (CAIO)' makes key architecture decisions for emerging AI capabilities"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 0,
+    "reason": "Priority 0 (Highest Fit): Founder / Owner / CEO & Chief AI Officer (CAIO) at CenseoAI - AI Innovation & Adoption matches core decision-maker criteria in a regulated/tech-driven industry with active AI/API needs.",
+    "score": 88.0,
+    "confidence": 0.9,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'Founder / Owner / CEO & Chief AI Officer (CAIO)'",
+      "Adjacent vertical: 'management consulting'",
+      "Strong verified AI/API security need (matched signals: ai, llm, agentic, api)",
+      "Verified business email domain: scott@censeoai.ai"
+    ]
+  },
+  "sources": [
+    {
+      "source_url": "lead_import_record",
+      "source_type": "input_data",
+      "retrieval_timestamp": "2026-10-20T19:10:30.179924+00:00",
+      "facts_supported": [
+        "Verified Name: Scott Withers",
+        "Declared Job Title: Founder / Owner / CEO & Chief AI Officer (CAIO)",
+        "Company: CenseoAI - AI Innovation & Adoption",
+        "Industry: management consulting",
+        "Verified Professional Email: scott@censeoai.ai",
+        "Reported Location: Traverse City, Michigan, United States",
+        "Company Keywords: aipowered lead generation for service businesses,marketing automation workflow engineering,highconverting funnel design deployment,local service business digital strategy hvac,home"
+      ]
+    },
+    {
+      "source_url": "http://www.censeoai.ai",
+      "source_type": "company_website",
+      "retrieval_timestamp": "2026-10-20T19:10:31Z",
+      "facts_supported": [
+        "Website Title: AI Consulting & Training for Professional Services | CenseoAI",
+        "Company Mission/Description: Governed AI consulting, training, and Revenue Operating Systems for accounting, law, consulting, and architecture and engineering firms, plus real estate and the trades, in Traverse City and Northern Michigan.",
+        "Core Offerings: Northern Michigan Business Owners Are Leaving Revenue on the Table, and They Don't Even Know It! \nWe Stop the Leak., Why This Matters, Your Revenue Is Leaking Through the Gaps Between Your Tools, 42 hrs"
+      ]
+    }
+  ],
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as Founder / Owner / CEO & Chief AI Officer (CAIO) at CenseoAI - AI Innovation & Adoption.",
+      "Focus on Generative AI & LLM Infrastructure, API Security & Microservices.",
+      "Background: AI Consulting & Training for Professional Services | CenseoAI Home Services  All Services Elevaite AI™ Process Diagnosis..."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for management consulting.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "Would you be open to a 10-minute technical exchange next Tuesday to explore how SealAPI shields AI and API endpoints for teams like CenseoAI - AI Innovation & Adoption?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly."
+    ],
+    "missing_verification_points": []
+  },
+  "research_metadata": {
+    "research_status": "completed",
+    "last_research_timestamp": "2026-10-20T19:10:30.179924+00:00",
+    "sources_examined": 2,
+    "errors_and_limitations": [
+      "LinkedIn profile (http://www.linkedin.com/in/scottwithers) is behind an authentication wall; public domain records used for verified evidence."
+    ]
+  }
+}

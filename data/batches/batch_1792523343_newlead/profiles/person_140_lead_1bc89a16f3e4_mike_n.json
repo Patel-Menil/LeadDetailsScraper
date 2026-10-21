@@ -1,0 +1,110 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_1bc89a16f3e4",
+  "identity": {
+    "name": "Mike N",
+    "first_name": "Mike",
+    "last_name": "N",
+    "job_title": "Ceo/cto & Cofounder",
+    "company": "Shiftwave",
+    "industry": "cosmetics,medical devices,health, wellness & fitness",
+    "linkedin_url": "",
+    "company_website": "https://shiftwave.co",
+    "professional_email": "north@shiftwave.co",
+    "city": "Santa Barbara",
+    "state": "California",
+    "country": "United States"
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at Shiftwave",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Generative AI & LLM Infrastructure",
+      "Healthcare Data Privacy (HIPAA) & Safe Exchange"
+    ],
+    "public_projects": [
+      "Platform development and operations for Shiftwave"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at Shiftwave",
+      "Four signals coordinated into one experience",
+      "Visual Quiet   A blackout mask reduces visual distraction, helping direct attention inward and keep the experience focused",
+      "Together, these elements create one coherent experience that asks very little of you"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Mike N (Ceo/cto & Cofounder at Shiftwave) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails",
+        "Privacy-Preserving Data Exchange & Compliance"
+      ],
+      "evidence_points": [
+        "Role 'Ceo/cto & Cofounder' makes key architecture decisions for emerging AI capabilities",
+        "Regulated domain 'cosmetics,medical devices,health, wellness & fitness' mandates strict API access controls and audited data flow"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 1,
+    "reason": "Priority 1 (Medium Fit): Ceo/cto & Cofounder at Shiftwave is in a relevant role or vertical, but requires further qualification of immediate security/AI deployment urgency.",
+    "score": 58.0,
+    "confidence": 0.9,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'Ceo/cto & Cofounder'",
+      "Limited technical keywords: ai",
+      "Verified business email domain: north@shiftwave.co"
+    ]
+  },
+  "sources": [
+    {
+      "source_url": "lead_import_record",
+      "source_type": "input_data",
+      "retrieval_timestamp": "2026-10-20T19:15:57.177902+00:00",
+      "facts_supported": [
+        "Verified Name: Mike N",
+        "Declared Job Title: Ceo/cto & Cofounder",
+        "Company: Shiftwave",
+        "Industry: cosmetics,medical devices,health, wellness & fitness",
+        "Verified Professional Email: north@shiftwave.co",
+        "Reported Location: Santa Barbara, California, United States",
+        "Company Keywords: nervous system regulation,autonomic nervous system support,recovery technology,performance recovery,sleep support,guided protocols,pulsed pressure waves,breathguided audio,wellness"
+      ]
+    },
+    {
+      "source_url": "https://shiftwave.co",
+      "source_type": "company_website",
+      "retrieval_timestamp": "2026-10-20T19:15:57Z",
+      "facts_supported": [
+        "Website Title: Shiftwave | Full-Body Vibration + Guided Breathwork for Mind & Body – Shiftwave®",
+        "Company Mission/Description: Experience Shiftwave - a science-driven system combining full-body vibration and guided breathwork to help you relax, refocus, and restore balance.",
+        "Core Offerings: Shiftwave®, Reset Mentally., Reset Physically., Reset Emotionally."
+      ]
+    }
+  ],
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as Ceo/cto & Cofounder at Shiftwave.",
+      "Focus on Generative AI & LLM Infrastructure, Healthcare Data Privacy (HIPAA) & Safe Exchange.",
+      "Background: Four signals coordinated into one experience..."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for cosmetics,medical devices,health, wellness & fitness.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "Would you be open to a 10-minute technical exchange next Tuesday to explore how SealAPI shields AI and API endpoints for teams like Shiftwave?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly."
+    ],
+    "missing_verification_points": []
+  },
+  "research_metadata": {
+    "research_status": "completed",
+    "last_research_timestamp": "2026-10-20T19:15:57.177902+00:00",
+    "sources_examined": 2,
+    "errors_and_limitations": []
+  }
+}

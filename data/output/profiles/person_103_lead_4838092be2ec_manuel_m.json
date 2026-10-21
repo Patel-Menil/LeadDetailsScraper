@@ -1,0 +1,108 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_4838092be2ec",
+  "identity": {
+    "name": "Manuel M",
+    "first_name": "Manuel",
+    "last_name": "M",
+    "job_title": "CEO and Chief AI Officer",
+    "company": "Automizers",
+    "industry": "information technology & services",
+    "linkedin_url": "",
+    "company_website": "http://www.automizers.ai",
+    "professional_email": "mark@automizers.ai",
+    "city": "San Francisco",
+    "state": "California",
+    "country": "United States"
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at Automizers",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Generative AI & LLM Infrastructure"
+    ],
+    "public_projects": [
+      "Platform development and operations for Automizers"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at Automizers",
+      "Automizers — Stop losing leads and start booking more business Sign-In Apply Home About Portfolio Contact Sign-In Apply FOR LOCAL SERVICE BUSINESSES FOR LOCAL SERVICE BUSINESSES FOR LOCAL SERVICE BUSINESSES Find & Recover the Revenue Your Business Is Already Missing Find & Recover the Revenue Your Business Is Already Missing Find & Recover the Revenue Your Business Is Already Missing We find your revenue leaks, show you what they're costing you, and fix them — from missed calls to lost leads",
+      "We find your revenue leaks, show you what they're costing you, and fix them — from missed calls to lost leads",
+      "You're slow to follow up on inbound leads High-intent buyers don't wait"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Manuel M (CEO and Chief AI Officer at Automizers) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails"
+      ],
+      "evidence_points": [
+        "Role 'CEO and Chief AI Officer' makes key architecture decisions for emerging AI capabilities"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 1,
+    "reason": "Priority 1 (Medium Fit): CEO and Chief AI Officer at Automizers is in a relevant role or vertical, but requires further qualification of immediate security/AI deployment urgency.",
+    "score": 83.0,
+    "confidence": 0.9,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'CEO and Chief AI Officer'",
+      "Target enterprise vertical matching SealAPI: 'information technology'",
+      "Limited technical keywords: ai",
+      "Verified business email domain: mark@automizers.ai"
+    ]
+  },
+  "sources": [
+    {
+      "source_url": "lead_import_record",
+      "source_type": "input_data",
+      "retrieval_timestamp": "2026-10-20T19:11:09.349842+00:00",
+      "facts_supported": [
+        "Verified Name: Manuel M",
+        "Declared Job Title: CEO and Chief AI Officer",
+        "Company: Automizers",
+        "Industry: information technology & services",
+        "Verified Professional Email: mark@automizers.ai",
+        "Reported Location: San Francisco, California, United States",
+        "Company Keywords: ai automation,technology, information & internet,information technology & services"
+      ]
+    },
+    {
+      "source_url": "http://www.automizers.ai",
+      "source_type": "company_website",
+      "retrieval_timestamp": "2026-10-20T19:11:10Z",
+      "facts_supported": [
+        "Website Title: Automizers — Stop losing leads and start booking more business",
+        "Company Mission/Description: Automizers helps service-based businesses stop losing leads by implementing solutions that win more business.",
+        "Core Offerings: FOR LOCAL SERVICE BUSINESSES, Find & Recover the Revenue Your Business Is Already Missing, Most\n$500K–$10M\nservice\nbusinesses\ndon't\nhave\na\ntraffic\nproblem., You're\nin\nthe\nright\nplace\nif\nat\nleast\none\nof\nthese\nis\ntrue"
+      ]
+    }
+  ],
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as CEO and Chief AI Officer at Automizers.",
+      "Focus on Generative AI & LLM Infrastructure.",
+      "Background: Automizers — Stop losing leads and start booking more business Sign-In Apply Home About Portfolio Contact Sign-In Apply ..."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for information technology & services.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "Would you be open to a 10-minute technical exchange next Tuesday to explore how SealAPI shields AI and API endpoints for teams like Automizers?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly."
+    ],
+    "missing_verification_points": []
+  },
+  "research_metadata": {
+    "research_status": "completed",
+    "last_research_timestamp": "2026-10-20T19:11:09.349842+00:00",
+    "sources_examined": 2,
+    "errors_and_limitations": []
+  }
+}

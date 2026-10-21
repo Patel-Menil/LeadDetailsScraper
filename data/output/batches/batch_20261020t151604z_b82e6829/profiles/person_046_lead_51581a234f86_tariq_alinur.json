@@ -1,0 +1,249 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_51581a234f86",
+  "input_snapshot": {
+    "Linkedin Url": "http://www.linkedin.com/in/tariqalinur",
+    "Full Name": "Tariq Alinur",
+    "First Name": "Tariq",
+    "Last Name": "Alinur",
+    "Email": "tariq.alinur@braincx.com",
+    "Email Status": "verified",
+    "Job Title": "Founder, CEO & Chief AI Officer",
+    "Company Name": "BrainCX AI",
+    "Company Website": "http://www.braincx.com",
+    "City": "Fort Lauderdale",
+    "State": "Florida",
+    "Country": "United States",
+    "Industry": "information technology & services",
+    "Keywords": "digital contact center,ai,back office,customer support,messaging,video chat,global staffing,chat bot,multilingual support,api,genai,technology, information & internet,software development,information technology & services,social media,consumer internet,consumers,internet",
+    "Employees": "21",
+    "Company City": "West Palm Beach",
+    "Company State": "Florida",
+    "Company Country": "United States",
+    "Company Linkedin Url": "http://www.linkedin.com/company/braincx",
+    "Company Twitter Url": "",
+    "Company Facebook Url": "",
+    "Company Phone Numbers": "+1 669-322-3816",
+    "Twitter Url": "",
+    "Facebook Url": ""
+  },
+  "identity": {
+    "name": "Tariq Alinur",
+    "first_name": "Tariq",
+    "last_name": "Alinur",
+    "job_title": "Founder, CEO & Chief AI Officer",
+    "company": "BrainCX AI",
+    "industry": "information technology & services",
+    "linkedin_url": "http://www.linkedin.com/in/tariqalinur",
+    "company_website": "http://www.braincx.com",
+    "professional_email": "tariq.alinur@braincx.com",
+    "city": "Fort Lauderdale",
+    "state": "Florida",
+    "country": "United States"
+  },
+  "contact": {
+    "email": "tariq.alinur@braincx.com",
+    "email_type": "work",
+    "email_verification_status": "syntax_valid_unprobed",
+    "linkedin_url": "http://www.linkedin.com/in/tariqalinur",
+    "contact_channel_status": "available"
+  },
+  "company": {
+    "name": "BrainCX AI",
+    "website": "http://www.braincx.com",
+    "domain": "braincx.com",
+    "industry": "information technology & services",
+    "verified": false
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at BrainCX AI",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Generative AI & LLM Infrastructure"
+    ],
+    "public_projects": [
+      "Platform development and operations for BrainCX AI"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at BrainCX AI"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Tariq Alinur (Founder, CEO & Chief AI Officer at BrainCX AI) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails"
+      ],
+      "evidence_points": [
+        "Role 'Founder, CEO & Chief AI Officer' makes architecture decisions for emerging AI capabilities"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 1,
+    "reason": "Priority 1 (Medium Fit): Founder, CEO & Chief AI Officer at BrainCX AI is in a relevant role or vertical, but requires further qualification of immediate security/AI deployment urgency.",
+    "score": 90.0,
+    "confidence": 0.33,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'Founder, CEO & Chief AI Officer'",
+      "Target enterprise vertical matching SealAPI: 'information technology'",
+      "Moderate AI/API infrastructure signals: ai, genai, api"
+    ]
+  },
+  "sources": [
+    {
+      "source_id": "src_input_lead_515",
+      "source_url": "lead_import_record",
+      "source_type": "user_input",
+      "title": null,
+      "publisher": null,
+      "retrieval_timestamp": "2026-10-20T15:16:10.223011+00:00",
+      "published_at": null,
+      "relevant_excerpt": null,
+      "evidence_quality": 0.6,
+      "supports_claim_ids": [],
+      "facts_supported": [
+        "Imported Name: Tariq Alinur",
+        "Imported Job Title: Founder, CEO & Chief AI Officer",
+        "Imported Company: BrainCX AI",
+        "Imported Industry: information technology & services",
+        "Imported Professional Email: tariq.alinur@braincx.com",
+        "Imported Company Website: http://www.braincx.com"
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "clm_name",
+      "field": "name",
+      "value": "Tariq Alinur",
+      "status": "verified",
+      "source_ids": [
+        "src_input_lead_515"
+      ],
+      "confidence": 0.75,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_company",
+      "field": "company",
+      "value": "BrainCX AI",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_515"
+      ],
+      "confidence": 0.7,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_title",
+      "field": "job_title",
+      "value": "Founder, CEO & Chief AI Officer",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_515"
+      ],
+      "confidence": 0.65,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_email",
+      "field": "professional_email",
+      "value": "tariq.alinur@braincx.com",
+      "status": "unverified",
+      "source_ids": [
+        "src_input_lead_515"
+      ],
+      "confidence": 0.5,
+      "last_verified_at": null,
+      "review_reason": "Syntax valid from import; deliverability probe not performed"
+    }
+  ],
+  "public_signals": [],
+  "icebreaker": {
+    "text": "I have been following how technology teams in the information technology & services sector are managing API and AI endpoint security.",
+    "icebreaker_type": "general_question",
+    "source_ids": [
+      "src_input_lead_515"
+    ],
+    "confidence": 0.45,
+    "why_it_matters": "SealAPI helps organizations protect APIs from token leakage, prompt injection, and credential abuse with zero-trust gateways.",
+    "potential_pain_point": "Hypothesis: Preventing credential leakage and unauthorized API consumption in production.",
+    "conversation_question": "Would you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?",
+    "personalization_status": "generic_fallback",
+    "outreach_draft": {
+      "subject": "API security & AI infrastructure at BrainCX AI",
+      "greeting": "Hi Tariq,",
+      "opener": "I have been following how technology teams in the information technology & services sector are managing API and AI endpoint security.",
+      "sealapi_connection": "At SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.",
+      "low_pressure_ask": "Would you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?",
+      "full_body": "Hi Tariq,\n\nI have been following how technology teams in the information technology & services sector are managing API and AI endpoint security.\n\nAt SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.\n\nWould you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?\n\nBest regards,\nSealAPI Research & Partnerships"
+    }
+  },
+  "scoring": {
+    "lead_fit_score": 90.0,
+    "role_fit_score": 35.0,
+    "industry_fit_score": 30.0,
+    "technical_need_score": 15.0,
+    "verification_confidence": 0.33,
+    "readiness_status": "ready_with_caveat",
+    "explanations": [
+      "High-authority security/AI decision maker role: 'Founder, CEO & Chief AI Officer'",
+      "Target enterprise vertical matching SealAPI: 'information technology'",
+      "Moderate AI/API infrastructure signals: ai, genai, api"
+    ]
+  },
+  "contact_readiness": {
+    "status": "ready_with_caveat",
+    "has_name": true,
+    "has_verified_role": true,
+    "has_company_context": true,
+    "has_usable_contact_channel": true,
+    "has_evidence_based_icebreaker": false,
+    "blockers": [
+      "identity_not_verified"
+    ]
+  },
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as Founder, CEO & Chief AI Officer at BrainCX AI.",
+      "Focus on Generative AI & LLM Infrastructure.",
+      "Evidence-based opener: I have been following how technology teams in the information technology & services sector are managing API and AI endpoint security."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for information technology & services.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "Would you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly.",
+      "Do not assume delivered email address guarantees personal inbox delivery without validation."
+    ],
+    "missing_verification_points": [
+      "Icebreaker status: generic_fallback (human review recommended)."
+    ]
+  },
+  "research_metadata": {
+    "schema_version": "2.0.0",
+    "batch_id": "batch_20261020T151604Z_b82e6829",
+    "pipeline_version": "2.0.0",
+    "researched_at": "2026-10-20T15:16:10.223011+00:00",
+    "execution_status": "partial",
+    "verification_status": "unverified",
+    "source_count": 1,
+    "review_required": true,
+    "cache_fingerprint": "a5e2e164567fd57ed9ea97d3a7209438925aaa6c63f8f1fed2e014ba384a6219",
+    "errors_and_limitations": [
+      "LinkedIn URL (http://www.linkedin.com/in/tariqalinur) is behind an authentication wall; public domain records used for verified evidence."
+    ],
+    "research_status": "partial",
+    "last_research_timestamp": "2026-10-20T15:16:10.223011+00:00",
+    "sources_examined": 1
+  }
+}

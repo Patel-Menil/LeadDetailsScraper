@@ -1,0 +1,247 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_11c7fd2d84ce",
+  "input_snapshot": {
+    "Linkedin Url": "",
+    "Full Name": "Kshitij K",
+    "First Name": "Kshitij",
+    "Last Name": "K",
+    "Email": "kshitijkumar@data-hat.com",
+    "Email Status": "verified",
+    "Job Title": "Chief AI Officer and CEO",
+    "Company Name": "Data-Hat AI",
+    "Company Website": "http://www.data-hat.com",
+    "City": "San Francisco",
+    "State": "California",
+    "Country": "United States",
+    "Industry": "retail",
+    "Keywords": "artificial intelligence,generative ai,ai,retail ai,fashion ai,ai agents,beauty ai,cosmetics ai,agentic retail,ethical ai,manufacturing,ai for space management,ai for real estate,information technology and services,ai for lease optimization,ai governance,ai for foot traffic analysis,ai for operational cost reduction,ai-driven insights,ml engineering,ai for logistics,ai project management,ai governance frameworks,scalable ai deployment,ai strategy,revenue growth,business automation,digital twin ai,ai in cloud,cost reduction,digital transformation,predictive analytics,scalable ai,ai for discount governance,ai compliance standards,ai for space utilization,ai for space planning,retail,inventory management,workflow automation,ai for finance,b2b,responsible ai,enterprise ai,ai for manufacturing,ai for supply chain,ai for retail,ai for predictive maintenance,supply chain optimization,retail space optimization,business process automation,ai for revenue leakage prevention,ai for supply chain resilience,ai platform,autonomous agents,ai for demand sensing,ai scalability,ai bias mitigation,ai maturity assessment,data-driven decision making,ai impact measurement,ai for healthcare,ai monitoring tools,ai for personalized marketing,e-commerce,customer retention,enterprise ai solutions,data analytics,financial services,ai roi,ai for space reconfiguration,ai optimization,machine learning,ai for inventory accuracy,agentic rag architecture,ai deployment,ai for customer segmentation,services,healthcare,ai use case development,commercial building management,large language models,ai for revenue maximization,real estate,ai training and literacy,ai performance metrics,d2c,ai for tenant placement,ai in on-premise systems,ai integration,data privacy,computer systems design and related services,ai solutions,ai automation,ai for demand forecasting,ai model explainability,consulting,agent-based ai,finance,supply chain,enterprise software,ai-powered automation,agentic ai,saas,information technology & services,mechanical or industrial engineering,enterprises,computer software,consumer internet,consumers,internet,health care,health, wellness & fitness,hospital & health care",
+    "Employees": "9",
+    "Company City": "",
+    "Company State": "",
+    "Company Country": "",
+    "Company Linkedin Url": "http://www.linkedin.com/company/data-hat-ai",
+    "Company Twitter Url": "",
+    "Company Facebook Url": "",
+    "Company Phone Numbers": "+1 201-212-5706",
+    "Twitter Url": "",
+    "Facebook Url": ""
+  },
+  "identity": {
+    "name": "Kshitij K",
+    "first_name": "Kshitij",
+    "last_name": "K",
+    "job_title": "Chief AI Officer and CEO",
+    "company": "Data-Hat AI",
+    "industry": "retail",
+    "linkedin_url": "",
+    "company_website": "http://www.data-hat.com",
+    "professional_email": "kshitijkumar@data-hat.com",
+    "city": "San Francisco",
+    "state": "California",
+    "country": "United States"
+  },
+  "contact": {
+    "email": "kshitijkumar@data-hat.com",
+    "email_type": "work",
+    "email_verification_status": "syntax_valid_unprobed",
+    "linkedin_url": "",
+    "contact_channel_status": "available"
+  },
+  "company": {
+    "name": "Data-Hat AI",
+    "website": "http://www.data-hat.com",
+    "domain": "data-hat.com",
+    "industry": "retail",
+    "verified": false
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at Data-Hat AI",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Generative AI & LLM Infrastructure"
+    ],
+    "public_projects": [
+      "Platform development and operations for Data-Hat AI"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at Data-Hat AI"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Kshitij K (Chief AI Officer and CEO at Data-Hat AI) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails"
+      ],
+      "evidence_points": [
+        "Role 'Chief AI Officer and CEO' makes architecture decisions for emerging AI capabilities"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 1,
+    "reason": "Priority 1 (Medium Fit): Chief AI Officer and CEO at Data-Hat AI is in a relevant role or vertical, but requires further qualification of immediate security/AI deployment urgency.",
+    "score": 88.0,
+    "confidence": 0.24,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'Chief AI Officer and CEO'",
+      "Adjacent vertical: 'retail'",
+      "Strong verified AI/API security need (matched signals: ai, artificial intelligence, machine learning, generative ai, agentic, compliance)"
+    ]
+  },
+  "sources": [
+    {
+      "source_id": "src_input_lead_11c",
+      "source_url": "lead_import_record",
+      "source_type": "user_input",
+      "title": null,
+      "publisher": null,
+      "retrieval_timestamp": "2026-10-20T15:16:10.290140+00:00",
+      "published_at": null,
+      "relevant_excerpt": null,
+      "evidence_quality": 0.6,
+      "supports_claim_ids": [],
+      "facts_supported": [
+        "Imported Name: Kshitij K",
+        "Imported Job Title: Chief AI Officer and CEO",
+        "Imported Company: Data-Hat AI",
+        "Imported Industry: retail",
+        "Imported Professional Email: kshitijkumar@data-hat.com",
+        "Imported Company Website: http://www.data-hat.com"
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "clm_name",
+      "field": "name",
+      "value": "Kshitij K",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_11c"
+      ],
+      "confidence": 0.5,
+      "last_verified_at": null,
+      "review_reason": "Surname is abbreviated; requires full name evidence"
+    },
+    {
+      "claim_id": "clm_company",
+      "field": "company",
+      "value": "Data-Hat AI",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_11c"
+      ],
+      "confidence": 0.7,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_title",
+      "field": "job_title",
+      "value": "Chief AI Officer and CEO",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_11c"
+      ],
+      "confidence": 0.65,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_email",
+      "field": "professional_email",
+      "value": "kshitijkumar@data-hat.com",
+      "status": "unverified",
+      "source_ids": [
+        "src_input_lead_11c"
+      ],
+      "confidence": 0.5,
+      "last_verified_at": null,
+      "review_reason": "Syntax valid from import; deliverability probe not performed"
+    }
+  ],
+  "public_signals": [],
+  "icebreaker": {
+    "text": "I have been following how technology teams in the retail sector are managing API and AI endpoint security.",
+    "icebreaker_type": "general_question",
+    "source_ids": [
+      "src_input_lead_11c"
+    ],
+    "confidence": 0.45,
+    "why_it_matters": "SealAPI helps organizations protect APIs from token leakage, prompt injection, and credential abuse with zero-trust gateways.",
+    "potential_pain_point": "Hypothesis: Preventing credential leakage and unauthorized API consumption in production.",
+    "conversation_question": "Would you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?",
+    "personalization_status": "generic_fallback",
+    "outreach_draft": {
+      "subject": "API security & AI infrastructure at Data-Hat AI",
+      "greeting": "Hi Kshitij,",
+      "opener": "I have been following how technology teams in the retail sector are managing API and AI endpoint security.",
+      "sealapi_connection": "At SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.",
+      "low_pressure_ask": "Would you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?",
+      "full_body": "Hi Kshitij,\n\nI have been following how technology teams in the retail sector are managing API and AI endpoint security.\n\nAt SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.\n\nWould you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?\n\nBest regards,\nSealAPI Research & Partnerships"
+    }
+  },
+  "scoring": {
+    "lead_fit_score": 88.0,
+    "role_fit_score": 35.0,
+    "industry_fit_score": 18.0,
+    "technical_need_score": 25.0,
+    "verification_confidence": 0.24,
+    "readiness_status": "needs_research",
+    "explanations": [
+      "High-authority security/AI decision maker role: 'Chief AI Officer and CEO'",
+      "Adjacent vertical: 'retail'",
+      "Strong verified AI/API security need (matched signals: ai, artificial intelligence, machine learning, generative ai, agentic, compliance)"
+    ]
+  },
+  "contact_readiness": {
+    "status": "needs_research",
+    "has_name": true,
+    "has_verified_role": true,
+    "has_company_context": true,
+    "has_usable_contact_channel": true,
+    "has_evidence_based_icebreaker": false,
+    "blockers": [
+      "identity_not_verified"
+    ]
+  },
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as Chief AI Officer and CEO at Data-Hat AI.",
+      "Focus on Generative AI & LLM Infrastructure.",
+      "Evidence-based opener: I have been following how technology teams in the retail sector are managing API and AI endpoint security."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for retail.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "Would you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly.",
+      "Do not assume delivered email address guarantees personal inbox delivery without validation."
+    ],
+    "missing_verification_points": [
+      "Icebreaker status: generic_fallback (human review recommended)."
+    ]
+  },
+  "research_metadata": {
+    "schema_version": "2.0.0",
+    "batch_id": "batch_20261020T151604Z_b82e6829",
+    "pipeline_version": "2.0.0",
+    "researched_at": "2026-10-20T15:16:10.290140+00:00",
+    "execution_status": "partial",
+    "verification_status": "unverified",
+    "source_count": 1,
+    "review_required": true,
+    "cache_fingerprint": "a5e2e164567fd57ed9ea97d3a7209438925aaa6c63f8f1fed2e014ba384a6219",
+    "errors_and_limitations": [],
+    "research_status": "partial",
+    "last_research_timestamp": "2026-10-20T15:16:10.290140+00:00",
+    "sources_examined": 1
+  }
+}

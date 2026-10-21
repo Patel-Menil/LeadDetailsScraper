@@ -1,0 +1,158 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_ab9329f65e04",
+  "identity": {
+    "name": "Irene Waldridge",
+    "first_name": "Irene",
+    "last_name": "Waldridge",
+    "job_title": "Founder and Ceo/cto",
+    "company": "Eva Medtec, Inc.",
+    "industry": "health, wellness & fitness",
+    "linkedin_url": "http://www.linkedin.com/in/irene-waldridge-96306241",
+    "company_website": "https://evamedtecinvestment.com",
+    "professional_email": "iwaldridge@evamedtec.com",
+    "city": "Shakopee",
+    "state": "Minnesota",
+    "country": "United States"
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at Eva Medtec, Inc.",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Generative AI & LLM Infrastructure",
+      "API Security & Microservices",
+      "Healthcare Data Privacy (HIPAA) & Safe Exchange"
+    ],
+    "public_projects": [
+      "Platform development and operations for Eva Medtec, Inc."
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at Eva Medtec, Inc.",
+      "Waldridge  founded Tactile Medical, where she held four patents for the Flexitouch System",
+      "Irene  previously worked at Tactile Medical as a Founder, CEO, Vice President and Chief Technologist",
+      "Eva Medtec  founder/CEO and Neuroglide inventor,  Irene Waldridge , previously founded Tactile Medical, where she held four patents as the inventor of the Flexitouch® System for the treatment of"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Irene Waldridge (Founder and Ceo/cto at Eva Medtec, Inc.) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails",
+        "Privacy-Preserving Data Exchange & Compliance"
+      ],
+      "evidence_points": [
+        "Role 'Founder and Ceo/cto' makes key architecture decisions for emerging AI capabilities",
+        "Regulated domain 'health, wellness & fitness' mandates strict API access controls and audited data flow"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 1,
+    "reason": "Priority 1 (Medium Fit): Founder and Ceo/cto at Eva Medtec, Inc. is in a relevant role or vertical, but requires further qualification of immediate security/AI deployment urgency.",
+    "score": 65.0,
+    "confidence": 1.0,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'Founder and Ceo/cto'",
+      "Moderate AI/API infrastructure signals: ai, api",
+      "Verified business email domain: iwaldridge@evamedtec.com"
+    ]
+  },
+  "sources": [
+    {
+      "source_url": "lead_import_record",
+      "source_type": "input_data",
+      "retrieval_timestamp": "2026-10-10T19:22:07.551126+00:00",
+      "facts_supported": [
+        "Verified Name: Irene Waldridge",
+        "Declared Job Title: Founder and Ceo/cto",
+        "Company: Eva Medtec, Inc.",
+        "Industry: health, wellness & fitness",
+        "Verified Professional Email: iwaldridge@evamedtec.com",
+        "Reported Location: Shakopee, Minnesota, United States",
+        "Company Keywords: mld therapy,edema solution,post surgical pain,opioid pain relief,wellness & fitness services,superficial fascia manipulation,lymphedema treatment,immune system support,near-infrare"
+      ]
+    },
+    {
+      "source_url": "https://www.linkedin.com/in/irene-waldridge-96306241",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:22:13.119438+00:00",
+      "facts_supported": [
+        "Public Profile: Irene Waldridge - Founder & CEO | Medical Device Innovator - LinkedIn",
+        "Verified Career & Background: Founder and CEO of \nEva\nMedtec,\n a medical device company focused on developing non-invasive technologies that support pain relief and physiological circulation."
+      ]
+    },
+    {
+      "source_url": "https://www.neuroglide.com/about-us",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:22:13.119481+00:00",
+      "facts_supported": [
+        "Public Profile: About Us - Neuroglide",
+        "Verified Career & Background: Prior to her work at \nEva\nMedtec,\n Ms. \nWaldridge\n founded Tactile Medical, where she held four patents for the Flexitouch System. This medical device revolutionized the treatment of lymphedema and venous insufficiency, showcasing her pioneering spirit and dedication to improving healthcare solution"
+      ]
+    },
+    {
+      "source_url": "https://buzzyrocket.com/founder-spotlight-eva-medtec/",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:22:13.119487+00:00",
+      "facts_supported": [
+        "Public Profile: Founder Spotlight: Irene Waldridge of Eva Medtec",
+        "Verified Career & Background: Meet \nIrene\nWaldridge\n of \nEva\nMedtec\n. \nEva\nMedtec\n started with a clear mission: to develop unique, effective, and accessible medical devices that lessened dependency on expensive and inconvenient therapies, drugs, and medical treatments. We had the opportunity to speak with their founder, \nIrene\n"
+      ]
+    },
+    {
+      "source_url": "https://www.crunchbase.com/person/irene-waldridge",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:22:13.119493+00:00",
+      "facts_supported": [
+        "Public Profile: Irene Yarusso Waldridge - Founder and CEO/CTO @ Eva Medtec - Crunchbase",
+        "Verified Career & Background: Irene\n Yarusso \nWaldridge\n is based out of Shakopee, Minnesota, and is the Founder and CEO/CTO of \nEva\nMedtec\n. \nIrene\n previously worked at Tactile Medical as a Founder, CEO, Vice President and Chief Technologist."
+      ]
+    },
+    {
+      "source_url": "https://www.prnewswire.com/news-releases/eva-medtec-inc-launches-the-neuroglide-pain-relief-and-recovery-system-with-early-release-of-250-units-for-online-purchase-301381044.html",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:22:13.119498+00:00",
+      "facts_supported": [
+        "Public Profile: Eva Medtec, Inc. launches the Neuroglide™ Pain Relief and Recovery ...",
+        "Verified Career & Background: Eva\nMedtec\n founder/CEO and Neuroglide inventor, \nIrene\nWaldridge\n, previously founded Tactile Medical, where she held four patents as the inventor of the Flexitouch® System for the treatment of ..."
+      ]
+    },
+    {
+      "source_url": "https://deepenrich.com/company/7b57/eva-medtec-inc-0011sfq2a",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:22:13.119502+00:00",
+      "facts_supported": [
+        "Public Profile: Eva Medtec, Inc. - Relax. Relieve. Recover.",
+        "Verified Career & Background: Eva\nMedtec\n is led by serial entrepreneur and inventor, \nIrene\nWaldridge\n, who has now set her sights on the pain management market using natural pain. Prior to \nEva\nMedtec,\n she founded Tactile Medical, where she pioneered a new care market for Lymphedema with her Flexitouch device, which is still "
+      ]
+    }
+  ],
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as Founder and Ceo/cto at Eva Medtec, Inc..",
+      "Focus on Generative AI & LLM Infrastructure, API Security & Microservices.",
+      "Background: Waldridge  founded Tactile Medical, where she held four patents for the Flexitouch System..."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for health, wellness & fitness.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "Would you be open to a 10-minute technical exchange next Tuesday to explore how SealAPI shields AI and API endpoints for teams like Eva Medtec, Inc.?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly."
+    ],
+    "missing_verification_points": []
+  },
+  "research_metadata": {
+    "research_status": "completed",
+    "last_research_timestamp": "2026-10-10T19:22:07.551126+00:00",
+    "sources_examined": 7,
+    "errors_and_limitations": [
+      "LinkedIn profile (http://www.linkedin.com/in/irene-waldridge-96306241) is behind an authentication wall; public domain records used for verified evidence.",
+      "Company website research notice for https://evamedtecinvestment.com: Website could not be reached via HTTP or Browser."
+    ]
+  }
+}

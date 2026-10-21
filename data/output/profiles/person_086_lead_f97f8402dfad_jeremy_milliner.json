@@ -1,0 +1,110 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_f97f8402dfad",
+  "identity": {
+    "name": "Jeremy Milliner",
+    "first_name": "Jeremy",
+    "last_name": "Milliner",
+    "job_title": "CEO & CTO",
+    "company": "Exonetics",
+    "industry": "information technology & services,health, wellness & fitness,computer software",
+    "linkedin_url": "http://www.linkedin.com/in/jeremy-milliner-9764b937",
+    "company_website": "https://exonetics.io",
+    "professional_email": "jeremy@exonetics.io",
+    "city": "Denver",
+    "state": "Colorado",
+    "country": "United States"
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at Exonetics",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Generative AI & LLM Infrastructure",
+      "API Security & Microservices",
+      "Healthcare Data Privacy (HIPAA) & Safe Exchange"
+    ],
+    "public_projects": [
+      "Platform development and operations for Exonetics"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at Exonetics"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Jeremy Milliner (CEO & CTO at Exonetics) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails",
+        "Privacy-Preserving Data Exchange & Compliance"
+      ],
+      "evidence_points": [
+        "Role 'CEO & CTO' makes key architecture decisions for emerging AI capabilities",
+        "Regulated domain 'information technology & services,health, wellness & fitness,computer software' mandates strict API access controls and audited data flow"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 0,
+    "reason": "Priority 0 (Highest Fit): CEO & CTO at Exonetics matches core decision-maker criteria in a regulated/tech-driven industry with active AI/API needs.",
+    "score": 90.0,
+    "confidence": 0.9,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'CEO & CTO'",
+      "Target enterprise vertical matching SealAPI: 'information technology'",
+      "Moderate AI/API infrastructure signals: ai, api, apis",
+      "Verified business email domain: jeremy@exonetics.io"
+    ]
+  },
+  "sources": [
+    {
+      "source_url": "lead_import_record",
+      "source_type": "input_data",
+      "retrieval_timestamp": "2026-10-20T19:20:33.943632+00:00",
+      "facts_supported": [
+        "Verified Name: Jeremy Milliner",
+        "Declared Job Title: CEO & CTO",
+        "Company: Exonetics",
+        "Industry: information technology & services,health, wellness & fitness,computer software",
+        "Verified Professional Email: jeremy@exonetics.io",
+        "Reported Location: Denver, Colorado, United States",
+        "Company Keywords: body mobility flaws,health tech,b2b,performance optimization,injury prevention,sports & recreation,rehabilitation,healthcare,wearable sensor technology,medical devices,motion captu"
+      ]
+    },
+    {
+      "source_url": "https://exonetics.io",
+      "source_type": "company_website",
+      "retrieval_timestamp": "2026-10-20T19:20:41Z",
+      "facts_supported": [
+        "Website Title: Exonetics",
+        "Company Mission/Description: Exonetics make products for the go-getters and the high-performers getting after their goals or just getting after it day after day. We make state of the art products that delivers everything you need to know about predicting injuries, faster rehabilitation, and achieving peak human motion performan",
+        "Core Offerings: EXONETICS, We understand movement. Precisely., Exonetics presents WOVEN., WOVEN APPLICATIONS"
+      ]
+    }
+  ],
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as CEO & CTO at Exonetics.",
+      "Focus on Generative AI & LLM Infrastructure, API Security & Microservices."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for information technology & services,health, wellness & fitness,computer software.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "Would you be open to a 10-minute technical exchange next Tuesday to explore how SealAPI shields AI and API endpoints for teams like Exonetics?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly."
+    ],
+    "missing_verification_points": []
+  },
+  "research_metadata": {
+    "research_status": "completed",
+    "last_research_timestamp": "2026-10-20T19:20:33.943632+00:00",
+    "sources_examined": 2,
+    "errors_and_limitations": [
+      "LinkedIn profile (http://www.linkedin.com/in/jeremy-milliner-9764b937) is behind an authentication wall; public domain records used for verified evidence."
+    ]
+  }
+}

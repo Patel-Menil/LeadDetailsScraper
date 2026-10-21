@@ -1,0 +1,250 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_860029fb6708",
+  "input_snapshot": {
+    "Linkedin Url": "",
+    "Full Name": "Simon L",
+    "First Name": "Simon",
+    "Last Name": "L",
+    "Email": "s.lam@m1finance.com",
+    "Email Status": "verified",
+    "Job Title": "VP of Engineering & CISO",
+    "Company Name": "M1",
+    "Company Website": "https://m1.com",
+    "City": "Chicago",
+    "State": "Illinois",
+    "Country": "United States",
+    "Industry": "financial services",
+    "Keywords": "financial technology,investing,investments,fintech,automation,personal finance,financial services,banking,brokerage,app,savings,stocks,etfs,crypto,spend,credit card,borrow,personal loans,margin,finance technology,finance,urbanization initiatives,data center modernization,digital customer engagement,strategic partnerships,mobile network,fixed line services,cloud-native telecom,cloud-native architecture,urbanization support,singapore telecom,api-driven digital services,mobile plans,cloud-native telecom platform,fiber broadband,cloud-native api services,ultra high-speed internet,high-speed internet,network upgrade,cybersecurity for telecom,digital solutions for smart cities,cloud-native backend,cloud computing,cybersecurity services,southeast asia lte launch,api integration,information technology,urban digital infrastructure,cloud-native infrastructure,network upgrade projects,customer engagement platforms,cloud-native network infrastructure,telecom services,cloud backend,data center services,iot deployment in singapore,strategic telecom partnership,digital payment solutions for smbs,digital customer experience,cloud-native architecture in telecom,api-driven services,digital transformation,digital infrastructure,customer engagement,business solutions,digital transformation support,digital solutions,data center,network infrastructure,nationwide 5g license,mobile point-of-sale services,fiber optic internet,digital experience,5g technology,nationwide 4g,5g network,digital inclusion,singapore telecom pioneer,network modernization,customer experience,digital transformation in telecom,mobile services,5g standalone deployment,cloud services,digital innovation,digital transformation partner,legacy network shutdown,cloud solutions,cloud-native backend systems,managed services,5g standalone,real-time marketing,cybersecurity,telecommunications,wired and wireless telecommunications carriers (except satellite),iot services,api-driven integration,high-yield cash account,apy,automated investing,commission-free,brokerage account,retirement accounts,custodial accounts,margin loans,credit card rewards,crypto trust,flexible investments,portfolio management,diversification,financial education,robust security,account safeguarding,daily ach transfer limits,seamless money transfer,interest calculation,smart transfers,customizable automation,investing goals,long-term wealth building,fractional shares,trading automation,dynamic rebalancing,investment strategy,savings vs. cash accounts,joint accounts,traditional ira,roth ira,sep ira,access to margin,cash management,tiered rewards,financial success for children,custodian responsibilities,interest-bearing accounts,risk management,platform fees,no commission,investment products,sipc protection,fdic insurance,investment education,wealth management,financial advisor guidance,educational materials,b2b,b2c,consumer products & retail,information technology & services,enterprise software,enterprises,computer software,internet service providers,computer & network security,investment management",
+    "Employees": "240",
+    "Company City": "Chicago",
+    "Company State": "Illinois",
+    "Company Country": "United States",
+    "Company Linkedin Url": "http://www.linkedin.com/company/m1-finance",
+    "Company Twitter Url": "https://twitter.com/m1_finance",
+    "Company Facebook Url": "https://www.facebook.com/thinkm1/",
+    "Company Phone Numbers": "+1 312-600-6668",
+    "Twitter Url": "",
+    "Facebook Url": ""
+  },
+  "identity": {
+    "name": "Simon L",
+    "first_name": "Simon",
+    "last_name": "L",
+    "job_title": "VP of Engineering & CISO",
+    "company": "M1",
+    "industry": "financial services",
+    "linkedin_url": "",
+    "company_website": "https://m1.com",
+    "professional_email": "s.lam@m1finance.com",
+    "city": "Chicago",
+    "state": "Illinois",
+    "country": "United States"
+  },
+  "contact": {
+    "email": "s.lam@m1finance.com",
+    "email_type": "work",
+    "email_verification_status": "syntax_valid_unprobed",
+    "linkedin_url": "",
+    "contact_channel_status": "available"
+  },
+  "company": {
+    "name": "M1",
+    "website": "https://m1.com",
+    "domain": "m1.com",
+    "industry": "financial services",
+    "verified": false
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Enforcing cybersecurity, data compliance, and API security policies across M1",
+      "Safeguarding sensitive data and managing third-party vendor access risk"
+    ],
+    "technical_interests": [
+      "Enterprise Cloud Systems & Platform Scalability"
+    ],
+    "public_projects": [
+      "Platform development and operations for M1"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at M1"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Simon L (VP of Engineering & CISO at M1) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails",
+        "Privacy-Preserving Data Exchange & Compliance"
+      ],
+      "evidence_points": [
+        "Role 'VP of Engineering & CISO' makes architecture decisions for emerging AI capabilities",
+        "Regulated vertical 'financial services' mandates strict API access controls and audited data flow"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 1,
+    "reason": "Priority 1 (Medium Fit): VP of Engineering & CISO at M1 is in a relevant role or vertical, but requires further qualification of immediate security/AI deployment urgency.",
+    "score": 100.0,
+    "confidence": 0.24,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'VP of Engineering & CISO'",
+      "Target enterprise vertical matching SealAPI: 'financial services'",
+      "Strong verified AI/API security need (matched signals: ai, api, security, cloud, infrastructure)"
+    ]
+  },
+  "sources": [
+    {
+      "source_id": "src_input_lead_860",
+      "source_url": "lead_import_record",
+      "source_type": "user_input",
+      "title": null,
+      "publisher": null,
+      "retrieval_timestamp": "2026-10-20T15:16:10.342242+00:00",
+      "published_at": null,
+      "relevant_excerpt": null,
+      "evidence_quality": 0.6,
+      "supports_claim_ids": [],
+      "facts_supported": [
+        "Imported Name: Simon L",
+        "Imported Job Title: VP of Engineering & CISO",
+        "Imported Company: M1",
+        "Imported Industry: financial services",
+        "Imported Professional Email: s.lam@m1finance.com",
+        "Imported Company Website: https://m1.com"
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "clm_name",
+      "field": "name",
+      "value": "Simon L",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_860"
+      ],
+      "confidence": 0.5,
+      "last_verified_at": null,
+      "review_reason": "Surname is abbreviated; requires full name evidence"
+    },
+    {
+      "claim_id": "clm_company",
+      "field": "company",
+      "value": "M1",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_860"
+      ],
+      "confidence": 0.7,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_title",
+      "field": "job_title",
+      "value": "VP of Engineering & CISO",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_860"
+      ],
+      "confidence": 0.65,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_email",
+      "field": "professional_email",
+      "value": "s.lam@m1finance.com",
+      "status": "unverified",
+      "source_ids": [
+        "src_input_lead_860"
+      ],
+      "confidence": 0.5,
+      "last_verified_at": null,
+      "review_reason": "Syntax valid from import; deliverability probe not performed"
+    }
+  ],
+  "public_signals": [],
+  "icebreaker": {
+    "text": "Given M1's focus in financial services, data privacy governance and auditable API exchanges are typically paramount.",
+    "icebreaker_type": "general_question",
+    "source_ids": [
+      "src_input_lead_860"
+    ],
+    "confidence": 0.6,
+    "why_it_matters": "Regulated verticals require verifiable controls to ensure sensitive data does not cross unauthorized API boundaries.",
+    "potential_pain_point": "Hypothesis: Ensuring third-party integrations and internal models comply with strict compliance audits.",
+    "conversation_question": "How does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?",
+    "personalization_status": "needs_review",
+    "outreach_draft": {
+      "subject": "API security & AI infrastructure at M1",
+      "greeting": "Hi Simon,",
+      "opener": "Given M1's focus in financial services, data privacy governance and auditable API exchanges are typically paramount.",
+      "sealapi_connection": "At SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.",
+      "low_pressure_ask": "How does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?",
+      "full_body": "Hi Simon,\n\nGiven M1's focus in financial services, data privacy governance and auditable API exchanges are typically paramount.\n\nAt SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.\n\nHow does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?\n\nBest regards,\nSealAPI Research & Partnerships"
+    }
+  },
+  "scoring": {
+    "lead_fit_score": 100.0,
+    "role_fit_score": 35.0,
+    "industry_fit_score": 30.0,
+    "technical_need_score": 25.0,
+    "verification_confidence": 0.24,
+    "readiness_status": "needs_research",
+    "explanations": [
+      "High-authority security/AI decision maker role: 'VP of Engineering & CISO'",
+      "Target enterprise vertical matching SealAPI: 'financial services'",
+      "Strong verified AI/API security need (matched signals: ai, api, security, cloud, infrastructure)"
+    ]
+  },
+  "contact_readiness": {
+    "status": "needs_research",
+    "has_name": true,
+    "has_verified_role": true,
+    "has_company_context": true,
+    "has_usable_contact_channel": true,
+    "has_evidence_based_icebreaker": false,
+    "blockers": [
+      "identity_not_verified",
+      "icebreaker_needs_review"
+    ]
+  },
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as VP of Engineering & CISO at M1.",
+      "Focus on Enterprise Cloud Systems & Platform Scalability.",
+      "Evidence-based opener: Given M1's focus in financial services, data privacy governance and auditable API exchanges are typically paramount."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for financial services.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "How does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly.",
+      "Do not assume delivered email address guarantees personal inbox delivery without validation."
+    ],
+    "missing_verification_points": [
+      "Icebreaker status: needs_review (human review recommended)."
+    ]
+  },
+  "research_metadata": {
+    "schema_version": "2.0.0",
+    "batch_id": "batch_20261020T151604Z_b82e6829",
+    "pipeline_version": "2.0.0",
+    "researched_at": "2026-10-20T15:16:10.342242+00:00",
+    "execution_status": "partial",
+    "verification_status": "unverified",
+    "source_count": 1,
+    "review_required": true,
+    "cache_fingerprint": "a5e2e164567fd57ed9ea97d3a7209438925aaa6c63f8f1fed2e014ba384a6219",
+    "errors_and_limitations": [],
+    "research_status": "partial",
+    "last_research_timestamp": "2026-10-20T15:16:10.342242+00:00",
+    "sources_examined": 1
+  }
+}

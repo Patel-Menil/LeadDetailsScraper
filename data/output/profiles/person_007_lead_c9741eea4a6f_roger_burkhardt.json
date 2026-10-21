@@ -1,0 +1,169 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_c9741eea4a6f",
+  "identity": {
+    "name": "Roger Burkhardt",
+    "first_name": "Roger",
+    "last_name": "Burkhardt",
+    "job_title": "Head of AI, Chief Technology Officer",
+    "company": "Broadridge",
+    "industry": "financial services,information technology & services",
+    "linkedin_url": "http://www.linkedin.com/in/rogerburkhardt",
+    "company_website": "https://broadridge.com",
+    "professional_email": "roger.burkhardt@broadridge.com",
+    "city": "New York",
+    "state": "New York",
+    "country": "United States"
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at Broadridge",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Generative AI & LLM Infrastructure",
+      "API Security & Microservices",
+      "Healthcare Data Privacy (HIPAA) & Safe Exchange",
+      "Financial Data Governance & Compliance"
+    ],
+    "public_projects": [
+      "Platform development and operations for Broadridge"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at Broadridge",
+      "· Experience:  Broadridge  · Education: University of Oxford · Location: New York · 500+ connections on LinkedIn",
+      "Burkhardt  is currently serving as the Capital Markets Chief Technology Officer at  Broadridge  Financial Solutions and a seasoned CTO, CDAO, CEO with 20+ years' experience leading technology transformations",
+      "He has a track record in accelerating value from AI and mission-critical computing and broad experience innovating"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Roger Burkhardt (Head of AI, Chief Technology Officer at Broadridge) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails",
+        "Privacy-Preserving Data Exchange & Compliance"
+      ],
+      "evidence_points": [
+        "Role 'Head of AI, Chief Technology Officer' makes key architecture decisions for emerging AI capabilities",
+        "Regulated domain 'financial services,information technology & services' mandates strict API access controls and audited data flow"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 0,
+    "reason": "Priority 0 (Highest Fit): Head of AI, Chief Technology Officer at Broadridge matches core decision-maker criteria in a regulated/tech-driven industry with active AI/API needs.",
+    "score": 100.0,
+    "confidence": 1.0,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'Head of AI, Chief Technology Officer'",
+      "Target enterprise vertical matching SealAPI: 'information technology'",
+      "Strong verified AI/API security need (matched signals: ai, api, security, compliance, cloud, saas)",
+      "Verified business email domain: roger.burkhardt@broadridge.com"
+    ]
+  },
+  "sources": [
+    {
+      "source_url": "lead_import_record",
+      "source_type": "input_data",
+      "retrieval_timestamp": "2026-10-10T19:19:22.564680+00:00",
+      "facts_supported": [
+        "Verified Name: Roger Burkhardt",
+        "Declared Job Title: Head of AI, Chief Technology Officer",
+        "Company: Broadridge",
+        "Industry: financial services,information technology & services",
+        "Verified Professional Email: roger.burkhardt@broadridge.com",
+        "Reported Location: New York, New York, United States",
+        "Company Keywords: technology,data analytics,communications,business services,consumer discretionary,financial data analytics,ai in finance,regulatory compliance automation,client onboarding solution"
+      ]
+    },
+    {
+      "source_url": "https://broadridge.com",
+      "source_type": "company_website",
+      "retrieval_timestamp": "2026-10-10T19:19:24Z",
+      "facts_supported": [
+        "Website Title: Broadridge - Broadridge | Global Leader - Financial Technology Solutions",
+        "Company Mission/Description: Broadridge, a global technology leader with solutions that power investing, governance, and communications for clients and the financial industry.",
+        "Core Offerings: Search, What's next for your business? \nHeader form, The future of investment stewardship is here, Broadridge expands next-gen digital assets capabilities to U.S. wealth management firms"
+      ]
+    },
+    {
+      "source_url": "https://www.linkedin.com/in/rogerburkhardt",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:19:29.226882+00:00",
+      "facts_supported": [
+        "Public Profile: Roger Burkhardt - Head of AI, Chief Technology Officer | LinkedIn",
+        "Verified Career & Background: · Experience: \nBroadridge\n · Education: University of Oxford · Location: New York · 500+ connections on LinkedIn. View \nRoger\nBurkhardt's\n profile on LinkedIn, a professional community of 1 ..."
+      ]
+    },
+    {
+      "source_url": "https://weaveos.com/ctos/rogerburkhardt",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:19:29.226946+00:00",
+      "facts_supported": [
+        "Public Profile: Roger Burkhardt — Head of AI, Chief Technology Officer at Broadridge ...",
+        "Verified Career & Background: Roger\nBurkhardt\n is Head of AI, Chief Technology Officer at \nBroadridge\n. Location: New York, New York, United States. Explore their professional background, skills and education."
+      ]
+    },
+    {
+      "source_url": "https://baypine.com/team-members/roger-burkhardt",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:19:29.226960+00:00",
+      "facts_supported": [
+        "Public Profile: Roger Burkhardt - BayPine",
+        "Verified Career & Background: Roger\nBurkhardt\n is a member of the Digital Advisory Board at BayPine. Mr. \nBurkhardt\n is currently serving as the Capital Markets Chief Technology Officer at \nBroadridge\n Financial Solutions and a seasoned CTO, CDAO, CEO with 20+ years' experience leading technology transformations. He has a track "
+      ]
+    },
+    {
+      "source_url": "https://aimagazine.com/data-and-analytics/5-minutes-with-roger-burkhardt-cto-at-broadridge",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:19:29.226969+00:00",
+      "facts_supported": [
+        "Public Profile: 5 minutes with: Roger Burkhardt, CTO at Broadridge - AI Magazine",
+        "Verified Career & Background: AI Magazine speaks with \nRoger\nBurkhardt\n, CTO of Capital Markets and AI at \nBroadridge\n, about the significance of AI within the financial services industry In the ever-evolving landscape of financial crime, AI and data analytics are starting to become crucial tools for businesses. In addition to ."
+      ]
+    },
+    {
+      "source_url": "https://www.constellationr.com/user/roger-burkhardt",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:19:29.226977+00:00",
+      "facts_supported": [
+        "Public Profile: Roger Burkhardt | Constellation Research",
+        "Verified Career & Background: Roger\nBurkhardt\n is the Capital Markets Chief Technology Officer at \nBroadridge\n Financial Solutions and is a seasoned CTO, CDAO, CEO with 20 years' experience leading technology transformations."
+      ]
+    },
+    {
+      "source_url": "https://informaconnect.com/fintech-futures-ai-insights-the-next-chapter-for-artificial-intelligence-in-finance/speakers/roger-burkhardt/",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:19:29.226985+00:00",
+      "facts_supported": [
+        "Public Profile: Roger Burkhardt - Broadridge | FinTech Futures AI Insights: The Next ...",
+        "Verified Career & Background: Roger\nBurkhardt\n is the Capital Markets Chief Technology Officer at \nBroadridge\n Financial Solutions and is a seasoned CTO, CDAO, CEO with 20 years' experience leading technology transformations. He has a track record in accelerating value from AI and mission-critical computing and broad experience "
+      ]
+    }
+  ],
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as Head of AI, Chief Technology Officer at Broadridge.",
+      "Focus on Generative AI & LLM Infrastructure, API Security & Microservices.",
+      "Background: · Experience:  Broadridge  · Education: University of Oxford · Location: New York · 500+ connections on LinkedIn..."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for financial services,information technology & services.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "Would you be open to a 10-minute technical exchange next Tuesday to explore how SealAPI shields AI and API endpoints for teams like Broadridge?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly."
+    ],
+    "missing_verification_points": []
+  },
+  "research_metadata": {
+    "research_status": "completed",
+    "last_research_timestamp": "2026-10-10T19:19:22.564680+00:00",
+    "sources_examined": 8,
+    "errors_and_limitations": [
+      "LinkedIn profile (http://www.linkedin.com/in/rogerburkhardt) is behind an authentication wall; public domain records used for verified evidence."
+    ]
+  }
+}

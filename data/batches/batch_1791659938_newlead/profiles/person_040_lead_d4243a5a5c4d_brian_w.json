@@ -1,0 +1,159 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_d4243a5a5c4d",
+  "identity": {
+    "name": "Brian W",
+    "first_name": "Brian",
+    "last_name": "W",
+    "job_title": "CEO, Chief AI Officer & Strategic Technology Advisor",
+    "company": "ITECH Solutions",
+    "industry": "information technology & services",
+    "linkedin_url": "",
+    "company_website": "http://www.itech-solutions.com",
+    "professional_email": "brian.weiss@itech-solutions.com",
+    "city": "Templeton",
+    "state": "California",
+    "country": "United States"
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at ITECH Solutions",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Generative AI & LLM Infrastructure",
+      "API Security & Microservices"
+    ],
+    "public_projects": [
+      "Platform development and operations for ITECH Solutions"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at ITECH Solutions"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Brian W (CEO, Chief AI Officer & Strategic Technology Advisor at ITECH Solutions) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails"
+      ],
+      "evidence_points": [
+        "Role 'CEO, Chief AI Officer & Strategic Technology Advisor' makes key architecture decisions for emerging AI capabilities"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 0,
+    "reason": "Priority 0 (Highest Fit): CEO, Chief AI Officer & Strategic Technology Advisor at ITECH Solutions matches core decision-maker criteria in a regulated/tech-driven industry with active AI/API needs.",
+    "score": 100.0,
+    "confidence": 1.0,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'CEO, Chief AI Officer & Strategic Technology Advisor'",
+      "Target enterprise vertical matching SealAPI: 'information technology'",
+      "Strong verified AI/API security need (matched signals: ai, generative ai, api, security, compliance, zero trust)",
+      "Verified business email domain: brian.weiss@itech-solutions.com"
+    ]
+  },
+  "sources": [
+    {
+      "source_url": "lead_import_record",
+      "source_type": "input_data",
+      "retrieval_timestamp": "2026-10-10T19:21:01.636945+00:00",
+      "facts_supported": [
+        "Verified Name: Brian W",
+        "Declared Job Title: CEO, Chief AI Officer & Strategic Technology Advisor",
+        "Company: ITECH Solutions",
+        "Industry: information technology & services",
+        "Verified Professional Email: brian.weiss@itech-solutions.com",
+        "Reported Location: Templeton, California, United States",
+        "Company Keywords: ai,cybersecurity,compliance,it infrastructure,microsoft 365,business continuity disaster recovery,governance risk management,zerotrust architecture,threatlocker,comanaged it servic"
+      ]
+    },
+    {
+      "source_url": "http://www.itech-solutions.com",
+      "source_type": "company_website",
+      "retrieval_timestamp": "2026-10-10T19:21:04Z",
+      "facts_supported": [
+        "Website Title: IT Solutions Provider in San Luis Obispo | IT Support Santa Maria | ITECH Solutions",
+        "Company Mission/Description: Innovative IT solutions, expert support, and cutting-edge technology strategies to drive success in today’s digital landscape.",
+        "Core Offerings: Co-Managed IT Services, Fully Managed It Services, Cloud Services, Not clear on the advantages of hiring a Managed Services Provider?"
+      ]
+    },
+    {
+      "source_url": "https://www.linkedin.com/in/brianjweiss",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:21:08.566969+00:00",
+      "facts_supported": [
+        "Public Profile: Brian J. Weiss - CEO, ITECH Solutions | Fractional CIO, CISO & ...",
+        "Verified Career & Background: As CEO of \nITECH\nSolutions\n, I have focused on advancing IT services, cybersecurity, and business continuity, ensuring organizations remain resilient in an evolving digital landscape."
+      ]
+    },
+    {
+      "source_url": "https://itech-solutions.com/why-itech/our-team/",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:21:08.567013+00:00",
+      "facts_supported": [
+        "Public Profile: Our Team - ITECH Solutions",
+        "Verified Career & Background: As CEO of \nITECH\nSolutions\n, a leading MSP in San Luis Obispo County, I help mid‑market and enterprise organizations navigate complex IT transformations."
+      ]
+    },
+    {
+      "source_url": "https://itech-solutions.com/how-sales-community-and-reinvention-drove-itechs-success/",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:21:08.567022+00:00",
+      "facts_supported": [
+        "Public Profile: How Sales, Community, and Reinvention Drove iTech's Success",
+        "Verified Career & Background: Dive into the latest episode featuring an insightful conversation with \nBrian\n Weiss, CEO of \niTech\n, where we explore the entrepreneurial journey, the evolution from personalized tech services to embracing industry-wide frameworks, and the profound impact of community engagement."
+      ]
+    },
+    {
+      "source_url": "https://www.scworld.com/contributor/brian-j-weiss",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:21:08.567031+00:00",
+      "facts_supported": [
+        "Public Profile: Brian J. Weiss | SC Media",
+        "Verified Career & Background: As CEO of \nITECH\nSolutions\n, I help mid‑market and enterprise organizations navigate complex IT transformations. Much of my work centers on serving as a fractional CIO, CISO, and CAIO, guiding cybersecurity strategy, AI adoption, data governance, compliance, business continuity, and technology‑enabl"
+      ]
+    },
+    {
+      "source_url": "https://www.iamcp.org/members/?id=82293481",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:21:08.567037+00:00",
+      "facts_supported": [
+        "Public Profile: Brian Weiss, CEO, ITECH Solutions - International Association of ...",
+        "Verified Career & Background: 909 Lake Carolyn Pkwy, Suite 320 Irving, TX 75039 214. 445. 6396 info@iamcp.org"
+      ]
+    },
+    {
+      "source_url": "https://www.linkedin.com/posts/itech-solutions2005_it-business-podcast-live-brian-j-weiss-activity-7239978018729795584-qtkh",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:21:08.567043+00:00",
+      "facts_supported": [
+        "Public Profile: Brian J. Weiss on IT CEO and Chief AI Officer - LinkedIn",
+        "Verified Career & Background: Want to learn more about our CEO & Chief AI Officer \nBrian\n J. Weiss? Check out the podcast he did yesterday with Marvin Bee who is doing a great job helping businesses in IT get their stories out..."
+      ]
+    }
+  ],
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as CEO, Chief AI Officer & Strategic Technology Advisor at ITECH Solutions.",
+      "Focus on Generative AI & LLM Infrastructure, API Security & Microservices."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for information technology & services.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "Would you be open to a 10-minute technical exchange next Tuesday to explore how SealAPI shields AI and API endpoints for teams like ITECH Solutions?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly."
+    ],
+    "missing_verification_points": []
+  },
+  "research_metadata": {
+    "research_status": "completed",
+    "last_research_timestamp": "2026-10-10T19:21:01.636945+00:00",
+    "sources_examined": 8,
+    "errors_and_limitations": []
+  }
+}

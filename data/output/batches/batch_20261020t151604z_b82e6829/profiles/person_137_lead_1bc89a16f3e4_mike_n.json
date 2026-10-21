@@ -1,0 +1,248 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_1bc89a16f3e4",
+  "input_snapshot": {
+    "Linkedin Url": "",
+    "Full Name": "Mike N",
+    "First Name": "Mike",
+    "Last Name": "N",
+    "Email": "north@shiftwave.co",
+    "Email Status": "verified",
+    "Job Title": "Ceo/cto & Cofounder",
+    "Company Name": "Shiftwave",
+    "Company Website": "https://shiftwave.co",
+    "City": "Santa Barbara",
+    "State": "California",
+    "Country": "United States",
+    "Industry": "cosmetics,medical devices,health, wellness & fitness",
+    "Keywords": "nervous system regulation,autonomic nervous system support,recovery technology,performance recovery,sleep support,guided protocols,pulsed pressure waves,breathguided audio,wellness technology,sports performance,workplace performance,recovery readiness,autonomic renewal,health performance innovation,human performance,athlete recovery,mental performance,corporate wellness,professional sports,performance facilities,recovery centers,military performance,veteran wellness,clinical wellness,spa wellness,psychophysiology,personal care product manufacturing,retail,biofeedback,rehabilitation,portable device,biometric tracking,crisis recovery,scientific wellness,sleep improvement,b2c,guided breathwork,stress relief,military-grade technology,biodrive technology,neuroplasticity training,wellness and personal care,biometric measurements,b2b,personalized protocols,stress management,high-impact results,military and defense,biomedical research,high-stress environment support,e-commerce,hsa/fsa eligible,recovery,performance training,mental clarity,ukraine deployment,elite athlete performance,real-time biofeedback,mechanical vibrations,neuroregulation,military development,crisis intervention,sports and fitness,d2c,mental health support,healthcare,physiological coherence,mental health,services,performance enhancement,pulsed pressure wave,resilience,all other miscellaneous manufacturing,neuroplasticity,trauma recovery,government,systemic change,pain reduction,long-term resilience,performance,wellness,sports,military,trauma,stress,sleep,pain,portable,science-backed,data-driven,human-centered,health, wellness & fitness,cosmetics,beauty,consumer goods,consumers,consumer internet,internet,information technology & services,health care,hospital & health care",
+    "Employees": "25",
+    "Company City": "",
+    "Company State": "",
+    "Company Country": "",
+    "Company Linkedin Url": "http://www.linkedin.com/company/shiftwavepro",
+    "Company Twitter Url": "",
+    "Company Facebook Url": "",
+    "Company Phone Numbers": "+1 805-395-2070",
+    "Twitter Url": "",
+    "Facebook Url": ""
+  },
+  "identity": {
+    "name": "Mike N",
+    "first_name": "Mike",
+    "last_name": "N",
+    "job_title": "Ceo/cto & Cofounder",
+    "company": "Shiftwave",
+    "industry": "cosmetics,medical devices,health, wellness & fitness",
+    "linkedin_url": "",
+    "company_website": "https://shiftwave.co",
+    "professional_email": "north@shiftwave.co",
+    "city": "Santa Barbara",
+    "state": "California",
+    "country": "United States"
+  },
+  "contact": {
+    "email": "north@shiftwave.co",
+    "email_type": "work",
+    "email_verification_status": "syntax_valid_unprobed",
+    "linkedin_url": "",
+    "contact_channel_status": "available"
+  },
+  "company": {
+    "name": "Shiftwave",
+    "website": "https://shiftwave.co",
+    "domain": "shiftwave.co",
+    "industry": "cosmetics,medical devices,health, wellness & fitness",
+    "verified": false
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at Shiftwave",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Healthcare Data Privacy (HIPAA) & Safe Exchange"
+    ],
+    "public_projects": [
+      "Platform development and operations for Shiftwave"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at Shiftwave"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Mike N (Ceo/cto & Cofounder at Shiftwave) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails",
+        "Privacy-Preserving Data Exchange & Compliance"
+      ],
+      "evidence_points": [
+        "Role 'Ceo/cto & Cofounder' makes architecture decisions for emerging AI capabilities",
+        "Regulated vertical 'cosmetics,medical devices,health, wellness & fitness' mandates strict API access controls and audited data flow"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 1,
+    "reason": "Priority 1 (Medium Fit): Ceo/cto & Cofounder at Shiftwave is in a relevant role or vertical, but requires further qualification of immediate security/AI deployment urgency.",
+    "score": 58.0,
+    "confidence": 0.24,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'Ceo/cto & Cofounder'",
+      "Limited technical keywords: ai"
+    ]
+  },
+  "sources": [
+    {
+      "source_id": "src_input_lead_1bc",
+      "source_url": "lead_import_record",
+      "source_type": "user_input",
+      "title": null,
+      "publisher": null,
+      "retrieval_timestamp": "2026-10-20T15:16:10.379029+00:00",
+      "published_at": null,
+      "relevant_excerpt": null,
+      "evidence_quality": 0.6,
+      "supports_claim_ids": [],
+      "facts_supported": [
+        "Imported Name: Mike N",
+        "Imported Job Title: Ceo/cto & Cofounder",
+        "Imported Company: Shiftwave",
+        "Imported Industry: cosmetics,medical devices,health, wellness & fitness",
+        "Imported Professional Email: north@shiftwave.co",
+        "Imported Company Website: https://shiftwave.co"
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "clm_name",
+      "field": "name",
+      "value": "Mike N",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_1bc"
+      ],
+      "confidence": 0.5,
+      "last_verified_at": null,
+      "review_reason": "Surname is abbreviated; requires full name evidence"
+    },
+    {
+      "claim_id": "clm_company",
+      "field": "company",
+      "value": "Shiftwave",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_1bc"
+      ],
+      "confidence": 0.7,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_title",
+      "field": "job_title",
+      "value": "Ceo/cto & Cofounder",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_1bc"
+      ],
+      "confidence": 0.65,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_email",
+      "field": "professional_email",
+      "value": "north@shiftwave.co",
+      "status": "unverified",
+      "source_ids": [
+        "src_input_lead_1bc"
+      ],
+      "confidence": 0.5,
+      "last_verified_at": null,
+      "review_reason": "Syntax valid from import; deliverability probe not performed"
+    }
+  ],
+  "public_signals": [],
+  "icebreaker": {
+    "text": "Given Shiftwave's focus in cosmetics,medical devices,health, wellness & fitness, data privacy governance and auditable API exchanges are typically paramount.",
+    "icebreaker_type": "general_question",
+    "source_ids": [
+      "src_input_lead_1bc"
+    ],
+    "confidence": 0.6,
+    "why_it_matters": "Regulated verticals require verifiable controls to ensure sensitive data does not cross unauthorized API boundaries.",
+    "potential_pain_point": "Hypothesis: Ensuring third-party integrations and internal models comply with strict compliance audits.",
+    "conversation_question": "How does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?",
+    "personalization_status": "needs_review",
+    "outreach_draft": {
+      "subject": "API security & AI infrastructure at Shiftwave",
+      "greeting": "Hi Mike,",
+      "opener": "Given Shiftwave's focus in cosmetics,medical devices,health, wellness & fitness, data privacy governance and auditable API exchanges are typically paramount.",
+      "sealapi_connection": "At SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.",
+      "low_pressure_ask": "How does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?",
+      "full_body": "Hi Mike,\n\nGiven Shiftwave's focus in cosmetics,medical devices,health, wellness & fitness, data privacy governance and auditable API exchanges are typically paramount.\n\nAt SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.\n\nHow does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?\n\nBest regards,\nSealAPI Research & Partnerships"
+    }
+  },
+  "scoring": {
+    "lead_fit_score": 58.0,
+    "role_fit_score": 35.0,
+    "industry_fit_score": 5.0,
+    "technical_need_score": 8.0,
+    "verification_confidence": 0.24,
+    "readiness_status": "needs_research",
+    "explanations": [
+      "High-authority security/AI decision maker role: 'Ceo/cto & Cofounder'",
+      "Limited technical keywords: ai"
+    ]
+  },
+  "contact_readiness": {
+    "status": "needs_research",
+    "has_name": true,
+    "has_verified_role": true,
+    "has_company_context": true,
+    "has_usable_contact_channel": true,
+    "has_evidence_based_icebreaker": false,
+    "blockers": [
+      "identity_not_verified",
+      "icebreaker_needs_review"
+    ]
+  },
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as Ceo/cto & Cofounder at Shiftwave.",
+      "Focus on Healthcare Data Privacy (HIPAA) & Safe Exchange.",
+      "Evidence-based opener: Given Shiftwave's focus in cosmetics,medical devices,health, wellness & fitness, data privacy governance and auditable API exchanges are typically paramount."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for cosmetics,medical devices,health, wellness & fitness.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "How does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly.",
+      "Do not assume delivered email address guarantees personal inbox delivery without validation."
+    ],
+    "missing_verification_points": [
+      "Icebreaker status: needs_review (human review recommended)."
+    ]
+  },
+  "research_metadata": {
+    "schema_version": "2.0.0",
+    "batch_id": "batch_20261020T151604Z_b82e6829",
+    "pipeline_version": "2.0.0",
+    "researched_at": "2026-10-20T15:16:10.379029+00:00",
+    "execution_status": "partial",
+    "verification_status": "unverified",
+    "source_count": 1,
+    "review_required": true,
+    "cache_fingerprint": "a5e2e164567fd57ed9ea97d3a7209438925aaa6c63f8f1fed2e014ba384a6219",
+    "errors_and_limitations": [],
+    "research_status": "partial",
+    "last_research_timestamp": "2026-10-20T15:16:10.379029+00:00",
+    "sources_examined": 1
+  }
+}

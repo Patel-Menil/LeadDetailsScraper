@@ -1,0 +1,253 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_65db15e59ed3",
+  "input_snapshot": {
+    "Linkedin Url": "http://www.linkedin.com/in/kenneth-xu-ph-d-a044635",
+    "Full Name": "Kenneth Xu",
+    "First Name": "Kenneth",
+    "Last Name": "Xu",
+    "Email": "cxu@axiombanking.com",
+    "Email Status": "verified",
+    "Job Title": "EVP, Chief Operations Officer, Chief Technology Officer, Chief AI Officer",
+    "Company Name": "Axiom Bank, N.A.",
+    "Company Website": "http://www.axiombanking.com",
+    "City": "Princeton",
+    "State": "New Jersey",
+    "Country": "United States",
+    "Industry": "banking",
+    "Keywords": "regional bank,community bank,retail banking,commercial lending,asset based lending,cash advances,business growth,treasury management,accounts receivable financing,risk management,banking and financial services,financial wellness,small business banking,factoring,b2b,small business finance,inventory financing,mobile banking,small and medium-sized business funding,banking services,commercial deposits,commercial banking,branded financial services,personal banking,customer service,digital banking,equipment financing,b2c,retail,online banking,asset leverage,axiom commercial finance,lending solutions,services,wealth management,finance,investment management,financial services",
+    "Employees": "160",
+    "Company City": "Maitland",
+    "Company State": "Florida",
+    "Company Country": "United States",
+    "Company Linkedin Url": "http://www.linkedin.com/company/axiom-bank",
+    "Company Twitter Url": "https://twitter.com/axiombank",
+    "Company Facebook Url": "https://facebook.com/axiombanking/",
+    "Company Phone Numbers": "+1 800-584-0015",
+    "Twitter Url": "",
+    "Facebook Url": ""
+  },
+  "identity": {
+    "name": "Kenneth Xu",
+    "first_name": "Kenneth",
+    "last_name": "Xu",
+    "job_title": "EVP, Chief Operations Officer, Chief Technology Officer, Chief AI Officer",
+    "company": "Axiom Bank, N.A.",
+    "industry": "banking",
+    "linkedin_url": "http://www.linkedin.com/in/kenneth-xu-ph-d-a044635",
+    "company_website": "http://www.axiombanking.com",
+    "professional_email": "cxu@axiombanking.com",
+    "city": "Princeton",
+    "state": "New Jersey",
+    "country": "United States"
+  },
+  "contact": {
+    "email": "cxu@axiombanking.com",
+    "email_type": "work",
+    "email_verification_status": "syntax_valid_unprobed",
+    "linkedin_url": "http://www.linkedin.com/in/kenneth-xu-ph-d-a044635",
+    "contact_channel_status": "available"
+  },
+  "company": {
+    "name": "Axiom Bank, N.A.",
+    "website": "http://www.axiombanking.com",
+    "domain": "axiombanking.com",
+    "industry": "banking",
+    "verified": false
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at Axiom Bank, N.A.",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Generative AI & LLM Infrastructure",
+      "Financial Data Governance & Compliance"
+    ],
+    "public_projects": [
+      "Platform development and operations for Axiom Bank, N.A."
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at Axiom Bank, N.A."
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Kenneth Xu (EVP, Chief Operations Officer, Chief Technology Officer, Chief AI Officer at Axiom Bank, N.A.) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails",
+        "Privacy-Preserving Data Exchange & Compliance"
+      ],
+      "evidence_points": [
+        "Role 'EVP, Chief Operations Officer, Chief Technology Officer, Chief AI Officer' makes architecture decisions for emerging AI capabilities",
+        "Regulated vertical 'banking' mandates strict API access controls and audited data flow"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 1,
+    "reason": "Priority 1 (Medium Fit): EVP, Chief Operations Officer, Chief Technology Officer, Chief AI Officer at Axiom Bank, N.A. is in a relevant role or vertical, but requires further qualification of immediate security/AI deployment urgency.",
+    "score": 83.0,
+    "confidence": 0.33,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'EVP, Chief Operations Officer, Chief Technology Officer, Chief AI Officer'",
+      "Target enterprise vertical matching SealAPI: 'banking'",
+      "Limited technical keywords: ai"
+    ]
+  },
+  "sources": [
+    {
+      "source_id": "src_input_lead_65d",
+      "source_url": "lead_import_record",
+      "source_type": "user_input",
+      "title": null,
+      "publisher": null,
+      "retrieval_timestamp": "2026-10-20T15:16:10.319787+00:00",
+      "published_at": null,
+      "relevant_excerpt": null,
+      "evidence_quality": 0.6,
+      "supports_claim_ids": [],
+      "facts_supported": [
+        "Imported Name: Kenneth Xu",
+        "Imported Job Title: EVP, Chief Operations Officer, Chief Technology Officer, Chief AI Officer",
+        "Imported Company: Axiom Bank, N.A.",
+        "Imported Industry: banking",
+        "Imported Professional Email: cxu@axiombanking.com",
+        "Imported Company Website: http://www.axiombanking.com"
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "clm_name",
+      "field": "name",
+      "value": "Kenneth Xu",
+      "status": "verified",
+      "source_ids": [
+        "src_input_lead_65d"
+      ],
+      "confidence": 0.75,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_company",
+      "field": "company",
+      "value": "Axiom Bank, N.A.",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_65d"
+      ],
+      "confidence": 0.7,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_title",
+      "field": "job_title",
+      "value": "EVP, Chief Operations Officer, Chief Technology Officer, Chief AI Officer",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_65d"
+      ],
+      "confidence": 0.65,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_email",
+      "field": "professional_email",
+      "value": "cxu@axiombanking.com",
+      "status": "unverified",
+      "source_ids": [
+        "src_input_lead_65d"
+      ],
+      "confidence": 0.5,
+      "last_verified_at": null,
+      "review_reason": "Syntax valid from import; deliverability probe not performed"
+    }
+  ],
+  "public_signals": [],
+  "icebreaker": {
+    "text": "Given Axiom Bank, N.A.'s focus in banking, data privacy governance and auditable API exchanges are typically paramount.",
+    "icebreaker_type": "general_question",
+    "source_ids": [
+      "src_input_lead_65d"
+    ],
+    "confidence": 0.6,
+    "why_it_matters": "Regulated verticals require verifiable controls to ensure sensitive data does not cross unauthorized API boundaries.",
+    "potential_pain_point": "Hypothesis: Ensuring third-party integrations and internal models comply with strict compliance audits.",
+    "conversation_question": "How does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?",
+    "personalization_status": "needs_review",
+    "outreach_draft": {
+      "subject": "API security & AI infrastructure at Axiom Bank, N.A.",
+      "greeting": "Hi Kenneth,",
+      "opener": "Given Axiom Bank, N.A.'s focus in banking, data privacy governance and auditable API exchanges are typically paramount.",
+      "sealapi_connection": "At SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.",
+      "low_pressure_ask": "How does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?",
+      "full_body": "Hi Kenneth,\n\nGiven Axiom Bank, N.A.'s focus in banking, data privacy governance and auditable API exchanges are typically paramount.\n\nAt SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.\n\nHow does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?\n\nBest regards,\nSealAPI Research & Partnerships"
+    }
+  },
+  "scoring": {
+    "lead_fit_score": 83.0,
+    "role_fit_score": 35.0,
+    "industry_fit_score": 30.0,
+    "technical_need_score": 8.0,
+    "verification_confidence": 0.33,
+    "readiness_status": "ready_with_caveat",
+    "explanations": [
+      "High-authority security/AI decision maker role: 'EVP, Chief Operations Officer, Chief Technology Officer, Chief AI Officer'",
+      "Target enterprise vertical matching SealAPI: 'banking'",
+      "Limited technical keywords: ai"
+    ]
+  },
+  "contact_readiness": {
+    "status": "ready_with_caveat",
+    "has_name": true,
+    "has_verified_role": true,
+    "has_company_context": true,
+    "has_usable_contact_channel": true,
+    "has_evidence_based_icebreaker": false,
+    "blockers": [
+      "identity_not_verified",
+      "icebreaker_needs_review"
+    ]
+  },
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as EVP, Chief Operations Officer, Chief Technology Officer, Chief AI Officer at Axiom Bank, N.A..",
+      "Focus on Generative AI & LLM Infrastructure, Financial Data Governance & Compliance.",
+      "Evidence-based opener: Given Axiom Bank, N.A.'s focus in banking, data privacy governance and auditable API exchanges are typically paramount."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for banking.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "How does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly.",
+      "Do not assume delivered email address guarantees personal inbox delivery without validation."
+    ],
+    "missing_verification_points": [
+      "Icebreaker status: needs_review (human review recommended)."
+    ]
+  },
+  "research_metadata": {
+    "schema_version": "2.0.0",
+    "batch_id": "batch_20261020T151604Z_b82e6829",
+    "pipeline_version": "2.0.0",
+    "researched_at": "2026-10-20T15:16:10.319787+00:00",
+    "execution_status": "partial",
+    "verification_status": "unverified",
+    "source_count": 1,
+    "review_required": true,
+    "cache_fingerprint": "a5e2e164567fd57ed9ea97d3a7209438925aaa6c63f8f1fed2e014ba384a6219",
+    "errors_and_limitations": [
+      "LinkedIn URL (http://www.linkedin.com/in/kenneth-xu-ph-d-a044635) is behind an authentication wall; public domain records used for verified evidence."
+    ],
+    "research_status": "partial",
+    "last_research_timestamp": "2026-10-20T15:16:10.319787+00:00",
+    "sources_examined": 1
+  }
+}

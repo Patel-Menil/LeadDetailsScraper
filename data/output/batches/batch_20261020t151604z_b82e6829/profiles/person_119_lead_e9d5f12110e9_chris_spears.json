@@ -1,0 +1,250 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_e9d5f12110e9",
+  "input_snapshot": {
+    "Linkedin Url": "http://www.linkedin.com/in/chrisspears",
+    "Full Name": "Chris Spears",
+    "First Name": "Chris",
+    "Last Name": "Spears",
+    "Email": "chris@mymobilepracticemanager.com",
+    "Email Status": "verified",
+    "Job Title": "CTO / Ciso",
+    "Company Name": "CareLink Mobile Practice Manager",
+    "Company Website": "https://mymobilepracticemanager.com",
+    "City": "Chandler",
+    "State": "Arizona",
+    "Country": "United States",
+    "Industry": "health, wellness & fitness",
+    "Keywords": "primary care house call practice management software,telehealth,care coordination,emr integration,patient engagement crm,mobile app for providers,home health face-to-face forms,disaster recovery,home health order management,face-to-face forms,provider calendar sync,secure communication with facilities,driving optimization,mobile healthcare,provider check-in app,medicare evv compliance,patient crm,home health care,patient engagement,custom patient surveys,practice management,document signing,map-based patient scheduling,b2b,fax integration,face-to-face encounter forms,patient portal,caregiver communication,hipaa compliant practice management,provider geozones,healthcare,telehealth support,zoom integration,patient surveys,open api integration,care collaboration tools,group home management,real-time traffic alerts,map-based scheduling,hipaa security,ai scheduling,provider route optimization,offices of all other health practitioners,services,provider check-in,medical practice management,electronic orders,square payment integration,provider mileage reports,provider dispatch management,electronic visit verification,driver route optimization,patient scheduling,ai-driven autoscheduling,provider mobile app,telehealth scheduling,secure document signing,saas,health care,health, wellness & fitness,hospital & health care,computer software,information technology & services",
+    "Employees": "3",
+    "Company City": "Chandler",
+    "Company State": "Arizona",
+    "Company Country": "United States",
+    "Company Linkedin Url": "http://www.linkedin.com/company/my-mobile-practice-manager",
+    "Company Twitter Url": "",
+    "Company Facebook Url": "https://www.facebook.com/pages/My-Mobile-Practice-Manager/575309309246981",
+    "Company Phone Numbers": "+1 888-485-0297",
+    "Twitter Url": "",
+    "Facebook Url": ""
+  },
+  "identity": {
+    "name": "Chris Spears",
+    "first_name": "Chris",
+    "last_name": "Spears",
+    "job_title": "CTO / Ciso",
+    "company": "CareLink Mobile Practice Manager",
+    "industry": "health, wellness & fitness",
+    "linkedin_url": "http://www.linkedin.com/in/chrisspears",
+    "company_website": "https://mymobilepracticemanager.com",
+    "professional_email": "chris@mymobilepracticemanager.com",
+    "city": "Chandler",
+    "state": "Arizona",
+    "country": "United States"
+  },
+  "contact": {
+    "email": "chris@mymobilepracticemanager.com",
+    "email_type": "work",
+    "email_verification_status": "syntax_valid_unprobed",
+    "linkedin_url": "http://www.linkedin.com/in/chrisspears",
+    "contact_channel_status": "available"
+  },
+  "company": {
+    "name": "CareLink Mobile Practice Manager",
+    "website": "https://mymobilepracticemanager.com",
+    "domain": "mymobilepracticemanager.com",
+    "industry": "health, wellness & fitness",
+    "verified": false
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at CareLink Mobile Practice Manager",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Healthcare Data Privacy (HIPAA) & Safe Exchange"
+    ],
+    "public_projects": [
+      "Platform development and operations for CareLink Mobile Practice Manager"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at CareLink Mobile Practice Manager"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Chris Spears (CTO / Ciso at CareLink Mobile Practice Manager) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails",
+        "Privacy-Preserving Data Exchange & Compliance"
+      ],
+      "evidence_points": [
+        "Role 'CTO / Ciso' makes architecture decisions for emerging AI capabilities",
+        "Regulated vertical 'health, wellness & fitness' mandates strict API access controls and audited data flow"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 1,
+    "reason": "Priority 1 (Medium Fit): CTO / Ciso at CareLink Mobile Practice Manager is in a relevant role or vertical, but requires further qualification of immediate security/AI deployment urgency.",
+    "score": 75.0,
+    "confidence": 0.33,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'CTO / Ciso'",
+      "Strong verified AI/API security need (matched signals: ai, api, security, hipaa, compliance, saas)"
+    ]
+  },
+  "sources": [
+    {
+      "source_id": "src_input_lead_e9d",
+      "source_url": "lead_import_record",
+      "source_type": "user_input",
+      "title": null,
+      "publisher": null,
+      "retrieval_timestamp": "2026-10-20T15:16:10.372014+00:00",
+      "published_at": null,
+      "relevant_excerpt": null,
+      "evidence_quality": 0.6,
+      "supports_claim_ids": [],
+      "facts_supported": [
+        "Imported Name: Chris Spears",
+        "Imported Job Title: CTO / Ciso",
+        "Imported Company: CareLink Mobile Practice Manager",
+        "Imported Industry: health, wellness & fitness",
+        "Imported Professional Email: chris@mymobilepracticemanager.com",
+        "Imported Company Website: https://mymobilepracticemanager.com"
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "clm_name",
+      "field": "name",
+      "value": "Chris Spears",
+      "status": "verified",
+      "source_ids": [
+        "src_input_lead_e9d"
+      ],
+      "confidence": 0.75,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_company",
+      "field": "company",
+      "value": "CareLink Mobile Practice Manager",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_e9d"
+      ],
+      "confidence": 0.7,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_title",
+      "field": "job_title",
+      "value": "CTO / Ciso",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_e9d"
+      ],
+      "confidence": 0.65,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_email",
+      "field": "professional_email",
+      "value": "chris@mymobilepracticemanager.com",
+      "status": "unverified",
+      "source_ids": [
+        "src_input_lead_e9d"
+      ],
+      "confidence": 0.5,
+      "last_verified_at": null,
+      "review_reason": "Syntax valid from import; deliverability probe not performed"
+    }
+  ],
+  "public_signals": [],
+  "icebreaker": {
+    "text": "Given CareLink Mobile Practice Manager's focus in health, wellness & fitness, data privacy governance and auditable API exchanges are typically paramount.",
+    "icebreaker_type": "general_question",
+    "source_ids": [
+      "src_input_lead_e9d"
+    ],
+    "confidence": 0.6,
+    "why_it_matters": "Regulated verticals require verifiable controls to ensure sensitive data does not cross unauthorized API boundaries.",
+    "potential_pain_point": "Hypothesis: Ensuring third-party integrations and internal models comply with strict compliance audits.",
+    "conversation_question": "How does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?",
+    "personalization_status": "needs_review",
+    "outreach_draft": {
+      "subject": "API security & AI infrastructure at CareLink Mobile Practice Manager",
+      "greeting": "Hi Chris,",
+      "opener": "Given CareLink Mobile Practice Manager's focus in health, wellness & fitness, data privacy governance and auditable API exchanges are typically paramount.",
+      "sealapi_connection": "At SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.",
+      "low_pressure_ask": "How does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?",
+      "full_body": "Hi Chris,\n\nGiven CareLink Mobile Practice Manager's focus in health, wellness & fitness, data privacy governance and auditable API exchanges are typically paramount.\n\nAt SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.\n\nHow does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?\n\nBest regards,\nSealAPI Research & Partnerships"
+    }
+  },
+  "scoring": {
+    "lead_fit_score": 75.0,
+    "role_fit_score": 35.0,
+    "industry_fit_score": 5.0,
+    "technical_need_score": 25.0,
+    "verification_confidence": 0.33,
+    "readiness_status": "ready_with_caveat",
+    "explanations": [
+      "High-authority security/AI decision maker role: 'CTO / Ciso'",
+      "Strong verified AI/API security need (matched signals: ai, api, security, hipaa, compliance, saas)"
+    ]
+  },
+  "contact_readiness": {
+    "status": "ready_with_caveat",
+    "has_name": true,
+    "has_verified_role": true,
+    "has_company_context": true,
+    "has_usable_contact_channel": true,
+    "has_evidence_based_icebreaker": false,
+    "blockers": [
+      "identity_not_verified",
+      "icebreaker_needs_review"
+    ]
+  },
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as CTO / Ciso at CareLink Mobile Practice Manager.",
+      "Focus on Healthcare Data Privacy (HIPAA) & Safe Exchange.",
+      "Evidence-based opener: Given CareLink Mobile Practice Manager's focus in health, wellness & fitness, data privacy governance and auditable API exchanges are typically paramount."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for health, wellness & fitness.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "How does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly.",
+      "Do not assume delivered email address guarantees personal inbox delivery without validation."
+    ],
+    "missing_verification_points": [
+      "Icebreaker status: needs_review (human review recommended)."
+    ]
+  },
+  "research_metadata": {
+    "schema_version": "2.0.0",
+    "batch_id": "batch_20261020T151604Z_b82e6829",
+    "pipeline_version": "2.0.0",
+    "researched_at": "2026-10-20T15:16:10.372014+00:00",
+    "execution_status": "partial",
+    "verification_status": "unverified",
+    "source_count": 1,
+    "review_required": true,
+    "cache_fingerprint": "a5e2e164567fd57ed9ea97d3a7209438925aaa6c63f8f1fed2e014ba384a6219",
+    "errors_and_limitations": [
+      "LinkedIn URL (http://www.linkedin.com/in/chrisspears) is behind an authentication wall; public domain records used for verified evidence."
+    ],
+    "research_status": "partial",
+    "last_research_timestamp": "2026-10-20T15:16:10.372014+00:00",
+    "sources_examined": 1
+  }
+}

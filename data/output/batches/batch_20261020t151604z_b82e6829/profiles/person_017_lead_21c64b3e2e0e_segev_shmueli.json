@@ -1,0 +1,249 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_21c64b3e2e0e",
+  "input_snapshot": {
+    "Linkedin Url": "http://www.linkedin.com/in/segevshmueli",
+    "Full Name": "Segev Shmueli",
+    "First Name": "Segev",
+    "Last Name": "Shmueli",
+    "Email": "segev.shmueli@productivehub.com",
+    "Email Status": "verified",
+    "Job Title": "Chief AI Officer & CTO",
+    "Company Name": "ProductiveHub",
+    "Company Website": "http://www.productivehub.com",
+    "City": "Tenafly",
+    "State": "New Jersey",
+    "Country": "United States",
+    "Industry": "information technology & services",
+    "Keywords": "it services & it consulting,management consulting services,seo,process automation,data analytics,kubernetes & docker,microteam architecture,cloud infrastructure,hub-and-spoke model,online presence,digital marketing,large language models,software development,social media marketing,mobile app development,ai leadership,software engineering,project management,data strategy,distributed engineering,ai confusion resolution,cost optimization,custom ai solutions,information technology and services,engineering team scaling,remote engineering architecture patterns,devops implementation,ai infrastructure,system integration,devops,ai automation,content marketing,b2b,tech roadmaps,microservices architecture,customer engagement,technology leadership,web development,legacy modernization,ai specialists,federated squad model,time zone cascade,conversion optimization,cloud solutions,cloud migration,technology strategy,remote team leadership,technology consulting,enterprise software,market research,lead generation,digital transformation,ai deployment,architectural patterns for remote teams,distributed team optimization,services,custom software development,consulting,ai strategy and implementation,network topology,digital advertising,management consulting,ai use cases,high-impact ai use cases,fractional cto,mlops,graphic design,automation deployment,security & compliance,information technology & services,search marketing,marketing,marketing & advertising,enterprises,computer software,internet infrastructure,internet,consumer internet,consumers,productivity,cloud computing,sales",
+    "Employees": "1",
+    "Company City": "Hackensack",
+    "Company State": "New Jersey",
+    "Company Country": "United States",
+    "Company Linkedin Url": "http://www.linkedin.com/company/productivehub",
+    "Company Twitter Url": "",
+    "Company Facebook Url": "",
+    "Company Phone Numbers": "",
+    "Twitter Url": "",
+    "Facebook Url": ""
+  },
+  "identity": {
+    "name": "Segev Shmueli",
+    "first_name": "Segev",
+    "last_name": "Shmueli",
+    "job_title": "Chief AI Officer & CTO",
+    "company": "ProductiveHub",
+    "industry": "information technology & services",
+    "linkedin_url": "http://www.linkedin.com/in/segevshmueli",
+    "company_website": "http://www.productivehub.com",
+    "professional_email": "segev.shmueli@productivehub.com",
+    "city": "Tenafly",
+    "state": "New Jersey",
+    "country": "United States"
+  },
+  "contact": {
+    "email": "segev.shmueli@productivehub.com",
+    "email_type": "work",
+    "email_verification_status": "syntax_valid_unprobed",
+    "linkedin_url": "http://www.linkedin.com/in/segevshmueli",
+    "contact_channel_status": "available"
+  },
+  "company": {
+    "name": "ProductiveHub",
+    "website": "http://www.productivehub.com",
+    "domain": "productivehub.com",
+    "industry": "information technology & services",
+    "verified": false
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at ProductiveHub",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Generative AI & LLM Infrastructure"
+    ],
+    "public_projects": [
+      "Platform development and operations for ProductiveHub"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at ProductiveHub"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Segev Shmueli (Chief AI Officer & CTO at ProductiveHub) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails"
+      ],
+      "evidence_points": [
+        "Role 'Chief AI Officer & CTO' makes architecture decisions for emerging AI capabilities"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 1,
+    "reason": "Priority 1 (Medium Fit): Chief AI Officer & CTO at ProductiveHub is in a relevant role or vertical, but requires further qualification of immediate security/AI deployment urgency.",
+    "score": 100.0,
+    "confidence": 0.33,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'Chief AI Officer & CTO'",
+      "Target enterprise vertical matching SealAPI: 'information technology'",
+      "Strong verified AI/API security need (matched signals: ai, security, compliance, cloud, infrastructure)"
+    ]
+  },
+  "sources": [
+    {
+      "source_id": "src_input_lead_21c",
+      "source_url": "lead_import_record",
+      "source_type": "user_input",
+      "title": null,
+      "publisher": null,
+      "retrieval_timestamp": "2026-10-20T15:16:10.285712+00:00",
+      "published_at": null,
+      "relevant_excerpt": null,
+      "evidence_quality": 0.6,
+      "supports_claim_ids": [],
+      "facts_supported": [
+        "Imported Name: Segev Shmueli",
+        "Imported Job Title: Chief AI Officer & CTO",
+        "Imported Company: ProductiveHub",
+        "Imported Industry: information technology & services",
+        "Imported Professional Email: segev.shmueli@productivehub.com",
+        "Imported Company Website: http://www.productivehub.com"
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "clm_name",
+      "field": "name",
+      "value": "Segev Shmueli",
+      "status": "verified",
+      "source_ids": [
+        "src_input_lead_21c"
+      ],
+      "confidence": 0.75,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_company",
+      "field": "company",
+      "value": "ProductiveHub",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_21c"
+      ],
+      "confidence": 0.7,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_title",
+      "field": "job_title",
+      "value": "Chief AI Officer & CTO",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_21c"
+      ],
+      "confidence": 0.65,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_email",
+      "field": "professional_email",
+      "value": "segev.shmueli@productivehub.com",
+      "status": "unverified",
+      "source_ids": [
+        "src_input_lead_21c"
+      ],
+      "confidence": 0.5,
+      "last_verified_at": null,
+      "review_reason": "Syntax valid from import; deliverability probe not performed"
+    }
+  ],
+  "public_signals": [],
+  "icebreaker": {
+    "text": "I have been following how technology teams in the information technology & services sector are managing API and AI endpoint security.",
+    "icebreaker_type": "general_question",
+    "source_ids": [
+      "src_input_lead_21c"
+    ],
+    "confidence": 0.45,
+    "why_it_matters": "SealAPI helps organizations protect APIs from token leakage, prompt injection, and credential abuse with zero-trust gateways.",
+    "potential_pain_point": "Hypothesis: Preventing credential leakage and unauthorized API consumption in production.",
+    "conversation_question": "Would you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?",
+    "personalization_status": "generic_fallback",
+    "outreach_draft": {
+      "subject": "API security & AI infrastructure at ProductiveHub",
+      "greeting": "Hi Segev,",
+      "opener": "I have been following how technology teams in the information technology & services sector are managing API and AI endpoint security.",
+      "sealapi_connection": "At SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.",
+      "low_pressure_ask": "Would you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?",
+      "full_body": "Hi Segev,\n\nI have been following how technology teams in the information technology & services sector are managing API and AI endpoint security.\n\nAt SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.\n\nWould you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?\n\nBest regards,\nSealAPI Research & Partnerships"
+    }
+  },
+  "scoring": {
+    "lead_fit_score": 100.0,
+    "role_fit_score": 35.0,
+    "industry_fit_score": 30.0,
+    "technical_need_score": 25.0,
+    "verification_confidence": 0.33,
+    "readiness_status": "ready_with_caveat",
+    "explanations": [
+      "High-authority security/AI decision maker role: 'Chief AI Officer & CTO'",
+      "Target enterprise vertical matching SealAPI: 'information technology'",
+      "Strong verified AI/API security need (matched signals: ai, security, compliance, cloud, infrastructure)"
+    ]
+  },
+  "contact_readiness": {
+    "status": "ready_with_caveat",
+    "has_name": true,
+    "has_verified_role": true,
+    "has_company_context": true,
+    "has_usable_contact_channel": true,
+    "has_evidence_based_icebreaker": false,
+    "blockers": [
+      "identity_not_verified"
+    ]
+  },
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as Chief AI Officer & CTO at ProductiveHub.",
+      "Focus on Generative AI & LLM Infrastructure.",
+      "Evidence-based opener: I have been following how technology teams in the information technology & services sector are managing API and AI endpoint security."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for information technology & services.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "Would you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly.",
+      "Do not assume delivered email address guarantees personal inbox delivery without validation."
+    ],
+    "missing_verification_points": [
+      "Icebreaker status: generic_fallback (human review recommended)."
+    ]
+  },
+  "research_metadata": {
+    "schema_version": "2.0.0",
+    "batch_id": "batch_20261020T151604Z_b82e6829",
+    "pipeline_version": "2.0.0",
+    "researched_at": "2026-10-20T15:16:10.285712+00:00",
+    "execution_status": "partial",
+    "verification_status": "unverified",
+    "source_count": 1,
+    "review_required": true,
+    "cache_fingerprint": "a5e2e164567fd57ed9ea97d3a7209438925aaa6c63f8f1fed2e014ba384a6219",
+    "errors_and_limitations": [
+      "LinkedIn URL (http://www.linkedin.com/in/segevshmueli) is behind an authentication wall; public domain records used for verified evidence."
+    ],
+    "research_status": "partial",
+    "last_research_timestamp": "2026-10-20T15:16:10.285712+00:00",
+    "sources_examined": 1
+  }
+}

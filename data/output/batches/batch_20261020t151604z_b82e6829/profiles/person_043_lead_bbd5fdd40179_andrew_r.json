@@ -1,0 +1,247 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_bbd5fdd40179",
+  "input_snapshot": {
+    "Linkedin Url": "",
+    "Full Name": "Andrew R",
+    "First Name": "Andrew",
+    "Last Name": "R",
+    "Email": "andrewrabinovich@upwork.com",
+    "Email Status": "verified",
+    "Job Title": "CTO, Head of AI",
+    "Company Name": "Upwork",
+    "Company Website": "http://www.upwork.com",
+    "City": "San Francisco",
+    "State": "California",
+    "Country": "United States",
+    "Industry": "information technology & services",
+    "Keywords": "freelancers agencies,edp services,technology,software development,talent sourcing,graphic design,freelancer ratings,ai-driven freelancer ratings,ai for freelancer engagement,business services,digital talent marketplace,contract automation,remote team management,ai-enabled contract automation,remote project management,workforce management,independent professionals,job posting platform,ai tools,business consulting,job bidding,marketing services,remote talent sourcing,talent marketplace,enterprise gig solutions,talent acquisition,virtual talent marketplace,workforce flexibility,freelancer review system,ai-powered freelancing,secure payments,ai-driven matching,platform for remote professionals,remote collaboration tools,platform for global freelancers,hourly work contracts,gig economy,remote project execution tools,freelancer verification,ai in talent sourcing,remote work compliance tools,global workforce,hourly contracts,online work platform,client-freelancer connection,digital transformation,fixed-price projects,platform security,digital talent pool,digital talent management,digital work solutions,remote work enablement,global talent sourcing,skill-based hiring,digital freelancing,freelancer profiles,ai-powered client matching,b2b,content creation,enterprise freelancing,remote work productivity tools,remote collaboration,digital freelancing ecosystem,ai for project success,freelancer bidding system,remote work security features,information technology and services,services,remote work automation,platform for fixed-price projects,enterprise solutions,ai-driven talent matching,remote work,global freelancer network,ai integration,freelance platform,client management tools,ai-enhanced project matching,contract management,skill matching,work categories,project management,professional, scientific, and technical services,digital talent verification,virtual project management,job posting and bidding,work category specialization,ai-powered matching,online marketplace,global freelancing,global talent network,ai-enhanced work management,talent matching algorithms,project catalog,platform security features,digital work environment,remote work platform,workforce scalability,ai in gig economy,global remote workforce,remote project execution,web search portals, libraries, archives, and other information services,innovation,freelance marketplace,remote collaboration ai tools,gig work platform,project management software,remote work security,secure escrow payments,ai-powered tools,freelancer verification system,enterprise remote staffing,ai in freelancing,platform analytics,job bidding system,finance,legal,b2c,e-commerce,information technology & services,management consulting,marketing & advertising,productivity,financial services,consumer internet,consumers,internet",
+    "Employees": "630",
+    "Company City": "San Francisco",
+    "Company State": "California",
+    "Company Country": "United States",
+    "Company Linkedin Url": "http://www.linkedin.com/company/upwork",
+    "Company Twitter Url": "https://twitter.com/upwork",
+    "Company Facebook Url": "https://facebook.com/upwork",
+    "Company Phone Numbers": "+1 866-262-4478",
+    "Twitter Url": "",
+    "Facebook Url": ""
+  },
+  "identity": {
+    "name": "Andrew R",
+    "first_name": "Andrew",
+    "last_name": "R",
+    "job_title": "CTO, Head of AI",
+    "company": "Upwork",
+    "industry": "information technology & services",
+    "linkedin_url": "",
+    "company_website": "http://www.upwork.com",
+    "professional_email": "andrewrabinovich@upwork.com",
+    "city": "San Francisco",
+    "state": "California",
+    "country": "United States"
+  },
+  "contact": {
+    "email": "andrewrabinovich@upwork.com",
+    "email_type": "work",
+    "email_verification_status": "syntax_valid_unprobed",
+    "linkedin_url": "",
+    "contact_channel_status": "available"
+  },
+  "company": {
+    "name": "Upwork",
+    "website": "http://www.upwork.com",
+    "domain": "upwork.com",
+    "industry": "information technology & services",
+    "verified": false
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at Upwork",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Generative AI & LLM Infrastructure"
+    ],
+    "public_projects": [
+      "Platform development and operations for Upwork"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at Upwork"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Andrew R (CTO, Head of AI at Upwork) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails"
+      ],
+      "evidence_points": [
+        "Role 'CTO, Head of AI' makes architecture decisions for emerging AI capabilities"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 1,
+    "reason": "Priority 1 (Medium Fit): CTO, Head of AI at Upwork is in a relevant role or vertical, but requires further qualification of immediate security/AI deployment urgency.",
+    "score": 90.0,
+    "confidence": 0.24,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'CTO, Head of AI'",
+      "Target enterprise vertical matching SealAPI: 'information technology'",
+      "Moderate AI/API infrastructure signals: ai, security, compliance"
+    ]
+  },
+  "sources": [
+    {
+      "source_id": "src_input_lead_bbd",
+      "source_url": "lead_import_record",
+      "source_type": "user_input",
+      "title": null,
+      "publisher": null,
+      "retrieval_timestamp": "2026-10-20T15:16:10.199605+00:00",
+      "published_at": null,
+      "relevant_excerpt": null,
+      "evidence_quality": 0.6,
+      "supports_claim_ids": [],
+      "facts_supported": [
+        "Imported Name: Andrew R",
+        "Imported Job Title: CTO, Head of AI",
+        "Imported Company: Upwork",
+        "Imported Industry: information technology & services",
+        "Imported Professional Email: andrewrabinovich@upwork.com",
+        "Imported Company Website: http://www.upwork.com"
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "clm_name",
+      "field": "name",
+      "value": "Andrew R",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_bbd"
+      ],
+      "confidence": 0.5,
+      "last_verified_at": null,
+      "review_reason": "Surname is abbreviated; requires full name evidence"
+    },
+    {
+      "claim_id": "clm_company",
+      "field": "company",
+      "value": "Upwork",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_bbd"
+      ],
+      "confidence": 0.7,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_title",
+      "field": "job_title",
+      "value": "CTO, Head of AI",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_bbd"
+      ],
+      "confidence": 0.65,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_email",
+      "field": "professional_email",
+      "value": "andrewrabinovich@upwork.com",
+      "status": "unverified",
+      "source_ids": [
+        "src_input_lead_bbd"
+      ],
+      "confidence": 0.5,
+      "last_verified_at": null,
+      "review_reason": "Syntax valid from import; deliverability probe not performed"
+    }
+  ],
+  "public_signals": [],
+  "icebreaker": {
+    "text": "I have been following how technology teams in the information technology & services sector are managing API and AI endpoint security.",
+    "icebreaker_type": "general_question",
+    "source_ids": [
+      "src_input_lead_bbd"
+    ],
+    "confidence": 0.45,
+    "why_it_matters": "SealAPI helps organizations protect APIs from token leakage, prompt injection, and credential abuse with zero-trust gateways.",
+    "potential_pain_point": "Hypothesis: Preventing credential leakage and unauthorized API consumption in production.",
+    "conversation_question": "Would you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?",
+    "personalization_status": "generic_fallback",
+    "outreach_draft": {
+      "subject": "API security & AI infrastructure at Upwork",
+      "greeting": "Hi Andrew,",
+      "opener": "I have been following how technology teams in the information technology & services sector are managing API and AI endpoint security.",
+      "sealapi_connection": "At SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.",
+      "low_pressure_ask": "Would you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?",
+      "full_body": "Hi Andrew,\n\nI have been following how technology teams in the information technology & services sector are managing API and AI endpoint security.\n\nAt SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.\n\nWould you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?\n\nBest regards,\nSealAPI Research & Partnerships"
+    }
+  },
+  "scoring": {
+    "lead_fit_score": 90.0,
+    "role_fit_score": 35.0,
+    "industry_fit_score": 30.0,
+    "technical_need_score": 15.0,
+    "verification_confidence": 0.24,
+    "readiness_status": "needs_research",
+    "explanations": [
+      "High-authority security/AI decision maker role: 'CTO, Head of AI'",
+      "Target enterprise vertical matching SealAPI: 'information technology'",
+      "Moderate AI/API infrastructure signals: ai, security, compliance"
+    ]
+  },
+  "contact_readiness": {
+    "status": "needs_research",
+    "has_name": true,
+    "has_verified_role": true,
+    "has_company_context": true,
+    "has_usable_contact_channel": true,
+    "has_evidence_based_icebreaker": false,
+    "blockers": [
+      "identity_not_verified"
+    ]
+  },
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as CTO, Head of AI at Upwork.",
+      "Focus on Generative AI & LLM Infrastructure.",
+      "Evidence-based opener: I have been following how technology teams in the information technology & services sector are managing API and AI endpoint security."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for information technology & services.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "Would you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly.",
+      "Do not assume delivered email address guarantees personal inbox delivery without validation."
+    ],
+    "missing_verification_points": [
+      "Icebreaker status: generic_fallback (human review recommended)."
+    ]
+  },
+  "research_metadata": {
+    "schema_version": "2.0.0",
+    "batch_id": "batch_20261020T151604Z_b82e6829",
+    "pipeline_version": "2.0.0",
+    "researched_at": "2026-10-20T15:16:10.199605+00:00",
+    "execution_status": "partial",
+    "verification_status": "unverified",
+    "source_count": 1,
+    "review_required": true,
+    "cache_fingerprint": "a5e2e164567fd57ed9ea97d3a7209438925aaa6c63f8f1fed2e014ba384a6219",
+    "errors_and_limitations": [],
+    "research_status": "partial",
+    "last_research_timestamp": "2026-10-20T15:16:10.199605+00:00",
+    "sources_examined": 1
+  }
+}

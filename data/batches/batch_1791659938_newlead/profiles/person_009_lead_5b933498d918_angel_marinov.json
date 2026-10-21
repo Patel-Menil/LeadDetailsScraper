@@ -1,0 +1,166 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_5b933498d918",
+  "identity": {
+    "name": "Angel Marinov",
+    "first_name": "Angel",
+    "last_name": "Marinov",
+    "job_title": "Head of AI & CISO",
+    "company": "ePlane AI",
+    "industry": "information technology & services",
+    "linkedin_url": "http://www.linkedin.com/in/aimarinov",
+    "company_website": "http://www.eplaneai.com",
+    "professional_email": "angel@eplane.com",
+    "city": "Miami",
+    "state": "Florida",
+    "country": "United States"
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at ePlane AI",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Generative AI & LLM Infrastructure",
+      "API Security & Microservices",
+      "Healthcare Data Privacy (HIPAA) & Safe Exchange"
+    ],
+    "public_projects": [
+      "Platform development and operations for ePlane AI"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at ePlane AI",
+      "Built on years of experience in automating aviation operations, our modular AI platform brings precision and reliability to any complex operational environment with impressive speed, ultra-high accuracy, and measurable business impact",
+      "Dynamic Architecture System intelligence improves continuously as it learns from every interaction",
+      "· Experience:  ePlane AI  · Location: Miami · 500+ connections on LinkedIn"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Angel Marinov (Head of AI & CISO at ePlane AI) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails"
+      ],
+      "evidence_points": [
+        "Role 'Head of AI & CISO' makes key architecture decisions for emerging AI capabilities"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 0,
+    "reason": "Priority 0 (Highest Fit): Head of AI & CISO at ePlane AI matches core decision-maker criteria in a regulated/tech-driven industry with active AI/API needs.",
+    "score": 100.0,
+    "confidence": 1.0,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'Head of AI & CISO'",
+      "Target enterprise vertical matching SealAPI: 'information technology'",
+      "Strong verified AI/API security need (matched signals: ai, artificial intelligence, machine learning, llm, agentic, api)",
+      "Verified business email domain: angel@eplane.com"
+    ]
+  },
+  "sources": [
+    {
+      "source_url": "lead_import_record",
+      "source_type": "input_data",
+      "retrieval_timestamp": "2026-10-10T19:19:36.769148+00:00",
+      "facts_supported": [
+        "Verified Name: Angel Marinov",
+        "Declared Job Title: Head of AI & CISO",
+        "Company: ePlane AI",
+        "Industry: information technology & services",
+        "Verified Professional Email: angel@eplane.com",
+        "Reported Location: Miami, Florida, United States",
+        "Company Keywords: aerospace,aircraft parts,online marketplace,ecommerce,artificial intelligence,machine learning,aipowered chatbot,predictive analytics,data analytics,ai document processing,ai integ"
+      ]
+    },
+    {
+      "source_url": "http://www.eplaneai.com",
+      "source_type": "company_website",
+      "retrieval_timestamp": "2026-10-10T19:19:37Z",
+      "facts_supported": [
+        "Website Title: AI in Operations & Supply Chain Enterprise AI App | ePlaneAI",
+        "Company Mission/Description: EplainAI is an all-in-one platform for AI copilots, testing, observability, and quality tools, helping teams build reliable AI-powered experiences faster.",
+        "Core Offerings: Quoting Automation, Distributors and Parts Suppliers, MROs, Airlines"
+      ]
+    },
+    {
+      "source_url": "https://www.linkedin.com/in/aimarinov",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:19:41.699519+00:00",
+      "facts_supported": [
+        "Public Profile: Angel Marinov - Founder | Building a Mojo-Powered Agentic OS for the ...",
+        "Verified Career & Background: · Experience: \nePlane\nAI\n · Location: Miami · 500+ connections on LinkedIn. View \nAngel\nMarinov's\n profile on LinkedIn, a professional community of 1 billion members."
+      ]
+    },
+    {
+      "source_url": "https://www.crunchbase.com/person/angel-marinov-8722",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:19:41.699564+00:00",
+      "facts_supported": [
+        "Public Profile: Angel Marinov - Founder and CEO @ ZERT - Crunchbase",
+        "Verified Career & Background: Angel\nMarinov\n has 2 current jobs as Head of Innovation at \nePlane\nAI\n and Founder and CEO at ZERT."
+      ]
+    },
+    {
+      "source_url": "https://www.smartling.com/resources/case-study/eplaneai/",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:19:41.699573+00:00",
+      "facts_supported": [
+        "Public Profile: How ePlaneAI scaled global reach without compromise - Smartling",
+        "Verified Career & Background: ePlaneAI\n overview \nePlaneAI\n is an online aviation marketplace that uses \nAI\n to connect buyers and sellers. In 2022, \nAngel\nMarinov\n had an idea to help renovate the platform and open it up for use in new international markets."
+      ]
+    },
+    {
+      "source_url": "https://www.linkedin.com/posts/eplaneai_shaping-the-future-of-aviation-ai-meet-activity-7341102276922458113-3Zp7",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:19:41.699580+00:00",
+      "facts_supported": [
+        "Public Profile: ePlaneAI's AI platform for aviation: Angel Marinov's vision",
+        "Verified Career & Background: Shaping the future of aviation \nAI\n. Meet \nAngel\nMarinov\n, Head of \nAI\n and CISO at \nePlaneAI\n. \nAngel\n leads the technical vision behind our \nAI\n platform and modular applications. His work addresses some of ..."
+      ]
+    },
+    {
+      "source_url": "https://rocketreach.co/eplane-management_b4d6a5daf9a27faf",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:19:41.699586+00:00",
+      "facts_supported": [
+        "Public Profile: ePlane Management Team | Org Chart - RocketReach",
+        "Verified Career & Background: ePlane\n employs 14 employees. The \nePlane\n management team includes \nAngel\nMarinov\n (Head of \nAI\n and CISO), Erez Geron (Customer Success Manager), and Yael Itzhaki (Senior Product Manager)."
+      ]
+    },
+    {
+      "source_url": "https://hr.linkedin.com/company/eplaneai",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:19:41.699593+00:00",
+      "facts_supported": [
+        "Public Profile: ePlane AI - LinkedIn",
+        "Verified Career & Background: ePlane\nAI\n | 6,361 followers on LinkedIn. Revolutionizing \nAI\n for Complex, High-Stakes Operations | \nePlane\nAI\n designs modular agentic systems for organizations operating where accuracy, compliance, and speed are mission-critical. Built on years of experience in automating aviation operations, our"
+      ]
+    }
+  ],
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as Head of AI & CISO at ePlane AI.",
+      "Focus on Generative AI & LLM Infrastructure, API Security & Microservices.",
+      "Background: Built on years of experience in automating aviation operations, our modular AI platform brings precision and reliability..."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for information technology & services.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "Would you be open to a 10-minute technical exchange next Tuesday to explore how SealAPI shields AI and API endpoints for teams like ePlane AI?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly."
+    ],
+    "missing_verification_points": []
+  },
+  "research_metadata": {
+    "research_status": "completed",
+    "last_research_timestamp": "2026-10-10T19:19:36.769148+00:00",
+    "sources_examined": 8,
+    "errors_and_limitations": [
+      "LinkedIn profile (http://www.linkedin.com/in/aimarinov) is behind an authentication wall; public domain records used for verified evidence."
+    ]
+  }
+}

@@ -1,0 +1,409 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_41db77155c4f",
+  "input_snapshot": {
+    "Linkedin Url": "http://www.linkedin.com/in/luizwolf",
+    "Full Name": "Luiz Wolf",
+    "First Name": "Luiz",
+    "Last Name": "Wolf",
+    "Email": "luizwolf@imoodyou.com",
+    "Email Status": "verified",
+    "Job Title": "CEO, CTO - Co-Founder - Head of AI Transformation",
+    "Company Name": "IMoodYou",
+    "Company Website": "http://www.imoodyou.com",
+    "City": "",
+    "State": "",
+    "Country": "United States",
+    "Industry": "information technology & services",
+    "Keywords": "ai,budget,it,sales improvement,supply chain improvement,aiml methodology,digital transformation,okrkpi monitoring,business value,agile,innovation,technology, information & media,consulting,services,information technology & services",
+    "Employees": "1",
+    "Company City": "",
+    "Company State": "",
+    "Company Country": "",
+    "Company Linkedin Url": "http://www.linkedin.com/company/imoodyou",
+    "Company Twitter Url": "",
+    "Company Facebook Url": "",
+    "Company Phone Numbers": "",
+    "Twitter Url": "",
+    "Facebook Url": ""
+  },
+  "identity": {
+    "name": "Luiz Wolf",
+    "first_name": "Luiz",
+    "last_name": "Wolf",
+    "job_title": "CEO, CTO - Co-Founder - Head of AI Transformation",
+    "company": "IMoodYou",
+    "industry": "information technology & services",
+    "linkedin_url": "http://www.linkedin.com/in/luizwolf",
+    "company_website": "http://www.imoodyou.com",
+    "professional_email": "luizwolf@imoodyou.com",
+    "city": "",
+    "state": "",
+    "country": "United States"
+  },
+  "contact": {
+    "email": "luizwolf@imoodyou.com",
+    "email_type": "work",
+    "email_verification_status": "syntax_valid_unprobed",
+    "linkedin_url": "http://www.linkedin.com/in/luizwolf",
+    "contact_channel_status": "available"
+  },
+  "company": {
+    "name": "IMoodYou",
+    "website": "http://www.imoodyou.com",
+    "domain": "imoodyou.com",
+    "industry": "information technology & services",
+    "verified": true
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at IMoodYou",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Generative AI & LLM Infrastructure",
+      "API Security & Microservices",
+      "Financial Data Governance & Compliance"
+    ],
+    "public_projects": [
+      "Platform development and operations for IMoodYou"
+    ],
+    "recent_developments": [
+      "Core market positioning for IMoodYou: IMoodYou public portal describes offerings: 'Imoodyou'.",
+      "Public professional profile for Luiz Wolf: Public records reference Luiz Wolf's professional leadership at IMoodYou ('Luiz Wolf - Global IT Business, Operations & Digit').",
+      "Public professional profile for Luiz Wolf: Public records reference Luiz Wolf's professional leadership at IMoodYou ('Luiz Wolf Email & Phone Number | IMoodYou CEO, CTO').",
+      "Public professional profile for Luiz Wolf: Public records reference Luiz Wolf's professional leadership at IMoodYou ('IMOODYOU - luiz wolf Trademark Registration')."
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Luiz Wolf (CEO, CTO - Co-Founder - Head of AI Transformation at IMoodYou) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails"
+      ],
+      "evidence_points": [
+        "Role 'CEO, CTO - Co-Founder - Head of AI Transformation' makes architecture decisions for emerging AI capabilities"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 0,
+    "reason": "Priority 0 (Highest Fit): CEO, CTO - Co-Founder - Head of AI Transformation at IMoodYou matches core decision-maker criteria in a target vertical with active AI/API needs.",
+    "score": 90.0,
+    "confidence": 0.88,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'CEO, CTO - Co-Founder - Head of AI Transformation'",
+      "Target enterprise vertical matching SealAPI: 'information technology'",
+      "Moderate AI/API infrastructure signals: ai, artificial intelligence, llm"
+    ]
+  },
+  "sources": [
+    {
+      "source_id": "src_input_lead_41d",
+      "source_url": "lead_import_record",
+      "source_type": "user_input",
+      "title": null,
+      "publisher": null,
+      "retrieval_timestamp": "2026-10-20T15:21:33.276116+00:00",
+      "published_at": null,
+      "relevant_excerpt": null,
+      "evidence_quality": 0.6,
+      "supports_claim_ids": [],
+      "facts_supported": [
+        "Imported Name: Luiz Wolf",
+        "Imported Job Title: CEO, CTO - Co-Founder - Head of AI Transformation",
+        "Imported Company: IMoodYou",
+        "Imported Industry: information technology & services",
+        "Imported Professional Email: luizwolf@imoodyou.com",
+        "Imported Company Website: http://www.imoodyou.com"
+      ]
+    },
+    {
+      "source_id": "src_web_lead_41d",
+      "source_url": "http://www.imoodyou.com",
+      "source_type": "official_company",
+      "title": "Imoodyou",
+      "publisher": null,
+      "retrieval_timestamp": "2026-10-20T15:21:36Z",
+      "published_at": null,
+      "relevant_excerpt": "Imoodyou\nSkip to main content\nHit enter to search or ESC to close\nClose Search\nMenu\nHome\nAbout Us\nSolutions\ncol-bg\n–\nOperarions\nFullfilment\nBetter OTIF\nFinance, HR And Legal\nOrder To Cash\nCredit Approval\nSales And CX\nCustomer And Partner Complaints\nRPF And Proposals\nBuy Based On Mood\nContact Us\nEMAIL NOW:\n contact@imoodyou.com\nWELCOME TO IMOODYOU\nDriving Business Efficiency With Ai\nGET A QUOTE\nABO",
+      "evidence_quality": 0.9,
+      "supports_claim_ids": [],
+      "facts_supported": [
+        "Website Title: Imoodyou",
+        "Core Capabilities: Where Artificial Intelligence\n\nMeets Executive Vision, Transform processes, boost efficiency,\n\nand drive business growth., Operations, Finance, HR & Legal"
+      ]
+    },
+    {
+      "source_id": "src_bio_lead_4_1",
+      "source_url": "https://www.linkedin.com/in/luizwolf",
+      "source_type": "public_web_bio",
+      "title": "Luiz Wolf - Global IT Business, Operations & Digital ... - LinkedIn",
+      "publisher": null,
+      "retrieval_timestamp": "2026-10-20T15:21:52.310322+00:00",
+      "published_at": null,
+      "relevant_excerpt": "· Experience: \nIMoodYou\n · Education: Pontifícia Universidade Católica de Campinas · Location: United States · 500+ connections on LinkedIn. View \nLuiz Wolf\n's profile on LinkedIn, a ...",
+      "evidence_quality": 0.8,
+      "supports_claim_ids": [],
+      "facts_supported": [
+        "Public Reference: Luiz Wolf - Global IT Business, Operations & Digital ... - LinkedIn",
+        "Contextual Snippet: · Experience: \nIMoodYou\n · Education: Pontifícia Universidade Católica de Campinas · Location: United States · 500+ connections on LinkedIn. View \nLuiz Wolf\n's profile on LinkedIn, a ..."
+      ]
+    },
+    {
+      "source_id": "src_bio_lead_4_2",
+      "source_url": "https://rocketreach.co/luiz-wolf-email_240794456",
+      "source_type": "public_web_bio",
+      "title": "Luiz Wolf Email & Phone Number | IMoodYou CEO, CTO - RocketReach",
+      "publisher": null,
+      "retrieval_timestamp": "2026-10-20T15:21:52.310371+00:00",
+      "published_at": null,
+      "relevant_excerpt": "Luiz Wolf\n, based in United States, is currently a CEO, CTO - Co-Founder - Head of AI Transformation at \nIMoodYou\n. \nLuiz Wolf\n brings experience from previous roles at Ambipar Response | United States, Johnson Controls and The Kraft Heinz Company.",
+      "evidence_quality": 0.7,
+      "supports_claim_ids": [],
+      "facts_supported": [
+        "Public Reference: Luiz Wolf Email & Phone Number | IMoodYou CEO, CTO - RocketReach",
+        "Contextual Snippet: Luiz Wolf\n, based in United States, is currently a CEO, CTO - Co-Founder - Head of AI Transformation at \nIMoodYou\n. \nLuiz Wolf\n brings experience from previous roles at Ambipar Response | United States, Johnson Controls and The Kraft Heinz Company."
+      ]
+    },
+    {
+      "source_id": "src_bio_lead_4_3",
+      "source_url": "https://uspto.report/TM/99392404",
+      "source_type": "public_web_bio",
+      "title": "IMOODYOU - luiz wolf Trademark Registration",
+      "publisher": null,
+      "retrieval_timestamp": "2026-10-20T15:21:52.310384+00:00",
+      "published_at": null,
+      "relevant_excerpt": "Mark For: \nIMOODYOU\n™ trademark registration is intended to cover the categories of providing advice and information on appropriate gifts for based on any person mood; Licensing of software in the framework of software publishing; Software licensing; Personal stylist services, namely, evaluating the physical attributes, lifestyle, and fashion styles of others and recommending clothing and ...",
+      "evidence_quality": 0.55,
+      "supports_claim_ids": [],
+      "facts_supported": [
+        "Public Reference: IMOODYOU - luiz wolf Trademark Registration",
+        "Contextual Snippet: Mark For: \nIMOODYOU\n™ trademark registration is intended to cover the categories of providing advice and information on appropriate gifts for based on any person mood; Licensing of software in the framework of software publishing; Software licensing;"
+      ]
+    },
+    {
+      "source_id": "src_bio_lead_4_4",
+      "source_url": "https://trademarks.justia.com/993/92/imoodyou-99392404.html",
+      "source_type": "public_web_bio",
+      "title": "IMOODYOU Trademark Application of luiz wolf - Serial Number 99392404 ...",
+      "publisher": null,
+      "retrieval_timestamp": "2026-10-20T15:21:52.310396+00:00",
+      "published_at": null,
+      "relevant_excerpt": "Providing advice and information on appropriate gifts for based on any person mood; Licensing of software in the framework of software publishing; Software licensing; Personal stylist services, namely, evaluating the physical attributes, lifestyle, and fashion styles of others and recommending clothing and accessories to achieve the personal image desired by the client; Membership club ...",
+      "evidence_quality": 0.55,
+      "supports_claim_ids": [],
+      "facts_supported": [
+        "Public Reference: IMOODYOU Trademark Application of luiz wolf - Serial Number 99392404 ...",
+        "Contextual Snippet: Providing advice and information on appropriate gifts for based on any person mood; Licensing of software in the framework of software publishing; Software licensing; Personal stylist services, namely, evaluating the physical attributes, lifestyle, a"
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "clm_name",
+      "field": "name",
+      "value": "Luiz Wolf",
+      "status": "verified",
+      "source_ids": [
+        "src_input_lead_41d"
+      ],
+      "confidence": 0.75,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_company",
+      "field": "company",
+      "value": "IMoodYou",
+      "status": "verified",
+      "source_ids": [
+        "src_input_lead_41d",
+        "src_web_lead_41d"
+      ],
+      "confidence": 0.95,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_title",
+      "field": "job_title",
+      "value": "CEO, CTO - Co-Founder - Head of AI Transformation",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_41d"
+      ],
+      "confidence": 0.65,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_email",
+      "field": "professional_email",
+      "value": "luizwolf@imoodyou.com",
+      "status": "unverified",
+      "source_ids": [
+        "src_input_lead_41d"
+      ],
+      "confidence": 0.5,
+      "last_verified_at": null,
+      "review_reason": "Syntax valid from import; deliverability probe not performed"
+    },
+    {
+      "claim_id": "clm_website",
+      "field": "company_website",
+      "value": "http://www.imoodyou.com",
+      "status": "verified",
+      "source_ids": [
+        "src_web_lead_41d"
+      ],
+      "confidence": 0.95,
+      "last_verified_at": null,
+      "review_reason": null
+    }
+  ],
+  "public_signals": [
+    {
+      "signal_id": "sig_1",
+      "signal_type": "company_positioning",
+      "headline": "Core market positioning for IMoodYou",
+      "summary": "IMoodYou public portal describes offerings: 'Imoodyou'.",
+      "source_ids": [
+        "src_web_lead_41d"
+      ],
+      "published_date": null,
+      "relevance_to_lead": "Operational scaling and digital service delivery",
+      "verification_status": "verified",
+      "confidence": 0.75
+    },
+    {
+      "signal_id": "sig_2",
+      "signal_type": "technical_work",
+      "headline": "Public professional profile for Luiz Wolf",
+      "summary": "Public records reference Luiz Wolf's professional leadership at IMoodYou ('Luiz Wolf - Global IT Business, Operations & Digit').",
+      "source_ids": [
+        "src_bio_lead_4_1"
+      ],
+      "published_date": null,
+      "relevance_to_lead": "Technology leadership and infrastructure oversight",
+      "verification_status": "partially_verified",
+      "confidence": 0.7
+    },
+    {
+      "signal_id": "sig_3",
+      "signal_type": "technical_work",
+      "headline": "Public professional profile for Luiz Wolf",
+      "summary": "Public records reference Luiz Wolf's professional leadership at IMoodYou ('Luiz Wolf Email & Phone Number | IMoodYou CEO, CTO').",
+      "source_ids": [
+        "src_bio_lead_4_2"
+      ],
+      "published_date": null,
+      "relevance_to_lead": "Technology leadership and infrastructure oversight",
+      "verification_status": "partially_verified",
+      "confidence": 0.7
+    },
+    {
+      "signal_id": "sig_4",
+      "signal_type": "technical_work",
+      "headline": "Public professional profile for Luiz Wolf",
+      "summary": "Public records reference Luiz Wolf's professional leadership at IMoodYou ('IMOODYOU - luiz wolf Trademark Registration').",
+      "source_ids": [
+        "src_bio_lead_4_3"
+      ],
+      "published_date": null,
+      "relevance_to_lead": "Technology leadership and infrastructure oversight",
+      "verification_status": "partially_verified",
+      "confidence": 0.7
+    },
+    {
+      "signal_id": "sig_5",
+      "signal_type": "technical_work",
+      "headline": "Public professional profile for Luiz Wolf",
+      "summary": "Public records reference Luiz Wolf's professional leadership at IMoodYou ('IMOODYOU Trademark Application of luiz wolf - Seri').",
+      "source_ids": [
+        "src_bio_lead_4_4"
+      ],
+      "published_date": null,
+      "relevance_to_lead": "Technology leadership and infrastructure oversight",
+      "verification_status": "partially_verified",
+      "confidence": 0.7
+    }
+  ],
+  "icebreaker": {
+    "text": "I came across public coverage of your technical leadership at IMoodYou and the engineering initiatives your team is driving.",
+    "icebreaker_type": "technical_work",
+    "source_ids": [
+      "src_bio_lead_4_1"
+    ],
+    "confidence": 0.7,
+    "why_it_matters": "Technical leaders navigating rapid infrastructure growth benefit from automated security guardrails that don't block development.",
+    "potential_pain_point": "Hypothesis: Balancing developer velocity with rigorous zero-trust API protection.",
+    "conversation_question": "Are zero-trust API gateways and automated credential protection active discussion topics on your engineering roadmap?",
+    "personalization_status": "ready",
+    "outreach_draft": {
+      "subject": "API security & AI infrastructure at IMoodYou",
+      "greeting": "Hi Luiz,",
+      "opener": "I came across public coverage of your technical leadership at IMoodYou and the engineering initiatives your team is driving.",
+      "sealapi_connection": "At SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.",
+      "low_pressure_ask": "Are zero-trust API gateways and automated credential protection active discussion topics on your engineering roadmap?",
+      "full_body": "Hi Luiz,\n\nI came across public coverage of your technical leadership at IMoodYou and the engineering initiatives your team is driving.\n\nAt SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.\n\nAre zero-trust API gateways and automated credential protection active discussion topics on your engineering roadmap?\n\nBest regards,\nSealAPI Research & Partnerships"
+    }
+  },
+  "scoring": {
+    "lead_fit_score": 90.0,
+    "role_fit_score": 35.0,
+    "industry_fit_score": 30.0,
+    "technical_need_score": 15.0,
+    "verification_confidence": 0.88,
+    "readiness_status": "ready",
+    "explanations": [
+      "High-authority security/AI decision maker role: 'CEO, CTO - Co-Founder - Head of AI Transformation'",
+      "Target enterprise vertical matching SealAPI: 'information technology'",
+      "Moderate AI/API infrastructure signals: ai, artificial intelligence, llm"
+    ]
+  },
+  "contact_readiness": {
+    "status": "ready",
+    "has_name": true,
+    "has_verified_role": true,
+    "has_company_context": true,
+    "has_usable_contact_channel": true,
+    "has_evidence_based_icebreaker": true,
+    "blockers": []
+  },
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as CEO, CTO - Co-Founder - Head of AI Transformation at IMoodYou.",
+      "Focus on Generative AI & LLM Infrastructure, API Security & Microservices.",
+      "Evidence-based opener: I came across public coverage of your technical leadership at IMoodYou and the engineering initiatives your team is driving."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for information technology & services.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "Are zero-trust API gateways and automated credential protection active discussion topics on your engineering roadmap?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly.",
+      "Do not assume delivered email address guarantees personal inbox delivery without validation."
+    ],
+    "missing_verification_points": []
+  },
+  "research_metadata": {
+    "schema_version": "2.0.0",
+    "batch_id": "batch_20261020T152127Z_c593eae2",
+    "pipeline_version": "2.0.0",
+    "researched_at": "2026-10-20T15:21:33.276116+00:00",
+    "execution_status": "completed",
+    "verification_status": "verified",
+    "source_count": 6,
+    "review_required": false,
+    "cache_fingerprint": "dca5aae134e0794b8ef96f574f6287043d07dd7c674df8c00e4e557e59bd7f38",
+    "errors_and_limitations": [
+      "LinkedIn URL (http://www.linkedin.com/in/luizwolf) is behind an authentication wall; public domain records used for verified evidence."
+    ],
+    "research_status": "completed",
+    "last_research_timestamp": "2026-10-20T15:21:33.276116+00:00",
+    "sources_examined": 6
+  }
+}

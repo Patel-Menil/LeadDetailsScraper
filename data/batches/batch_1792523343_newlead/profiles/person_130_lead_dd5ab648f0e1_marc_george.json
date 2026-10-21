@@ -1,0 +1,106 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_dd5ab648f0e1",
+  "identity": {
+    "name": "Marc George",
+    "first_name": "Marc",
+    "last_name": "George",
+    "job_title": "Ceo/cio/cto/ciso",
+    "company": "Identity Checkpoint Sentry Services, Inc.",
+    "industry": "information services",
+    "linkedin_url": "http://www.linkedin.com/in/marc-george-505a5b",
+    "company_website": "http://www.identitycheckpoint.com",
+    "professional_email": "mwg@identitycheckpoint.com",
+    "city": "Pasadena",
+    "state": "Maryland",
+    "country": "United States"
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at Identity Checkpoint Sentry Services, Inc.",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Generative AI & LLM Infrastructure",
+      "API Security & Microservices",
+      "Financial Data Governance & Compliance"
+    ],
+    "public_projects": [
+      "Platform development and operations for Identity Checkpoint Sentry Services, Inc."
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at Identity Checkpoint Sentry Services, Inc."
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Marc George (Ceo/cio/cto/ciso at Identity Checkpoint Sentry Services, Inc.) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails"
+      ],
+      "evidence_points": [
+        "Role 'Ceo/cio/cto/ciso' makes key architecture decisions for emerging AI capabilities"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 1,
+    "reason": "Priority 1 (Medium Fit): Ceo/cio/cto/ciso at Identity Checkpoint Sentry Services, Inc. is in a relevant role or vertical, but requires further qualification of immediate security/AI deployment urgency.",
+    "score": 65.0,
+    "confidence": 0.9,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'Ceo/cio/cto/ciso'",
+      "Moderate AI/API infrastructure signals: ai, security, cloud",
+      "Verified business email domain: mwg@identitycheckpoint.com"
+    ]
+  },
+  "sources": [
+    {
+      "source_url": "lead_import_record",
+      "source_type": "input_data",
+      "retrieval_timestamp": "2026-10-20T19:10:06.354075+00:00",
+      "facts_supported": [
+        "Verified Name: Marc George",
+        "Declared Job Title: Ceo/cio/cto/ciso",
+        "Company: Identity Checkpoint Sentry Services, Inc.",
+        "Industry: information services",
+        "Verified Professional Email: mwg@identitycheckpoint.com",
+        "Reported Location: Pasadena, Maryland, United States",
+        "Company Keywords: identity usage management application action authorization,banking,enterprise security,governments,financial services,security,internet,finance,information technology,information t"
+      ]
+    },
+    {
+      "source_url": "http://www.identitycheckpoint.com",
+      "source_type": "company_website",
+      "retrieval_timestamp": "2026-10-20T19:10:07Z",
+      "facts_supported": [
+        "Website Title: Identity Checkpoint",
+        "Core Offerings: Have AAA+ Cyber-Security at all times."
+      ]
+    }
+  ],
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as Ceo/cio/cto/ciso at Identity Checkpoint Sentry Services, Inc..",
+      "Focus on Generative AI & LLM Infrastructure, API Security & Microservices."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for information services.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "Would you be open to a 10-minute technical exchange next Tuesday to explore how SealAPI shields AI and API endpoints for teams like Identity Checkpoint Sentry Services, Inc.?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly."
+    ],
+    "missing_verification_points": []
+  },
+  "research_metadata": {
+    "research_status": "completed",
+    "last_research_timestamp": "2026-10-20T19:10:06.354075+00:00",
+    "sources_examined": 2,
+    "errors_and_limitations": [
+      "LinkedIn profile (http://www.linkedin.com/in/marc-george-505a5b) is behind an authentication wall; public domain records used for verified evidence."
+    ]
+  }
+}

@@ -1,0 +1,248 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_5863906c497c",
+  "input_snapshot": {
+    "Linkedin Url": "http://www.linkedin.com/in/amerabukhadra",
+    "Full Name": "Amer Abukhadra",
+    "First Name": "Amer",
+    "Last Name": "Abukhadra",
+    "Email": "aabukhadra@mycardioguard.com",
+    "Email Status": "verified",
+    "Job Title": "Chief Executive Officer, Chief Technology Officer and Founder",
+    "Company Name": "myCardioGuard",
+    "Company Website": "https://mycardioguard.com",
+    "City": "Minneapolis",
+    "State": "Minnesota",
+    "Country": "United States",
+    "Industry": "health, wellness & fitness",
+    "Keywords": "wellness & fitness services,heart health awareness,cardiovascular screening,clinical research,early detection,healthcare provider services,fda approved equipment,cardiovascular disease detection,clinical research backed,fda approved medical equipment,evidence-based medical device,non-invasive test,patented detection method,other outpatient care centers,heart disease screening,preventive cardiology services,medical equipment,preventive health,heart health education,clinical studies,health screening technology,heart disease detection,early cardiovascular risk screening,risk factor identification,medical diagnostics,risk factor analysis,heart disease reversal,heart health monitoring,population-level cvd prevention,silent killer detection,heart health assessment,risk assessment,early intervention for cvd,healthcare,clinical accuracy,non-invasive heart test,heart disease risk reduction,early heart disease detection,preventive cardiology,early intervention strategies,population health management,b2b,b2c,health, wellness & fitness,health care,hospital & health care",
+    "Employees": "2",
+    "Company City": "",
+    "Company State": "",
+    "Company Country": "",
+    "Company Linkedin Url": "http://www.linkedin.com/company/mycardioguard-llc",
+    "Company Twitter Url": "",
+    "Company Facebook Url": "",
+    "Company Phone Numbers": "",
+    "Twitter Url": "",
+    "Facebook Url": ""
+  },
+  "identity": {
+    "name": "Amer Abukhadra",
+    "first_name": "Amer",
+    "last_name": "Abukhadra",
+    "job_title": "Chief Executive Officer, Chief Technology Officer and Founder",
+    "company": "myCardioGuard",
+    "industry": "health, wellness & fitness",
+    "linkedin_url": "http://www.linkedin.com/in/amerabukhadra",
+    "company_website": "https://mycardioguard.com",
+    "professional_email": "aabukhadra@mycardioguard.com",
+    "city": "Minneapolis",
+    "state": "Minnesota",
+    "country": "United States"
+  },
+  "contact": {
+    "email": "aabukhadra@mycardioguard.com",
+    "email_type": "work",
+    "email_verification_status": "syntax_valid_unprobed",
+    "linkedin_url": "http://www.linkedin.com/in/amerabukhadra",
+    "contact_channel_status": "available"
+  },
+  "company": {
+    "name": "myCardioGuard",
+    "website": "https://mycardioguard.com",
+    "domain": "mycardioguard.com",
+    "industry": "health, wellness & fitness",
+    "verified": false
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at myCardioGuard",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Healthcare Data Privacy (HIPAA) & Safe Exchange"
+    ],
+    "public_projects": [
+      "Platform development and operations for myCardioGuard"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at myCardioGuard"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Amer Abukhadra (Chief Executive Officer, Chief Technology Officer and Founder at myCardioGuard) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Privacy-Preserving Data Exchange & Compliance"
+      ],
+      "evidence_points": [
+        "Regulated vertical 'health, wellness & fitness' mandates strict API access controls and audited data flow"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 1,
+    "reason": "Priority 1 (Medium Fit): Chief Executive Officer, Chief Technology Officer and Founder at myCardioGuard is in a relevant role or vertical, but requires further qualification of immediate security/AI deployment urgency.",
+    "score": 52.0,
+    "confidence": 0.33,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'Chief Executive Officer, Chief Technology Officer and Founder'",
+      "Minimal technical/security keywords detected"
+    ]
+  },
+  "sources": [
+    {
+      "source_id": "src_input_lead_586",
+      "source_url": "lead_import_record",
+      "source_type": "user_input",
+      "title": null,
+      "publisher": null,
+      "retrieval_timestamp": "2026-10-20T15:16:10.396043+00:00",
+      "published_at": null,
+      "relevant_excerpt": null,
+      "evidence_quality": 0.6,
+      "supports_claim_ids": [],
+      "facts_supported": [
+        "Imported Name: Amer Abukhadra",
+        "Imported Job Title: Chief Executive Officer, Chief Technology Officer and Founder",
+        "Imported Company: myCardioGuard",
+        "Imported Industry: health, wellness & fitness",
+        "Imported Professional Email: aabukhadra@mycardioguard.com",
+        "Imported Company Website: https://mycardioguard.com"
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "clm_name",
+      "field": "name",
+      "value": "Amer Abukhadra",
+      "status": "verified",
+      "source_ids": [
+        "src_input_lead_586"
+      ],
+      "confidence": 0.75,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_company",
+      "field": "company",
+      "value": "myCardioGuard",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_586"
+      ],
+      "confidence": 0.7,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_title",
+      "field": "job_title",
+      "value": "Chief Executive Officer, Chief Technology Officer and Founder",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_586"
+      ],
+      "confidence": 0.65,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_email",
+      "field": "professional_email",
+      "value": "aabukhadra@mycardioguard.com",
+      "status": "unverified",
+      "source_ids": [
+        "src_input_lead_586"
+      ],
+      "confidence": 0.5,
+      "last_verified_at": null,
+      "review_reason": "Syntax valid from import; deliverability probe not performed"
+    }
+  ],
+  "public_signals": [],
+  "icebreaker": {
+    "text": "Given myCardioGuard's focus in health, wellness & fitness, data privacy governance and auditable API exchanges are typically paramount.",
+    "icebreaker_type": "general_question",
+    "source_ids": [
+      "src_input_lead_586"
+    ],
+    "confidence": 0.6,
+    "why_it_matters": "Regulated verticals require verifiable controls to ensure sensitive data does not cross unauthorized API boundaries.",
+    "potential_pain_point": "Hypothesis: Ensuring third-party integrations and internal models comply with strict compliance audits.",
+    "conversation_question": "How does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?",
+    "personalization_status": "needs_review",
+    "outreach_draft": {
+      "subject": "API security & AI infrastructure at myCardioGuard",
+      "greeting": "Hi Amer,",
+      "opener": "Given myCardioGuard's focus in health, wellness & fitness, data privacy governance and auditable API exchanges are typically paramount.",
+      "sealapi_connection": "At SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.",
+      "low_pressure_ask": "How does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?",
+      "full_body": "Hi Amer,\n\nGiven myCardioGuard's focus in health, wellness & fitness, data privacy governance and auditable API exchanges are typically paramount.\n\nAt SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.\n\nHow does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?\n\nBest regards,\nSealAPI Research & Partnerships"
+    }
+  },
+  "scoring": {
+    "lead_fit_score": 52.0,
+    "role_fit_score": 35.0,
+    "industry_fit_score": 5.0,
+    "technical_need_score": 2.0,
+    "verification_confidence": 0.33,
+    "readiness_status": "ready_with_caveat",
+    "explanations": [
+      "High-authority security/AI decision maker role: 'Chief Executive Officer, Chief Technology Officer and Founder'",
+      "Minimal technical/security keywords detected"
+    ]
+  },
+  "contact_readiness": {
+    "status": "ready_with_caveat",
+    "has_name": true,
+    "has_verified_role": true,
+    "has_company_context": true,
+    "has_usable_contact_channel": true,
+    "has_evidence_based_icebreaker": false,
+    "blockers": [
+      "identity_not_verified",
+      "icebreaker_needs_review"
+    ]
+  },
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as Chief Executive Officer, Chief Technology Officer and Founder at myCardioGuard.",
+      "Focus on Healthcare Data Privacy (HIPAA) & Safe Exchange.",
+      "Evidence-based opener: Given myCardioGuard's focus in health, wellness & fitness, data privacy governance and auditable API exchanges are typically paramount."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for health, wellness & fitness.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "How does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly.",
+      "Do not assume delivered email address guarantees personal inbox delivery without validation."
+    ],
+    "missing_verification_points": [
+      "Icebreaker status: needs_review (human review recommended)."
+    ]
+  },
+  "research_metadata": {
+    "schema_version": "2.0.0",
+    "batch_id": "batch_20261020T151604Z_b82e6829",
+    "pipeline_version": "2.0.0",
+    "researched_at": "2026-10-20T15:16:10.396043+00:00",
+    "execution_status": "partial",
+    "verification_status": "unverified",
+    "source_count": 1,
+    "review_required": true,
+    "cache_fingerprint": "a5e2e164567fd57ed9ea97d3a7209438925aaa6c63f8f1fed2e014ba384a6219",
+    "errors_and_limitations": [
+      "LinkedIn URL (http://www.linkedin.com/in/amerabukhadra) is behind an authentication wall; public domain records used for verified evidence."
+    ],
+    "research_status": "partial",
+    "last_research_timestamp": "2026-10-20T15:16:10.396043+00:00",
+    "sources_examined": 1
+  }
+}

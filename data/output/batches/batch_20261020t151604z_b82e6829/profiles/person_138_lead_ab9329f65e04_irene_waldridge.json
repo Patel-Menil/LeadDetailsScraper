@@ -1,0 +1,250 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_ab9329f65e04",
+  "input_snapshot": {
+    "Linkedin Url": "http://www.linkedin.com/in/irene-waldridge-96306241",
+    "Full Name": "Irene Waldridge",
+    "First Name": "Irene",
+    "Last Name": "Waldridge",
+    "Email": "iwaldridge@evamedtec.com",
+    "Email Status": "verified",
+    "Job Title": "Founder and Ceo/cto",
+    "Company Name": "Eva Medtec, Inc.",
+    "Company Website": "https://evamedtecinvestment.com",
+    "City": "Shakopee",
+    "State": "Minnesota",
+    "Country": "United States",
+    "Industry": "health, wellness & fitness",
+    "Keywords": "mld therapy,edema solution,post surgical pain,opioid pain relief,wellness & fitness services,superficial fascia manipulation,lymphedema treatment,immune system support,near-infrared fluorescence imaging,automated lymphatic therapy,pain relief,inflammation reduction,rfid therapy attachments,pain relief device,pain management,manual lymphatic drainage,clinical trials,lymphatic drainage,lymphedema management,chronic pain treatment,patented lymphatic device,in-home therapy,medical equipment and supplies manufacturing,fda-cleared device,lymphatic circulation,air bladder pressures,air bladder technology,clinical studies,fda otc clearance,medical devices,veteran health support,patient recovery,stretch n release technology,post-surgical therapy,post-operative recovery,fibromyalgia relief,clinical research,waste removal,healthcare,waste and toxin removal,arthritis pain relief,traumatic brain injury therapy,neuroglide,healthcare innovation,smart valve therapy attachments,medical device,wound care,lymphatic flow enhancement,b2c,medical_devices,pain_management,lymphatic_therapy,fda_clearance,clinical_studies,home_use,chronic_pain,post_op_recovery,lymphedema,fibromyalgia,arthritis,sports_injury,veterans,health, wellness & fitness,health care,hospital & health care",
+    "Employees": "3",
+    "Company City": "",
+    "Company State": "",
+    "Company Country": "",
+    "Company Linkedin Url": "http://www.linkedin.com/company/eva-medtec",
+    "Company Twitter Url": "",
+    "Company Facebook Url": "",
+    "Company Phone Numbers": "+1 612-251-3949",
+    "Twitter Url": "",
+    "Facebook Url": ""
+  },
+  "identity": {
+    "name": "Irene Waldridge",
+    "first_name": "Irene",
+    "last_name": "Waldridge",
+    "job_title": "Founder and Ceo/cto",
+    "company": "Eva Medtec, Inc.",
+    "industry": "health, wellness & fitness",
+    "linkedin_url": "http://www.linkedin.com/in/irene-waldridge-96306241",
+    "company_website": "https://evamedtecinvestment.com",
+    "professional_email": "iwaldridge@evamedtec.com",
+    "city": "Shakopee",
+    "state": "Minnesota",
+    "country": "United States"
+  },
+  "contact": {
+    "email": "iwaldridge@evamedtec.com",
+    "email_type": "work",
+    "email_verification_status": "syntax_valid_unprobed",
+    "linkedin_url": "http://www.linkedin.com/in/irene-waldridge-96306241",
+    "contact_channel_status": "available"
+  },
+  "company": {
+    "name": "Eva Medtec, Inc.",
+    "website": "https://evamedtecinvestment.com",
+    "domain": "evamedtecinvestment.com",
+    "industry": "health, wellness & fitness",
+    "verified": false
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at Eva Medtec, Inc.",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Healthcare Data Privacy (HIPAA) & Safe Exchange"
+    ],
+    "public_projects": [
+      "Platform development and operations for Eva Medtec, Inc."
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at Eva Medtec, Inc."
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Irene Waldridge (Founder and Ceo/cto at Eva Medtec, Inc.) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails",
+        "Privacy-Preserving Data Exchange & Compliance"
+      ],
+      "evidence_points": [
+        "Role 'Founder and Ceo/cto' makes architecture decisions for emerging AI capabilities",
+        "Regulated vertical 'health, wellness & fitness' mandates strict API access controls and audited data flow"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 1,
+    "reason": "Priority 1 (Medium Fit): Founder and Ceo/cto at Eva Medtec, Inc. is in a relevant role or vertical, but requires further qualification of immediate security/AI deployment urgency.",
+    "score": 58.0,
+    "confidence": 0.33,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'Founder and Ceo/cto'",
+      "Limited technical keywords: ai"
+    ]
+  },
+  "sources": [
+    {
+      "source_id": "src_input_lead_ab9",
+      "source_url": "lead_import_record",
+      "source_type": "user_input",
+      "title": null,
+      "publisher": null,
+      "retrieval_timestamp": "2026-10-20T15:16:10.389399+00:00",
+      "published_at": null,
+      "relevant_excerpt": null,
+      "evidence_quality": 0.6,
+      "supports_claim_ids": [],
+      "facts_supported": [
+        "Imported Name: Irene Waldridge",
+        "Imported Job Title: Founder and Ceo/cto",
+        "Imported Company: Eva Medtec, Inc.",
+        "Imported Industry: health, wellness & fitness",
+        "Imported Professional Email: iwaldridge@evamedtec.com",
+        "Imported Company Website: https://evamedtecinvestment.com"
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "clm_name",
+      "field": "name",
+      "value": "Irene Waldridge",
+      "status": "verified",
+      "source_ids": [
+        "src_input_lead_ab9"
+      ],
+      "confidence": 0.75,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_company",
+      "field": "company",
+      "value": "Eva Medtec, Inc.",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_ab9"
+      ],
+      "confidence": 0.7,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_title",
+      "field": "job_title",
+      "value": "Founder and Ceo/cto",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_ab9"
+      ],
+      "confidence": 0.65,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_email",
+      "field": "professional_email",
+      "value": "iwaldridge@evamedtec.com",
+      "status": "unverified",
+      "source_ids": [
+        "src_input_lead_ab9"
+      ],
+      "confidence": 0.5,
+      "last_verified_at": null,
+      "review_reason": "Syntax valid from import; deliverability probe not performed"
+    }
+  ],
+  "public_signals": [],
+  "icebreaker": {
+    "text": "Given Eva Medtec, Inc.'s focus in health, wellness & fitness, data privacy governance and auditable API exchanges are typically paramount.",
+    "icebreaker_type": "general_question",
+    "source_ids": [
+      "src_input_lead_ab9"
+    ],
+    "confidence": 0.6,
+    "why_it_matters": "Regulated verticals require verifiable controls to ensure sensitive data does not cross unauthorized API boundaries.",
+    "potential_pain_point": "Hypothesis: Ensuring third-party integrations and internal models comply with strict compliance audits.",
+    "conversation_question": "How does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?",
+    "personalization_status": "needs_review",
+    "outreach_draft": {
+      "subject": "API security & AI infrastructure at Eva Medtec, Inc.",
+      "greeting": "Hi Irene,",
+      "opener": "Given Eva Medtec, Inc.'s focus in health, wellness & fitness, data privacy governance and auditable API exchanges are typically paramount.",
+      "sealapi_connection": "At SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.",
+      "low_pressure_ask": "How does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?",
+      "full_body": "Hi Irene,\n\nGiven Eva Medtec, Inc.'s focus in health, wellness & fitness, data privacy governance and auditable API exchanges are typically paramount.\n\nAt SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.\n\nHow does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?\n\nBest regards,\nSealAPI Research & Partnerships"
+    }
+  },
+  "scoring": {
+    "lead_fit_score": 58.0,
+    "role_fit_score": 35.0,
+    "industry_fit_score": 5.0,
+    "technical_need_score": 8.0,
+    "verification_confidence": 0.33,
+    "readiness_status": "ready_with_caveat",
+    "explanations": [
+      "High-authority security/AI decision maker role: 'Founder and Ceo/cto'",
+      "Limited technical keywords: ai"
+    ]
+  },
+  "contact_readiness": {
+    "status": "ready_with_caveat",
+    "has_name": true,
+    "has_verified_role": true,
+    "has_company_context": true,
+    "has_usable_contact_channel": true,
+    "has_evidence_based_icebreaker": false,
+    "blockers": [
+      "identity_not_verified",
+      "icebreaker_needs_review"
+    ]
+  },
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as Founder and Ceo/cto at Eva Medtec, Inc..",
+      "Focus on Healthcare Data Privacy (HIPAA) & Safe Exchange.",
+      "Evidence-based opener: Given Eva Medtec, Inc.'s focus in health, wellness & fitness, data privacy governance and auditable API exchanges are typically paramount."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for health, wellness & fitness.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "How does your team currently audit and safeguard sensitive API endpoints against unauthorized data exfiltration?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly.",
+      "Do not assume delivered email address guarantees personal inbox delivery without validation."
+    ],
+    "missing_verification_points": [
+      "Icebreaker status: needs_review (human review recommended)."
+    ]
+  },
+  "research_metadata": {
+    "schema_version": "2.0.0",
+    "batch_id": "batch_20261020T151604Z_b82e6829",
+    "pipeline_version": "2.0.0",
+    "researched_at": "2026-10-20T15:16:10.389399+00:00",
+    "execution_status": "partial",
+    "verification_status": "unverified",
+    "source_count": 1,
+    "review_required": true,
+    "cache_fingerprint": "a5e2e164567fd57ed9ea97d3a7209438925aaa6c63f8f1fed2e014ba384a6219",
+    "errors_and_limitations": [
+      "LinkedIn URL (http://www.linkedin.com/in/irene-waldridge-96306241) is behind an authentication wall; public domain records used for verified evidence."
+    ],
+    "research_status": "partial",
+    "last_research_timestamp": "2026-10-20T15:16:10.389399+00:00",
+    "sources_examined": 1
+  }
+}

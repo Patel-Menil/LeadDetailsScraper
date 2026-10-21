@@ -1,0 +1,247 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_461f840ec412",
+  "input_snapshot": {
+    "Linkedin Url": "",
+    "Full Name": "Gautam G",
+    "First Name": "Gautam",
+    "Last Name": "G",
+    "Email": "gautam.goswami@commentsold.com",
+    "Email Status": "verified",
+    "Job Title": "CEO & Chief AI Officer",
+    "Company Name": "CommentSold",
+    "Company Website": "http://www.commentsold.com",
+    "City": "Los Angeles",
+    "State": "California",
+    "Country": "United States",
+    "Industry": "information technology & services",
+    "Keywords": "live selling,live video commerce,social commerce,software,business software,software development,video commerce,ecommerce automation,retail analytics,digital storefront,interactive video shopping,social media video sales,social media sales automation,inventory management,ai video content generator,live video sales platform,social media sales,multi-channel marketing,customer data tracking,live streaming,retail growth tools,live video clips,retail sales growth,live sales optimization,social video commerce,automated marketing,ai video marketing tools,sales reporting,automated invoicing,live shopping engagement,video sales platform,sales analytics,automated video clips,product tagging,ai video editing,services,automated customer communication,live commerce analytics,shoppable livestreams,retail automation,ecommerce platform integration,marketing automation,ai cliphero,multi-channel selling,retail technology,customer insights,b2b,automated customer follow-up,live video streaming,video marketing for retail,customer retention,ai-powered video,video content automation,video content management,customer engagement,ai video highlights,crm tools,ai video generator,social media shopping,live shopping app,automated customer messaging,live shopping analytics,sales conversion tools,computer systems design and related services,retail business software,live sales events,live video platform,ai video summarization,social media integration,social media engagement,video content repurposing,d2c,small business ecommerce,live shopping experience,social media commerce,social media marketing,content automation,video-first ecommerce,live event management,live sales automation,automated order processing,live shopping platform,real-time inventory,automated inventory updates,video marketing,video sales conversion,b2c,shoppable videos,digital sales tools,retail crm,video clips for ecommerce,live sales dashboard,social commerce tools,social commerce automation,mobile app for retail,customer loyalty,social media live sales,ai-driven content creation,e-commerce,live video marketing,video content automation tools,order fulfillment,video clips creation,digital marketing automation,retail,mobile app builder,content management system,shipping and fulfillment,ai video generation,point of sale,multi-source payments,branded mobile app,retailers,e-commerce solutions,tiktok selling,instagram selling,facebook selling,custom website builder,dynamic replay features,gamification,e-commerce platform,shoppable clips,live chat automation,digital storefronts,dropshipping management,real-time analytics,sales conversion,cross-channel selling,promotion tools,dynamic video embedding,personalized marketing,live event promotion,customer interaction,data insights,live video engagement,customer retention strategies,waitlist management,comment conversion,real-time notifications,saas,consumer internet,consumers,internet,information technology & services,marketing & advertising,computer software,enterprise software,enterprises,pos,payments,financial services",
+    "Employees": "160",
+    "Company City": "Huntsville",
+    "Company State": "Alabama",
+    "Company Country": "United States",
+    "Company Linkedin Url": "http://www.linkedin.com/company/commentsold",
+    "Company Twitter Url": "https://twitter.com/commentsold",
+    "Company Facebook Url": "https://www.facebook.com/commentsold",
+    "Company Phone Numbers": "+1 855-593-0401",
+    "Twitter Url": "",
+    "Facebook Url": ""
+  },
+  "identity": {
+    "name": "Gautam G",
+    "first_name": "Gautam",
+    "last_name": "G",
+    "job_title": "CEO & Chief AI Officer",
+    "company": "CommentSold",
+    "industry": "information technology & services",
+    "linkedin_url": "",
+    "company_website": "http://www.commentsold.com",
+    "professional_email": "gautam.goswami@commentsold.com",
+    "city": "Los Angeles",
+    "state": "California",
+    "country": "United States"
+  },
+  "contact": {
+    "email": "gautam.goswami@commentsold.com",
+    "email_type": "work",
+    "email_verification_status": "syntax_valid_unprobed",
+    "linkedin_url": "",
+    "contact_channel_status": "available"
+  },
+  "company": {
+    "name": "CommentSold",
+    "website": "http://www.commentsold.com",
+    "domain": "commentsold.com",
+    "industry": "information technology & services",
+    "verified": false
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at CommentSold",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Generative AI & LLM Infrastructure"
+    ],
+    "public_projects": [
+      "Platform development and operations for CommentSold"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at CommentSold"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Gautam G (CEO & Chief AI Officer at CommentSold) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails"
+      ],
+      "evidence_points": [
+        "Role 'CEO & Chief AI Officer' makes architecture decisions for emerging AI capabilities"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 1,
+    "reason": "Priority 1 (Medium Fit): CEO & Chief AI Officer at CommentSold is in a relevant role or vertical, but requires further qualification of immediate security/AI deployment urgency.",
+    "score": 90.0,
+    "confidence": 0.24,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'CEO & Chief AI Officer'",
+      "Target enterprise vertical matching SealAPI: 'information technology'",
+      "Moderate AI/API infrastructure signals: ai, llm, saas"
+    ]
+  },
+  "sources": [
+    {
+      "source_id": "src_input_lead_461",
+      "source_url": "lead_import_record",
+      "source_type": "user_input",
+      "title": null,
+      "publisher": null,
+      "retrieval_timestamp": "2026-10-20T15:16:10.292005+00:00",
+      "published_at": null,
+      "relevant_excerpt": null,
+      "evidence_quality": 0.6,
+      "supports_claim_ids": [],
+      "facts_supported": [
+        "Imported Name: Gautam G",
+        "Imported Job Title: CEO & Chief AI Officer",
+        "Imported Company: CommentSold",
+        "Imported Industry: information technology & services",
+        "Imported Professional Email: gautam.goswami@commentsold.com",
+        "Imported Company Website: http://www.commentsold.com"
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "clm_name",
+      "field": "name",
+      "value": "Gautam G",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_461"
+      ],
+      "confidence": 0.5,
+      "last_verified_at": null,
+      "review_reason": "Surname is abbreviated; requires full name evidence"
+    },
+    {
+      "claim_id": "clm_company",
+      "field": "company",
+      "value": "CommentSold",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_461"
+      ],
+      "confidence": 0.7,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_title",
+      "field": "job_title",
+      "value": "CEO & Chief AI Officer",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_461"
+      ],
+      "confidence": 0.65,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_email",
+      "field": "professional_email",
+      "value": "gautam.goswami@commentsold.com",
+      "status": "unverified",
+      "source_ids": [
+        "src_input_lead_461"
+      ],
+      "confidence": 0.5,
+      "last_verified_at": null,
+      "review_reason": "Syntax valid from import; deliverability probe not performed"
+    }
+  ],
+  "public_signals": [],
+  "icebreaker": {
+    "text": "I have been following how technology teams in the information technology & services sector are managing API and AI endpoint security.",
+    "icebreaker_type": "general_question",
+    "source_ids": [
+      "src_input_lead_461"
+    ],
+    "confidence": 0.45,
+    "why_it_matters": "SealAPI helps organizations protect APIs from token leakage, prompt injection, and credential abuse with zero-trust gateways.",
+    "potential_pain_point": "Hypothesis: Preventing credential leakage and unauthorized API consumption in production.",
+    "conversation_question": "Would you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?",
+    "personalization_status": "generic_fallback",
+    "outreach_draft": {
+      "subject": "API security & AI infrastructure at CommentSold",
+      "greeting": "Hi Gautam,",
+      "opener": "I have been following how technology teams in the information technology & services sector are managing API and AI endpoint security.",
+      "sealapi_connection": "At SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.",
+      "low_pressure_ask": "Would you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?",
+      "full_body": "Hi Gautam,\n\nI have been following how technology teams in the information technology & services sector are managing API and AI endpoint security.\n\nAt SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.\n\nWould you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?\n\nBest regards,\nSealAPI Research & Partnerships"
+    }
+  },
+  "scoring": {
+    "lead_fit_score": 90.0,
+    "role_fit_score": 35.0,
+    "industry_fit_score": 30.0,
+    "technical_need_score": 15.0,
+    "verification_confidence": 0.24,
+    "readiness_status": "needs_research",
+    "explanations": [
+      "High-authority security/AI decision maker role: 'CEO & Chief AI Officer'",
+      "Target enterprise vertical matching SealAPI: 'information technology'",
+      "Moderate AI/API infrastructure signals: ai, llm, saas"
+    ]
+  },
+  "contact_readiness": {
+    "status": "needs_research",
+    "has_name": true,
+    "has_verified_role": true,
+    "has_company_context": true,
+    "has_usable_contact_channel": true,
+    "has_evidence_based_icebreaker": false,
+    "blockers": [
+      "identity_not_verified"
+    ]
+  },
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as CEO & Chief AI Officer at CommentSold.",
+      "Focus on Generative AI & LLM Infrastructure.",
+      "Evidence-based opener: I have been following how technology teams in the information technology & services sector are managing API and AI endpoint security."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for information technology & services.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "Would you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly.",
+      "Do not assume delivered email address guarantees personal inbox delivery without validation."
+    ],
+    "missing_verification_points": [
+      "Icebreaker status: generic_fallback (human review recommended)."
+    ]
+  },
+  "research_metadata": {
+    "schema_version": "2.0.0",
+    "batch_id": "batch_20261020T151604Z_b82e6829",
+    "pipeline_version": "2.0.0",
+    "researched_at": "2026-10-20T15:16:10.292005+00:00",
+    "execution_status": "partial",
+    "verification_status": "unverified",
+    "source_count": 1,
+    "review_required": true,
+    "cache_fingerprint": "a5e2e164567fd57ed9ea97d3a7209438925aaa6c63f8f1fed2e014ba384a6219",
+    "errors_and_limitations": [],
+    "research_status": "partial",
+    "last_research_timestamp": "2026-10-20T15:16:10.292005+00:00",
+    "sources_examined": 1
+  }
+}

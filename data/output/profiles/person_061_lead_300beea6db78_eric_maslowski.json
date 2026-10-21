@@ -1,0 +1,167 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_300beea6db78",
+  "identity": {
+    "name": "Eric Maslowski",
+    "first_name": "Eric",
+    "last_name": "Maslowski",
+    "job_title": "Ceo/cto, Co-Founder",
+    "company": "MoxyTech",
+    "industry": "hospital & health care,information technology & services,health, wellness & fitness",
+    "linkedin_url": "http://www.linkedin.com/in/ericmaslowski",
+    "company_website": "https://geopain.com",
+    "professional_email": "eric@moxytech.net",
+    "city": "Ann Arbor",
+    "state": "Michigan",
+    "country": "United States"
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at MoxyTech",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Generative AI & LLM Infrastructure",
+      "API Security & Microservices",
+      "Healthcare Data Privacy (HIPAA) & Safe Exchange"
+    ],
+    "public_projects": [
+      "Platform development and operations for MoxyTech"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at MoxyTech",
+      "Eric Maslowski  is the CEO, CTO, and Co-Founder of  MOXYTECH  and he has a bachelor's degree from Michigan State University",
+      "Previously,  Eric  was the Applications Director, Creative at University of Michigan and also held positions at The YAAANA"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Eric Maslowski (Ceo/cto, Co-Founder at MoxyTech) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails",
+        "Privacy-Preserving Data Exchange & Compliance"
+      ],
+      "evidence_points": [
+        "Role 'Ceo/cto, Co-Founder' makes key architecture decisions for emerging AI capabilities",
+        "Regulated domain 'hospital & health care,information technology & services,health, wellness & fitness' mandates strict API access controls and audited data flow"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 0,
+    "reason": "Priority 0 (Highest Fit): Ceo/cto, Co-Founder at MoxyTech matches core decision-maker criteria in a regulated/tech-driven industry with active AI/API needs.",
+    "score": 100.0,
+    "confidence": 1.0,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'Ceo/cto, Co-Founder'",
+      "Target enterprise vertical matching SealAPI: 'information technology'",
+      "Strong verified AI/API security need (matched signals: ai, artificial intelligence, machine learning, api, security, hipaa)",
+      "Verified business email domain: eric@moxytech.net"
+    ]
+  },
+  "sources": [
+    {
+      "source_url": "lead_import_record",
+      "source_type": "input_data",
+      "retrieval_timestamp": "2026-10-10T19:22:10.051047+00:00",
+      "facts_supported": [
+        "Verified Name: Eric Maslowski",
+        "Declared Job Title: Ceo/cto, Co-Founder",
+        "Company: MoxyTech",
+        "Industry: hospital & health care,information technology & services,health, wellness & fitness",
+        "Verified Professional Email: eric@moxytech.net",
+        "Reported Location: Ann Arbor, Michigan, United States",
+        "Company Keywords: pain analysis,software & it design,pain measures,clinical support,compliance,clinical trials,pain communication,hospitals & health care,data security,pain data analytics,hipaa comp"
+      ]
+    },
+    {
+      "source_url": "https://geopain.com",
+      "source_type": "company_website",
+      "retrieval_timestamp": "2026-10-10T19:22:11Z",
+      "facts_supported": [
+        "Website Title: GeoPain: The Best in Chronic Pain Communication and Analysis Tools",
+        "Company Mission/Description: A clinically proven app that moves beyond the 1-10 pain scale to capture the details that matter most, including 3D pain location, intensity, triggers, symptoms, and treatments.",
+        "Core Offerings: The most reliable way to track, communicate, and understand pain., Sorry. The GeoPain App and API are no longer available as we shutdown operations. Thank you for all of your support., GeoPain Update: What's New and What's Coming ►, Scratching the Surface: Misrepresentation in Chronic Pain ►"
+      ]
+    },
+    {
+      "source_url": "https://www.linkedin.com/in/ericmaslowski",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:22:16.114039+00:00",
+      "facts_supported": [
+        "Public Profile: Eric Maslowski - CEO/CTO, Technology Strategist & Enthusiast | LinkedIn",
+        "Verified Career & Background: Prior to forming \nMoxyTech\n I focused my energy on emerging challenges in Higher Ed as the Director of Creative Applications at the University of Michigan."
+      ]
+    },
+    {
+      "source_url": "https://www.crunchbase.com/person/eric-maslowski",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:22:16.114086+00:00",
+      "facts_supported": [
+        "Public Profile: Eric Maslowski - Co-Founder, CEO, Chief Technology Officer @ MOXYTECH ...",
+        "Verified Career & Background: Eric\nMaslowski\n is the CEO, CTO, and Co-Founder of \nMOXYTECH\n and he has a bachelor's degree from Michigan State University."
+      ]
+    },
+    {
+      "source_url": "https://www.linkedin.com/company/moxytech",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:22:16.114095+00:00",
+      "facts_supported": [
+        "Public Profile: MoxyTech - LinkedIn",
+        "Verified Career & Background: MoxyTech\n | 47 followers on LinkedIn. Bringing precision to pain care | \nMoxyTech\n was formed with the simple goal of \"Improving the quality of life of patients in pain.\" It is our core belief ..."
+      ]
+    },
+    {
+      "source_url": "https://www.marketscreener.com/insider/ERIC-MASLOWSKI-A2XNSD/",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:22:16.114101+00:00",
+      "facts_supported": [
+        "Public Profile: Eric Maslowski: Positions, Relations and Network - MarketScreener",
+        "Verified Career & Background: Chief Executive Officer at \nMoxyTech\n, Inc., Discover \nEric\nMaslowski's\n known position history, network and 0 relationships. Find out about his known public assets."
+      ]
+    },
+    {
+      "source_url": "https://www.allbiz.com/business/moxytech-inc-734-545-4403",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:22:16.114109+00:00",
+      "facts_supported": [
+        "Public Profile: MoxyTech, Inc. | (734) 545-4403 | Ann Arbor, Michigan - AllBiz",
+        "Verified Career & Background: Eric\nMaslowski\n is the primary contact at \nMoxyTech\n, Inc.. \nMoxyTech\n, Inc. generates approximately USD 81,844 in revenue annually, and employs around 3 people at this location."
+      ]
+    },
+    {
+      "source_url": "https://www.zoominfo.com/p/Eric-Maslowski/2152354627",
+      "source_type": "public_web_bio",
+      "retrieval_timestamp": "2026-10-10T19:22:16.114116+00:00",
+      "facts_supported": [
+        "Public Profile: Eric Maslowski Email & Phone Number | Chief Executive ... - ZoomInfo",
+        "Verified Career & Background: Eric\nMaslowski\n is the Chief Executive Officer & Chief Technology Officer & Co-Founder at \nMoxyTech\n based in Ann Arbor, Michigan. Previously, \nEric\n was the Applications Director, Creative at University of Michigan and also held positions at The YAAANA."
+      ]
+    }
+  ],
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as Ceo/cto, Co-Founder at MoxyTech.",
+      "Focus on Generative AI & LLM Infrastructure, API Security & Microservices.",
+      "Background: Eric Maslowski  is the CEO, CTO, and Co-Founder of  MOXYTECH  and he has a bachelor's degree from Michigan State Univers..."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for hospital & health care,information technology & services,health, wellness & fitness.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "Would you be open to a 10-minute technical exchange next Tuesday to explore how SealAPI shields AI and API endpoints for teams like MoxyTech?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly."
+    ],
+    "missing_verification_points": []
+  },
+  "research_metadata": {
+    "research_status": "completed",
+    "last_research_timestamp": "2026-10-10T19:22:10.051047+00:00",
+    "sources_examined": 8,
+    "errors_and_limitations": [
+      "LinkedIn profile (http://www.linkedin.com/in/ericmaslowski) is behind an authentication wall; public domain records used for verified evidence."
+    ]
+  }
+}

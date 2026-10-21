@@ -1,0 +1,113 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_a54cdbd29bd7",
+  "identity": {
+    "name": "Sri S",
+    "first_name": "Sri",
+    "last_name": "S",
+    "job_title": "Chief AI Officer",
+    "company": "Hellman & Friedman",
+    "industry": "financial services",
+    "linkedin_url": "",
+    "company_website": "https://hf.com",
+    "professional_email": "sri@hf.com",
+    "city": "Redmond",
+    "state": "Washington",
+    "country": "United States"
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at Hellman & Friedman",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Generative AI & LLM Infrastructure",
+      "API Security & Microservices",
+      "Healthcare Data Privacy (HIPAA) & Safe Exchange",
+      "Financial Data Governance & Compliance"
+    ],
+    "public_projects": [
+      "Platform development and operations for Hellman & Friedman"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at Hellman & Friedman",
+      "Founded in 1984, Hellman & Friedman is one of the most experienced private equity investment firms operating today",
+      "See where we invest Technology + H&F was an early private equity investor in large cap software, with  our  first investment  in the late 1990s, and has become a market leader with extensive experience in the sector and a proven capacity to generate value",
+      "We have deep experience helping companies navigate rapidly changing market dynamics and believe in investing heavily in the growth of our businesses"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Sri S (Chief AI Officer at Hellman & Friedman) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails",
+        "Privacy-Preserving Data Exchange & Compliance"
+      ],
+      "evidence_points": [
+        "Role 'Chief AI Officer' makes key architecture decisions for emerging AI capabilities",
+        "Regulated domain 'financial services' mandates strict API access controls and audited data flow"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 0,
+    "reason": "Priority 0 (Highest Fit): Chief AI Officer at Hellman & Friedman matches core decision-maker criteria in a regulated/tech-driven industry with active AI/API needs.",
+    "score": 100.0,
+    "confidence": 0.9,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'Chief AI Officer'",
+      "Target enterprise vertical matching SealAPI: 'financial services'",
+      "Strong verified AI/API security need (matched signals: ai, llm, api, security)",
+      "Verified business email domain: sri@hf.com"
+    ]
+  },
+  "sources": [
+    {
+      "source_url": "lead_import_record",
+      "source_type": "input_data",
+      "retrieval_timestamp": "2026-10-20T19:18:40.096972+00:00",
+      "facts_supported": [
+        "Verified Name: Sri S",
+        "Declared Job Title: Chief AI Officer",
+        "Company: Hellman & Friedman",
+        "Industry: financial services",
+        "Verified Professional Email: sri@hf.com",
+        "Reported Location: Redmond, Washington, United States",
+        "Company Keywords: healthcare,digital media,software,energy,consumer internet,information technology,internet,private equity in healthcare,long-term partnership approach,value creation plans,long-ter"
+      ]
+    },
+    {
+      "source_url": "https://hf.com",
+      "source_type": "company_website",
+      "retrieval_timestamp": "2026-10-20T19:18:40Z",
+      "facts_supported": [
+        "Website Title: Hellman & Friedman Private Equity San Francisco-New York-London",
+        "Company Mission/Description: Hellman & Friedman is a leading private equity firm focused on market-leading firms with growth potential. San Francisco, New York and London. 415 788-5111",
+        "Core Offerings: A singular focus makes us a stronger partner., Deep domain expertise across our core sectors., Medline announces pricing of upsized initial public offering, Anthropic, Blackstone, and Hellman & Friedman Introduce Ode with Anthropic, an Enterprise AI Services Firm"
+      ]
+    }
+  ],
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as Chief AI Officer at Hellman & Friedman.",
+      "Focus on Generative AI & LLM Infrastructure, API Security & Microservices.",
+      "Background: Founded in 1984, Hellman & Friedman is one of the most experienced private equity investment firms operating today..."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for financial services.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "Would you be open to a 10-minute technical exchange next Tuesday to explore how SealAPI shields AI and API endpoints for teams like Hellman & Friedman?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly."
+    ],
+    "missing_verification_points": []
+  },
+  "research_metadata": {
+    "research_status": "completed",
+    "last_research_timestamp": "2026-10-20T19:18:40.096972+00:00",
+    "sources_examined": 2,
+    "errors_and_limitations": []
+  }
+}

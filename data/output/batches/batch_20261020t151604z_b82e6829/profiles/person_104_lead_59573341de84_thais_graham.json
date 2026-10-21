@@ -1,0 +1,249 @@
+{
+  "schema_version": "1.0.0",
+  "lead_id": "lead_59573341de84",
+  "input_snapshot": {
+    "Linkedin Url": "http://www.linkedin.com/in/thaistuffi",
+    "Full Name": "Thais Graham",
+    "First Name": "Thais",
+    "Last Name": "Graham",
+    "Email": "thais@inteliart.ai",
+    "Email Status": "verified",
+    "Job Title": "Chief Executive Officer and Head of AI of InteliArt",
+    "Company Name": "InteliArt.ai",
+    "Company Website": "http://www.inteliart.ai",
+    "City": "Fort Lauderdale",
+    "State": "Florida",
+    "Country": "United States",
+    "Industry": "management consulting",
+    "Keywords": "consulting,engineering,artificial intelligence,applied artificial intelligence,rapid prototyping with artificial intelligence,published author,online course creator,webdesign,logo generation,marketing videos,copywritting,business consulting & services,information technology & services,web design,management consulting",
+    "Employees": "1",
+    "Company City": "Miami",
+    "Company State": "Florida",
+    "Company Country": "United States",
+    "Company Linkedin Url": "http://www.linkedin.com/company/inteliart-ai",
+    "Company Twitter Url": "",
+    "Company Facebook Url": "",
+    "Company Phone Numbers": "+1 734-751-1818",
+    "Twitter Url": "",
+    "Facebook Url": ""
+  },
+  "identity": {
+    "name": "Thais Graham",
+    "first_name": "Thais",
+    "last_name": "Graham",
+    "job_title": "Chief Executive Officer and Head of AI of InteliArt",
+    "company": "InteliArt.ai",
+    "industry": "management consulting",
+    "linkedin_url": "http://www.linkedin.com/in/thaistuffi",
+    "company_website": "http://www.inteliart.ai",
+    "professional_email": "thais@inteliart.ai",
+    "city": "Fort Lauderdale",
+    "state": "Florida",
+    "country": "United States"
+  },
+  "contact": {
+    "email": "thais@inteliart.ai",
+    "email_type": "work",
+    "email_verification_status": "syntax_valid_unprobed",
+    "linkedin_url": "http://www.linkedin.com/in/thaistuffi",
+    "contact_channel_status": "available"
+  },
+  "company": {
+    "name": "InteliArt.ai",
+    "website": "http://www.inteliart.ai",
+    "domain": "inteliart.ai",
+    "industry": "management consulting",
+    "verified": false
+  },
+  "professional_context": {
+    "responsibilities": [
+      "Architecting and directing AI strategy and core engineering infrastructure at InteliArt.ai",
+      "Evaluating enterprise technology vendors, API architectures, and data integrations"
+    ],
+    "technical_interests": [
+      "Generative AI & LLM Infrastructure"
+    ],
+    "public_projects": [
+      "Platform development and operations for InteliArt.ai"
+    ],
+    "recent_developments": [
+      "Active technical and executive oversight at InteliArt.ai"
+    ],
+    "sealapi_relevance": {
+      "summary": "Strong relevance to SealAPI for Thais Graham (Chief Executive Officer and Head of AI of InteliArt at InteliArt.ai) to securely orchestrate APIs, protect enterprise AI endpoints, and ensure strict compliance without operational bottlenecks.",
+      "relevant_use_cases": [
+        "Secure AI Integration & LLM Guardrails"
+      ],
+      "evidence_points": [
+        "Role 'Chief Executive Officer and Head of AI of InteliArt' makes architecture decisions for emerging AI capabilities"
+      ]
+    }
+  },
+  "priority": {
+    "numeric_priority": 1,
+    "reason": "Priority 1 (Medium Fit): Chief Executive Officer and Head of AI of InteliArt at InteliArt.ai is in a relevant role or vertical, but requires further qualification of immediate security/AI deployment urgency.",
+    "score": 78.0,
+    "confidence": 0.33,
+    "supporting_evidence": [
+      "High-authority security/AI decision maker role: 'Chief Executive Officer and Head of AI of InteliArt'",
+      "Adjacent vertical: 'management consulting'",
+      "Moderate AI/API infrastructure signals: ai, artificial intelligence, api"
+    ]
+  },
+  "sources": [
+    {
+      "source_id": "src_input_lead_595",
+      "source_url": "lead_import_record",
+      "source_type": "user_input",
+      "title": null,
+      "publisher": null,
+      "retrieval_timestamp": "2026-10-20T15:16:10.215311+00:00",
+      "published_at": null,
+      "relevant_excerpt": null,
+      "evidence_quality": 0.6,
+      "supports_claim_ids": [],
+      "facts_supported": [
+        "Imported Name: Thais Graham",
+        "Imported Job Title: Chief Executive Officer and Head of AI of InteliArt",
+        "Imported Company: InteliArt.ai",
+        "Imported Industry: management consulting",
+        "Imported Professional Email: thais@inteliart.ai",
+        "Imported Company Website: http://www.inteliart.ai"
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "clm_name",
+      "field": "name",
+      "value": "Thais Graham",
+      "status": "verified",
+      "source_ids": [
+        "src_input_lead_595"
+      ],
+      "confidence": 0.75,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_company",
+      "field": "company",
+      "value": "InteliArt.ai",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_595"
+      ],
+      "confidence": 0.7,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_title",
+      "field": "job_title",
+      "value": "Chief Executive Officer and Head of AI of InteliArt",
+      "status": "partially_verified",
+      "source_ids": [
+        "src_input_lead_595"
+      ],
+      "confidence": 0.65,
+      "last_verified_at": null,
+      "review_reason": null
+    },
+    {
+      "claim_id": "clm_email",
+      "field": "professional_email",
+      "value": "thais@inteliart.ai",
+      "status": "unverified",
+      "source_ids": [
+        "src_input_lead_595"
+      ],
+      "confidence": 0.5,
+      "last_verified_at": null,
+      "review_reason": "Syntax valid from import; deliverability probe not performed"
+    }
+  ],
+  "public_signals": [],
+  "icebreaker": {
+    "text": "I have been following how technology teams in the management consulting sector are managing API and AI endpoint security.",
+    "icebreaker_type": "general_question",
+    "source_ids": [
+      "src_input_lead_595"
+    ],
+    "confidence": 0.45,
+    "why_it_matters": "SealAPI helps organizations protect APIs from token leakage, prompt injection, and credential abuse with zero-trust gateways.",
+    "potential_pain_point": "Hypothesis: Preventing credential leakage and unauthorized API consumption in production.",
+    "conversation_question": "Would you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?",
+    "personalization_status": "generic_fallback",
+    "outreach_draft": {
+      "subject": "API security & AI infrastructure at InteliArt.ai",
+      "greeting": "Hi Thais,",
+      "opener": "I have been following how technology teams in the management consulting sector are managing API and AI endpoint security.",
+      "sealapi_connection": "At SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.",
+      "low_pressure_ask": "Would you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?",
+      "full_body": "Hi Thais,\n\nI have been following how technology teams in the management consulting sector are managing API and AI endpoint security.\n\nAt SealAPI, we help engineering teams implement zero-trust credential shielding, protect API gateways, and establish strict runtime guardrails for AI endpoints.\n\nWould you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?\n\nBest regards,\nSealAPI Research & Partnerships"
+    }
+  },
+  "scoring": {
+    "lead_fit_score": 78.0,
+    "role_fit_score": 35.0,
+    "industry_fit_score": 18.0,
+    "technical_need_score": 15.0,
+    "verification_confidence": 0.33,
+    "readiness_status": "ready_with_caveat",
+    "explanations": [
+      "High-authority security/AI decision maker role: 'Chief Executive Officer and Head of AI of InteliArt'",
+      "Adjacent vertical: 'management consulting'",
+      "Moderate AI/API infrastructure signals: ai, artificial intelligence, api"
+    ]
+  },
+  "contact_readiness": {
+    "status": "ready_with_caveat",
+    "has_name": true,
+    "has_verified_role": true,
+    "has_company_context": true,
+    "has_usable_contact_channel": true,
+    "has_evidence_based_icebreaker": false,
+    "blockers": [
+      "identity_not_verified"
+    ]
+  },
+  "cold_email_context": {
+    "verified_personalization_points": [
+      "Acknowledging leadership as Chief Executive Officer and Head of AI of InteliArt at InteliArt.ai.",
+      "Focus on Generative AI & LLM Infrastructure.",
+      "Evidence-based opener: I have been following how technology teams in the management consulting sector are managing API and AI endpoint security."
+    ],
+    "suggested_value_propositions": [
+      "SealAPI provides automated security guardrails for AI models and API gateways.",
+      "Enables privacy-preserving data exchange tailored for management consulting.",
+      "Zero-trust credential shielding and audit-ready governance without slowing down developer velocity."
+    ],
+    "suggested_call_to_action": "Would you be open to a brief exchange on how engineering teams automate API token shielding without introducing latency?",
+    "claims_to_avoid": [
+      "Do not claim existing commercial relationship or prior unrecorded discussions.",
+      "Do not make unsubstantiated claims regarding internal vulnerabilities or specific budget numbers.",
+      "Do not state specific private tech stack components that were not verified publicly.",
+      "Do not assume delivered email address guarantees personal inbox delivery without validation."
+    ],
+    "missing_verification_points": [
+      "Icebreaker status: generic_fallback (human review recommended)."
+    ]
+  },
+  "research_metadata": {
+    "schema_version": "2.0.0",
+    "batch_id": "batch_20261020T151604Z_b82e6829",
+    "pipeline_version": "2.0.0",
+    "researched_at": "2026-10-20T15:16:10.215311+00:00",
+    "execution_status": "partial",
+    "verification_status": "unverified",
+    "source_count": 1,
+    "review_required": true,
+    "cache_fingerprint": "a5e2e164567fd57ed9ea97d3a7209438925aaa6c63f8f1fed2e014ba384a6219",
+    "errors_and_limitations": [
+      "LinkedIn URL (http://www.linkedin.com/in/thaistuffi) is behind an authentication wall; public domain records used for verified evidence."
+    ],
+    "research_status": "partial",
+    "last_research_timestamp": "2026-10-20T15:16:10.215311+00:00",
+    "sources_examined": 1
+  }
+}
