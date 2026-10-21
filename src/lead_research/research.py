@@ -161,7 +161,12 @@ class LeadResearcher:
                     if lead.name and len(lead.name) > 3 and lead.name.lower() in res.extracted_text.lower():
                         company_mentions_person = True
                         web_facts.append(f"Confirmed team member mention on company site: {lead.name}")
-                        is_leadership_bio = any(k in res.url.lower() or k in (res.title or "").lower() for k in ["/team", "/about", "/leadership", "/executive", "/people", "/management", "leadership", "team"])
+                        from urllib.parse import urlparse
+                        parsed_u = urlparse(res.url)
+                        path_l = (parsed_u.path or "").lower()
+                        has_bio_path = any(p in path_l for p in ["/team", "/leadership", "/executives", "/management", "/about/leadership", "/about/team", "/people"])
+                        is_leadership_bio = has_bio_path and any(k in (res.title or "").lower() or k in path_l for k in ["leadership", "executive", "team", "people", "management", "board"])
+
                         for clm in claims:
                             if clm.field == "name":
                                 clm.status = "verified" if is_leadership_bio else "partially_verified"
@@ -169,12 +174,16 @@ class LeadResearcher:
                                 if company_src_id not in clm.source_ids:
                                     clm.source_ids.append(company_src_id)
                             elif clm.field == "job_title":
-                                # Verify current job title only when destination source directly corroborates role
+                                # Verify current job title only when destination source is a dedicated bio page directly corroborating role
                                 if is_leadership_bio and lead.job_title and lead.job_title.lower() in res.extracted_text.lower():
                                     clm.status = "verified"
                                     clm.confidence = 0.85
                                     if company_src_id not in clm.source_ids:
                                         clm.source_ids.append(company_src_id)
+                                else:
+                                    # Homepage mention alone does not corroborate current job title
+                                    clm.status = "unverified"
+                                    clm.confidence = 0.40
 
                     researched_snippets.append(res.extracted_text)
 
@@ -298,11 +307,9 @@ class LeadResearcher:
                 if log_fn:
                     log_fn(f"   ↳ [Search notice] {lead.name}: {str(e)[:50]}")
 
-        # Removed company-fetch identity shortcut: fetching company website alone does NOT verify person
-        if company_site_fetched and company_mentions_person:
-            max_identity_score = max(max_identity_score, 0.85)
-        elif not matched_candidates:
-            # No web evidence corroborated this person
+        # Removed company-fetch identity shortcut completely:
+        # A homepage mention must not independently verify person identity, role, or raise identity score
+        if not matched_candidates:
             max_identity_score = min(max_identity_score, 0.40)
 
         # 5. Public Signals & Icebreaker Synthesis
@@ -312,7 +319,12 @@ class LeadResearcher:
             candidate_bio_snippets=candidate_bio_snippets,
         )
 
-        identity_verified = max_identity_score >= 0.65
+        # Verified identity requires a verified person claim backed by inspected source evidence
+        # Numerical candidate-match score alone never verifies identity
+        identity_verified = any(
+            clm.field == "name" and clm.status == "verified" and bool(clm.source_ids)
+            for clm in claims
+        )
         icebreaker = build_icebreaker(
             lead=lead,
             signals=public_signals,

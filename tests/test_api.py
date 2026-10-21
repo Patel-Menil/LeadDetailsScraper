@@ -182,3 +182,33 @@ def test_cors_policy_disallows_wildcard_with_credentials(client: TestClient):
             if creds:
                 assert "*" not in origins, "Wildcard '*' origin cannot be combined with allow_credentials=True"
 
+
+def test_production_mode_fails_closed_without_api_secret_key(client: TestClient):
+    csv_bytes = b"Full Name,Company Name,Email\nBruce Wayne,Wayne Enterprises,bruce@wayne.com\n"
+    files = {"file": ("prospects.csv", csv_bytes, "text/csv")}
+
+    with pytest.MonkeyPatch.context() as mp:
+        # In production mode with missing API_SECRET_KEY, protected operations must fail closed
+        mp.setattr("src.lead_research.server.APP_ENV", "production")
+        mp.setattr("src.lead_research.server.API_SECRET_KEY", "")
+
+        res = client.post("/api/batches/upload", files=files)
+        assert res.status_code == 500
+        assert "Server configuration error" in res.json()["detail"]
+
+        res_tor = client.post("/api/tor/start")
+        assert res_tor.status_code == 500
+
+
+def test_tor_start_requires_authorization(client: TestClient):
+    with pytest.MonkeyPatch.context() as mp:
+        mp.setattr("src.lead_research.server.API_SECRET_KEY", "tor_admin_secret_999")
+
+        # Missing key -> 401
+        res = client.post("/api/tor/start")
+        assert res.status_code == 401
+
+        # Valid key -> 200
+        res_auth = client.post("/api/tor/start", headers={"X-API-Key": "tor_admin_secret_999"})
+        assert res_auth.status_code == 200
+

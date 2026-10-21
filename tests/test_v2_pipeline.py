@@ -19,6 +19,7 @@ from src.lead_research.icebreaker import build_icebreaker, extract_public_signal
 from src.lead_research.pipeline import ResearchPipeline
 from src.lead_research.research import LeadResearcher
 from src.lead_research.schemas import (
+    ColdEmailContext,
     ContactReadiness,
     Icebreaker,
     LeadClaim,
@@ -28,6 +29,7 @@ from src.lead_research.schemas import (
     ProfessionalContext,
     PublicSignal,
     ResearchMetadata,
+    ScoringBreakdown,
     SealAPIRelevance,
     SourceEvidence,
     migrate_profile_v1_to_v2,
@@ -713,4 +715,125 @@ def test_ssrf_rejects_credentials_and_prevalidates_unsafe_redirects():
     assert result.status_code == 400
     assert result.success is False
     assert "redirect loop" in result.error.lower()
+
+
+def test_homepage_name_mention_does_not_raise_candidate_identity_score():
+    scraper = ScraplingScraper(use_browser=False, use_tor=False)
+    researcher = LeadResearcher(scraper=scraper)
+    lead = LeadInput(
+        lead_id="lead_test_no_shortcut",
+        name="Jordan Lee",
+        job_title="VP of Product",
+        company="Acrobatics Security",
+        company_website="https://acrobatics.io",
+    )
+    # Homepage mentions Jordan Lee in an acknowledgement footer
+    mock_res = ScrapeResult(
+        url="https://acrobatics.io",
+        status_code=200,
+        success=True,
+        title="Acrobatics Security - Cloud Security",
+        extracted_text="Acrobatics Security provides zero-trust identity management. Acknowledgements: Jordan Lee, contributor.",
+    )
+    with patch.object(researcher.scraper, "fetch_url", return_value=mock_res):
+        with patch.object(researcher.scraper, "search_person", return_value=[]):
+            profile = researcher.research_lead(lead, skip_web_scrape=False)
+
+    # Candidate identity score must NOT be raised to 0.85
+    assert profile.priority.score < 80.0
+    # Identity is not independently verified
+    name_claim = next(c for c in profile.claims if c.field == "name")
+    assert name_claim.status != "verified"
+    assert profile.contact_readiness.has_verified_role is False
+    assert profile.contact_readiness.status != "ready"
+
+
+def test_ssrf_blocks_ipv4_mapped_ipv6_and_unspecified():
+    safe, reason = is_safe_url("http://[::ffff:127.0.0.1]/status")
+    assert not safe
+    assert "private/reserved IP" in reason or "blocked" in reason
+
+    safe, reason = is_safe_url("http://[::ffff:192.168.1.1]/admin")
+    assert not safe
+
+    safe, reason = is_safe_url("http://0.0.0.0/test")
+    assert not safe
+
+    safe, reason = is_safe_url("http://[::]/test")
+    assert not safe
+
+
+def test_cache_fingerprint_changes_with_research_config_and_versions():
+    lead = LeadInput(
+        lead_id="lead_fp_cfg_test",
+        name="Sam Rivera",
+        job_title="Head of AI",
+        company="NeuralWave",
+    )
+    fp_base = research_fingerprint(
+        lead.model_dump(),
+        pipeline_version="2.1.0",
+        schema_version="2.0.0",
+        research_config={"dry_run": False, "use_browser": False, "use_tor": False},
+    )
+
+    # Toggling browser mode changes fingerprint
+    fp_browser = research_fingerprint(
+        lead.model_dump(),
+        pipeline_version="2.1.0",
+        schema_version="2.0.0",
+        research_config={"dry_run": False, "use_browser": True, "use_tor": False},
+    )
+    assert fp_base != fp_browser
+
+    # Toggling Tor mode changes fingerprint
+    fp_tor = research_fingerprint(
+        lead.model_dump(),
+        pipeline_version="2.1.0",
+        schema_version="2.0.0",
+        research_config={"dry_run": False, "use_browser": False, "use_tor": True},
+    )
+    assert fp_base != fp_tor
+
+    # Version bump changes fingerprint
+    fp_v3 = research_fingerprint(
+        lead.model_dump(),
+        pipeline_version="3.0.0",
+        schema_version="2.0.0",
+        research_config={"dry_run": False, "use_browser": False, "use_tor": False},
+    )
+    assert fp_base != fp_v3
+
+
+def test_lead_exporter_rejects_overwriting_finalized_batch(tmp_path: Path):
+    exporter = LeadExporter(output_base_dir=tmp_path / "batches")
+    batch_id = "batch_finalized_test_01"
+    batch_dir = tmp_path / "batches" / batch_id
+    batch_dir.mkdir(parents=True)
+    manifest_file = batch_dir / "manifest.json"
+    manifest_file.write_text(
+        json.dumps({"batch_id": batch_id, "status": "completed", "total_processed": 1}),
+        encoding="utf-8",
+    )
+
+    lead = LeadInput(lead_id="lead_1", name="Test Lead", company="Acme")
+    profile = LeadProfile(
+        schema_version="2.0.0",
+        lead_id="lead_1",
+        identity={"name": "Test Lead"},
+        company={"name": "Acme"},
+        contact={},
+        priority=PriorityInfo(numeric_priority=1, reason="Test", score=50.0, confidence=0.5, supporting_evidence=[]),
+        contact_readiness=ContactReadiness(),
+        scoring_breakdown=ScoringBreakdown(lead_fit_score=50.0, verification_confidence=0.5, readiness_status="needs_research", explanations=[]),
+        research_metadata=ResearchMetadata(research_status="completed", last_research_timestamp="2026-10-21T00:00:00Z", sources_examined=1, errors_and_limitations=[]),
+        professional_context=ProfessionalContext(),
+        icebreaker=Icebreaker(),
+        cold_email_context=ColdEmailContext(suggested_call_to_action=""),
+        claims=[],
+        sources=[],
+    )
+
+    with pytest.raises(ValueError, match="immutable"):
+        exporter.export_batch(batch_id=batch_id, leads_with_profiles=[(lead, profile)])
 

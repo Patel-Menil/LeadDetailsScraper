@@ -42,9 +42,23 @@ class LeadExporter:
         leads_with_profiles: List[Tuple[LeadInput, LeadProfile]],
         errors: Optional[List[Dict[str, Any]]] = None,
         batch_metadata: Optional[Dict[str, Any]] = None,
+        allow_overwrite: bool = False,
     ) -> Dict[str, str]:
         """Export all assets for a batch: CSVs, profiles, JSONL logs, and manifest."""
         batch_dir = self.get_batch_dir(batch_id)
+        manifest_file = batch_dir / "manifest.json"
+        if manifest_file.exists() and not allow_overwrite:
+            try:
+                with open(manifest_file, "r", encoding="utf-8") as mf:
+                    existing_m = json.load(mf)
+                    if existing_m.get("status") in ("completed", "finalized"):
+                        raise ValueError(
+                            f"Batch '{batch_id}' is finalized and immutable. "
+                            "Cannot overwrite an existing completed batch."
+                        )
+            except (json.JSONDecodeError, OSError):
+                pass
+
         profiles_dir = batch_dir / "profiles"
         profiles_dir.mkdir(parents=True, exist_ok=True)
 

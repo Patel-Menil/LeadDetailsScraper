@@ -66,15 +66,34 @@ app.add_middleware(
 
 # API Secret Key Authorization for Destructive/Mutation Operations
 API_SECRET_KEY = os.getenv("API_SECRET_KEY", "").strip()
+APP_ENV = os.getenv("APP_ENV", os.getenv("NODE_ENV", "development")).strip().lower()
+
+
+def is_production() -> bool:
+    """Check if server is executing under production or staging environments."""
+    return APP_ENV in ("production", "prod", "staging")
 
 
 def verify_api_key(
     x_api_key: Optional[str] = Header(None, alias="X-API-Key"),
     authorization: Optional[str] = Header(None, alias="Authorization"),
 ):
-    """Enforce API key on sensitive/destructive mutations if configured; permissive for local dev if unset."""
-    if not API_SECRET_KEY:
-        return True
+    """
+    Enforce API key on sensitive/destructive mutations.
+    - In production/staging: Fails closed. If API_SECRET_KEY is not configured or key is invalid, reject.
+    - In local development mode (APP_ENV=development): Allow permissive access only if API_SECRET_KEY is unset.
+    """
+    if is_production():
+        if not API_SECRET_KEY:
+            raise HTTPException(
+                status_code=500,
+                detail="Server configuration error: API_SECRET_KEY must be configured in production mode.",
+            )
+    else:
+        # Development mode
+        if not API_SECRET_KEY:
+            return True
+
     key = x_api_key
     if not key and authorization:
         if authorization.lower().startswith("bearer "):
@@ -229,7 +248,7 @@ def get_tor_status():
     return manager.get_status()
 
 
-@app.post("/api/tor/start")
+@app.post("/api/tor/start", dependencies=[Depends(verify_api_key)])
 def start_tor_proxy():
     """Ensure local Tor daemon is running."""
     manager = TorManager()

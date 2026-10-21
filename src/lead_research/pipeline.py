@@ -102,10 +102,26 @@ class ResearchPipeline:
 
         results: List[Tuple[LeadInput, LeadProfile]] = []
         leads_to_process: List[LeadInput] = []
+        effective_config = {
+            "dry_run": bool(dry_run),
+            "use_browser": bool(use_browser),
+            "use_tor": bool(use_tor),
+            "tor_proxy_enabled": bool(tor_proxy),
+            "pipeline_version": "2.1.0",
+            "schema_version": "2.0.0",
+            "identity_policy_version": "2.1.0",
+            "scoring_policy_version": "2.1.0",
+            "personalization_policy_version": "2.1.0",
+        }
 
         # Separate leads already cached with fingerprint validation
         for lead in leads:
-            expected_fp = research_fingerprint(lead.model_dump(), research_config={"dry_run": dry_run})
+            expected_fp = research_fingerprint(
+                lead.model_dump(),
+                pipeline_version="2.1.0",
+                schema_version="2.0.0",
+                research_config=effective_config,
+            )
 
             cached_prof = existing_profiles.get(lead.lead_id) if resume else None
 
@@ -167,7 +183,10 @@ class ResearchPipeline:
             # Tag batch_id and fingerprint
             profile.research_metadata.batch_id = batch_id
             profile.research_metadata.cache_fingerprint = research_fingerprint(
-                lead.model_dump(), research_config={"dry_run": dry_run}
+                lead.model_dump(),
+                pipeline_version="2.1.0",
+                schema_version="2.0.0",
+                research_config=effective_config,
             )
             return (lead, profile)
 
@@ -309,6 +328,7 @@ class ResearchPipeline:
                 "duplicate_records": summary.duplicate_records,
                 "malformed_rows": summary.malformed_rows,
             },
+            allow_overwrite=resume,
         )
 
         # Clean up temporary checkpoints

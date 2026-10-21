@@ -672,6 +672,8 @@ function LeadProfileContent() {
                                   ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/30"
                                   : claim.status === "partially_verified"
                                   ? "bg-blue-500/10 text-blue-400 border border-blue-500/30"
+                                  : claim.status === "input_provided"
+                                  ? "bg-purple-500/10 text-purple-400 border border-purple-500/30"
                                   : claim.status === "conflicting"
                                   ? "bg-rose-500/10 text-rose-400 border border-rose-500/30"
                                   : "bg-amber-500/10 text-amber-400 border border-amber-500/30"

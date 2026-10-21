@@ -93,7 +93,16 @@ def is_safe_url(url: str, resolve_dns: bool = True) -> Tuple[bool, str]:
         # Check raw IP literals
         try:
             ip = ipaddress.ip_address(hostname)
-            if ip.is_private or ip.is_loopback or ip.is_link_local or ip.is_reserved or ip.is_multicast:
+            if isinstance(ip, ipaddress.IPv6Address) and ip.ipv4_mapped:
+                ip = ip.ipv4_mapped
+            if (
+                ip.is_private
+                or ip.is_loopback
+                or ip.is_link_local
+                or ip.is_reserved
+                or ip.is_multicast
+                or ip.is_unspecified
+            ):
                 return False, f"SSRF Protection: Access to private/reserved IP {hostname} is blocked."
             return True, ""
         except ValueError:
@@ -111,10 +120,18 @@ def is_safe_url(url: str, resolve_dns: bool = True) -> Tuple[bool, str]:
                 for family, socktype, proto, canonname, sockaddr in addr_info:
                     ip_str = sockaddr[0]
                     resolved_ip = ipaddress.ip_address(ip_str)
-                    if resolved_ip.is_private or resolved_ip.is_loopback or resolved_ip.is_link_local or resolved_ip.is_reserved or resolved_ip.is_multicast:
+                    if isinstance(resolved_ip, ipaddress.IPv6Address) and resolved_ip.ipv4_mapped:
+                        resolved_ip = resolved_ip.ipv4_mapped
+                    if (
+                        resolved_ip.is_private
+                        or resolved_ip.is_loopback
+                        or resolved_ip.is_link_local
+                        or resolved_ip.is_reserved
+                        or resolved_ip.is_multicast
+                        or resolved_ip.is_unspecified
+                    ):
                         return False, f"SSRF Protection: Hostname '{hostname}' resolves to private/reserved IP {ip_str}."
             except socket.gaierror:
-                # DNS failure can be handled gracefully during fetch
                 pass
             except Exception as dns_err:
                 logger.debug(f"DNS check notice for {hostname}: {dns_err}")
@@ -377,21 +394,25 @@ class ScraplingScraper:
 
         # 4. Optional Browser-based Scraping with StealthyFetcher for anti-bot or JS-heavy sites
         if self.use_browser:
-            try:
-                logger.info(f"Scrapling StealthyFetcher browser fetching: {url}")
-                fetch_kwargs: Dict[str, Any] = {
-                    "headless": self.headless,
-                    "timeout": 12000,
-                    "disable_resources": True,
-                    "block_ads": True,
-                    "network_idle": False,
-                    "retries": 1,
-                }
-                response = StealthyFetcher.fetch(url, **fetch_kwargs)
-                return self._extract_page_metadata(response, url)
-            except Exception as exc:
-                logger.warning(f"Browser scrape attempt failed for {url}: {exc}")
-                last_error = str(exc)
+            if not self.proxy:
+                logger.info(f"Browser fallback disabled for arbitrary URL {url} to enforce SSRF egress safety.")
+            else:
+                try:
+                    logger.info(f"Scrapling StealthyFetcher browser fetching via proxy: {url}")
+                    fetch_kwargs: Dict[str, Any] = {
+                        "headless": self.headless,
+                        "timeout": 12000,
+                        "disable_resources": True,
+                        "block_ads": True,
+                        "network_idle": False,
+                        "retries": 1,
+                        "proxy": self.proxy,
+                    }
+                    response = StealthyFetcher.fetch(url, **fetch_kwargs)
+                    return self._extract_page_metadata(response, url)
+                except Exception as exc:
+                    logger.warning(f"Browser scrape attempt failed for {url}: {exc}")
+                    last_error = str(exc)
 
         return ScrapeResult(
             url=url,

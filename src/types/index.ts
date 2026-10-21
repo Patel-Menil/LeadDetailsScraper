@@ -102,11 +102,19 @@ export interface SourceEvidence {
   facts_supported: string[];
 }
 
+export type VerificationStatus =
+  | "input_provided"
+  | "verified"
+  | "partially_verified"
+  | "unverified"
+  | "conflicting"
+  | "needs_review";
+
 export interface LeadClaim {
   claim_id: string;
   field: string;
   value?: string | null;
-  status: "verified" | "partially_verified" | "unverified" | "conflicting" | "needs_review";
+  status: VerificationStatus;
   source_ids: string[];
   confidence: number;
   last_verified_at?: string | null;
