@@ -1,30 +1,43 @@
-# Manually triggered workflow for live Tor and Docker runtime smoke testing.
+# Manually triggered workflow for live Tor and Docker runtime acceptance testing.
 # This workflow is deliberately not triggered on pull_request or push to avoid
 # flakiness from external Tor network latency and to keep default CI fast and deterministic.
-# Trigger manually via the GitHub Actions tab (workflow_dispatch).
+# Trigger manually via the GitHub Actions tab (workflow_dispatch). It is always strict:
+# any failed or unexecuted step fails the job.
+#
+# Orchestration model: this workflow owns the service lifecycle (start, health,
+# routing, live API checks, logs, cleanup). It does NOT run the standalone
+# lifecycle of scripts/smoke_test_tor_runtime.py; it only uses that script's
+# `validate-response` subcommand, which never starts, stops, or removes anything.
 name: Tor Runtime Smoke Test
 
 on:
   workflow_dispatch:
-    inputs:
-      strict_runtime:
-        description: 'Enforce strict runtime verification (fail if external routing fails)'
-        required: false
-        default: 'true'
-        type: string
+
+permissions:
+  contents: read
 
 env:
-  # Isolate from any existing dev stack by using a unique Compose project name.
-  COMPOSE_PROJECT_NAME: tor-smoke-test
-  API_SECRET_KEY: "ci_smoke_test_key_${{ github.run_id }}"
+  # Isolate from any other stack: unique project, container names, image tag,
+  # and a temporary data directory instead of the repository's data/.
+  COMPOSE_PROJECT_NAME: tor-smoke-${{ github.run_id }}-${{ github.run_attempt }}
+  TOR_CONTAINER_NAME: tor-smoke-${{ github.run_id }}-${{ github.run_attempt }}-tor
+  APP_CONTAINER_NAME: tor-smoke-${{ github.run_id }}-${{ github.run_attempt }}-app
+  APP_IMAGE: sealapi-lead-research:tor-smoke-${{ github.run_id }}-${{ github.run_attempt }}
+  # Every `docker compose` call passes `-f docker-compose.yml -f docker-compose.smoke.yml`
+  # explicitly (no COMPOSE_FILE separator ambiguity). The smoke override keeps Tor's
+  # DataDirectory in tmpfs, so no anonymous volume is created per run.
   APP_ENV: production
+  HOST_IP: 127.0.0.1
   TOR_ENABLED: "true"
+  # Proxy as seen from inside the Compose network, i.e. by the application container.
   TOR_PROXY: socks5://tor:9050
+  PINNED_TOR_IMAGE: osminogin/tor-simple:0.4.9.14@sha256:ea335859425375b3294b15a5df61ca317ca4fdd143cf7a8d568bb2cd48217774
 
 jobs:
   tor-smoke-test:
     name: Tor Container & Exit Routing Verification
     runs-on: ubuntu-latest
+    timeout-minutes: 60
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -39,186 +52,213 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Acceptance-logic regression tests (mocked)
+        run: python -m pytest -q tests/test_smoke_tor_runtime.py
+
+      - name: Generate synthetic secrets and temporary data directory
+        run: |
+          API_KEY=$(python -c 'import secrets; print(secrets.token_hex(24))')
+          SESSION=$(python -c 'import secrets; print(secrets.token_hex(32))')
+          echo "::add-mask::$API_KEY"
+          echo "::add-mask::$SESSION"
+          echo "API_SECRET_KEY=$API_KEY" >> "$GITHUB_ENV"
+          echo "SESSION_SECRET=$SESSION" >> "$GITHUB_ENV"
+          mkdir -p "$RUNNER_TEMP/smoke-data" "$RUNNER_TEMP/smoke-results"
+          echo "DATA_MOUNT_DIR=$RUNNER_TEMP/smoke-data" >> "$GITHUB_ENV"
+          echo "RESULTS_DIR=$RUNNER_TEMP/smoke-results" >> "$GITHUB_ENV"
+          docker volume ls -q | sort > "$RUNNER_TEMP/volumes-before.txt"
+
       - name: Validate Docker Compose Configuration
-        run: docker compose config
+        run: |
+          docker compose -f docker-compose.yml -f docker-compose.smoke.yml config > "$RUNNER_TEMP/compose-resolved.yml"
+          grep -qF "$PINNED_TOR_IMAGE" "$RUNNER_TEMP/compose-resolved.yml" || {
+            echo "FAIL: pinned Tor image digest missing from resolved config"; exit 1; }
+          grep -qF "$APP_CONTAINER_NAME" "$RUNNER_TEMP/compose-resolved.yml" || {
+            echo "FAIL: per-run container name not applied"; exit 1; }
+          grep -qF -- "- /var/lib/tor:" "$RUNNER_TEMP/compose-resolved.yml" || {
+            echo "FAIL: smoke override tmpfs for /var/lib/tor not applied"; exit 1; }
+          echo "PASS: Compose config valid with pinned digest and per-run names."
 
       - name: Pull Pinned Tor Image Digest
-        run: |
-          docker pull osminogin/tor-simple:0.4.9.14@sha256:ea335859425375b3294b15a5df61ca317ca4fdd143cf7a8d568bb2cd48217774
+        run: docker pull "$PINNED_TOR_IMAGE"
 
       - name: Build Application Image
-        run: |
-          docker compose build sealapi-lead-research
+        run: docker compose -f docker-compose.yml -f docker-compose.smoke.yml build sealapi-lead-research
 
       - name: Start Tor and Application Services
-        run: |
-          docker compose up -d tor sealapi-lead-research
+        run: docker compose -f docker-compose.yml -f docker-compose.smoke.yml up -d --no-build tor sealapi-lead-research
 
       - name: Wait for Tor Container Healthy Status
         run: |
-          echo "Waiting up to 90s for Tor container health check..."
-          CONTAINER_NAME=$(docker compose ps -q tor)
-          if [ -z "$CONTAINER_NAME" ]; then
-            echo "ERROR: Tor container not found. Compose ps output:"
-            docker compose ps
-            exit 1
+          CONTAINER_ID=$(docker compose -f docker-compose.yml -f docker-compose.smoke.yml ps -q tor)
+          if [ -z "$CONTAINER_ID" ]; then
+            echo "FAIL: Tor container not found."; docker compose -f docker-compose.yml -f docker-compose.smoke.yml ps -a; exit 1
           fi
-          SECONDS_WAITED=0
-          TIMEOUT=90
-          while [ $SECONDS_WAITED -lt $TIMEOUT ]; do
-            HEALTH_STATE=$(docker inspect --format '{{.State.Health.Status}}' "$CONTAINER_NAME" 2>/dev/null || echo "unknown")
-            echo "  [$SECONDS_WAITED s] Health state: $HEALTH_STATE"
-            if [ "$HEALTH_STATE" = "healthy" ]; then
-              echo "Tor container is healthy."
-              break
-            fi
+          HEALTH_STATE=unknown
+          for i in $(seq 1 40); do
+            HEALTH_STATE=$(docker inspect --format '{{if .State.Health}}{{.State.Health.Status}}{{end}}' "$CONTAINER_ID" 2>/dev/null || echo "unknown")
+            echo "  [$((i * 3))s] Tor health: $HEALTH_STATE"
+            [ "$HEALTH_STATE" = "healthy" ] && break
             sleep 3
-            SECONDS_WAITED=$((SECONDS_WAITED + 3))
           done
           if [ "$HEALTH_STATE" != "healthy" ]; then
-            echo "ERROR: Tor container did not become healthy within ${TIMEOUT}s."
-            echo "--- Container logs ---"
-            docker compose logs tor --tail=50
-            echo "--- Health check log ---"
-            docker inspect --format '{{json .State.Health}}' "$CONTAINER_NAME" || true
+            echo "FAIL: Tor container did not become healthy within 120s."
+            docker compose -f docker-compose.yml -f docker-compose.smoke.yml logs tor --tail=50
+            docker inspect --format '{{json .State.Health}}' "$CONTAINER_ID" || true
             exit 1
           fi
+          echo "PASS: Tor container is healthy."
+          TMPFS=$(docker inspect --format '{{json .HostConfig.Tmpfs}}' "$CONTAINER_ID")
+          TOR_VOLUMES=$(docker inspect --format '{{range .Mounts}}{{if eq .Type "volume"}}{{.Name}}@{{.Destination}} {{end}}{{end}}' "$CONTAINER_ID")
+          echo "Tor tmpfs: $TMPFS; Tor volume mounts: ${TOR_VOLUMES:-none}"
+          if ! echo "$TMPFS" | grep -qF '"/var/lib/tor"' || [ -n "$TOR_VOLUMES" ]; then
+            echo "FAIL: /var/lib/tor must be tmpfs with no volume mounts"; exit 1
+          fi
+          echo "PASS: Tor DataDirectory is tmpfs; no volume created."
 
       - name: Wait for Application Container Healthy Status
         run: |
-          echo "Waiting up to 120s for application container health check..."
-          APP_CONTAINER=$(docker compose ps -q sealapi-lead-research)
+          APP_CONTAINER=$(docker compose -f docker-compose.yml -f docker-compose.smoke.yml ps -q sealapi-lead-research)
           if [ -z "$APP_CONTAINER" ]; then
-            echo "ERROR: Application container not found. Compose ps output:"
-            docker compose ps
-            exit 1
+            echo "FAIL: Application container not found."; docker compose -f docker-compose.yml -f docker-compose.smoke.yml ps -a; exit 1
           fi
-          SECONDS_WAITED=0
-          TIMEOUT=120
-          while [ $SECONDS_WAITED -lt $TIMEOUT ]; do
-            HEALTH_STATE=$(docker inspect --format '{{.State.Health.Status}}' "$APP_CONTAINER" 2>/dev/null || echo "unknown")
-            echo "  [$SECONDS_WAITED s] Health state: $HEALTH_STATE"
-            if [ "$HEALTH_STATE" = "healthy" ]; then
-              echo "Application container is healthy."
-              break
-            fi
+          HEALTH_STATE=unknown
+          for i in $(seq 1 36); do
+            HEALTH_STATE=$(docker inspect --format '{{if .State.Health}}{{.State.Health.Status}}{{end}}' "$APP_CONTAINER" 2>/dev/null || echo "unknown")
+            echo "  [$((i * 5))s] App health: $HEALTH_STATE"
+            [ "$HEALTH_STATE" = "healthy" ] && break
             sleep 5
-            SECONDS_WAITED=$((SECONDS_WAITED + 5))
           done
           if [ "$HEALTH_STATE" != "healthy" ]; then
-            echo "ERROR: Application container did not become healthy within ${TIMEOUT}s."
-            docker compose logs sealapi-lead-research --tail=50
+            echo "FAIL: Application container did not become healthy within 180s."
+            docker compose -f docker-compose.yml -f docker-compose.smoke.yml logs sealapi-lead-research --tail=50
             exit 1
           fi
+          echo "APP_CONTAINER=$APP_CONTAINER" >> "$GITHUB_ENV"
+          echo "PASS: Application container is healthy."
 
-      - name: Container-Context Tor Routing Verification
+      - name: Verify Application Proxy Configuration
         run: |
-          echo "Testing Tor exit routing from inside the application container network..."
-          APP_CONTAINER=$(docker compose ps -q sealapi-lead-research)
-          if [ -z "$APP_CONTAINER" ]; then
-            echo "FAIL: Application container not running. Cannot test container-context routing."
+          APP_PROXY=$(docker exec "$APP_CONTAINER" printenv TOR_PROXY)
+          APP_TOR_ENABLED=$(docker exec "$APP_CONTAINER" printenv TOR_ENABLED)
+          echo "App TOR_PROXY=$APP_PROXY TOR_ENABLED=$APP_TOR_ENABLED"
+          if [ "$APP_PROXY" != "socks5://tor:9050" ] || [ "$APP_TOR_ENABLED" != "true" ]; then
+            echo "FAIL: application is not configured to use socks5://tor:9050 with TOR_ENABLED=true"
             exit 1
           fi
-          # Test 1: Direct curl through Tor SOCKS proxy from inside app container
-          docker exec "$APP_CONTAINER" sh -c '
-            RESULT=$(curl -sf --max-time 20 --socks5-hostname tor:9050 https://check.torproject.org/api/ip 2>&1) || {
-              echo "FAIL: curl through Tor proxy failed: $RESULT"
-              exit 1
-            }
-            echo "Raw response: $RESULT"
-            IS_TOR=$(echo "$RESULT" | python3 -c "import sys, json; d=json.load(sys.stdin); print(str(d.get(\"IsTor\",False)).lower())" 2>/dev/null || echo "parse_error")
-            if [ "$IS_TOR" = "true" ]; then
-              echo "PASS: Tor exit routing verified from application container context (IsTor: true)."
+          echo "PASS: application proxy configuration matches the container network context."
+
+      - name: SOCKS5 Handshake from Application Container
+        run: |
+          REPLY=$(docker exec "$APP_CONTAINER" python3 -c "import socket; s=socket.create_connection(('tor', 9050), timeout=5); s.settimeout(5); s.sendall(b'\x05\x01\x00'); print(s.recv(2).hex())")
+          echo "SOCKS5 greeting reply: $REPLY"
+          if [ "$REPLY" != "0500" ]; then
+            echo "FAIL: SOCKS5 handshake to tor:9050 from the application container failed"
+            exit 1
+          fi
+          echo "PASS: SOCKS5 handshake (VER=5, METHOD=0) from application container."
+
+      - name: Container-Context Tor Exit Routing Verification
+        run: |
+          # 1. Direct curl through the Tor SOCKS proxy from inside the app container.
+          OK=0
+          for attempt in 1 2 3; do
+            if docker exec "$APP_CONTAINER" curl -s --max-time 30 --socks5-hostname tor:9050 \
+                 https://check.torproject.org/api/ip > "$RESULTS_DIR/torcheck.json"; then
+              echo "Attempt $attempt response: $(cat "$RESULTS_DIR/torcheck.json")"
+              if python -c 'import json,sys; d=json.load(open(sys.argv[1])); sys.exit(0 if isinstance(d, dict) and d.get("IsTor") is True else 1)' "$RESULTS_DIR/torcheck.json"; then
+                OK=1; break
+              fi
             else
-              echo "FAIL: IsTor is not true. Response: $RESULT"
-              exit 1
+              echo "Attempt $attempt: curl through Tor failed"
             fi
-          '
-          # Test 2: Verify TorManager inside container Python process also verifies exit routing
-          docker exec "$APP_CONTAINER" python3 -c '
-            from src.lead_research.tor_manager import TorManager
-            tm = TorManager()
-            verified = tm.verify_tor_routing("socks5://tor:9050")
-            print(f"TorManager.verify_tor_routing result: {verified}")
-            if not verified:
-              raise SystemExit(1)
-          '
-          echo "PASS: Container-context Tor routing confirmed by both curl and TorManager."
+            sleep 10
+          done
+          if [ "$OK" != "1" ]; then
+            echo "FAIL: IsTor=true was not observed from the application container"
+            exit 1
+          fi
+          echo "PASS: curl from application container exits through Tor (IsTor: true)."
 
-      - name: Live API Endpoint Authentication Tests
+          # 2. The application's own TorManager, inside the app container, with its configured proxy.
+          docker exec "$APP_CONTAINER" python3 -c "import os, sys; from src.lead_research.tor_manager import TorManager; ok = TorManager().verify_tor_routing(os.environ['TOR_PROXY'], timeout=30.0); print('TorManager.verify_tor_routing:', ok); sys.exit(0 if ok else 1)"
+          echo "PASS: TorManager.verify_tor_routing confirmed Tor exit routing in the application process context."
+
+      - name: Live API Authentication and Response Semantics
         run: |
-          echo "Testing /api/tor/status endpoint from container network..."
-          APP_CONTAINER=$(docker compose ps -q sealapi-lead-research)
-          if [ -z "$APP_CONTAINER" ]; then
-            echo "FAIL: Application container not running."
-            exit 1
-          fi
+          set -u
+          VALIDATE="python scripts/smoke_test_tor_runtime.py validate-response"
+          BAD_KEY="invalid-$(python -c 'import secrets; print(secrets.token_hex(8))')"
+          BASE=http://127.0.0.1:8000/api/tor/status
 
-          # 1. Missing API key → expect 401
-          HTTP_CODE=$(docker exec "$APP_CONTAINER" curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:8000/api/tor/status)
-          echo "Missing key HTTP status: $HTTP_CODE"
-          if [ "$HTTP_CODE" != "401" ]; then
-            echo "FAIL: Expected 401 for missing key, got $HTTP_CODE"
-            exit 1
-          fi
+          # request <url> <key-or-empty> <body-file>: prints the HTTP status code.
+          request() {
+            if [ -n "$2" ]; then
+              docker exec "$APP_CONTAINER" curl -s --max-time 60 -o /tmp/smoke_body.json -w '%{http_code}' -H "X-API-Key: $2" "$1" || true
+            else
+              docker exec "$APP_CONTAINER" curl -s --max-time 60 -o /tmp/smoke_body.json -w '%{http_code}' "$1" || true
+            fi
+            docker exec "$APP_CONTAINER" cat /tmp/smoke_body.json > "$3" 2>/dev/null || : > "$3"
+          }
 
-          # 2. Invalid API key → expect 401
-          HTTP_CODE=$(docker exec "$APP_CONTAINER" curl -s -o /dev/null -w "%{http_code}" -H "X-API-Key: invalid_key_attempt" http://127.0.0.1:8000/api/tor/status)
-          echo "Invalid key HTTP status: $HTTP_CODE"
-          if [ "$HTTP_CODE" != "401" ]; then
-            echo "FAIL: Expected 401 for invalid key, got $HTTP_CODE"
-            exit 1
-          fi
+          FAILED=0
+          for URL in "$BASE" "$BASE?verify_routing=true"; do
+            CODE=$(request "$URL" "" "$RESULTS_DIR/missing.json")
+            echo "Missing key on $URL"; $VALIDATE auth-rejection --http-code "$CODE" || FAILED=1
+            CODE=$(request "$URL" "$BAD_KEY" "$RESULTS_DIR/invalid.json")
+            echo "Invalid key on $URL"; $VALIDATE auth-rejection --http-code "$CODE" || FAILED=1
+          done
 
-          # 3. Valid API key (default: verify_routing=False) → expect 200 and routing_checked: false
-          STATUS_RESPONSE=$(docker exec "$APP_CONTAINER" curl -sf -H "X-API-Key: $API_SECRET_KEY" http://127.0.0.1:8000/api/tor/status)
-          echo "Default status response: $STATUS_RESPONSE"
-          ROUTING_CHECKED=$(echo "$STATUS_RESPONSE" | python3 -c "import sys, json; d=json.load(sys.stdin); print(str(d.get('routing_checked', 'missing')).lower())" 2>/dev/null || echo "parse_error")
-          SOCKS_REACHABLE=$(echo "$STATUS_RESPONSE" | python3 -c "import sys, json; d=json.load(sys.stdin); print(str(d.get('socks_reachable', 'missing')).lower())" 2>/dev/null || echo "parse_error")
-          if [ "$ROUTING_CHECKED" != "false" ]; then
-            echo "FAIL: Expected routing_checked: false for default status call, got $ROUTING_CHECKED"
-            exit 1
-          fi
-          if [ "$SOCKS_REACHABLE" != "true" ]; then
-            echo "FAIL: Expected socks_reachable: true, got $SOCKS_REACHABLE"
-            exit 1
-          fi
+          # Valid key, default status: routing must not be claimed; socks_reachable must
+          # match the handshake verified in the previous step.
+          CODE=$(request "$BASE" "$API_SECRET_KEY" "$RESULTS_DIR/default.json")
+          echo "Default status (HTTP $CODE): $(cat "$RESULTS_DIR/default.json")"
+          $VALIDATE default-status --http-code "$CODE" --body-file "$RESULTS_DIR/default.json" --socks-handshake-ok || FAILED=1
 
-          # 4. Valid API key with ?verify_routing=true → expect 200, routing_checked: true, routing_verified: true, state: routing_verified
-          VERIFY_RESPONSE=$(docker exec "$APP_CONTAINER" curl -sf -H "X-API-Key: $API_SECRET_KEY" "http://127.0.0.1:8000/api/tor/status?verify_routing=true")
-          echo "Verify routing response: $VERIFY_RESPONSE"
-          ROUTING_CHECKED=$(echo "$VERIFY_RESPONSE" | python3 -c "import sys, json; d=json.load(sys.stdin); print(str(d.get('routing_checked', 'missing')).lower())" 2>/dev/null || echo "parse_error")
-          ROUTING_VERIFIED=$(echo "$VERIFY_RESPONSE" | python3 -c "import sys, json; d=json.load(sys.stdin); print(str(d.get('routing_verified', 'missing')).lower())" 2>/dev/null || echo "parse_error")
-          STATE=$(echo "$VERIFY_RESPONSE" | python3 -c "import sys, json; d=json.load(sys.stdin); print(d.get('state', 'missing'))" 2>/dev/null || echo "parse_error")
-          if [ "$ROUTING_CHECKED" != "true" ]; then
-            echo "FAIL: Expected routing_checked: true when verify_routing=true, got $ROUTING_CHECKED"
-            exit 1
-          fi
-          if [ "$ROUTING_VERIFIED" != "true" ] || [ "$STATE" != "routing_verified" ]; then
-            echo "FAIL: Tor exit routing was not verified by live API. State: $STATE, routing_verified: $ROUTING_VERIFIED"
-            exit 1
-          fi
-          echo "PASS: Live API status and authentication verified with end-to-end Tor exit routing."
+          # Valid key, explicit routing verification: requires routing_verified=true and
+          # state=routing_verified. Retried because the external probe depends on the Tor network.
+          VERIFIED=0
+          for attempt in 1 2 3; do
+            CODE=$(request "$BASE?verify_routing=true" "$API_SECRET_KEY" "$RESULTS_DIR/verify.json")
+            echo "verify_routing attempt $attempt (HTTP $CODE): $(cat "$RESULTS_DIR/verify.json")"
+            if $VALIDATE verify-routing --http-code "$CODE" --body-file "$RESULTS_DIR/verify.json"; then
+              VERIFIED=1; break
+            fi
+            sleep 10
+          done
+          [ "$VERIFIED" = "1" ] || FAILED=1
 
-      - name: Execute Python Smoke Test Suite
-        run: |
-          python scripts/smoke_test_tor_runtime.py --strict-runtime
-        env:
-          TOR_PROXY: socks5://127.0.0.1:9050
-          TOR_ENABLED: "true"
+          if [ "$FAILED" != "0" ]; then
+            echo "FAIL: live API acceptance checks did not all pass."
+            exit 1
+          fi
+          echo "PASS: live API authentication and end-to-end Tor exit routing verified."
 
       - name: Collect Container Logs
         if: always()
         run: |
           echo "=== Tor Container Logs ==="
-          docker compose logs tor --tail=50 || true
+          docker compose -f docker-compose.yml -f docker-compose.smoke.yml logs tor --tail=50 || true
           echo ""
           echo "=== Application Container Logs ==="
-          docker compose logs sealapi-lead-research --tail=50 || true
+          docker compose -f docker-compose.yml -f docker-compose.smoke.yml logs sealapi-lead-research --tail=50 || true
 
-      - name: Cleanup Smoke Test Containers
+      - name: Cleanup Smoke Test Resources
         if: always()
         run: |
-          # Non-destructive: stop and remove only containers created by this
-          # smoke-test project. Never remove volumes or prune.
-          docker compose down || true
+          # Non-destructive: removes only containers and the network labelled with
+          # this run's Compose project. Never removes volumes, never prunes.
+          docker compose -f docker-compose.yml -f docker-compose.smoke.yml down --remove-orphans --timeout 20 || true
+          LEFTOVER=$(docker ps -a -q --filter "label=com.docker.compose.project=$COMPOSE_PROJECT_NAME")
+          if [ -n "$LEFTOVER" ]; then
+            echo "FAIL: containers from project $COMPOSE_PROJECT_NAME remain after cleanup"
+            docker ps -a --filter "label=com.docker.compose.project=$COMPOSE_PROJECT_NAME"
+            exit 1
+          fi
+          echo "PASS: no containers remain for project $COMPOSE_PROJECT_NAME."
+          # Volumes are never removed here; any new one is reported as a failure.
+          NEW_VOLUMES=$(docker volume ls -q | sort | comm -13 "$RUNNER_TEMP/volumes-before.txt" -)
+          if [ -n "$NEW_VOLUMES" ]; then
+            echo "FAIL: this run created volume(s): $NEW_VOLUMES"; exit 1
+          fi
+          echo "PASS: no new volumes were created."

@@ -1,0 +1,11 @@
+# Smoke-test-only override, applied on top of docker-compose.yml by
+# scripts/smoke_test_tor_runtime.py and .github/workflows/tor-runtime-smoke.yml.
+#
+# The pinned Tor image declares `VOLUME /var/lib/tor` (its DataDirectory), so every
+# test run would otherwise leave one anonymous volume behind. An explicit tmpfs at
+# that path replaces the image volume. uid/gid 100/101 is the image's `tor` user,
+# and Tor requires its DataDirectory to be owned by that user with mode 0700.
+services:
+  tor:
+    tmpfs:
+      - /var/lib/tor:uid=100,gid=101,mode=0700,size=64m

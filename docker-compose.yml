@@ -1,10 +1,10 @@
 services:
   tor:
     image: osminogin/tor-simple:0.4.9.14@sha256:ea335859425375b3294b15a5df61ca317ca4fdd143cf7a8d568bb2cd48217774
-    container_name: sealapi_tor_proxy
+    container_name: ${TOR_CONTAINER_NAME:-sealapi_tor_proxy}
     restart: unless-stopped
     ports:
-      - "127.0.0.1:9050:9050"
+      - "127.0.0.1:${TOR_HOST_PORT:-9050}:9050"
     healthcheck:
       test: ["CMD-SHELL", "RESP=$$(printf '\\x05\\x01\\x00' | nc -w 2 127.0.0.1 9050 2>/dev/null | head -c 2); [ \"$$RESP\" = \"$$(printf '\\x05\\x00')\" ] || exit 1"]
       interval: 15s
@@ -16,8 +16,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: sealapi-lead-research:latest
-    container_name: sealapi_lead_research_app
+    image: ${APP_IMAGE:-sealapi-lead-research:latest}
+    container_name: ${APP_CONTAINER_NAME:-sealapi_lead_research_app}
     restart: unless-stopped
     depends_on:
       tor:
@@ -40,7 +40,7 @@ services:
     extra_hosts:
       - "host.docker.internal:host-gateway"
     volumes:
-      - ./data:/app/data
+      - ${DATA_MOUNT_DIR:-./data}:/app/data
     healthcheck:
       test: ["CMD", "curl", "-f", "http://127.0.0.1:8000/api/health"]
       interval: 15s
