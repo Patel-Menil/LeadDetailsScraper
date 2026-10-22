@@ -3,7 +3,10 @@ import assert from "node:assert/strict";
 import { readFileSync, readdirSync, statSync } from "node:fs";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { createRequire } from "node:module";
 import { checkSession, login, logout, UNAUTHORIZED_EVENT } from "../src/lib/session.mjs";
+
+const require = createRequire(import.meta.url);
 
 const json = (status, body) =>
   new Response(JSON.stringify(body), { status, headers: { "Content-Type": "application/json" } });
@@ -115,5 +118,27 @@ describe("Operator login screen session helpers", () => {
     const offenders = files.filter((f) => !f.includes("lead_research") &&
       /(localStorage|sessionStorage)\s*\.|document\.cookie/.test(readFileSync(f, "utf8")));
     assert.deepEqual(offenders, []);
+  });
+});
+
+describe("Session token verification in the middleware's edge runtime", () => {
+  it("src/lib/auth.ts verifies its own tokens inside Next's edge sandbox", async () => {
+    // The middleware runs in this sandbox; on Node 20 it rejected the old
+    // ArrayBuffer-slice signature argument, so every cookie session failed there.
+    const ts = require("typescript");
+    const { EdgeRuntime } = require("next/dist/compiled/edge-runtime");
+    const source = readFileSync(new URL("../src/lib/auth.ts", import.meta.url), "utf8");
+    const js = ts.transpileModule(source, {
+      compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2020 },
+    }).outputText;
+    const script =
+      "(async () => { const exports = {};\n" + js + "\n" +
+      "const token = await exports.createSessionToken('edge-secret', 60);\n" +
+      "const ok = await exports.verifySessionToken(token, 'edge-secret');\n" +
+      "const wrong = await exports.verifySessionToken(token, 'other-secret');\n" +
+      "const tampered = await exports.verifySessionToken(token.slice(0, -2) + 'xx', 'edge-secret');\n" +
+      "return JSON.stringify({ ok: ok.valid, wrong: wrong.valid, tampered: tampered.valid }); })()";
+    const result = JSON.parse(await new EdgeRuntime().evaluate(script));
+    assert.deepEqual(result, { ok: true, wrong: false, tampered: false });
   });
 });
