@@ -8,7 +8,7 @@
     "start": "next start -p 3000",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
-    "test": "node --test tests/frontend_logic.test.mjs"
+    "test": "node --test tests/frontend_logic.test.mjs tests/auth_session.test.mjs"
   },
   "dependencies": {
     "clsx": "^2.1.1",

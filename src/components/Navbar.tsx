@@ -3,8 +3,14 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Plus, ChevronRight, Sparkles } from "lucide-react";
+import { Plus, ChevronRight, Sparkles, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/Button";
+import { logout } from "@/lib/session.mjs";
+
+async function signOut() {
+  await logout().catch(() => undefined);
+  window.location.reload();
+}
 
 export function Navbar() {
   const pathname = usePathname();
@@ -86,6 +92,10 @@ export function Navbar() {
             </Button>
           </Link>
         )}
+        <Button size="sm" variant="ghost" onClick={signOut} className="gap-1.5">
+          <LogOut className="w-3.5 h-3.5" />
+          <span>Sign out</span>
+        </Button>
       </div>
     </header>
   );
