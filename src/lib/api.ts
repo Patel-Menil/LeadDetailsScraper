@@ -12,8 +12,16 @@ import {
   StartBatchPayload,
   TorStatus,
 } from "@/types";
+import { UNAUTHORIZED_EVENT } from "@/lib/session.mjs";
 
 const API_BASE = "";
+
+/** Tell the AuthGate to show the login screen instead of an error banner. */
+function notifyUnauthorized(status: number) {
+  if (status === 401 && typeof window !== "undefined") {
+    window.dispatchEvent(new Event(UNAUTHORIZED_EVENT));
+  }
+}
 
 class ApiError extends Error {
   status: number;
@@ -46,6 +54,7 @@ async function request<T>(path: string, options?: RequestInit): Promise<T> {
     } catch {
       // ignore json parse error on response
     }
+    notifyUnauthorized(response.status);
     throw new ApiError(errorDetail, response.status);
   }
 
@@ -95,6 +104,7 @@ export const api = {
       } catch {
         // ignore
       }
+      notifyUnauthorized(response.status);
       throw new ApiError(errorDetail, response.status);
     }
 
