@@ -155,7 +155,6 @@ def test_pipeline_synthetic_three_candidate_complete_validation(tmp_path: Path):
         title="Vanguard Robotics - Enterprise Autonomous Systems",
         meta_description="Vanguard Robotics builds enterprise AI and robotic platforms.",
         extracted_text="Vanguard Robotics builds cutting-edge enterprise AI solutions.",
-        sublinks=["https://vanguardrobotics.test/team"],
     )
     reed_team = ScrapeResult(
         url="https://vanguardrobotics.test/team",
@@ -178,7 +177,6 @@ def test_pipeline_synthetic_three_candidate_complete_validation(tmp_path: Path):
         title="Skyline Systems Cloud Solutions",
         meta_description="Cloud infrastructure and enterprise architecture.",
         extracted_text="Welcome to Skyline Systems. Special thanks to Alexander Cross for attending our cloud summit.",
-        sublinks=[],
     )
 
     # Lead 3: Horizon Labs homepage only, no bio page
@@ -189,7 +187,6 @@ def test_pipeline_synthetic_three_candidate_complete_validation(tmp_path: Path):
         title="Horizon Labs Data Analytics",
         meta_description="Big data and analytics platforms.",
         extracted_text="Horizon Labs provides advanced data science and statistical solutions.",
-        sublinks=[],
     )
 
     def mock_fetch(url: str):
