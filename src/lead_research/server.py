@@ -240,10 +240,13 @@ def health_check():
 
 
 @app.get("/api/tor/status", dependencies=[Depends(verify_api_key)])
-def get_tor_status():
-    """Check Tor proxy health, active port, and availability."""
+def get_tor_status(verify_routing: bool = False):
+    """
+    Check Tor proxy health, active port, and availability.
+    If verify_routing=True, executes an external probe through Tor to verify exit routing.
+    """
     manager = TorManager()
-    return manager.get_status()
+    return manager.get_status(verify_routing=verify_routing)
 
 
 @app.post("/api/tor/start", dependencies=[Depends(verify_api_key)])

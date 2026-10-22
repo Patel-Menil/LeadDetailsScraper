@@ -3,8 +3,10 @@
 import io
 from pathlib import Path
 import pytest
+from unittest.mock import patch
 from fastapi.testclient import TestClient
 from src.lead_research.server import app
+from src.lead_research.tor_manager import TorManager
 
 
 @pytest.fixture
@@ -221,16 +223,47 @@ def test_tor_status_requires_authorization_and_returns_structured_health(client:
         res = client.get("/api/tor/status")
         assert res.status_code == 401
 
-        # Valid key -> 200 with structured health details
-        res_auth = client.get("/api/tor/status", headers={"X-API-Key": "tor_admin_secret_999"})
-        assert res_auth.status_code == 200
-        data = res_auth.json()
-        assert "enabled" in data
-        assert "state" in data
-        assert "is_running" in data
-        assert "socks_reachable" in data
-        assert "routing_verified" in data
-        assert "details" in data
+        # Invalid key -> 401
+        res_invalid = client.get("/api/tor/status", headers={"X-API-Key": "wrong_secret_key"})
+        assert res_invalid.status_code == 401
+
+        # Valid key without verify_routing -> 200 with routing unverified
+        with patch.object(TorManager, "is_port_open", return_value=True):
+            with patch.object(TorManager, "is_socks5_functional", return_value=True):
+                res_auth = client.get("/api/tor/status", headers={"X-API-Key": "tor_admin_secret_999"})
+                assert res_auth.status_code == 200
+                data = res_auth.json()
+                assert data["enabled"] is True
+                assert data["state"] == "socks_endpoint_reachable"
+                assert data["is_running"] is True
+                assert data["socks_reachable"] is True
+                assert data["routing_checked"] is False
+                assert data["routing_verified"] is False
+                assert "details" in data
+
+                # Valid key with verify_routing=true when routing succeeds
+                with patch.object(TorManager, "verify_tor_routing", return_value=True):
+                    res_routed = client.get(
+                        "/api/tor/status?verify_routing=true",
+                        headers={"X-API-Key": "tor_admin_secret_999"},
+                    )
+                    assert res_routed.status_code == 200
+                    data_routed = res_routed.json()
+                    assert data_routed["routing_checked"] is True
+                    assert data_routed["routing_verified"] is True
+                    assert data_routed["state"] == "routing_verified"
+
+                # Valid key with verify_routing=true when routing fails
+                with patch.object(TorManager, "verify_tor_routing", return_value=False):
+                    res_failed = client.get(
+                        "/api/tor/status?verify_routing=true",
+                        headers={"X-API-Key": "tor_admin_secret_999"},
+                    )
+                    assert res_failed.status_code == 200
+                    data_failed = res_failed.json()
+                    assert data_failed["routing_checked"] is True
+                    assert data_failed["routing_verified"] is False
+                    assert data_failed["state"] == "socks_endpoint_reachable"
 
 
 def test_exports_and_sensitive_reads_require_authorization(client: TestClient):

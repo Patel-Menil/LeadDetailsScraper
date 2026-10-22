@@ -176,10 +176,17 @@ class TorManager:
             logger.error(f"Failed to start Tor: {e}")
             return False, f"Failed to start Tor: {str(e)}", None
 
-    def verify_tor_routing(self, proxy_url: Optional[str] = None, target_url: str = "http://checkip.amazonaws.com", timeout: float = 3.0) -> bool:
+    def verify_tor_routing(
+        self,
+        proxy_url: Optional[str] = None,
+        target_url: str = "https://check.torproject.org/api/ip",
+        timeout: float = 8.0,
+    ) -> bool:
         """
-        Test whether a functioning SOCKS endpoint can actually route traffic to the external internet.
-        Uses a lightweight HTTP probe via the configured SOCKS proxy.
+        Test whether a functioning SOCKS endpoint can route traffic to the external internet
+        and that traffic explicitly exits through the Tor network.
+        Uses an external verification probe via the configured SOCKS proxy.
+        Requires response to be valid JSON with 'IsTor' explicitly true.
         """
         proxy = proxy_url or self.get_proxy_url(require_reachable=True)
         if not proxy:
@@ -188,9 +195,20 @@ class TorManager:
             from curl_cffi import requests
             with requests.Session(proxy=proxy) as session:
                 resp = session.get(target_url, timeout=timeout)
-                return resp.status_code == 200
+                if resp.status_code != 200:
+                    return False
+                try:
+                    payload = resp.json()
+                    if isinstance(payload, dict):
+                        is_tor = payload.get("IsTor")
+                        if is_tor is True or (isinstance(is_tor, str) and is_tor.strip().lower() == "true"):
+                            return True
+                    return False
+                except Exception:
+                    return False
         except Exception as exc:
-            logger.debug(f"Tor routing verification probe failed: {exc}")
+            clean_proxy = self.sanitize_proxy_url(proxy)
+            logger.debug(f"Tor routing verification probe via '{clean_proxy}' failed: {exc}")
             return False
 
     def get_proxy_url(self, require_reachable: bool = True) -> Optional[str]:
@@ -251,6 +269,7 @@ class TorManager:
                 "state": STATE_DISABLED,
                 "is_running": False,
                 "socks_reachable": False,
+                "routing_checked": False,
                 "routing_verified": False,
                 "port": self.preferred_port,
                 "proxy_url": None,
@@ -278,6 +297,7 @@ class TorManager:
                 "state": STATE_CONFIGURED_UNREACHABLE,
                 "is_running": False,
                 "socks_reachable": False,
+                "routing_checked": False,
                 "routing_verified": False,
                 "port": port,
                 "proxy_url": self.sanitize_proxy_url(raw_env_proxy or candidate_proxy),
@@ -294,6 +314,7 @@ class TorManager:
                 "state": STATE_CHECK_FAILED,
                 "is_running": False,
                 "socks_reachable": False,
+                "routing_checked": False,
                 "routing_verified": False,
                 "port": port,
                 "proxy_url": self.sanitize_proxy_url(raw_env_proxy or candidate_proxy),
@@ -305,21 +326,33 @@ class TorManager:
 
         # SOCKS handshake succeeded
         is_routed = False
+        routing_checked = False
         if verify_routing:
+            routing_checked = True
             is_routed = self.verify_tor_routing(candidate_proxy)
 
         current_state = STATE_ROUTING_VERIFIED if is_routed else STATE_SOCKS_REACHABLE
+
+        details_msg = f"SOCKS5 proxy is listening and responsive on '{host}:{port}'"
+        if routing_checked:
+            if is_routed:
+                details_msg += " with verified Tor routing."
+            else:
+                details_msg += ", but external Tor exit routing verification failed."
+        else:
+            details_msg += " (routing unverified; set verify_routing=true to test external Tor exit)."
 
         return {
             "enabled": True,
             "state": current_state,
             "is_running": True,
             "socks_reachable": True,
+            "routing_checked": routing_checked,
             "routing_verified": is_routed,
             "port": port,
             "proxy_url": self.sanitize_proxy_url(candidate_proxy),
             "compose_service": "tor",
             "executable_found": tor_exe is not None,
             "executable_path": str(tor_exe) if tor_exe else None,
-            "details": f"SOCKS5 proxy is listening and responsive on '{host}:{port}'" + (" with verified Tor routing." if is_routed else "."),
+            "details": details_msg,
         }

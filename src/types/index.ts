@@ -256,9 +256,15 @@ export interface StartBatchPayload {
 }
 
 export interface TorStatus {
+  enabled?: boolean;
+  state?: string;
   is_running: boolean;
+  socks_reachable?: boolean;
+  routing_checked?: boolean;
+  routing_verified?: boolean;
   port: number | null;
   proxy_url: string | null;
   executable_found: boolean;
   executable_path: string | null;
+  details?: string;
 }

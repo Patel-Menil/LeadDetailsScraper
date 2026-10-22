@@ -59,8 +59,9 @@ export const api = {
   },
 
   // Tor Proxy Status & Management
-  async getTorStatus(): Promise<TorStatus> {
-    return request("/api/tor/status");
+  async getTorStatus(verifyRouting: boolean = false): Promise<TorStatus> {
+    const query = verifyRouting ? "?verify_routing=true" : "";
+    return request(`/api/tor/status${query}`);
   },
 
   async startTor(): Promise<{ success: boolean; message: string; port: number | null }> {

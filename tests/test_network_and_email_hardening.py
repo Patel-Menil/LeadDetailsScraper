@@ -484,11 +484,97 @@ def test_tor_manager_verified_routing_and_secret_redaction(monkeypatch):
                 assert status["enabled"] is True
                 assert status["is_running"] is True
                 assert status["socks_reachable"] is True
+                assert status["routing_checked"] is True
                 assert status["routing_verified"] is True
                 assert status["state"] == "routing_verified"
                 assert "TopSecretPass999" not in status["proxy_url"]
                 assert "TopSecretPass999" not in status["details"]
                 assert status["proxy_url"] == "socks5://***:***@tor:9050"
+
+
+def test_verify_tor_routing_accepts_only_explicit_is_tor_true():
+    """Verify verify_tor_routing returns True ONLY when response JSON explicitly has IsTor=True."""
+    manager = TorManager()
+
+    class MockResp:
+        def __init__(self, status_code, json_data):
+            self.status_code = status_code
+            self._json = json_data
+        def json(self):
+            if isinstance(self._json, Exception):
+                raise self._json
+            return self._json
+
+    class MockSession:
+        def __init__(self, resp):
+            self._resp = resp
+        def __enter__(self):
+            return self
+        def __exit__(self, *args):
+            pass
+        def get(self, url, timeout):
+            if isinstance(self._resp, Exception):
+                raise self._resp
+            return self._resp
+
+    with patch.object(manager, "get_proxy_url", return_value="socks5://127.0.0.1:9050"):
+        # 1. Successful Tor verification: status=200, {"IsTor": true}
+        with patch("curl_cffi.requests.Session", return_value=MockSession(MockResp(200, {"IsTor": True, "IP": "185.220.101.5"}))):
+            assert manager.verify_tor_routing() is True
+
+        # 2. Case-insensitive string "true"
+        with patch("curl_cffi.requests.Session", return_value=MockSession(MockResp(200, {"IsTor": "true", "IP": "185.220.101.5"}))):
+            assert manager.verify_tor_routing() is True
+
+        # 3. HTTP 200 but IsTor is False (ordinary proxy or direct connection) -> must FAIL closed
+        with patch("curl_cffi.requests.Session", return_value=MockSession(MockResp(200, {"IsTor": False, "IP": "93.184.216.34"}))):
+            assert manager.verify_tor_routing() is False
+
+        # 4. HTTP 200 with missing IsTor field -> must FAIL closed
+        with patch("curl_cffi.requests.Session", return_value=MockSession(MockResp(200, {"IP": "185.220.101.5"}))):
+            assert manager.verify_tor_routing() is False
+
+        # 5. Non-JSON response (e.g. HTML error page with 200) -> must FAIL closed
+        with patch("curl_cffi.requests.Session", return_value=MockSession(MockResp(200, ValueError("Invalid JSON")))):
+            assert manager.verify_tor_routing() is False
+
+        # 6. Non-dict JSON response (e.g. list) -> must FAIL closed
+        with patch("curl_cffi.requests.Session", return_value=MockSession(MockResp(200, ["unexpected", "list"]))):
+            assert manager.verify_tor_routing() is False
+
+        # 7. HTTP error status (e.g. 500 or 404) -> must FAIL closed
+        with patch("curl_cffi.requests.Session", return_value=MockSession(MockResp(500, {"IsTor": True}))):
+            assert manager.verify_tor_routing() is False
+
+        # 8. Timeout or connection exception -> must FAIL closed
+        with patch("curl_cffi.requests.Session", return_value=MockSession(TimeoutError("Connection timed out"))):
+            assert manager.verify_tor_routing() is False
+
+
+def test_tor_status_routing_unverified_vs_checked_failed(monkeypatch):
+    """Verify distinct states between unverified routing and checked-but-failed routing."""
+    monkeypatch.setenv("TOR_ENABLED", "true")
+    monkeypatch.setenv("TOR_PROXY", "socks5://127.0.0.1:9050")
+
+    with patch.object(TorManager, "is_port_open", return_value=True):
+        with patch.object(TorManager, "is_socks5_functional", return_value=True):
+            manager = TorManager()
+
+            # Default: verify_routing=False -> routing_checked=False, routing_verified=False
+            status_default = manager.get_status(verify_routing=False)
+            assert status_default["routing_checked"] is False
+            assert status_default["routing_verified"] is False
+            assert status_default["state"] == "socks_endpoint_reachable"
+            assert "routing unverified" in status_default["details"]
+
+            # Explicit check with failing route -> routing_checked=True, routing_verified=False
+            with patch.object(manager, "verify_tor_routing", return_value=False):
+                status_failed = manager.get_status(verify_routing=True)
+                assert status_failed["routing_checked"] is True
+                assert status_failed["routing_verified"] is False
+                assert status_failed["state"] == "socks_endpoint_reachable"
+                assert "routing verification failed" in status_failed["details"]
+
 
 
 # ---------------------------------------------------------------------------

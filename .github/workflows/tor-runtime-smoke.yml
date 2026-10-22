@@ -1,0 +1,57 @@
+name: Tor Runtime Smoke Test
+
+on:
+  workflow_dispatch:
+    inputs:
+      strict_runtime:
+        description: 'Enforce strict runtime verification'
+        required: false
+        default: 'true'
+        type: string
+
+jobs:
+  tor-smoke-test:
+    name: Tor Container & Exit Routing Verification
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Validate Docker Compose Configuration
+        run: docker compose config
+
+      - name: Pull Pinned Tor Image Digest
+        run: |
+          docker pull osminogin/tor-simple:0.4.9.14@sha256:ea335859425375b3294b15a5df61ca317ca4fdd143cf7a8d568bb2cd48217774
+
+      - name: Start Tor Container
+        run: |
+          docker compose up -d tor
+
+      - name: Wait for Tor Container Healthy Status
+        run: |
+          echo "Waiting up to 60s for Tor container healthcheck to transition to healthy..."
+          timeout 60 bash -c 'until [ "$$(docker inspect --format "{{json .State.Health.Status}}" sealapi_tor_proxy)" == "\"healthy\"" ]; do echo "Waiting..."; sleep 2; done'
+          docker compose ps
+
+      - name: Execute Repeatable Tor Runtime Smoke Test
+        run: |
+          python scripts/smoke_test_tor_runtime.py --strict-runtime
+        env:
+          TOR_PROXY: socks5://127.0.0.1:9050
+          TOR_ENABLED: "true"
+
+      - name: Cleanup Containers
+        if: always()
+        run: |
+          docker compose down -v
