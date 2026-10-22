@@ -728,7 +728,7 @@ def test_ssrf_rejects_credentials_and_prevalidates_unsafe_redirects():
     redirect_response.status = 302
     redirect_response.headers = {"location": "http://169.254.169.254/latest/meta-data/"}
 
-    with patch("src.lead_research.scraper.Fetcher.get", return_value=redirect_response):
+    with patch.object(scraper, "_execute_pinned_get", return_value=redirect_response):
         result = scraper.fetch_url("http://example.com/test-redirect")
 
     assert result.status_code == 400
@@ -744,7 +744,7 @@ def test_ssrf_rejects_credentials_and_prevalidates_unsafe_redirects():
     loop_response2.status = 302
     loop_response2.headers = {"location": "http://example.com/hop1"}
 
-    with patch("src.lead_research.scraper.Fetcher.get", side_effect=[loop_response1, loop_response2, loop_response1]):
+    with patch.object(scraper, "_execute_pinned_get", side_effect=[loop_response1, loop_response2, loop_response1]):
         result = scraper.fetch_url("http://example.com/hop1")
 
     assert result.status_code == 400

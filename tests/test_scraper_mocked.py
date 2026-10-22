@@ -1,9 +1,35 @@
-"""Tests for Scrapling scraper using mocked HTML fixtures (no external requests)."""
+"""Tests for the Scrapling scraper with mocked DNS and transport (no external requests)."""
 
-from unittest.mock import MagicMock, patch
-import pytest
+from unittest.mock import patch
+from urllib.parse import urlparse
+
 from scrapling import Selector
-from src.lead_research.scraper import ScraplingScraper, ScrapeResult
+from src.lead_research import scraper as scraper_mod
+from src.lead_research.scraper import ScraplingScraper, is_safe_url
+
+real_resolve = scraper_mod.resolve_and_validate_destination
+
+
+def fake_resolve(url, resolve_dns=True):
+    """Treat hostnames as public (no DNS); IP literals and bad URLs still go through the real check."""
+    host = urlparse(url).hostname or ""
+    if not url.startswith(("http://", "https://")) or not host or host[0].isdigit() or ":" in host:
+        return real_resolve(url, resolve_dns=resolve_dns)
+    return True, "", host, 443, ["93.184.216.34"]
+
+
+def fetch(url, get):
+    """Run fetch_url with fake DNS and `get` standing in for the pinned transport."""
+    scraper = ScraplingScraper(use_browser=False, use_tor=False)
+    with patch.object(scraper_mod, "resolve_and_validate_destination", side_effect=fake_resolve):
+        with patch.object(scraper, "_execute_pinned_get", side_effect=get) as pinned:
+            return scraper.fetch_url(url), pinned
+
+
+class Redirect:
+    def __init__(self, location, status=302):
+        self.status = status
+        self.headers = {"Location": location}
 
 
 def test_clean_untrusted_text():
@@ -23,9 +49,7 @@ def test_linkedin_auth_wall_limitation():
     assert "authentication wall" in res.error.lower()
 
 
-@patch("src.lead_research.scraper.is_safe_url", return_value=(True, ""))
-@patch("src.lead_research.scraper.Fetcher.get")
-def test_mocked_scrapling_fetch_success(mock_get, mock_safe):
+def test_mocked_scrapling_fetch_success():
     sample_html = """
     <!DOCTYPE html>
     <html>
@@ -37,40 +61,65 @@ def test_mocked_scrapling_fetch_success(mock_get, mock_safe):
         <h1>Enterprise AI Platform</h1>
         <h2>API Protection & Audit Governance</h2>
         <p>We help Fortune 500 teams safeguard sensitive API tokens and guard against prompt injection.</p>
-        <a href="/about-us">About Us</a>
         <a href="/security">Security Center</a>
       </body>
     </html>
     """
-    mock_response = Selector(sample_html)
-    mock_get.return_value = mock_response
-
-    scraper = ScraplingScraper()
-    res = scraper.fetch_url("https://omniai.example.com")
+    res, pinned = fetch("https://omniai.example.com", lambda url, **kw: Selector(sample_html))
 
     assert res.success is True
     assert res.title == "OmniAI — Secure Enterprise LLM Gateway"
     assert "zero-trust API security" in res.meta_description
     assert "Enterprise AI Platform" in res.headings
-    assert any("/security" in sub for sub in res.sublinks)
+    assert "safeguard sensitive API tokens" in res.extracted_text
+    # The connection is pinned to the validated address.
+    assert pinned.call_args.kwargs["resolve_entries"] == ["omniai.example.com:443:93.184.216.34"]
 
 
-@patch("src.lead_research.scraper.is_safe_url", return_value=(True, ""))
-@patch("src.lead_research.scraper.Fetcher.get")
-def test_mocked_scrapling_fetch_retry_and_failure(mock_get, mock_safe):
-    mock_get.side_effect = ConnectionError("DNS resolution failed")
+def test_missing_page_returns_http_status():
+    class NotFound:
+        status = 404
 
-    scraper = ScraplingScraper(max_retries=1)
-    res = scraper.fetch_url("https://nonexistent-domain-404.example.com")
+    res, _ = fetch("https://example.com/missing", lambda url, **kw: NotFound())
+    assert res.success is False
+    assert res.status_code == 404
+    assert res.error == "HTTP 404"
 
+
+def test_malformed_or_empty_page_extracts_without_crashing():
+    res, _ = fetch("https://example.com/broken", lambda url, **kw: Selector("<html><head><title>Half<body><h1>Open"))
+    assert res.success is True
+    assert res.meta_description == ""
+
+    res, _ = fetch("https://example.com/empty", lambda url, **kw: Selector("<html></html>"))
+    assert res.success is True
+    assert (res.title, res.headings, res.extracted_text) == ("", [], "")
+
+
+def test_network_failure_is_reported_once_without_retry():
+    def boom(url, **kw):
+        raise ConnectionError("DNS resolution failed")
+
+    res, pinned = fetch("https://nonexistent-domain-404.example.com", boom)
     assert res.success is False
     assert res.status_code == 500
-    assert "Request failed after 2 attempts" in res.error
+    assert "Request failed" in res.error and "DNS resolution failed" in res.error
+    assert pinned.call_count == 1
+
+
+def test_no_browser_fallback_for_page_fetches():
+    scraper = ScraplingScraper(use_browser=True, use_tor=False, proxy=None)
+    with patch.object(scraper_mod, "resolve_and_validate_destination", side_effect=fake_resolve):
+        with patch.object(scraper, "_execute_pinned_get", side_effect=ConnectionError("down")):
+            with patch.object(scraper_mod, "StealthyFetcher", create=True) as browser:
+                res = scraper.fetch_url("https://example.com/test-path")
+    assert res.success is False
+    assert res.status_code == 500
+    browser.fetch.assert_not_called()
 
 
 def test_ssrf_blocks_multi_ip_when_any_ip_is_private():
     import socket
-    from src.lead_research.scraper import is_safe_url
 
     mock_addrinfo = [
         (socket.AF_INET, socket.SOCK_STREAM, 6, "", ("93.184.216.34", 80)),
@@ -82,16 +131,7 @@ def test_ssrf_blocks_multi_ip_when_any_ip_is_private():
         assert "private/reserved IP" in reason or "10.0.0.1" in reason
 
 
-def test_browser_fallback_disabled_without_proxy_for_arbitrary_urls():
-    scraper = ScraplingScraper(use_browser=True, use_tor=False, proxy=None)
-    with patch("src.lead_research.scraper.Fetcher.get", return_value=None):
-        res = scraper.fetch_url("https://example.com/test-path")
-        assert res.success is False
-        assert res.status_code in (500, 504)
-
-
 def test_ssrf_rejects_non_http_schemes():
-    from src.lead_research.scraper import is_safe_url
     schemes = [
         "file:///etc/passwd",
         "file:///c:/boot.ini",
@@ -107,59 +147,28 @@ def test_ssrf_rejects_non_http_schemes():
 
 
 def test_ssrf_redirect_loop_detected():
-    scraper = ScraplingScraper()
-
-    class Mock302Response:
-        status = 302
-        headers = {"Location": "https://example.com/page-a"}
-
-    mock_resp = Mock302Response()
-
-    with patch("src.lead_research.scraper.is_safe_url", return_value=(True, "")):
-        with patch("src.lead_research.scraper.Fetcher.get", return_value=mock_resp):
-            res = scraper.fetch_url("https://example.com/page-a")
-            assert res.success is False
-            assert res.status_code == 400
-            assert "redirect loop detected" in res.error.lower()
+    res, _ = fetch("https://example.com/page-a", lambda url, **kw: Redirect("https://example.com/page-a"))
+    assert res.success is False
+    assert res.status_code == 400
+    assert "redirect loop detected" in res.error.lower()
 
 
 def test_ssrf_excessive_redirects_rejected():
-    scraper = ScraplingScraper()
-
-    # Step generator returning new valid URLs for 6 hops
-    step_count = [0]
-    def mock_get(url, **kwargs):
-        step_count[0] += 1
-        class StepResp:
-            status = 302
-            headers = {"Location": f"https://example.com/hop-{step_count[0]}"}
-        return StepResp()
-
-    with patch("src.lead_research.scraper.is_safe_url", return_value=(True, "")):
-        with patch("src.lead_research.scraper.Fetcher.get", side_effect=mock_get):
-            res = scraper.fetch_url("https://example.com/hop-0")
-            assert res.success is False
-            assert res.status_code == 400
-            assert "too many redirects" in res.error.lower()
+    hops = iter(range(1, 100))
+    res, pinned = fetch("https://example.com/hop-0", lambda url, **kw: Redirect(f"https://example.com/hop-{next(hops)}"))
+    assert res.success is False
+    assert res.status_code == 400
+    assert "too many redirects" in res.error.lower()
+    assert pinned.call_count == scraper_mod.MAX_REDIRECTS + 1
 
 
 def test_ssrf_unsafe_redirect_destination_blocked_before_fetch():
-    scraper = ScraplingScraper()
-
-    class RedirectToInternalResp:
-        status = 301
-        headers = {"Location": "http://169.254.169.254/latest/meta-data/"}
-
-    with patch("src.lead_research.scraper.is_safe_url") as mock_safe:
-        # First request safe, redirect destination unsafe
-        def safe_side_effect(url, **kwargs):
-            if "169.254" in url:
-                return False, "SSRF Protection: Access to private/reserved IP 169.254.169.254 is blocked."
-            return True, ""
-
-        mock_safe.side_effect = safe_side_effect
-        with patch("src.lead_research.scraper.Fetcher.get", return_value=RedirectToInternalResp()):
-            res = scraper.fetch_url("https://innocent-looking-site.com/redirect")
-            assert res.success is False
-            assert res.status_code == 400
-            assert "redirect destination blocked" in res.error.lower()
+    res, pinned = fetch(
+        "https://innocent-looking-site.com/redirect",
+        lambda url, **kw: Redirect("http://169.254.169.254/latest/meta-data/", status=301),
+    )
+    assert res.success is False
+    assert res.status_code == 400
+    assert "redirect destination blocked" in res.error.lower()
+    # The metadata address was never requested.
+    assert [c.args[0] for c in pinned.call_args_list] == ["https://innocent-looking-site.com/redirect"]
