@@ -641,3 +641,16 @@ def test_workflow_passes_both_compose_files_to_every_compose_call():
     assert len(calls) >= 10  # config, build, up, ps, logs, down
     for call in calls:
         assert call.startswith(f"docker compose -f docker-compose.yml -f {smoke.SMOKE_OVERRIDE} "), call
+
+
+def test_workflow_waits_for_tor_bootstrap_before_routing_and_keeps_diagnostics():
+    workflow = yaml.safe_load((ROOT / ".github" / "workflows" / "tor-runtime-smoke.yml").read_text())
+    steps = workflow["jobs"]["tor-smoke-test"]["steps"]
+    names = [step["name"] for step in steps]
+    wait = names.index("Wait for Tor Bootstrap")
+    routing = names.index("Container-Context Tor Exit Routing Verification")
+    assert wait < routing
+    assert "Bootstrapped 100%" in steps[wait]["run"] and "/var/log/tor/notices.log" in steps[wait]["run"]
+    assert "curl -sS" in steps[routing]["run"] and "torcheck.err" in steps[routing]["run"]
+    logs = next(step["run"] for step in steps if step["name"] == "Collect Container Logs")
+    assert "/var/log/tor/notices.log" in logs

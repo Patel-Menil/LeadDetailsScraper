@@ -115,6 +115,7 @@ jobs:
             echo "FAIL: /var/lib/tor must be tmpfs with no volume mounts"; exit 1
           fi
           echo "PASS: Tor DataDirectory is tmpfs; no volume created."
+          echo "TOR_CONTAINER=$CONTAINER_ID" >> "$GITHUB_ENV"
 
       - name: Wait for Application Container Healthy Status
         run: |
@@ -158,24 +159,48 @@ jobs:
           fi
           echo "PASS: SOCKS5 handshake (VER=5, METHOD=0) from application container."
 
+      - name: Wait for Tor Bootstrap
+        run: |
+          # The health check only proves the SOCKS listener is up; Tor can only build
+          # circuits after bootstrapping. This image logs progress to notices.log, not stdout.
+          LAST=""
+          for i in $(seq 1 60); do
+            if docker exec "$TOR_CONTAINER" grep -q "Bootstrapped 100%" /var/log/tor/notices.log 2>/dev/null; then
+              echo "$(docker exec "$TOR_CONTAINER" grep "Bootstrapped 100%" /var/log/tor/notices.log | tail -n 1)"
+              echo "PASS: Tor bootstrapped (~$((i * 5))s after the wait started)."
+              exit 0
+            fi
+            NOW=$(docker exec "$TOR_CONTAINER" grep "Bootstrapped" /var/log/tor/notices.log 2>/dev/null | tail -n 1 || true)
+            if [ "$NOW" != "$LAST" ]; then
+              echo "  [$((i * 5))s] ${NOW:-no bootstrap progress logged yet}"
+              LAST=$NOW
+            fi
+            sleep 5
+          done
+          echo "FAIL: Tor did not reach 'Bootstrapped 100%' within 300s."
+          docker exec "$TOR_CONTAINER" tail -n 40 /var/log/tor/notices.log || true
+          exit 1
+
       - name: Container-Context Tor Exit Routing Verification
         run: |
           # 1. Direct curl through the Tor SOCKS proxy from inside the app container.
           OK=0
           for attempt in 1 2 3; do
-            if docker exec "$APP_CONTAINER" curl -s --max-time 30 --socks5-hostname tor:9050 \
-                 https://check.torproject.org/api/ip > "$RESULTS_DIR/torcheck.json"; then
+            if docker exec "$APP_CONTAINER" curl -sS --max-time 30 --socks5-hostname tor:9050 \
+                 https://check.torproject.org/api/ip > "$RESULTS_DIR/torcheck.json" 2> "$RESULTS_DIR/torcheck.err"; then
               echo "Attempt $attempt response: $(cat "$RESULTS_DIR/torcheck.json")"
               if python -c 'import json,sys; d=json.load(open(sys.argv[1])); sys.exit(0 if isinstance(d, dict) and d.get("IsTor") is True else 1)' "$RESULTS_DIR/torcheck.json"; then
                 OK=1; break
               fi
             else
-              echo "Attempt $attempt: curl through Tor failed"
+              echo "Attempt $attempt: curl through Tor failed: $(cat "$RESULTS_DIR/torcheck.err")"
             fi
             sleep 10
           done
           if [ "$OK" != "1" ]; then
             echo "FAIL: IsTor=true was not observed from the application container"
+            echo "--- Tor notices.log (last 20 lines) ---"
+            docker exec "$TOR_CONTAINER" tail -n 20 /var/log/tor/notices.log || true
             exit 1
           fi
           echo "PASS: curl from application container exits through Tor (IsTor: true)."
@@ -239,6 +264,10 @@ jobs:
         run: |
           echo "=== Tor Container Logs ==="
           docker compose -f docker-compose.yml -f docker-compose.smoke.yml logs tor --tail=50 || true
+          echo ""
+          echo "=== Tor notices.log (bootstrap and circuit status) ==="
+          TOR_ID=$(docker compose -f docker-compose.yml -f docker-compose.smoke.yml ps -q tor || true)
+          [ -n "$TOR_ID" ] && docker exec "$TOR_ID" tail -n 60 /var/log/tor/notices.log || true
           echo ""
           echo "=== Application Container Logs ==="
           docker compose -f docker-compose.yml -f docker-compose.smoke.yml logs sealapi-lead-research --tail=50 || true
