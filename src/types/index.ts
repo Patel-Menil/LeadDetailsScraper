@@ -268,3 +268,207 @@ export interface TorStatus {
   executable_path: string | null;
   details?: string;
 }
+
+// ---- Company intelligence (Company Details tab) ----
+
+export type ReviewStatus = "unreviewed" | "verified" | "rejected" | "needs_review";
+
+export interface CompanyFinding {
+  finding_id: string;
+  product_id: string | null;
+  category: string;
+  label: string;
+  title: string;
+  evidence: string;
+  source_id: string;
+  source_url: string;
+  source_domain: string;
+  publication_date: string | null;
+  accessed_at: string;
+  confidence: number;
+  verification_status: ReviewStatus;
+  review_note: string;
+  stale: boolean;
+}
+
+export interface ArchitectureComponent {
+  id: string;
+  name: string;
+  responsibility: string;
+  documented: boolean;
+  evidence_ids: string[];
+  source_urls: string[];
+  confidence: number;
+  known_controls: string[];
+  unknowns: string[];
+  sealapi_relevance: string;
+}
+
+export interface ArchitectureFlow {
+  from: string;
+  to: string;
+  data: string;
+  documented: boolean;
+  crosses_trust_boundary: boolean;
+}
+
+export interface ProductFit {
+  classification: "strong" | "validation_required" | "weak" | "insufficient_evidence" | "not_suitable";
+  label: string;
+  role: string;
+  reasoning: string;
+  supporting_finding_ids: string[];
+  existing_controls_compared: string[];
+  compatibility_concerns: string[];
+  scope_note: string;
+}
+
+export interface CompanyProduct {
+  product_id: string;
+  name: string;
+  url: string;
+  inferred: boolean;
+  description: string;
+  features: string[];
+  category?: string;
+  rank?: number;
+  api_details?: string[];
+  ai_details?: string[];
+  integration_details?: string[];
+  architecture?: {
+    status: "documented" | "partial" | "insufficient";
+    components: ArchitectureComponent[];
+    flows: ArchitectureFlow[];
+    trust_boundaries: ArchitectureFlow[];
+    unknowns: string[];
+    limitation: string;
+  };
+  fit?: ProductFit;
+  score?: {
+    total: number;
+    factors: { factor: string; value: number; weight: number; points: number; explanation: string }[];
+    uncertainty_penalty: number;
+    note: string;
+  };
+}
+
+export interface CompanyGap {
+  gap_id: string;
+  kind: string;
+  product_id: string;
+  product_name: string;
+  feature: string;
+  title: string;
+  technical_context: string;
+  evidence_ids: string[];
+  exposure_scenario: string;
+  possible_consequence: string;
+  existing_controls: { control: string; finding_id: string; source_url: string }[];
+  unverified_controls: string[];
+  confidence: number;
+  information_needed: string[];
+  discovery_question: string;
+  capability_ids: string[];
+  classification: "potential_risk";
+  verified_vulnerability: false;
+}
+
+export interface CompanyOpportunity {
+  opportunity_id: string;
+  product_id: string;
+  product_name: string;
+  gap_id: string;
+  feature: string;
+  trust_boundary: string;
+  security_requirement: string;
+  problem_hypothesis: string;
+  why_it_matters: string;
+  proposed_contribution: string;
+  integration_point: string;
+  expected_benefit: string;
+  dependencies: string[];
+  compatibility: { status: "compatible_pending_validation" | "requires_validation" | "not_supported"; detail: string };
+  complexity: { estimate: string; assumptions: string };
+  operational_tradeoffs: string;
+  capability_ids: string[];
+  supporting_finding_ids: string[];
+  confidence: number;
+  discovery_question: string;
+}
+
+export interface CompanyPage {
+  source_id: string;
+  url: string;
+  source_domain: string;
+  title: string;
+  status_code: number;
+  success: boolean;
+  error: string;
+  published_at: string;
+  accessed_at: string;
+  category: string;
+}
+
+export interface CompanyRecord {
+  company_id: string;
+  canonical_name: string;
+  normalized_domain: string;
+  domain_source: string;
+  official_website: string;
+  input_context: { industry: string; headquarters: string; employee_range: string };
+  research_status: string;
+  research_warnings: string[];
+  errors: string[];
+  last_researched_at: string | null;
+  identity_corroborated: boolean | null;
+  corroboration_note: string;
+  overview: {
+    official_name?: string;
+    logo_url?: string;
+    description?: string;
+    homepage_title?: string;
+    business_model?: string[];
+    customer_segments?: string;
+    pages_fetched?: number;
+  };
+  pages: CompanyPage[];
+  findings: CompanyFinding[];
+  products: CompanyProduct[];
+  gaps: CompanyGap[];
+  opportunities: CompanyOpportunity[];
+  company_fit: ProductFit | null;
+  discovery_questions: string[];
+  limitations: string[];
+  lead_refs: { lead_id: string; batch_id: string; name: string; job_title: string }[];
+  progress: { stage: string; pages_done: number; pages_planned: number };
+}
+
+export interface CompanyView {
+  company_id: string;
+  job_running: boolean;
+  research_status: string;
+  company: CompanyRecord;
+  role_questions: string[];
+}
+
+export interface OutreachVariant {
+  variant_id: string;
+  label: string;
+  subject: string;
+  body: string;
+  word_count: number;
+  supporting_finding_ids: string[];
+  observation_source_url: string | null;
+  requires_review: boolean;
+  guardrail_violations: string[];
+}
+
+export interface CompanyOutreach {
+  generated_at: string;
+  fit_classification: string;
+  capabilities_referenced: string[];
+  discovery_questions: string[];
+  note: string;
+  variants: OutreachVariant[];
+  auto_send: false;
+}

@@ -12,6 +12,8 @@ import {
   ExternalLink,
   Users,
   CheckCircle2,
+  Building,
+  Search,
 } from "lucide-react";
 import { api } from "@/lib/api";
 import { BatchSummary, PrioritizedLead } from "@/types";
@@ -25,6 +27,23 @@ export default function ExportCenterPage() {
   const [selectedBatchId, setSelectedBatchId] = useState<string>("");
   const [leads, setLeads] = useState<PrioritizedLead[]>([]);
   const [loading, setLoading] = useState(true);
+  const [companyJobBusy, setCompanyJobBusy] = useState(false);
+  const [companyJobMessage, setCompanyJobMessage] = useState<string | null>(null);
+
+  const startCompanyResearch = async () => {
+    if (!selectedBatchId || companyJobBusy) return;
+    setCompanyJobBusy(true);
+    try {
+      const job = await api.startBatchCompanyResearch(selectedBatchId);
+      setCompanyJobMessage(
+        `Researching ${job.queued} of ${job.total_companies} companies in the background (${job.skipped_fresh_or_no_domain} skipped: fresh or no domain).`
+      );
+    } catch (err: any) {
+      setCompanyJobMessage(err?.message || "Could not start company research.");
+    } finally {
+      setCompanyJobBusy(false);
+    }
+  };
 
   useEffect(() => {
     const loadBatches = async () => {
@@ -311,6 +330,50 @@ export default function ExportCenterPage() {
                   <span>Errors CSV</span>
                 </Button>
               </a>
+            </CardContent>
+          </Card>
+
+          {/* Company Intelligence */}
+          <Card hoverEffect className="border-purple-500/30">
+            <CardContent className="p-5 flex items-start justify-between">
+              <div className="space-y-2 pr-4">
+                <div className="flex items-center gap-2">
+                  <Building className="w-5 h-5 text-purple-400" />
+                  <span className="font-semibold text-white text-sm">Company Intelligence</span>
+                </div>
+                <p className="text-xs text-slate-400 leading-relaxed">
+                  Companies behind this batch&apos;s leads: products, evidence, potential gaps, SealAPI use cases and fit.
+                </p>
+                <div className="text-[11px] font-mono text-slate-500">
+                  Filenames: company_intelligence.csv / .json
+                </div>
+                {companyJobMessage && <div className="text-[11px] text-purple-300">{companyJobMessage}</div>}
+              </div>
+
+              <div className="flex flex-col gap-2 shrink-0">
+                <Button
+                  size="sm"
+                  variant="secondary"
+                  disabled={companyJobBusy}
+                  onClick={startCompanyResearch}
+                  className="gap-1.5 text-xs"
+                >
+                  <Search className="w-3.5 h-3.5" />
+                  <span>Research companies</span>
+                </Button>
+                <a href={api.getCompanyIntelligenceCsvUrl(selectedBatchId)} download>
+                  <Button size="sm" variant="outline" className="gap-1.5 text-xs w-full">
+                    <Download className="w-3.5 h-3.5" />
+                    <span>CSV</span>
+                  </Button>
+                </a>
+                <a href={api.getCompanyIntelligenceJsonUrl(selectedBatchId)} download>
+                  <Button size="sm" variant="outline" className="gap-1.5 text-xs w-full">
+                    <Download className="w-3.5 h-3.5" />
+                    <span>JSON</span>
+                  </Button>
+                </a>
+              </div>
             </CardContent>
           </Card>
         </div>

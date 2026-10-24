@@ -19,7 +19,24 @@ from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, Streamin
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
+from .company_intel import (
+    REVIEW_STATUSES,
+    CompanyResearcher,
+    CompanyStore,
+    ResearchJobs,
+    add_lead_ref,
+    analyze_company,
+    company_identity_from_profile,
+    export_csv as export_company_csv,
+    export_json as export_company_json,
+    generate_outreach,
+    is_fresh,
+    new_company_record,
+    normalize_domain,
+    role_questions,
+)
 from .exporter import LeadExporter, sanitize_filename
+from .sealapi_capabilities import capability_summary
 from .fingerprint import create_batch_id
 from .importer import LeadImporter
 from .pipeline import ResearchPipeline
@@ -951,11 +968,290 @@ def download_batch_zip(batch_id: str):
 
             zip_file.write(file_path, arcname=str(rel_path))
 
+        company_records = _batch_company_records(batch_id)
+        if company_records:
+            zip_file.writestr("company_intelligence.csv", export_company_csv(company_records))
+            zip_file.writestr("company_intelligence.json", json.dumps(export_company_json(company_records, batch_id), indent=2))
+
     zip_buffer.seek(0)
     return StreamingResponse(
         zip_buffer,
         media_type="application/zip",
         headers={"Content-Disposition": f"attachment; filename={batch_id}_export.zip"},
+    )
+
+
+# ---------------------------------------------------------------------------------------------
+# Company intelligence (company/product research, SealAPI fit, company-informed outreach)
+# ---------------------------------------------------------------------------------------------
+
+COMPANIES_DIR = OUTPUT_DIR / "companies"
+company_store = CompanyStore(COMPANIES_DIR)
+company_jobs = ResearchJobs()
+batch_company_jobs: Dict[str, Dict[str, Any]] = {}
+# Bounds simultaneous company research across lead-level and batch-level jobs.
+company_research_slots = threading.BoundedSemaphore(max(1, int(os.getenv("COMPANY_RESEARCH_CONCURRENCY", "2"))))
+
+
+def _run_company_research(cid: str, fallback: Dict[str, Any], refresh: bool) -> None:
+    """Worker body for a job already registered in company_jobs; always releases the registration."""
+    try:
+        with company_research_slots:
+            CompanyResearcher(company_store).research(company_store.load(cid) or fallback, refresh=refresh)
+    except Exception as exc:
+        logger.error(f"Company research job failed for {cid}: {exc}", exc_info=True)
+    finally:
+        company_jobs.finish(cid)
+
+
+class CompanyResearchRequest(BaseModel):
+    refresh: bool = False
+
+
+class CompanyDomainRequest(BaseModel):
+    domain: str
+
+
+class FindingReviewRequest(BaseModel):
+    status: str
+    note: str = ""
+
+
+def _load_company(company_id: str) -> Dict[str, Any]:
+    try:
+        record = company_store.load(company_id)
+    except ValueError:
+        raise HTTPException(status_code=400, detail="Invalid company id")
+    if record is None:
+        raise HTTPException(status_code=404, detail="Company not found")
+    # A job that died with the process must not stay "researching" forever.
+    if record.get("research_status") in ("pending", "researching") and not company_jobs.is_running(company_id):
+        record["research_status"] = "failed"
+        record.setdefault("errors", []).append("Research was interrupted; retry to resume from cached pages.")
+        company_store.save(record)
+    return record
+
+
+def _company_for_profile(batch_id: str, profile: Dict[str, Any], persist: bool) -> Dict[str, Any]:
+    """Find (or build) the company record for a lead; persist links the lead to it."""
+    cid = company_store.lead_company_id(profile["lead_id"])
+    record = company_store.load(cid) if cid else None
+    if record is None:
+        ident = company_identity_from_profile(profile)
+        record = company_store.load(ident["company_id"]) or new_company_record(ident, profile)
+    if not persist:
+        return record
+    if not company_jobs.is_running(record["company_id"]):
+        add_lead_ref(record, batch_id, profile)
+        company_store.save(record)
+    company_store.index_leads([profile["lead_id"]], record["company_id"])
+    return record
+
+
+def _start_company_job(record: Dict[str, Any], refresh: bool) -> bool:
+    cid = record["company_id"]
+    if not company_jobs.try_start(cid):
+        return False
+    record["research_status"] = "pending"
+    company_store.save(record)
+    threading.Thread(target=_run_company_research, args=(cid, record, refresh), daemon=True).start()
+    return True
+
+
+def _company_view(record: Dict[str, Any], job_title: str = "") -> Dict[str, Any]:
+    exists = company_store.load(record["company_id"]) is not None
+    status = record.get("research_status") if exists else ("not_researched" if record.get("normalized_domain") else "needs_review")
+    return {
+        "company_id": record["company_id"],
+        "job_running": company_jobs.is_running(record["company_id"]),
+        "research_status": status,
+        "company": record,
+        "role_questions": role_questions(record, job_title),
+    }
+
+
+def _batch_profiles(batch_id: str) -> List[Dict[str, Any]]:
+    profiles_dir = resolve_batch_dir(batch_id) / "profiles"
+    out = []
+    for pf in sorted(profiles_dir.glob("*.json")) if profiles_dir.exists() else []:
+        try:
+            with open(pf, "r", encoding="utf-8") as f:
+                out.append(json.load(f))
+        except (OSError, json.JSONDecodeError):
+            continue
+    return out
+
+
+def _batch_company_records(batch_id: str) -> List[Dict[str, Any]]:
+    ids = {company_store.lead_company_id(p.get("lead_id", "")) for p in _batch_profiles(batch_id)}
+    return [r for cid in sorted(i for i in ids if i) if (r := company_store.load(cid))]
+
+
+@app.get("/api/sealapi/capabilities", dependencies=[Depends(verify_api_key)])
+def get_sealapi_capabilities():
+    """Verified BAVRIX / SealAPI capability registry used for value mapping."""
+    return {"capabilities": capability_summary()}
+
+
+@app.get("/api/leads/{lead_id}/company", dependencies=[Depends(verify_api_key)])
+def get_lead_company(lead_id: str, batch_id: Optional[str] = None):
+    """Company intelligence for the company associated with a lead (not_researched if none yet)."""
+    data = get_lead_profile_direct(lead_id=lead_id, batch_id=batch_id)
+    record = _company_for_profile(data["batch_id"], data["profile"], persist=False)
+    if company_store.load(record["company_id"]):
+        record = _load_company(record["company_id"])
+    return _company_view(record, (data["profile"].get("identity") or {}).get("job_title", ""))
+
+
+@app.post("/api/leads/{lead_id}/company/research", dependencies=[Depends(verify_api_key)])
+def start_lead_company_research(lead_id: str, req: CompanyResearchRequest, batch_id: Optional[str] = None):
+    """Start (or refresh/retry) research of the lead's company. 409 if a job is already running."""
+    data = get_lead_profile_direct(lead_id=lead_id, batch_id=batch_id)
+    record = _company_for_profile(data["batch_id"], data["profile"], persist=True)
+    return start_company_research(record["company_id"], req)
+
+
+@app.get("/api/leads/{lead_id}/company/outreach", dependencies=[Depends(verify_api_key)])
+def get_lead_company_outreach(lead_id: str, batch_id: Optional[str] = None):
+    """Company-informed outreach drafts for a lead. Drafts are never sent."""
+    data = get_lead_profile_direct(lead_id=lead_id, batch_id=batch_id)
+    record = _company_for_profile(data["batch_id"], data["profile"], persist=False)
+    return generate_outreach(record, data["profile"].get("identity") or {})
+
+
+@app.get("/api/companies/{company_id}", dependencies=[Depends(verify_api_key)])
+def get_company(company_id: str):
+    return _company_view(_load_company(company_id))
+
+
+@app.post("/api/companies/{company_id}/research", dependencies=[Depends(verify_api_key)])
+def start_company_research(company_id: str, req: CompanyResearchRequest):
+    record = _load_company(company_id)
+    if company_jobs.is_running(company_id):
+        raise HTTPException(status_code=409, detail="Research for this company is already running.")
+    if not record.get("normalized_domain"):
+        raise HTTPException(status_code=422, detail="Set the company's official domain before starting research.")
+    if not req.refresh and is_fresh(record):
+        return {"started": False, "cached": True, "company_id": company_id, "research_status": record["research_status"]}
+    if not _start_company_job(record, refresh=req.refresh):
+        raise HTTPException(status_code=409, detail="Research for this company is already running.")
+    return {"started": True, "cached": False, "company_id": company_id, "research_status": "pending"}
+
+
+@app.put("/api/companies/{company_id}/domain", dependencies=[Depends(verify_api_key)])
+def set_company_domain(company_id: str, req: CompanyDomainRequest):
+    """Manual correction of a company's official domain; resets research to pending."""
+    record = _load_company(company_id)
+    if company_jobs.is_running(company_id):
+        raise HTTPException(status_code=409, detail="Research is running; try again when it finishes.")
+    domain = normalize_domain(req.domain)
+    if not domain:
+        raise HTTPException(status_code=422, detail="Enter a valid public domain such as example.com.")
+    record.update(normalized_domain=domain, domain_source="manual", official_website=f"https://{domain}",
+                  research_status="not_researched", research_warnings=[], errors=[], last_researched_at=None)
+    company_store.save(record)
+    return _company_view(record)
+
+
+@app.post("/api/companies/{company_id}/findings/{finding_id}", dependencies=[Depends(verify_api_key)])
+def review_company_finding(company_id: str, finding_id: str, req: FindingReviewRequest):
+    """Mark a finding verified, rejected or needing review; analysis is rebuilt (rejected findings are excluded)."""
+    if req.status not in REVIEW_STATUSES:
+        raise HTTPException(status_code=422, detail=f"status must be one of {', '.join(REVIEW_STATUSES)}")
+    record = _load_company(company_id)
+    if company_jobs.is_running(company_id):
+        raise HTTPException(status_code=409, detail="Research is running; try again when it finishes.")
+    finding = next((f for f in record.get("findings", []) if f["finding_id"] == finding_id), None)
+    if finding is None:
+        raise HTTPException(status_code=404, detail="Finding not found")
+    finding.update(verification_status=req.status, review_note=req.note[:500], reviewed_at=datetime.now(timezone.utc).isoformat())
+    analyze_company(record)
+    company_store.save(record)
+    return _company_view(record)
+
+
+@app.post("/api/companies/{company_id}/analyze", dependencies=[Depends(verify_api_key)])
+def regenerate_company_analysis(company_id: str):
+    """Rebuild product opportunity analysis from stored findings without re-fetching pages."""
+    record = _load_company(company_id)
+    if company_jobs.is_running(company_id):
+        raise HTTPException(status_code=409, detail="Research is running; try again when it finishes.")
+    analyze_company(record)
+    company_store.save(record)
+    return _company_view(record)
+
+
+@app.post("/api/batches/{batch_id}/companies/research", dependencies=[Depends(verify_api_key)])
+def start_batch_company_research(batch_id: str, req: CompanyResearchRequest):
+    """Research every distinct company behind a batch's leads (deduplicated by domain)."""
+    validate_batch_id(batch_id)
+    if batch_company_jobs.get(batch_id, {}).get("status") == "running":
+        raise HTTPException(status_code=409, detail="Company research for this batch is already running.")
+    profiles = _batch_profiles(batch_id)
+    if not profiles:
+        raise HTTPException(status_code=404, detail="No lead profiles found for this batch")
+    records = {r["company_id"]: r for r in (_company_for_profile(batch_id, p, persist=True) for p in profiles)}
+    todo = []
+    for r in records.values():
+        # Registering at enqueue time marks queued companies busy and skips ones already running.
+        if r.get("normalized_domain") and (req.refresh or not is_fresh(r)) and company_jobs.try_start(r["company_id"]):
+            r["research_status"] = "pending"
+            company_store.save(r)
+            todo.append(r)
+    job = {"status": "running", "total_companies": len(records), "queued": len(todo), "done": 0,
+           "skipped_fresh_running_or_no_domain": len(records) - len(todo), "started_at": datetime.now(timezone.utc).isoformat()}
+    batch_company_jobs[batch_id] = job
+
+    def work():
+        # company_research_slots bounds parallelism; one waiting thread per queued company
+        threads = [threading.Thread(target=_run_company_research, args=(r["company_id"], r, req.refresh), daemon=True)
+                   for r in todo]
+        for t in threads:
+            t.start()
+        for t in threads:
+            t.join()
+            job["done"] += 1
+        job.update(status="completed", finished_at=datetime.now(timezone.utc).isoformat())
+
+    threading.Thread(target=work, daemon=True).start()
+    return {"batch_id": batch_id, **job}
+
+
+@app.get("/api/batches/{batch_id}/companies", dependencies=[Depends(verify_api_key)])
+def list_batch_companies(batch_id: str):
+    validate_batch_id(batch_id)
+    records = _batch_company_records(batch_id)
+    return {
+        "batch_id": batch_id,
+        "job": batch_company_jobs.get(batch_id),
+        "companies": [{
+            "company_id": r["company_id"],
+            "name": r.get("canonical_name"),
+            "domain": r.get("normalized_domain"),
+            "research_status": r.get("research_status"),
+            "last_researched_at": r.get("last_researched_at"),
+            "fit": (r.get("company_fit") or {}).get("label"),
+            "lead_ids": [x["lead_id"] for x in r.get("lead_refs", [])],
+        } for r in records],
+    }
+
+
+@app.get("/api/batches/{batch_id}/exports/company_intelligence.csv", dependencies=[Depends(verify_api_key)])
+def download_company_intelligence_csv(batch_id: str):
+    validate_batch_id(batch_id)
+    return StreamingResponse(
+        io.StringIO(export_company_csv(_batch_company_records(batch_id))),
+        media_type="text/csv",
+        headers={"Content-Disposition": f"attachment; filename={batch_id}_company_intelligence.csv"},
+    )
+
+
+@app.get("/api/batches/{batch_id}/exports/company_intelligence.json", dependencies=[Depends(verify_api_key)])
+def download_company_intelligence_json(batch_id: str):
+    validate_batch_id(batch_id)
+    return JSONResponse(
+        export_company_json(_batch_company_records(batch_id), batch_id),
+        headers={"Content-Disposition": f"attachment; filename={batch_id}_company_intelligence.json"},
     )
 
 

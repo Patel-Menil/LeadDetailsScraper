@@ -32,6 +32,16 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/com
 import { Button } from "@/components/ui/Button";
 import { PriorityBadge, StatusBadge, ReadinessBadge, Badge } from "@/components/ui/Badge";
 import { formatDateTime } from "@/lib/utils";
+import { LEAD_PROFILE_TABS } from "@/lib/companyIntel.mjs";
+import { CompanyDetails, CompanyOutreachCard } from "@/components/CompanyDetails";
+
+type TabId = "overview" | "icebreaker" | "company" | "claims" | "evidence" | "json";
+
+const TAB_ICONS: Record<string, React.ReactNode> = {
+  icebreaker: <Sparkles className="w-3.5 h-3.5 text-purple-400" />,
+  company: <Building className="w-3.5 h-3.5 text-sky-400" />,
+  claims: <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />,
+};
 
 function LeadProfileContent() {
   const params = useParams();
@@ -49,7 +59,7 @@ function LeadProfileContent() {
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<"overview" | "icebreaker" | "claims" | "evidence" | "json">("overview");
+  const [activeTab, setActiveTab] = useState<TabId>("overview");
   const [copiedJson, setCopiedJson] = useState(false);
   const [copiedDraft, setCopiedDraft] = useState(false);
 
@@ -290,59 +300,26 @@ function LeadProfileContent() {
       </Card>
 
       {/* Tabs Navigation */}
-      <div className="flex border-b border-[#1c2438] gap-6 text-sm font-medium overflow-x-auto">
-        <button
-          onClick={() => setActiveTab("overview")}
-          className={`pb-3 transition-colors relative whitespace-nowrap ${
-            activeTab === "overview"
-              ? "text-blue-400 border-b-2 border-blue-400 font-semibold"
-              : "text-slate-400 hover:text-slate-200"
-          }`}
-        >
-          Overview & Relevance
-        </button>
-        <button
-          onClick={() => setActiveTab("icebreaker")}
-          className={`pb-3 transition-colors relative whitespace-nowrap flex items-center gap-1.5 ${
-            activeTab === "icebreaker"
-              ? "text-blue-400 border-b-2 border-blue-400 font-semibold"
-              : "text-slate-400 hover:text-slate-200"
-          }`}
-        >
-          <Sparkles className="w-3.5 h-3.5 text-purple-400" />
-          <span>Icebreaker & Outreach</span>
-        </button>
-        <button
-          onClick={() => setActiveTab("claims")}
-          className={`pb-3 transition-colors relative whitespace-nowrap flex items-center gap-1.5 ${
-            activeTab === "claims"
-              ? "text-blue-400 border-b-2 border-blue-400 font-semibold"
-              : "text-slate-400 hover:text-slate-200"
-          }`}
-        >
-          <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-          <span>Verified Claims ({claims.length})</span>
-        </button>
-        <button
-          onClick={() => setActiveTab("evidence")}
-          className={`pb-3 transition-colors relative whitespace-nowrap ${
-            activeTab === "evidence"
-              ? "text-blue-400 border-b-2 border-blue-400 font-semibold"
-              : "text-slate-400 hover:text-slate-200"
-          }`}
-        >
-          Source Evidence ({sources.length})
-        </button>
-        <button
-          onClick={() => setActiveTab("json")}
-          className={`pb-3 transition-colors relative whitespace-nowrap ${
-            activeTab === "json"
-              ? "text-blue-400 border-b-2 border-blue-400 font-semibold"
-              : "text-slate-400 hover:text-slate-200"
-          }`}
-        >
-          Raw JSON Profile
-        </button>
+      <div className="flex border-b border-[#1c2438] gap-6 text-sm font-medium overflow-x-auto" role="tablist">
+        {LEAD_PROFILE_TABS.map((tab) => (
+          <button
+            key={tab.id}
+            role="tab"
+            aria-selected={activeTab === tab.id}
+            onClick={() => setActiveTab(tab.id as TabId)}
+            className={`pb-3 transition-colors relative whitespace-nowrap flex items-center gap-1.5 ${
+              activeTab === tab.id
+                ? "text-blue-400 border-b-2 border-blue-400 font-semibold"
+                : "text-slate-400 hover:text-slate-200"
+            }`}
+          >
+            {TAB_ICONS[tab.id]}
+            <span>
+              {tab.label}
+              {tab.id === "claims" ? ` (${claims.length})` : tab.id === "evidence" ? ` (${sources.length})` : ""}
+            </span>
+          </button>
+        ))}
       </div>
 
       {/* Tab 1: Overview & SealAPI Relevance */}
@@ -608,6 +585,9 @@ function LeadProfileContent() {
             </CardContent>
           </Card>
 
+          {/* Company-informed drafts (Company Details research) */}
+          <CompanyOutreachCard leadId={leadId} batchId={batchId || profileData.batch_id} />
+
           {/* Claims to Avoid Guardrails */}
           {emailContext.claims_to_avoid?.length > 0 && (
             <Card>
@@ -630,6 +610,11 @@ function LeadProfileContent() {
             </Card>
           )}
         </div>
+      )}
+
+      {/* Company Details: company, products, potential gaps and SealAPI fit */}
+      {activeTab === "company" && (
+        <CompanyDetails leadId={leadId} batchId={batchId || profileData.batch_id} jobTitle={identity.job_title} />
       )}
 
       {/* Tab 3: Verified Claims */}

@@ -11,6 +11,9 @@ import {
   LeadProfile,
   StartBatchPayload,
   TorStatus,
+  CompanyView,
+  CompanyOutreach,
+  ReviewStatus,
 } from "@/types";
 import { UNAUTHORIZED_EVENT } from "@/lib/session.mjs";
 
@@ -212,5 +215,65 @@ export const api = {
 
   async getLatestBatch(): Promise<any> {
     return request("/api/batches/latest");
+  },
+
+  // Company intelligence (Company Details tab)
+  async getLeadCompany(leadId: string, batchId?: string): Promise<CompanyView> {
+    const query = batchId ? `?batch_id=${encodeURIComponent(batchId)}` : "";
+    return request(`/api/leads/${encodeURIComponent(leadId)}/company${query}`);
+  },
+
+  async startLeadCompanyResearch(
+    leadId: string,
+    batchId?: string,
+    refresh: boolean = false
+  ): Promise<{ started: boolean; cached: boolean; company_id: string; research_status: string }> {
+    const query = batchId ? `?batch_id=${encodeURIComponent(batchId)}` : "";
+    return request(`/api/leads/${encodeURIComponent(leadId)}/company/research${query}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ refresh }),
+    });
+  },
+
+  async getLeadCompanyOutreach(leadId: string, batchId?: string): Promise<CompanyOutreach> {
+    const query = batchId ? `?batch_id=${encodeURIComponent(batchId)}` : "";
+    return request(`/api/leads/${encodeURIComponent(leadId)}/company/outreach${query}`);
+  },
+
+  async setCompanyDomain(companyId: string, domain: string): Promise<CompanyView> {
+    return request(`/api/companies/${encodeURIComponent(companyId)}/domain`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ domain }),
+    });
+  },
+
+  async reviewCompanyFinding(companyId: string, findingId: string, status: ReviewStatus): Promise<CompanyView> {
+    return request(`/api/companies/${encodeURIComponent(companyId)}/findings/${encodeURIComponent(findingId)}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ status }),
+    });
+  },
+
+  async regenerateCompanyAnalysis(companyId: string): Promise<CompanyView> {
+    return request(`/api/companies/${encodeURIComponent(companyId)}/analyze`, { method: "POST" });
+  },
+
+  async startBatchCompanyResearch(batchId: string, refresh: boolean = false): Promise<any> {
+    return request(`/api/batches/${encodeURIComponent(batchId)}/companies/research`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ refresh }),
+    });
+  },
+
+  getCompanyIntelligenceCsvUrl(batchId: string): string {
+    return `/api/batches/${encodeURIComponent(batchId)}/exports/company_intelligence.csv`;
+  },
+
+  getCompanyIntelligenceJsonUrl(batchId: string): string {
+    return `/api/batches/${encodeURIComponent(batchId)}/exports/company_intelligence.json`;
   },
 };

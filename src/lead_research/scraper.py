@@ -47,6 +47,10 @@ class ScrapeResult:
     meta_description: str = ""
     headings: List[str] = field(default_factory=list)
     extracted_text: str = ""
+    links: List[Tuple[str, str]] = field(default_factory=list)  # (absolute href, link text)
+    published_at: str = ""
+    site_name: str = ""
+    og_image: str = ""
     error: str = ""
     engine: str = "scrapling_fetcher"
     timestamp: str = field(default_factory=lambda: time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()))
@@ -198,6 +202,7 @@ class ScraplingScraper:
             "Accept-Language": "en-US,en;q=0.9",
         }
         self._last_request_time: Dict[str, float] = {}
+        self.max_text_chars = 4000
 
         # The proxy (normally Tor) is only used for search; page fetches go direct and pinned.
         self.tor_manager = TorManager()
@@ -236,6 +241,16 @@ class ScraplingScraper:
             if heading and len(heading) < 150 and heading not in headings:
                 headings.append(heading)
 
+        def meta(selector: str) -> str:
+            nodes = response.css(selector)
+            return _text(nodes[0].attrib.get("content", "")) if nodes else ""
+
+        links: List[Tuple[str, str]] = []
+        for node in response.css("a[href]")[:400]:
+            href = (node.attrib.get("href") or "").strip()
+            if href and not href.startswith(("#", "mailto:", "tel:", "javascript:")):
+                links.append((urljoin(url, href), _text(node)[:120]))
+
         return ScrapeResult(
             url=url,
             status_code=getattr(response, "status", 200),
@@ -243,7 +258,11 @@ class ScraplingScraper:
             title=_text(titles[0]) if titles else "",
             meta_description=_text(metas[0].attrib.get("content", "")) if metas else "",
             headings=headings,
-            extracted_text=self.clean_untrusted_text(_text(response)),
+            extracted_text=self.clean_untrusted_text(_text(response), max_chars=self.max_text_chars),
+            links=links,
+            published_at=meta("meta[property='article:published_time'], meta[name='date'], meta[name='publish_date']"),
+            site_name=meta("meta[property='og:site_name']"),
+            og_image=meta("meta[property='og:image']"),
             engine="scrapling_pinned_fetcher",
         )
 

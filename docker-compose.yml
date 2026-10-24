@@ -36,7 +36,12 @@ services:
       - SCRAPER_TIMEOUT=${SCRAPER_TIMEOUT:-25}
       - TOR_PROXY=${TOR_PROXY:-socks5://tor:9050}
       - TOR_ENABLED=${TOR_ENABLED:-true}
-      - USER_AGENT=${USER_AGENT:-"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36 SealAPIResearchBot/1.0"}
+      - COMPANY_RESEARCH_MAX_PAGES=${COMPANY_RESEARCH_MAX_PAGES:-14}
+      - COMPANY_RESEARCH_MAX_PRODUCTS=${COMPANY_RESEARCH_MAX_PRODUCTS:-4}
+      - COMPANY_RESEARCH_REQUEST_DELAY=${COMPANY_RESEARCH_REQUEST_DELAY:-1.0}
+      - COMPANY_RESEARCH_CONCURRENCY=${COMPANY_RESEARCH_CONCURRENCY:-2}
+      - COMPANY_FIT_WEIGHTS=${COMPANY_FIT_WEIGHTS:-}
+      - USER_AGENT=${USER_AGENT:-Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36 SealAPIResearchBot/1.0}
     extra_hosts:
       - "host.docker.internal:host-gateway"
     volumes:
