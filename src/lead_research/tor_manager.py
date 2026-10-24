@@ -191,6 +191,9 @@ class TorManager:
         proxy = proxy_url or self.get_proxy_url(require_reachable=True)
         if not proxy:
             return False
+        # curl resolves hostnames locally for socks5:// (DNS leak); socks5h:// makes Tor resolve them.
+        if proxy.startswith("socks5://"):
+            proxy = "socks5h://" + proxy[len("socks5://"):]
         try:
             from curl_cffi import requests
             with requests.Session(proxy=proxy) as session:

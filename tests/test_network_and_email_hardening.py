@@ -551,6 +551,19 @@ def test_verify_tor_routing_accepts_only_explicit_is_tor_true():
             assert manager.verify_tor_routing() is False
 
 
+def test_verify_tor_routing_resolves_dns_through_tor():
+    """curl_cffi must get socks5h:// so hostnames are resolved by Tor, not locally (DNS leak)."""
+    manager = TorManager()
+    resp = MagicMock(status_code=200)
+    resp.json.return_value = {"IsTor": True}
+    with patch("curl_cffi.requests.Session") as session_cls:
+        session_cls.return_value.__enter__.return_value.get.return_value = resp
+        assert manager.verify_tor_routing("socks5://user:pw@tor:9050") is True
+        assert session_cls.call_args.kwargs["proxy"] == "socks5h://user:pw@tor:9050"
+        assert manager.verify_tor_routing("socks5h://tor:9050") is True
+        assert session_cls.call_args.kwargs["proxy"] == "socks5h://tor:9050"
+
+
 def test_tor_status_routing_unverified_vs_checked_failed(monkeypatch):
     """Verify distinct states between unverified routing and checked-but-failed routing."""
     monkeypatch.setenv("TOR_ENABLED", "true")
