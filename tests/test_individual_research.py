@@ -143,3 +143,39 @@ def test_profile():
     assert p["github"]["login"] == "jane" and p["github"]["public_repos"] == 2
     assert set(p["github"]["languages"]) == {"Python", "Go"} and len(p["github"]["ai_repos"]) == 1
     assert all(f["basis"] in ("verified", "inferred") for f in p["facts"]) and p["facts"]
+
+
+def test_priority_needs_validation_p0():
+    assert assign_priority("needs_validation", {"category": "CTO", "authority": "executive"})["level"] == 0
+    assert assign_priority("needs_validation", {"category": "CISO", "authority": "executive"})["level"] == 0
+    assert assign_priority("needs_validation", {"category": "Security Architect", "authority": "practitioner"})["level"] == 0
+
+
+def test_founding_engineer_not_founder():
+    assert classify_role("Founding Engineer")["category"] != "Founder / Co-founder"
+    assert classify_role("Founding AI Engineer")["category"] != "Founder / Co-founder"
+    assert classify_role("Cofounder")["category"] == "Founder / Co-founder"
+
+
+def test_corroboration_exception_does_not_raise(monkeypatch):
+    import src.lead_research.individual_research as ir
+
+    def boom(*a, **k):
+        raise ValueError("bad")
+
+    monkeypatch.setattr(ir, "is_company_corroborated", boom)
+    c = cand(company="Acme AI", github_site="https://acme.ai")
+    out = discover_company(c, IndividualInput(name="Jane Doe"), FakeSearch({}), fetch_ok("x", "Acme AI"))
+    assert out["status"] == "unknown" and "ValueError" in out["note"]
+
+
+def test_website_links_used_when_homepage_not_company():
+    def fetch(u):
+        if "janedoe.dev" in u:
+            return ScrapeResult(url=u, success=True, title="Jane's page", meta_description="", extracted_text="portfolio",
+                                links=[("https://github.com/jane", "gh"), ("https://www.acme.ai/", "Acme")])
+        return ScrapeResult(url=u, success=True, title="Acme AI", meta_description="Acme AI", extracted_text="Acme AI")
+
+    out = discover_company(cand(company="Acme AI"), IndividualInput(name="Jane Doe", website="https://janedoe.dev"),
+                           FakeSearch({}), fetch)
+    assert out["domain"] == "acme.ai" and out["domain_source"] == "website_link" and out["status"] == "verified"

@@ -71,31 +71,50 @@ def discover_company(
             yield (h.get("url") or ""), "search"
 
     tried: List[str] = []
+    errors: List[str] = []
     fetches = 0
-    for url, source in raw_candidates():
-        domain = _usable_domain(url)
-        if not domain or domain in tried:
-            continue
-        tried.append(domain)
-        if fetches >= MAX_FETCHES:
-            break
-        fetches += 1
-        target = f"https://{domain}/"
+    extra: List[Tuple[str, str]] = []
+    gen = raw_candidates()
+    supplied = _usable_domain(inp.website) if inp.website else ""
+    while True:
+        if extra:
+            url, source = extra.pop(0)
+        else:
+            nxt = next(gen, None)
+            if nxt is None:
+                break
+            url, source = nxt
         try:
+            domain = _usable_domain(url)
+            if not domain or domain in tried:
+                continue
+            tried.append(domain)
+            if fetches >= MAX_FETCHES:
+                break
+            fetches += 1
+            target = f"https://{domain}/"
             page = fetch(target)
-        except Exception:  # noqa: BLE001
+            if not getattr(page, "success", False):
+                continue
+            ok, why = is_company_corroborated(
+                name, target, getattr(page, "url", "") or target, page.title or "", page.meta_description or "",
+                page.extracted_text or "",
+            )
+            if ok:
+                return {"name": name, "domain": domain, "domain_source": source, "corroborated": True,
+                        "note": why or "Website content mentions the company.", "status": "verified"}
+            if token and domain == supplied and source == "website":
+                for href, _text in (getattr(page, "links", None) or []):
+                    if _usable_domain(href) and token in _usable_domain(href):
+                        extra.append((href, "website_link"))
+        except Exception as e:  # noqa: BLE001 - discovery must never raise
+            errors.append(f"{type(e).__name__}")
             continue
-        if not getattr(page, "success", False):
-            continue
-        ok, why = is_company_corroborated(
-            name, target, getattr(page, "url", "") or target, page.title or "", page.meta_description or "",
-            page.extracted_text or "",
-        )
-        if ok:
-            return {"name": name, "domain": domain, "domain_source": source, "corroborated": True,
-                    "note": why or "Website content mentions the company.", "status": "verified"}
     if tried:
-        return _unknown(name, f"Could not verify a company website for {name} (tried {', '.join(tried)}).")
+        note = f"Could not verify a company website for {name} (tried {', '.join(tried)})."
+        if errors:
+            note += f" {len(errors)} candidate(s) errored: {', '.join(sorted(set(errors)))}."
+        return _unknown(name, note)
     return _unknown(name, f"No candidate website found for {name}.")
 
 
@@ -116,7 +135,7 @@ def classify_role(title: str) -> dict:
 
     if not t:
         return out("Other", "unknown")
-    if _has(t, r"co-?\s?founder", r"\bfounder\b", r"\bfounding\b"):
+    if _has(t, r"co-?\s?founder", r"\bfounder\b"):
         return out("Founder / Co-founder", "executive")
     if _has(t, r"\bcto\b", r"chief technology", r"chief technical"):
         return out("CTO", "executive")
@@ -224,12 +243,11 @@ def assign_priority(relevance: str, role: dict) -> dict:
     authority = (role or {}).get("authority", "unknown")
     category = (role or {}).get("category", "Other")
     strong_role = authority == "executive" or category in _P0_CATEGORIES
-    if relevance == "relevant" and strong_role:
-        level, reasons = 0, ["Relevant company", f"Decision-maker role ({category})"]
-    elif relevance == "relevant":
-        level, reasons = 1, ["Relevant company", f"Role ({category}) is not a primary decision-maker"]
-    elif relevance == "needs_validation":
-        level, reasons = 1, ["Company fit needs validation", f"Role: {category}"]
+    fit = "Relevant company" if relevance == "relevant" else "Company fit needs validation"
+    if relevance in ("relevant", "needs_validation") and strong_role:
+        level, reasons = 0, [fit, f"Decision-maker role ({category})"]
+    elif relevance in ("relevant", "needs_validation"):
+        level, reasons = 1, [fit, f"Role ({category}) is not a primary decision-maker"]
     elif relevance == "not_relevant" and authority == "executive":
         level, reasons = 1, ["Company fit is weak", f"Executive role ({category}) may still influence"]
     elif relevance == "not_relevant":
