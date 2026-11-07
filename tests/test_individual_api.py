@@ -166,3 +166,80 @@ def test_individual_endpoints_require_auth_in_production(client, monkeypatch):
     assert client.get(f"{BASE}/ind_0000000000000000").status_code == 401
     assert client.post(f"{BASE}/ind_0000000000000000/retry").status_code == 401
     assert client.post(f"{BASE}/ind_0000000000000000/select", json={"candidate_id": "x"}).status_code == 401
+
+
+def test_no_second_worker_between_pipeline_clear_and_worker_finally(monkeypatch):
+    class Crash:
+        def __init__(self, store):
+            pass
+
+        def research(self, record):
+            raise RuntimeError("boom")
+
+    c = _install(monkeypatch, AnySearch([LI_A]))
+    base_factory = server.make_individual_pipeline
+
+    def crash_factory():
+        p = base_factory()
+        p.company_researcher = Crash
+        return p
+
+    monkeypatch.setattr(server, "make_individual_pipeline", crash_factory)
+    jid = start(c)
+    assert c.get(f"{BASE}/{jid}").json()["status"] == "partial"
+
+    gate, spawned, threads = threading.Event(), [], []
+
+    class Gated:
+        def __init__(self, inner):
+            self.inner = inner
+
+        def run(self, job, stage="discovery"):
+            self.inner.run(job, stage)  # pipeline clears job["running"] here
+            gate.wait(5)  # worker has not reached its finally yet
+
+        def retry_stage(self, job):
+            return self.inner.retry_stage(job)
+
+    monkeypatch.setattr(server, "make_individual_pipeline", lambda: Gated(crash_factory()))
+
+    def spawn(fn, *a):
+        spawned.append(a)
+        t = threading.Thread(target=fn, args=a, daemon=True)
+        threads.append(t)
+        t.start()
+
+    monkeypatch.setattr(server, "_spawn", spawn)
+    assert c.post(f"{BASE}/{jid}/retry").status_code == 200
+    job = server.individual_jobs.get(jid)
+    for _ in range(200):
+        if job["running"] is False:
+            break
+        threading.Event().wait(0.01)
+    assert job["running"] is False  # pipeline already cleared the display flag
+    assert c.post(f"{BASE}/{jid}/retry").status_code == 409
+    assert len(spawned) == 1
+    gate.set()
+    threads[0].join(5)
+    assert c.post(f"{BASE}/{jid}/retry").status_code == 200  # admitted again once the worker finished
+    gate.set()
+    threads[-1].join(5)
+
+
+def test_spawn_failure_after_select_leaves_job_failed_and_retryable(client_ambiguous, monkeypatch):
+    c = client_ambiguous
+    jid = start(c, github_url="", company="")
+    cid = c.get(f"{BASE}/{jid}").json()["candidates"][0]["candidate_id"]
+
+    def boom(fn, *a):
+        raise RuntimeError("cannot start thread")
+
+    monkeypatch.setattr(server, "_spawn", boom)
+    with pytest.raises(RuntimeError):
+        c.post(f"{BASE}/{jid}/select", json={"candidate_id": cid})
+    job = c.get(f"{BASE}/{jid}").json()
+    assert job["status"] == "failed" and job["running"] is False
+    assert any(e.startswith("company_discovery: failed") for e in job["errors"])
+    monkeypatch.setattr(server, "_spawn", lambda fn, *a: fn(*a))
+    assert c.post(f"{BASE}/{jid}/retry").status_code == 200
+    assert c.get(f"{BASE}/{jid}").json()["status"] in ("completed", "partial")
