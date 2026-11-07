@@ -1,9 +1,21 @@
-"""Individual research: company discovery, professional profile, SealAPI verdict and priority (pure logic)."""
+"""Individual research: company discovery, profile, SealAPI verdict and priority, plus the in-memory job pipeline."""
+import contextlib
+import hashlib
 import re
-from typing import Callable, Dict, List, Optional, Tuple
+import secrets
+import threading
+from collections import OrderedDict
+from dataclasses import asdict
+from datetime import datetime, timedelta, timezone
+from typing import Any, Callable, Dict, List, Optional, Tuple
 
-from .company_intel import FIT_LABELS, FREE_MAIL_DOMAINS, normalize_company_name, normalize_domain
-from .individual_discovery import Candidate, IndividualInput, SearchSource
+from .company_intel import (
+    COMPANY_ID_RE, FIT_LABELS, FREE_MAIL_DOMAINS, CompanyResearcher, new_company_record, normalize_company_name,
+    normalize_domain,
+)
+from .individual_discovery import (
+    Candidate, GitHubSource, IndividualInput, Observation, SearchSource, collect_observations, resolve_identity,
+)
 from .research import is_company_corroborated
 from .sealapi_capabilities import SCOPE_NOTE
 from .scraper import ScrapeResult
@@ -255,3 +267,317 @@ def assign_priority(relevance: str, role: dict) -> dict:
     else:
         level, reasons = 2, ["Insufficient evidence about the company"]
     return {"level": level, "label": f"P{level}", "reasons": reasons}
+
+
+# ---------------------------------------------------------------- in-memory stores
+class MemoryCompanyStore:
+    """Dict-backed stand-in for CompanyStore: same methods CompanyResearcher uses, no file IO."""
+
+    def __init__(self) -> None:
+        self._lock = threading.RLock()
+        self._records: Dict[str, dict] = {}
+        self._cache: Dict[str, Dict[str, dict]] = {}
+
+    def load(self, company_id: str) -> Optional[dict]:
+        with self._lock:
+            return self._records.get(company_id)
+
+    def save(self, record: dict) -> None:
+        with self._lock:
+            record["updated_at"] = datetime.now(timezone.utc).isoformat()
+            self._records[record["company_id"]] = record
+
+    def cache_get(self, company_id: str, url: str, max_age: Optional[timedelta] = None) -> Optional[dict]:
+        with self._lock:
+            for page in self._cache.get(company_id, {}).values():
+                if page.get("url") == url or page.get("requested_url") == url:
+                    return page
+            return None
+
+    def cache_put(self, company_id: str, page: dict) -> None:
+        with self._lock:
+            self._cache.setdefault(company_id, {})[page.get("normalized_url") or page.get("url", "")] = page
+
+
+STAGES: List[str] = ["discovery", "identity_resolution", "company_discovery", "company_research",
+                     "professional_profile", "verdict"]
+JOB_ID_RE = re.compile(r"^ind_[0-9a-f]{16}$")
+KNOWN_LIMITS = [
+    "DuckDuckGo Lite returns about 5 results per query and may throttle.",
+    "JavaScript-rendered sites produce thin company findings.",
+    "GitHub unauthenticated search allows 10 requests/minute.",
+]
+LINKEDIN_LIMIT = "LinkedIn data comes only from search snippets."
+
+
+def _utcnow() -> datetime:
+    return datetime.now(timezone.utc)
+
+
+class IndividualJobStore:
+    def __init__(self, max_jobs: int = 50, ttl: timedelta = timedelta(hours=1),
+                 now: Callable[[], datetime] = _utcnow):
+        self.max_jobs, self.ttl, self._now = max_jobs, ttl, now
+        self._jobs: "OrderedDict[str, dict]" = OrderedDict()
+        self._born: Dict[str, datetime] = {}
+        self._locks: Dict[str, threading.Lock] = {}
+        self._mutex = threading.RLock()
+
+    @staticmethod
+    def _validate(job_id: str) -> str:
+        if not isinstance(job_id, str) or not JOB_ID_RE.match(job_id):
+            raise ValueError("Invalid job id")
+        return job_id
+
+    def _drop(self, job_id: str) -> None:
+        self._jobs.pop(job_id, None)
+        self._born.pop(job_id, None)
+        self._locks.pop(job_id, None)
+
+    def _evict_expired(self) -> None:
+        cutoff = self._now() - self.ttl
+        for jid in [j for j, t in self._born.items() if t <= cutoff]:
+            self._drop(jid)
+
+    def create(self, inp: IndividualInput) -> dict:
+        with self._mutex:
+            self._evict_expired()
+            while len(self._jobs) >= self.max_jobs:
+                self._drop(next(iter(self._jobs)))
+            job_id = "ind_" + secrets.token_hex(8)
+            ts = self._now().isoformat()
+            job = {
+                "job_id": job_id, "status": "running", "created_at": ts, "updated_at": ts, "input": asdict(inp),
+                "stages": [{"name": n, "status": "pending", "message": "", "started_at": None, "finished_at": None}
+                           for n in STAGES],
+                "candidates": [], "selected_candidate_id": "", "identity": None, "person": None, "company": None,
+                "ai_usage": {"ai_findings": [], "providers": [], "ai_products": []}, "sealapi": None, "priority": None,
+                "sources": [], "errors": [], "limitations": list(KNOWN_LIMITS), "running": False,
+            }
+            self._jobs[job_id] = job
+            self._born[job_id] = self._now()
+            self._locks[job_id] = threading.Lock()
+            return job
+
+    def get(self, job_id: str) -> Optional[dict]:
+        self._validate(job_id)
+        with self._mutex:
+            self._evict_expired()
+            return self._jobs.get(job_id)
+
+    def lock(self, job_id: str) -> threading.Lock:
+        self._validate(job_id)
+        with self._mutex:
+            if job_id not in self._locks:
+                self._locks[job_id] = threading.Lock()
+            return self._locks[job_id]
+
+
+# ---------------------------------------------------------------- pipeline
+def _candidate_from_dict(d: dict) -> Candidate:
+    return Candidate(**{**d, "observations": [Observation(**o) for o in d.get("observations") or []]})
+
+
+def company_id_for(domain: str) -> str:
+    return "co_" + hashlib.sha1(domain.encode()).hexdigest()[:12]
+
+
+def build_ai_usage(record: Optional[dict]) -> dict:
+    findings = [f for f in (record or {}).get("findings") or []
+                if isinstance(f, dict) and f.get("category") in ("ai", "ai_provider")]
+    ai_findings = [{"evidence": f.get("evidence", ""), "source_url": f.get("source_url", ""), "label": f.get("label", "")}
+                   for f in findings]
+    providers = sorted({f.get("label", "") for f in findings if f.get("category") == "ai_provider" and f.get("label")})
+    pids = {f.get("product_id") for f in findings if f.get("product_id")}
+    products: List[str] = []
+    for p in (record or {}).get("products") or []:
+        if isinstance(p, dict) and p.get("product_id") in pids and p.get("name") and p["name"] not in products:
+            products.append(p["name"])
+    return {"ai_findings": ai_findings, "providers": providers, "ai_products": products}
+
+
+_DEPENDENTS = {
+    "discovery": None, "identity_resolution": None, "company_discovery": ["company_research", "verdict"],
+    "company_research": ["verdict"], "professional_profile": [], "verdict": [],
+}
+
+
+class IndividualPipeline:
+    def __init__(
+        self, search: SearchSource, github: GitHubSource, fetch: Callable[[str], Any],
+        company_researcher: Callable[[MemoryCompanyStore], CompanyResearcher] = CompanyResearcher,
+        company_slots: Any = None,
+    ):
+        self.search, self.github, self.fetch = search, github, fetch
+        self.company_researcher = company_researcher
+        self.company_slots = company_slots if company_slots is not None else contextlib.nullcontext()
+
+    # -- helpers
+    @staticmethod
+    def _stage(job: dict, name: str) -> dict:
+        return next(s for s in job["stages"] if s["name"] == name)
+
+    def _set(self, job: dict, name: str, status: str, message: Optional[str] = None) -> None:
+        st = self._stage(job, name)
+        st["status"] = status
+        if message is not None:
+            st["message"] = message
+        now = _utcnow().isoformat()
+        if status == "running":
+            st["started_at"], st["finished_at"] = now, None
+        else:
+            st["finished_at"] = now
+        job["updated_at"] = now
+
+    def _candidate(self, job: dict) -> Optional[Candidate]:
+        cid = job.get("selected_candidate_id")
+        for d in job.get("candidates") or []:
+            if d.get("candidate_id") == cid:
+                return _candidate_from_dict(d)
+        return None
+
+    @staticmethod
+    def _inp(job: dict) -> IndividualInput:
+        return IndividualInput(**job["input"])
+
+    # -- public
+    def select(self, job: dict, candidate_id: str) -> None:
+        cand = next((d for d in job["candidates"] if d["candidate_id"] == candidate_id), None)
+        if cand is None:
+            raise KeyError(candidate_id)
+        job["selected_candidate_id"] = candidate_id
+        job["identity"] = {"mode": "select", "message": f"Selected {cand['name']}.", "confidence": cand["confidence"]}
+        self._set(job, "identity_resolution", "done", f"Selected {cand['name']}.")
+
+    def retry_stage(self, job: dict) -> Optional[str]:
+        return next((s["name"] for s in job["stages"] if s["status"] in ("failed", "skipped")), None)
+
+    def run(self, job: dict, start_stage: str = "discovery") -> None:
+        if start_stage not in STAGES:
+            raise ValueError(f"Unknown stage {start_stage}")
+        if start_stage == "identity_resolution":
+            start_stage = "discovery"  # observations are not persisted; identity needs a fresh discovery
+        if start_stage == "company_research" and (job.get("company") or {}).get("status") != "verified":
+            start_stage = "company_discovery"
+        start = STAGES.index(start_stage)
+        job["running"], job["status"] = True, "running"
+        for name in STAGES[start:]:
+            self._stage(job, name).update(status="pending", message="", started_at=None, finished_at=None)
+        ctx: Dict[str, Any] = {}
+        try:
+            for name in STAGES[start:]:
+                if self._stage(job, name)["status"] == "skipped":  # dependency failed earlier in this run
+                    continue
+                if self._run_stage(job, name, ctx):
+                    break
+        finally:
+            job["status"] = self._final_status(job)
+            job["running"] = False
+            job["updated_at"] = _utcnow().isoformat()
+
+    # -- orchestration
+    @staticmethod
+    def _final_status(job: dict) -> str:
+        sts = {s["name"]: s["status"] for s in job["stages"]}
+        if "needs_input" in sts.values():
+            return "needs_input"
+        if sts["discovery"] == "failed":
+            return "failed"
+        if any(v in ("failed", "skipped") for v in sts.values()):
+            return "partial"
+        return "completed"
+
+    def _run_stage(self, job: dict, name: str, ctx: dict) -> bool:
+        """Run one stage; return True when the run must stop."""
+        self._set(job, name, "running")
+        try:
+            status, msg = getattr(self, "_do_" + name)(job, ctx)
+        except Exception as e:  # noqa: BLE001 - nothing propagates out of run
+            msg = f"{type(e).__name__}: {str(e)[:200]}"
+            job["errors"].append(f"{name} failed: {msg}")
+            self._set(job, name, "failed", msg)
+            deps = _DEPENDENTS[name]
+            for later in STAGES[STAGES.index(name) + 1:]:
+                if deps is None or later in deps:
+                    self._set(job, later, "skipped", f"Skipped because {name} failed.")
+            return deps is None
+        self._set(job, name, status, msg)
+        return status == "needs_input"
+
+    # -- stages, each returns (status, message)
+    def _do_discovery(self, job: dict, ctx: dict) -> Tuple[str, str]:
+        job.update(sources=[], candidates=[], identity=None, person=None, selected_candidate_id="", company=None,
+                   sealapi=None, priority=None, errors=[], limitations=list(KNOWN_LIMITS),
+                   ai_usage=build_ai_usage(None))
+        observations, sources, errors = collect_observations(self._inp(job), self.search, self.github, self.fetch)
+        ctx["observations"] = observations
+        job["sources"] = list(sources)
+        job["errors"].extend(errors)
+        return "done", f"{len(observations)} observation(s) from {len(sources)} source(s)."
+
+    def _do_identity_resolution(self, job: dict, ctx: dict) -> Tuple[str, str]:
+        decision = resolve_identity(ctx.get("observations") or [], self._inp(job))
+        job["candidates"] = [c.to_dict() for c in decision.candidates]
+        top_conf = decision.candidates[0].confidence if decision.candidates else 0.0
+        job["identity"] = {"mode": decision.mode, "message": decision.message, "confidence": top_conf}
+        if decision.mode == "auto":
+            job["selected_candidate_id"] = decision.selected_id
+            return "done", decision.message
+        return "needs_input", decision.message
+
+    def _do_company_discovery(self, job: dict, ctx: dict) -> Tuple[str, str]:
+        cand = self._candidate(job)
+        if cand is None:
+            raise RuntimeError("no candidate selected")
+        if LINKEDIN_LIMIT not in job["limitations"] and any(
+                o.source_type == "search" and o.linkedin_slug for o in cand.observations):
+            job["limitations"].append(LINKEDIN_LIMIT)
+        job["company"] = None
+        comp = discover_company(cand, self._inp(job), self.search, self.fetch)
+        job["company"] = {**comp, "company_id": company_id_for(comp["domain"]) if comp["domain"] else "", "intel": None}
+        if comp["status"] == "verified":
+            return "done", f"Company website verified: {comp['domain']}."
+        return "done", comp["note"]
+
+    def _do_company_research(self, job: dict, ctx: dict) -> Tuple[str, str]:
+        comp = job.get("company") or {}
+        if comp.get("status") != "verified":
+            return "skipped", "Company website could not be verified."
+        record = new_company_record({"company_id": comp["company_id"], "name": comp["name"], "domain": comp["domain"],
+                                     "domain_source": comp["domain_source"]})
+        with self.company_slots:
+            record = self.company_researcher(MemoryCompanyStore()).research(record)
+        pages = [p for p in record.get("pages") or [] if isinstance(p, dict)]
+        intel = {k: v for k, v in record.items() if k not in ("pages", "links")}
+        intel["pages"] = [{k: v for k, v in p.items() if k not in ("text", "links")} for p in pages]
+        comp["intel"] = intel
+        job["sources"] = [s for s in job["sources"] if s.get("source_type") != "company_site"] + [
+            {"url": p.get("url", ""), "title": p.get("title", ""), "accessed_at": p.get("accessed_at", ""),
+             "source_type": "company_site"} for p in pages if p.get("success")]
+        job["ai_usage"] = build_ai_usage(record)
+        if record.get("research_status") == "failed":
+            errs = "; ".join(str(e) for e in (record.get("errors") or [])[:3]) or "company research failed"
+            job["errors"].append(f"company_research failed: {errs}")
+            return "failed", errs
+        return "done", f"Researched {comp['domain']} ({len(pages)} page(s))."
+
+    def _do_professional_profile(self, job: dict, ctx: dict) -> Tuple[str, str]:
+        cand = self._candidate(job)
+        if cand is None:
+            raise RuntimeError("no candidate selected")
+        repos: List[dict] = self.github.get_repos(cand.github_login, limit=10) if cand.github_login else []
+        for e in getattr(self.github, "errors", []):
+            if e not in job["errors"]:
+                job["errors"].append(e)
+        profile = build_professional_profile(cand, repos)
+        job["person"] = {**profile, "candidate": cand.to_dict(), "identity_confidence": cand.confidence}
+        return "done", f"Profile built for {cand.name}."
+
+    def _do_verdict(self, job: dict, ctx: dict) -> Tuple[str, str]:
+        job["sealapi"] = sealapi_verdict((job.get("company") or {}).get("intel"))
+        role = (job.get("person") or {}).get("role")
+        if role is None:
+            cand = self._candidate(job)
+            role = classify_role(cand.title if cand else "")
+        job["priority"] = assign_priority(job["sealapi"]["relevance"], role)
+        return "done", f"{job['sealapi']['fit_label'] or job['sealapi']['relevance']}; priority {job['priority']['label']}."
