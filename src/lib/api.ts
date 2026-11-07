@@ -14,6 +14,8 @@ import {
   CompanyView,
   CompanyOutreach,
   ReviewStatus,
+  IndividualJob,
+  IndividualResearchInput,
 } from "@/types";
 import { UNAUTHORIZED_EVENT } from "@/lib/session.mjs";
 
@@ -275,5 +277,30 @@ export const api = {
 
   getCompanyIntelligenceJsonUrl(batchId: string): string {
     return `/api/batches/${encodeURIComponent(batchId)}/exports/company_intelligence.json`;
+  },
+
+  // Individual research (name-only person research)
+  async startIndividualResearch(input: IndividualResearchInput): Promise<{ job_id: string }> {
+    return request("/api/individual/research", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(input),
+    });
+  },
+
+  async getIndividualResearch(jobId: string): Promise<IndividualJob> {
+    return request(`/api/individual/research/${encodeURIComponent(jobId)}`);
+  },
+
+  async selectIndividualCandidate(jobId: string, candidateId: string): Promise<IndividualJob> {
+    return request(`/api/individual/research/${encodeURIComponent(jobId)}/select`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ candidate_id: candidateId }),
+    });
+  },
+
+  async retryIndividualResearch(jobId: string): Promise<IndividualJob> {
+    return request(`/api/individual/research/${encodeURIComponent(jobId)}/retry`, { method: "POST" });
   },
 };
