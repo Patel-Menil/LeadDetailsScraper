@@ -20,10 +20,12 @@ import {
 import { api } from "@/lib/api";
 import { IndividualJob, IndividualResearchInput, IndividualStage } from "@/types";
 import {
+  JOB_GONE_MESSAGE,
   STAGE_LABELS,
   buildStartPayload,
   confidenceLabel,
   downloadFilename,
+  isJobGoneError,
   safeAvatarUrl,
   safeHttpUrl,
   shouldPollJob,
@@ -97,13 +99,15 @@ export default function IndividualResearchPage() {
   const [job, setJob] = useState<IndividualJob | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  // Set when polling gets a 404 (job evicted or server restarted): polling stops for good.
+  const [jobGone, setJobGone] = useState(false);
 
   // Bumped on Clear/unmount so late responses and ticks from an old job are ignored.
   const generation = useRef(0);
   const inFlight = useRef(false);
 
   const nameOk = form.name.trim().length >= 2;
-  const polling = shouldPollJob(job);
+  const polling = shouldPollJob(job) && !jobGone;
   const jobId = job?.job_id ?? null;
 
   const poll = useCallback(async (id: string, gen: number) => {
@@ -116,7 +120,13 @@ export default function IndividualResearchPage() {
         setError(null);
       }
     } catch (err: any) {
-      if (generation.current === gen) setError(err?.message || "Failed to refresh research status.");
+      if (generation.current !== gen) return;
+      if (isJobGoneError(err)) {
+        setJobGone(true);
+        setError(JOB_GONE_MESSAGE);
+      } else {
+        setError(err?.message || "Failed to refresh research status.");
+      }
     } finally {
       inFlight.current = false;
     }
@@ -145,6 +155,7 @@ export default function IndividualResearchPage() {
     setBusy(true);
     setError(null);
     setJob(null);
+    setJobGone(false);
     try {
       const payload = buildStartPayload(form) as IndividualResearchInput;
       const { job_id } = await api.startIndividualResearch(payload);
@@ -192,6 +203,7 @@ export default function IndividualResearchPage() {
     inFlight.current = false;
     setForm({ ...EMPTY_FORM });
     setJob(null);
+    setJobGone(false);
     setError(null);
     setBusy(false);
   };
@@ -212,7 +224,7 @@ export default function IndividualResearchPage() {
   const identityStage = job?.stages.find((s) => s.name === "identity_resolution");
   const needsSelection = job?.status === "needs_input" && identityStage?.status === "needs_input";
   const hasCandidates = (job?.candidates?.length ?? 0) > 0;
-  const canRetry = job?.status === "partial" || job?.status === "failed";
+  const canRetry = !jobGone && (job?.status === "partial" || job?.status === "failed");
 
   return (
     <div className="space-y-6 max-w-5xl mx-auto">
@@ -240,7 +252,7 @@ export default function IndividualResearchPage() {
                 value={form.name}
                 onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
                 placeholder="Jane Doe"
-                maxLength={200}
+                maxLength={120}
                 className="w-full bg-[#0a0d14] border border-[#232c45] rounded-lg px-3 py-2 text-sm text-slate-100 placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500/40"
               />
             </div>

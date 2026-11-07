@@ -15,6 +15,36 @@ export const STAGE_LABELS = {
 
 export const OPTIONAL_FIELDS = ["company", "linkedin_url", "x_url", "github_url", "website", "location", "context"];
 
+export const JOB_GONE_MESSAGE =
+  "This research job no longer exists (the server may have restarted). Start a new search.";
+
+/**
+ * Readable message from an API error body. FastAPI validation errors (422) send `detail` as an array of
+ * `{loc, msg}` objects; join them ("name: String should have at least 2 characters") instead of "[object Object]".
+ */
+export function formatErrorDetail(body, fallback) {
+  const detail = body?.detail;
+  if (Array.isArray(detail)) {
+    const msgs = detail
+      .map((d) => {
+        if (typeof d === "string") return d;
+        const msg = typeof d?.msg === "string" ? d.msg : "";
+        const field = Array.isArray(d?.loc) ? d.loc[d.loc.length - 1] : "";
+        return msg && typeof field === "string" && field && field !== "body" ? `${field}: ${msg}` : msg;
+      })
+      .filter(Boolean);
+    return msgs.length ? msgs.join("; ") : fallback;
+  }
+  if (typeof detail === "string" && detail) return detail;
+  if (typeof body?.message === "string" && body.message) return body.message;
+  return fallback;
+}
+
+/** A 404 while polling means the job was evicted or lost on restart: stop polling for it. */
+export function isJobGoneError(err) {
+  return Number(err?.status) === 404;
+}
+
 /** Poll only while the server says the job is running. */
 export function shouldPollJob(job) {
   return Boolean(job && (job.running === true || job.status === "running"));

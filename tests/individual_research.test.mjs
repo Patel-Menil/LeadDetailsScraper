@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import {
   STAGE_LABELS, buildStartPayload, confidenceLabel, relevanceMeta, shouldPollJob, downloadFilename, safeHttpUrl, safeAvatarUrl,
+  formatErrorDetail, isJobGoneError, JOB_GONE_MESSAGE,
 } from "../src/lib/individual.mjs";
 
 describe("Individual research", () => {
@@ -34,6 +35,33 @@ describe("Individual research", () => {
     assert.equal(shouldPollJob({ running: true, status: "completed" }), true);
     assert.equal(shouldPollJob({ running: false, status: "needs_input" }), false);
     assert.equal(shouldPollJob(null), false);
+  });
+  it("a 404 while polling means the job is gone", () => {
+    assert.equal(isJobGoneError({ status: 404 }), true);
+    assert.equal(isJobGoneError({ status: 500 }), false);
+    assert.equal(isJobGoneError(new Error("network")), false);
+    assert.equal(isJobGoneError(null), false);
+    assert.match(JOB_GONE_MESSAGE, /no longer exists.*Start a new search/);
+    const page = readFileSync(new URL("../src/app/individual/page.tsx", import.meta.url), "utf8");
+    assert.match(page, /shouldPollJob\(job\) && !jobGone/);
+    assert.match(page, /isJobGoneError\(err\)/);
+  });
+  it("name input length matches the server limit", () => {
+    const page = readFileSync(new URL("../src/app/individual/page.tsx", import.meta.url), "utf8");
+    assert.match(page, /id="ind-name"[\s\S]*?maxLength=\{120\}/);
+  });
+  it("formats FastAPI validation errors readably", () => {
+    const body = { detail: [
+      { type: "string_too_short", loc: ["body", "name"], msg: "String should have at least 2 characters" },
+      { type: "string_too_long", loc: ["body", "context"], msg: "String should have at most 1000 characters" },
+    ] };
+    assert.equal(formatErrorDetail(body, "x"),
+      "name: String should have at least 2 characters; context: String should have at most 1000 characters");
+    assert.equal(formatErrorDetail({ detail: [{ loc: ["body"], msg: "Field required" }] }, "x"), "Field required");
+    assert.equal(formatErrorDetail({ detail: "Job not found" }, "x"), "Job not found");
+    assert.equal(formatErrorDetail({ message: "m" }, "x"), "m");
+    assert.equal(formatErrorDetail({ detail: [{}] }, "fallback"), "fallback");
+    assert.equal(formatErrorDetail(null, "fallback"), "fallback");
   });
   it("download filename", () => {
     assert.equal(downloadFilename({ input: { name: "Jane O'Doe" }, created_at: "2026-11-07T10:00:00Z" }), "individual_jane_o_doe_2026-11-07.json");

@@ -18,6 +18,7 @@ import {
   IndividualResearchInput,
 } from "@/types";
 import { UNAUTHORIZED_EVENT } from "@/lib/session.mjs";
+import { formatErrorDetail } from "@/lib/individual.mjs";
 
 const API_BASE = "";
 
@@ -55,7 +56,7 @@ async function request<T>(path: string, options?: RequestInit): Promise<T> {
     let errorDetail = `Request failed with status ${response.status}`;
     try {
       const errorJson = await response.json();
-      errorDetail = errorJson.detail || errorJson.message || errorDetail;
+      errorDetail = formatErrorDetail(errorJson, errorDetail);
     } catch {
       // ignore json parse error on response
     }
@@ -105,7 +106,7 @@ export const api = {
       let errorDetail = `Upload failed with status ${response.status}`;
       try {
         const errorJson = await response.json();
-        errorDetail = errorJson.detail || errorJson.message || errorDetail;
+        errorDetail = formatErrorDetail(errorJson, errorDetail);
       } catch {
         // ignore
       }
