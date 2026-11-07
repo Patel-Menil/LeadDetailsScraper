@@ -1,5 +1,6 @@
 """FastAPI backend server for SealAPI Lead Research application."""
 
+import copy
 import io
 import json
 import logging
@@ -17,7 +18,7 @@ from fastapi import BackgroundTasks, Depends, FastAPI, File, Header, HTTPExcepti
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
-from pydantic import BaseModel
+from pydantic import BaseModel, Field, field_validator
 
 from .company_intel import (
     REVIEW_STATUSES,
@@ -39,7 +40,10 @@ from .exporter import LeadExporter, sanitize_filename
 from .sealapi_capabilities import capability_summary
 from .fingerprint import create_batch_id
 from .importer import LeadImporter
+from .individual_discovery import DuckDuckGoSource, GitHubSource, IndividualInput
+from .individual_research import IndividualJobStore, IndividualPipeline
 from .pipeline import ResearchPipeline
+from .scraper import ScraplingScraper
 from .schemas import BatchProgress, LeadProfile
 from .tor_manager import TorManager
 
@@ -1253,6 +1257,144 @@ def download_company_intelligence_json(batch_id: str):
         export_company_json(_batch_company_records(batch_id), batch_id),
         headers={"Content-Disposition": f"attachment; filename={batch_id}_company_intelligence.json"},
     )
+
+
+# ---------------------------------------------------------------------------------------
+# Individual research (in-memory jobs; the job lock guards only state transitions and snapshots,
+# never a whole run, so GET stays responsive while a worker runs)
+# ---------------------------------------------------------------------------------------
+
+individual_jobs = IndividualJobStore()
+
+
+class IndividualResearchRequest(BaseModel):
+    name: str = Field(min_length=2, max_length=120)
+    company: str = Field("", max_length=300)
+    linkedin_url: str = Field("", max_length=300)
+    x_url: str = Field("", max_length=300)
+    github_url: str = Field("", max_length=300)
+    website: str = Field("", max_length=300)
+    location: str = Field("", max_length=300)
+    context: str = Field("", max_length=1000)
+
+    @field_validator("name")
+    @classmethod
+    def _name_not_blank(cls, v: str) -> str:
+        v = v.strip()
+        if len(v) < 2:
+            raise ValueError("name must have at least 2 non-blank characters")
+        return v
+
+
+class IndividualSelectRequest(BaseModel):
+    candidate_id: str = Field(min_length=1, max_length=100)
+
+
+def make_individual_pipeline() -> IndividualPipeline:
+    """A fresh pipeline (and sources) per job: GitHubSource keeps instance-level state."""
+    scraper = ScraplingScraper(use_browser=False, use_tor=False)
+    return IndividualPipeline(
+        DuckDuckGoSource(), GitHubSource(), scraper.fetch_url, company_slots=company_research_slots,
+    )
+
+
+def _spawn(fn, *args) -> None:
+    threading.Thread(target=fn, args=args, daemon=True).start()
+
+
+def _individual_job_or_404(job_id: str) -> dict:
+    try:
+        job = individual_jobs.get(job_id)
+    except ValueError:
+        raise HTTPException(status_code=400, detail="Invalid job id")
+    if job is None:
+        raise HTTPException(status_code=404, detail="Job not found or expired")
+    return job
+
+
+def _individual_snapshot(job_id: str) -> dict:
+    job = _individual_job_or_404(job_id)
+    lock = individual_jobs.lock(job_id)
+    for attempt in range(5):
+        try:
+            with lock:
+                return copy.deepcopy(job)
+        except RuntimeError:  # the unlocked worker resized a container mid-copy; try again
+            if attempt == 4:
+                raise
+            time.sleep(0.01)
+
+
+def _individual_worker(job_id: str, job: dict, start_stage: str, pipeline=None) -> None:
+    try:
+        (pipeline or make_individual_pipeline()).run(job, start_stage)
+    except Exception as e:  # noqa: BLE001 - never leave a job stuck in running
+        logger.exception("Individual research worker failed")
+        with individual_jobs.lock(job_id):
+            job["errors"].append(f"worker: failed: {type(e).__name__}: {str(e)[:200]}")
+            job["status"] = "failed"
+    finally:
+        with individual_jobs.lock(job_id):
+            job["running"] = False
+
+
+def _launch_individual(job_id: str, job: dict, start_stage: str, pipeline=None) -> None:
+    """Caller has already set job['running'] = True under the lock."""
+    try:
+        _spawn(_individual_worker, job_id, job, start_stage, pipeline)
+    except Exception:
+        with individual_jobs.lock(job_id):
+            job["running"] = False
+        raise
+
+
+@app.post("/api/individual/research", dependencies=[Depends(verify_api_key)])
+def start_individual_research(req: IndividualResearchRequest):
+    job = individual_jobs.create(IndividualInput(**req.model_dump()))
+    job_id = job["job_id"]
+    with individual_jobs.lock(job_id):
+        job["running"] = True
+    _launch_individual(job_id, job, "discovery")
+    return {"job_id": job_id}
+
+
+@app.get("/api/individual/research/{job_id}", dependencies=[Depends(verify_api_key)])
+def get_individual_research(job_id: str):
+    return _individual_snapshot(job_id)
+
+
+@app.post("/api/individual/research/{job_id}/select", dependencies=[Depends(verify_api_key)])
+def select_individual_candidate(job_id: str, req: IndividualSelectRequest):
+    job = _individual_job_or_404(job_id)
+    pipeline = make_individual_pipeline()
+    with individual_jobs.lock(job_id):
+        if job.get("running"):
+            raise HTTPException(status_code=409, detail="Job is already running")
+        stage = next((s for s in job["stages"] if s["name"] == "identity_resolution"), None)
+        if not stage or stage["status"] != "needs_input":
+            raise HTTPException(status_code=409, detail="Job is not waiting for a candidate selection")
+        try:
+            pipeline.select(job, req.candidate_id)
+        except KeyError:
+            raise HTTPException(status_code=404, detail="Unknown candidate")
+        job["running"] = True
+    _launch_individual(job_id, job, "company_discovery", pipeline)
+    return _individual_snapshot(job_id)
+
+
+@app.post("/api/individual/research/{job_id}/retry", dependencies=[Depends(verify_api_key)])
+def retry_individual_research(job_id: str):
+    job = _individual_job_or_404(job_id)
+    pipeline = make_individual_pipeline()
+    with individual_jobs.lock(job_id):
+        if job.get("running"):
+            raise HTTPException(status_code=409, detail="Job is already running")
+        stage = pipeline.retry_stage(job)
+        if stage is None:
+            raise HTTPException(status_code=409, detail="Nothing to retry")
+        job["running"] = True
+    _launch_individual(job_id, job, stage, pipeline)
+    return _individual_snapshot(job_id)
 
 
 @app.get("/")
