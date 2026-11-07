@@ -349,9 +349,13 @@ def score_candidate(c: Candidate, inp: IndividualInput) -> Candidate:
     return c
 
 
+def _is_url_match(c: Candidate) -> bool:
+    return any(r.startswith("url_match") for r in c.confidence_reasons)
+
+
 def resolve_identity(observations: List[Observation], inp: IndividualInput) -> IdentityDecision:
     cands = [score_candidate(c, inp) for c in merge_observations(observations, inp.name)]
-    cands.sort(key=lambda c: c.confidence, reverse=True)
+    cands.sort(key=lambda c: (_is_url_match(c), c.confidence), reverse=True)
     if not cands:
         return IdentityDecision("low_confidence", "", [], f"No public profiles found for {inp.name}.")
     plausible = [c for c in cands if c.confidence >= CANDIDATE_MIN]
@@ -360,7 +364,7 @@ def resolve_identity(observations: List[Observation], inp: IndividualInput) -> I
                                 f"Only weak matches found for {inp.name}; add a company, location or profile URL.")
     top = plausible[0]
     runner_up = plausible[1].confidence if len(plausible) > 1 else 0.0
-    url_matched = any(r.startswith("url_match") for r in top.confidence_reasons)
+    url_matched = _is_url_match(top)
     if url_matched or (top.confidence >= AUTO_SELECT_MIN and top.confidence - runner_up >= AUTO_SELECT_MARGIN):
         return IdentityDecision("auto", top.candidate_id, plausible, f"Identified {top.name} with high confidence.")
     return IdentityDecision("select", "", plausible, f"Select which {inp.name} you mean.")

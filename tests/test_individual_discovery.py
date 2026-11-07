@@ -158,3 +158,14 @@ def test_oversized_fields_are_capped():
     assert len(c.title) == len(c.company) == len(c.location) == 120
     role, co = parse_role_at_company("x" * 400 + " is the CTO at Acme")
     assert (role, co) == ("", "")
+
+
+def test_url_matched_candidate_ranks_first_even_if_other_scores_higher():
+    obs = [obs_li("Jane Doe", "CTO", "Acme", "a"), obs_gh("Jane Doe", "Acme", "ghx"),
+           obs_search("Jane Doe", "CTO", "Acme"), obs_li("Jane Doe", "VP Eng", "Beta", "b")]
+    inp = IndividualInput(name="Jane Doe", company="Acme", linkedin_url="https://linkedin.com/in/b/")
+    d = resolve_identity(obs, inp)
+    other = [c for c in d.candidates if c.linkedin_slug == "a"][0]
+    assert other.confidence > 0.95
+    assert d.candidates[0].linkedin_slug == "b" and d.mode == "auto"
+    assert d.selected_id == d.candidates[0].candidate_id
