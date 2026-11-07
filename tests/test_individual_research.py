@@ -88,6 +88,95 @@ def test_search_result_observation_url():
     assert out["domain"] == "acme.ai" and out["domain_source"] == "search_result"
 
 
+def pages(mapping, default_links=None):
+    """fetch() returning per-domain pages: {domain: (text, links)}; unknown domains fail."""
+    seen = []
+
+    def _f(u):
+        seen.append(u)
+        for dom, (text, links) in mapping.items():
+            if f"//{dom}/" in u:
+                return ScrapeResult(url=u, success=True, title=text[:60], meta_description="", extracted_text=text,
+                                    links=links or [])
+        return ScrapeResult(url=u, success=False, error="not found")
+    _f.seen = seen
+    return _f
+
+
+def test_personal_blog_mentioning_company_is_not_accepted_but_its_company_link_is():
+    fetch = pages({"janedoe.dev": ("Jane Doe. I lead platform engineering at Vercel.",
+                                   [("https://vercel.com/", "Vercel"), ("https://techcrunch.com/a", "press")]),
+                   "vercel.com": ("Vercel: Develop. Preview. Ship.", [])})
+    out = discover_company(cand(company="Vercel", github_site="https://janedoe.dev"), IndividualInput(name="Jane Doe"),
+                           FakeSearch({}), fetch)
+    assert out["domain"] == "vercel.com" and out["domain_source"] == "website_link" and out["status"] == "verified"
+    assert "https://techcrunch.com/" not in fetch.seen
+
+
+def test_personal_blog_alone_is_not_the_company_site():
+    fetch = pages({"janedoe.dev": ("Jane Doe. I lead platform engineering at Vercel.", [])})
+    out = discover_company(cand(company="Vercel", github_site="https://janedoe.dev"),
+                           IndividualInput(name="Jane Doe", website="https://janedoe.dev"), FakeSearch({}), fetch)
+    assert out["status"] == "unknown" and out["domain"] == "" and "janedoe.dev" in out["note"]
+
+
+def test_news_article_result_is_not_the_company_site():
+    search = FakeSearch({'"Vercel" official site': [{"url": "https://techcrunch.com/2026/vercel-raises"}]})
+    news = Observation(source_id="search:n", source_type="search", url="https://techcrunch.com/vercel-ceo", name="Jane Doe")
+    fetch = pages({"techcrunch.com": ("Vercel raises $250M, says CEO Jane Doe", [])})
+    out = discover_company(cand(company="Vercel", obs_extra=[news]), IndividualInput(name="Jane Doe"), search, fetch)
+    assert out["status"] == "unknown" and fetch.seen == []
+
+
+def test_former_employer_on_blog_is_not_accepted():
+    fetch = pages({"janedoe.dev": ("Jane Doe. Previously staff engineer at Acme AI; now independent.", [])})
+    out = discover_company(cand(company="Acme AI", github_site="https://janedoe.dev"), IndividualInput(name="Jane Doe"),
+                           FakeSearch({}), fetch)
+    assert out["status"] == "unknown" and out["corroborated"] is False
+
+
+def test_company_without_distinctive_token_uses_corroboration_only():
+    out = discover_company(cand(company="AI Co", github_site="https://aico.example"), IndividualInput(name="Jane Doe"),
+                           FakeSearch({}), fetch_ok("x", "AI Co builds things"))
+    assert out["status"] == "verified" and out["domain"] == "aico.example"
+
+
+def test_generic_words_are_not_the_distinctive_token():
+    from src.lead_research.individual_research import _distinctive_token
+    assert _distinctive_token("Acme Technologies") == "acme"
+    assert _distinctive_token("Amazon Web Services") == "amazon"
+    out = discover_company(cand(company="Acme Technologies", github_site="https://acme.com"), IndividualInput(name="Jane Doe"),
+                           FakeSearch({}), fetch_ok("x", "Acme Technologies builds things"))
+    assert out["status"] == "verified" and out["domain"] == "acme.com"
+
+
+def test_github_company_domain_is_tried_first():
+    gh = Observation(source_id="github:jane", source_type="github", url="https://github.com/jane", name="Jane Doe",
+                     company="Vercel", github_login="jane", website="https://janedoe.dev", company_domain="vercel.com")
+    fetch = pages({"vercel.com": ("Vercel: Develop. Preview. Ship.", []), "janedoe.dev": ("Jane at Vercel", [])})
+    out = discover_company(cand(company="Vercel", obs_extra=[gh]), IndividualInput(name="Jane Doe"), FakeSearch({}), fetch)
+    assert out["domain"] == "vercel.com" and out["domain_source"] == "github_company"
+    assert fetch.seen == ["https://vercel.com/"]
+
+
+def test_registrable_label():
+    from src.lead_research.individual_discovery import registrable_label
+    assert registrable_label("vercel.com") == registrable_label("vercel.app") == registrable_label("blog.vercel.com") == "vercel"
+    assert registrable_label("janedoe.vercel.app") == "janedoe" and registrable_label("acme.co.uk") == "acme"
+
+
+@pytest.mark.parametrize("title,cat,auth", [
+    ("President", "Other", "executive"), ("COO", "Other", "executive"), ("CPO", "Other", "executive"),
+    ("CFO", "Other", "executive"), ("CMO", "Other", "executive"), ("CRO", "Other", "executive"),
+    ("Chief Marketing Officer", "Other", "executive"), ("Managing Director", "Other", "executive"),
+    ("Owner", "Other", "executive"), ("President & CTO", "CTO", "executive"),
+    ("Vice President of Engineering", "VP Engineering", "senior_leader"), ("Vice President, Sales", "Other", "unknown"),
+    ("Product Owner", "Other", "unknown"), ("Director of Engineering", "VP Engineering", "senior_leader")])
+def test_classify_role_executive_titles(title, cat, auth):
+    r = classify_role(title)
+    assert (r["category"], r["authority"]) == (cat, auth)
+
+
 @pytest.mark.parametrize("title,cat,auth", [
     ("Co-Founder & CEO", "Founder / Co-founder", "executive"), ("Chief Technology Officer", "CTO", "executive"),
     ("CISO", "CISO", "executive"), ("VP of Engineering", "VP Engineering", "senior_leader"),
@@ -298,6 +387,16 @@ def test_pipeline_ambiguous_waits_then_continues_after_select():
     pipe.run(job, "company_discovery")
     assert job["selected_candidate_id"] == job["candidates"][1]["candidate_id"] and job["status"] in ("completed", "partial")
     assert job["stages"][1]["status"] == "done"
+
+
+def test_pipeline_records_search_blocked_limitation():
+    job = start(make_pipe(search=AnySearch([])), AUTO_INP)
+    from src.lead_research.individual_discovery import SEARCH_EMPTY_MSG
+    assert SEARCH_EMPTY_MSG in job["limitations"] and f"discovery: {SEARCH_EMPTY_MSG}" in job["errors"]
+    assert any("60 requests per hour" in lim for lim in job["limitations"])
+    assert not any("10 requests" in lim for lim in job["limitations"])
+    ok = start(make_pipe(), AUTO_INP)
+    assert SEARCH_EMPTY_MSG not in ok["limitations"]
 
 
 def test_pipeline_all_sources_fail_low_confidence():

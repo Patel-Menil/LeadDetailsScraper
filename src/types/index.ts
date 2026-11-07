@@ -511,6 +511,8 @@ export interface IndividualObservation {
   company: string;
   location: string;
   snippet: string;
+  /** Domain from a GitHub company field such as "https://vercel.com"; "" otherwise. */
+  company_domain?: string;
 }
 
 export interface IndividualCandidate {

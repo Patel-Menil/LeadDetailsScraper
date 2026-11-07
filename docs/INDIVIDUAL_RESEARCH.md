@@ -25,9 +25,12 @@ A job runs six stages in order. Each stage has a status (`pending`, `running`, `
 `needs_input`), a message and start/finish timestamps. A failure in one stage is recorded and never crashes the
 job; partial results are always returned.
 
-1. **discovery**: builds up to 5 queries (deduplicated): `"Name"`, `"Name" linkedin`, `"Name" "<company>"` and
-   `"Name" <location>` when those hints are given, `"Name" github`, `"Name" twitter OR x.com`. Each runs through
-   DuckDuckGo Lite directly. Then GitHub and the supplied website are consulted (see sources below).
+1. **discovery**: builds up to 5 queries (deduplicated), in this priority order: `"Name"`, `"Name" linkedin`,
+   `"Name" (CEO OR CTO OR founder OR engineer)`, then `"Name" "<company>"`, `"Name" <location>` and
+   `"Name" <first 3 context keywords>` when those hints are given, then `"Name" github` and
+   `"Name" twitter OR x.com`; only the first 5 run (so with company, location and context all given, the context
+   query is dropped and the context hint still counts in scoring). Each runs through DuckDuckGo Lite directly. Then
+   GitHub and the supplied website are consulted (see sources below).
 2. **identity_resolution**: turns each hit into an observation (name checked with `names_compatible`, title,
    company, location, profile URL, avatar, snippet), merges observations into candidates, scores them and
    decides whether to auto-select, ask the user to select, or ask for a hint.
@@ -40,13 +43,24 @@ job; partial results are always returned.
 
 - **DuckDuckGo Lite**, direct HTTP (`ScraplingScraper(use_browser=False, use_tor=False)`): no stealth browser,
   no Tor. Result titles are parsed (LinkedIn titles as `Name - Title - Company | LinkedIn`; GitHub titles) and
-  snippets are pattern-matched for `<Title> at <Company>`. A hit is dropped unless its name is compatible with
-  the searched name.
-- **GitHub public REST API**, unauthenticated, no token: `GET /search/users` (top 5, `"<name>" in:name`),
-  `GET /users/<login>` for each hit, and `GET /users/<login>/repos` (10 most recently pushed) for the selected
-  candidate. A supplied GitHub URL is looked up directly. Searched (not supplied) users whose profile name is not
-  compatible with the input name are discarded. GitHub allows 10 search requests per minute unauthenticated; the
-  code does not throttle, so errors such as HTTP 403 are recorded as job errors.
+  snippets are pattern-matched for `<Title> at <Company>`. DuckDuckGo redirect links (`//duckduckgo.com/l/?uddg=`)
+  are decoded to the real destination first. A hit is dropped unless its name is compatible with the searched
+  name. The scraper swallows request errors and bot challenges (for example HTTP 202) and returns no results, so
+  failures cannot be told apart per query; when every query returns nothing, the job records the error and
+  limitation "Web search returned no results for any query (DuckDuckGo may be blocking or throttling automated
+  requests); results come from GitHub and supplied URLs only."
+- **GitHub public REST API**, unauthenticated, no token: `GET /search/users` (top 3, `"<name>" in:name`),
+  `GET /users/<login>` for each of those 3 hits, and `GET /users/<login>/repos` (10 most recently pushed) for the
+  selected candidate. A supplied GitHub URL is looked up directly. Searched (not supplied) users whose profile name
+  is not compatible with the input name are discarded. The binding limit is GitHub's unauthenticated core API
+  quota of 60 requests per hour per IP address (a job uses at most about 6). When GitHub answers 403/429 with
+  `X-RateLimit-Remaining: 0`, the job records "GitHub API rate limit reached; resets at HH:MM UTC" and makes no
+  further GitHub calls in that run. Other HTTP errors are recorded as job errors.
+  - The user's GitHub `company` field is parsed: a URL or domain (`https://vercel.com`, `vercel.com`) gives the
+    company name from the domain label (`Vercel`) and that domain becomes the first company-domain candidate
+    (`domain_source` `github_company`); several orgs (`@vercel @nextjs`) give the first (`vercel`). A role in the
+    bio (CEO, CTO, CISO, founder/co-founder, VP ..., Head of ..., Director ..., engineer, Chief ... Officer)
+    becomes the title (`@vercel CEO` gives `CEO`).
 - **Supplied personal website**: fetched with the SSRF-safe `fetch_url` (not social domains). It becomes an
   observation only if the page mentions the full name.
 - **LinkedIn and X**: supplied URLs are identifiers only and are **never fetched**; LinkedIn data comes only from
@@ -58,7 +72,8 @@ Observations merge into one candidate when they share a LinkedIn slug or GitHub 
 company (a merge by company is refused if it would join two different LinkedIn/GitHub handles). Different
 companies stay separate candidates. Confidence (0 to 1) adds: name match (+0.30 strong, +0.15 weak), job title
 (+0.10), company (+0.15), each corroborating distinct source (+0.12, up to 3), matching company hint (+0.20),
-matching location hint (+0.10). A supplied LinkedIn or GitHub URL that matches the candidate sets confidence to at
+matching location hint (+0.10), and at least one context keyword (3+ characters, not a stopword) appearing in
+the candidate's title, company or description (+0.10). A supplied LinkedIn or GitHub URL that matches the candidate sets confidence to at
 least 0.95 and ranks that candidate first.
 
 | Outcome | Rule |
@@ -72,14 +87,21 @@ least 0.95 and ranks that candidate first.
 The company name comes from the selected candidate, else the supplied company hint. Candidate domains are tried
 in this order, each at most once, at most 6 homepage fetches in total:
 
-1. GitHub `blog` field
-2. Supplied website, then websites from website observations, then the candidate's website
-3. Non-social result URLs whose domain contains the company's most distinctive name token
-4. Results of a `"<Company>" official site` search (first 10)
+1. Domain from the GitHub `company` field (`github_company`)
+2. GitHub `blog` field (`github_blog`)
+3. Supplied website, then websites from website observations, then the candidate's website (`website`)
+4. Non-social result URLs whose domain is named after the company (`search_result`)
+5. Results of a `"<Company>" official site` search, first 10 (`search`)
 
-If the supplied website does not corroborate the company, its links to domains containing the company token are
-tried as well. A domain is accepted only if its homepage passes `is_company_corroborated`. Social, free-mail and
-LinkedIn/X domains are never used. If nothing is corroborated the company is **Unknown**: `company_research` is
+A domain is accepted only if **both** hold: the company's most distinctive name token (the longest normalized
+token of 3+ characters) appears in the domain's registrable label (`vercel` in `vercel.com`, `blog.vercel.com` or
+`vercel.app`; not in `janedoe.dev` or `techcrunch.com`), and its homepage passes `is_company_corroborated`. This
+applies to every source, so a personal blog or news article that mentions the company is never taken as the
+company's website. If the company has no distinctive token, corroboration alone decides. A `github_blog` or
+`website` homepage that is not accepted still has its links harvested: links to domains named after the company
+are tried next (`website_link`), so a personal site linking to the employer finds it. Domains that are not named
+after the company are not fetched otherwise, and are listed in the Unknown note. Social, free-mail and LinkedIn/X
+domains are never used. If nothing is corroborated the company is **Unknown**: `company_research` is
 `skipped`, and the verdict is "Insufficient evidence".
 
 ### Company research (reuse)
@@ -95,7 +117,9 @@ pattern-matched.
 - **Role** (inferred from title text only): Founder / Co-founder, CTO, CISO, CEO (authority executive); chief
   AI/ML/data officer (executive AI/ML Leader); VP/Head/Director of Engineering (senior leader); Head/Director/VP/
   Lead of AI (senior leader AI/ML Leader); Security Architect and AI Engineer (practitioner); Engineering Manager
-  (senior leader); everything else is Other with unknown authority. Profile facts are labelled `verified` (seen in
+  (senior leader); everything else is Other with unknown authority. President (not Vice President), COO, CPO, CFO,
+  CMO, CRO, any Chief ... Officer, Managing Director and Owner (not Product Owner) always get executive authority;
+  their category follows the rules above, else Other. Profile facts are labelled `verified` (seen in
   a GitHub observation) or `inferred`, with source ids.
 - **Relevance** from the company-intel fit classification: strong = Relevant; validation_required = Needs
   validation; weak and not_suitable = Not relevant; insufficient_evidence, unknown company or no fit = Insufficient
@@ -134,7 +158,8 @@ The result has `job_id`, `status` (`running`, `needs_input`, `partial`, `complet
   a second start, select or retry for a job already running (409). A fresh pipeline and GitHub source are created
   per run.
 - Reads take snapshots under the job lock, so polling stays responsive while a worker runs. The page polls every
-  1.5 seconds.
+  1.5 seconds; if a poll returns 404 (job expired or the server restarted) it stops polling and says the job no
+  longer exists.
 - Candidate selection resumes at company_discovery. Retry of `identity_resolution` restarts from discovery because
   observations are not stored.
 
@@ -151,11 +176,13 @@ existing `COMPANY_RESEARCH_*` settings (see `docs/COMPANY_INTELLIGENCE.md`) and 
 
 ## Known limitations
 
-- DuckDuckGo Lite returns about 5 results per query and may throttle; discovery then yields fewer observations
-  (search errors are recorded per query).
+- DuckDuckGo Lite returns about 5 results per query and may throttle or serve a bot challenge. The scraper turns
+  those into empty results, so they are not recorded per query; only when every query comes back empty does the
+  job record a "Web search returned no results" error and limitation.
 - LinkedIn data comes only from search-result titles and snippets; LinkedIn and X pages are never fetched.
 - JavaScript-rendered company sites yield thin findings (no browser fetching).
-- GitHub unauthenticated search allows 10 requests per minute; rate-limited calls are recorded as errors.
+- GitHub is queried without a token: 60 requests per hour per IP address. Once exhausted, the job records
+  "GitHub API rate limit reached; resets at HH:MM UTC" and skips GitHub for the rest of that run.
 - Extraction is pattern-based: titles, companies and findings can be imperfectly parsed. Common names produce
   multiple candidates, and a person with no public footprint yields low confidence rather than a guess.
 - Job state is in-process: a restart loses all jobs, and results cannot be reopened after an hour.

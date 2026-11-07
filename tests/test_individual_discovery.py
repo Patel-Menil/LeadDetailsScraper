@@ -2,7 +2,7 @@ import httpx
 
 from src.lead_research.scraper import ScrapeResult
 from src.lead_research.individual_discovery import (
-    GitHubSource, collect_observations,
+    SEARCH_EMPTY_MSG, DuckDuckGoSource, GitHubSource, collect_observations,
     IndividualInput, Observation, build_discovery_queries, github_login_from_url,
     github_user_to_observation, linkedin_slug, merge_observations, parse_linkedin_title,
     parse_role_at_company, parse_search_hit, resolve_identity, score_candidate,
@@ -26,9 +26,22 @@ def obs_search(name, title, company):
 
 def test_queries_name_only():
     qs = build_discovery_queries(IndividualInput(name="Jane Doe"))
-    assert qs[0] == '"Jane Doe"'
-    assert '"Jane Doe" linkedin' in qs
-    assert len(qs) <= 5
+    assert qs == ['"Jane Doe"', '"Jane Doe" linkedin', '"Jane Doe" (CEO OR CTO OR founder OR engineer)',
+                  '"Jane Doe" github', '"Jane Doe" twitter OR x.com']
+
+
+def test_role_query_ranks_ahead_of_github_and_twitter():
+    qs = build_discovery_queries(IndividualInput(name="Jane Doe", company="Acme"))
+    role = '"Jane Doe" (CEO OR CTO OR founder OR engineer)'
+    assert role in qs and len(qs) == 5 and qs.index(role) < qs.index('"Jane Doe" github')
+    assert '"Jane Doe" twitter OR x.com' not in qs
+
+
+def test_context_query_uses_first_three_non_stopword_tokens():
+    qs = build_discovery_queries(IndividualInput(name="Jane Doe", context="She works on the AI security team at a fintech in Berlin"))
+    assert '"Jane Doe" AI security team' in qs and len(qs) <= 5
+    qs = build_discovery_queries(IndividualInput(name="Jane Doe", company="Acme", context="fintech payments"))
+    assert qs.index('"Jane Doe" "Acme"') < qs.index('"Jane Doe" fintech payments')
 
 
 def test_queries_use_hints():
@@ -72,6 +85,42 @@ def test_parse_search_hit_truncates_snippet():
     hit = {"title": "Jane Doe interview", "url": "https://news.example.com/a", "snippet": "y" * 500}
     ob = parse_search_hit(hit, "Jane Doe", "q")
     assert ob is not None and len(ob.snippet) == 300
+
+
+def test_github_company_url_or_domain_becomes_name_and_domain():
+    for raw in ("https://vercel.com", "vercel.com", "https://www.vercel.com/"):
+        ob = github_user_to_observation({"login": "jd", "name": "Jane Doe", "company": raw})
+        assert ob.company == "Vercel" and ob.company_domain == "vercel.com", raw
+
+
+def test_github_company_multiple_orgs_takes_first():
+    ob = github_user_to_observation({"login": "jd", "name": "Jane Doe", "company": "@vercel @nextjs"})
+    assert ob.company == "vercel" and ob.company_domain == ""
+    ob = github_user_to_observation({"login": "jd", "name": "Jane Doe", "company": "Next.js"})
+    assert ob.company == "Next.js" and ob.company_domain == ""
+    import json
+    from dataclasses import asdict
+    json.dumps(asdict(ob))
+
+
+def test_github_bio_sets_title():
+    assert github_user_to_observation({"login": "jd", "name": "Jane Doe", "bio": "@vercel CEO"}).title == "CEO"
+    assert github_user_to_observation({"login": "jd", "name": "Jane Doe", "bio": "Co-founder & CTO at Acme"}).title == "Co-founder & CTO"
+    assert github_user_to_observation({"login": "jd", "name": "Jane Doe", "bio": "VP of Engineering at Acme"}).title == "VP of Engineering"
+    assert github_user_to_observation({"login": "jd", "name": "Jane Doe", "bio": "Senior Software Engineer"}).title == "Senior Software Engineer"
+    assert github_user_to_observation({"login": "jd", "name": "Jane Doe", "bio": "Chief Product Officer"}).title == "Chief Product Officer"
+    assert github_user_to_observation({"login": "jd", "name": "Jane Doe", "bio": "dad, hiker, coffee"}).title == ""
+    assert len(github_user_to_observation({"login": "jd", "name": "Jane Doe", "bio": "Head of " + "x" * 300}).title) <= 120
+
+
+def test_context_token_in_candidate_boosts_score():
+    c = merge_observations([obs_li("Jane Doe", "Security Engineer", "Acme Fintech", "a")], "Jane Doe")[0]
+    plain = score_candidate(c, IndividualInput(name="Jane Doe")).confidence
+    boosted = score_candidate(c, IndividualInput(name="Jane Doe", context="the fintech one"))
+    assert round(boosted.confidence - plain, 2) == 0.10
+    assert any("context" in r for r in boosted.confidence_reasons)
+    unrelated = score_candidate(c, IndividualInput(name="Jane Doe", context="a nurse in Ohio"))
+    assert unrelated.confidence == plain
 
 
 def test_github_user_to_observation():
@@ -237,6 +286,60 @@ def test_collect_observations_never_fetches_linkedin_or_x():
 def test_collect_observations_search_failure_is_recorded():
     obs, sources, errors = collect_observations(IndividualInput(name="Jane Doe"), RaisingSearch(), FakeGitHub(), no_fetch)
     assert obs == [] and errors
+
+
+def test_all_queries_empty_records_search_blocked_error():
+    _, _, errors = collect_observations(IndividualInput(name="Jane Doe"), FakeSearch({}), FakeGitHub(), no_fetch)
+    assert SEARCH_EMPTY_MSG in errors
+    some = FakeSearch({'"Jane Doe"': [{"title": "Unrelated", "url": "https://e.com/x", "snippet": ""}]})
+    _, _, errors = collect_observations(IndividualInput(name="Jane Doe"), some, FakeGitHub(), no_fetch)
+    assert SEARCH_EMPTY_MSG not in errors
+
+
+def test_duckduckgo_redirect_links_are_decoded():
+    class FakeScraper:
+        def search_person(self, name, company, custom_query=None):
+            return [{"title": "Jane Doe - CTO - Acme AI | LinkedIn", "snippet": "",
+                     "url": "//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.linkedin.com%2Fin%2Fjane-doe&rut=abc"}]
+
+    hits = DuckDuckGoSource(scraper=FakeScraper()).search('"Jane Doe"')
+    assert hits[0]["url"] == "https://www.linkedin.com/in/jane-doe"
+    assert parse_search_hit(hits[0], "Jane Doe", "q").linkedin_slug == "jane-doe"
+
+
+def test_github_rate_limit_is_explicit_and_stops_calls():
+    calls = []
+
+    def handler(request):
+        calls.append(request.url.path)
+        return httpx.Response(403, headers={"X-RateLimit-Remaining": "0", "X-RateLimit-Reset": "1767225600"},
+                              json={"message": "API rate limit exceeded"})
+
+    gh = GitHubSource(client=httpx.Client(transport=httpx.MockTransport(handler)))
+    assert gh.search_users("Jane Doe") == [] and gh.get_user("jdoe") is None and gh.get_repos("jdoe") == []
+    assert calls == ["/search/users"] and gh.rate_limited
+    assert gh.errors == ["GitHub API rate limit reached; resets at 00:00 UTC"]
+
+
+def test_github_429_without_quota_header_is_ordinary_error():
+    gh = GitHubSource(client=httpx.Client(transport=httpx.MockTransport(lambda r: httpx.Response(429))))
+    assert gh.get_user("a") is None and gh.get_user("b") is None
+    assert not gh.rate_limited and len(gh.errors) == 2
+
+
+def test_github_user_lookups_capped_at_three():
+    looked_up = []
+
+    def handler(request):
+        if request.url.path == "/search/users":
+            per_page = int(request.url.params.get("per_page", "0"))
+            return httpx.Response(200, json={"items": [{"login": f"u{i}"} for i in range(max(per_page, 5))]})
+        looked_up.append(request.url.path)
+        return httpx.Response(200, json={"login": request.url.path.rsplit("/", 1)[-1], "name": "Jane Doe"})
+
+    gh = GitHubSource(client=httpx.Client(transport=httpx.MockTransport(handler)))
+    collect_observations(IndividualInput(name="Jane Doe"), FakeSearch({}), gh, no_fetch)
+    assert looked_up == ["/users/u0", "/users/u1", "/users/u2"]
 
 
 def test_collect_observations_github_name_filter_and_supplied_url():

@@ -14,7 +14,8 @@ from .company_intel import (
     normalize_domain,
 )
 from .individual_discovery import (
-    Candidate, GitHubSource, IndividualInput, Observation, SearchSource, collect_observations, resolve_identity,
+    SEARCH_EMPTY_MSG, Candidate, GitHubSource, IndividualInput, Observation, SearchSource, collect_observations,
+    registrable_label, resolve_identity,
 )
 from .research import is_company_corroborated
 from .sealapi_capabilities import SCOPE_NOTE
@@ -28,6 +29,7 @@ SOCIAL_DOMAINS = {
 _NEVER_FETCH = ("linkedin.com", "x.com", "twitter.com")
 MAX_FETCHES = 6
 MAX_ITEMS = 5
+_HARVEST_SOURCES = ("github_blog", "website")  # personal sites: never accepted unless named after the company
 
 
 def _domain_in(domain: str, domains) -> bool:
@@ -41,9 +43,24 @@ def _usable_domain(url: str) -> str:
     return d
 
 
+# Words that never identify a company on their own (mirrors is_company_corroborated's generic list).
+_GENERIC_TOKENS = {
+    "inc", "llc", "corp", "corporation", "ltd", "limited", "technologies", "technology", "group", "the", "company",
+    "solutions", "services", "systems", "global", "consulting", "digital", "data", "tech", "software", "partners",
+    "holdings", "capital", "ventures", "management", "network", "associates", "enterprises", "security", "financial",
+    "health", "care", "labs", "studio", "studios", "design", "creative", "cloud", "app", "apps", "web", "interactive",
+    "media", "international", "agency", "consultants", "platform", "online",
+}
+
+
 def _distinctive_token(company: str) -> str:
-    tokens = [t for t in normalize_company_name(company).split() if len(t) >= 3]
+    tokens = [t for t in normalize_company_name(company).split() if len(t) >= 3 and t not in _GENERIC_TOKENS]
     return max(tokens, key=len) if tokens else ""
+
+
+def _name_matches_domain(token: str, domain: str) -> bool:
+    """The company's distinctive token must appear in the domain's registrable label (vercel.com, vercel.app)."""
+    return not token or token in registrable_label(domain)
 
 
 def _unknown(name: str, note: str) -> dict:
@@ -57,11 +74,15 @@ def discover_company(
     if not name:
         return _unknown("", "No company is known for this person.")
 
+    gh_company = [o.company_domain for o in candidate.observations
+                  if o.source_type == "github" and getattr(o, "company_domain", "")]
     gh_sites = [o.website for o in candidate.observations if o.source_type == "github" and o.website]
     other_sites = [o.website for o in candidate.observations if o.source_type == "website" and o.website]
     token = _distinctive_token(name)
 
     def raw_candidates():
+        for d in gh_company:
+            yield d, "github_company"
         for u in gh_sites:
             yield u, "github_blog"
         if inp.website:
@@ -73,7 +94,7 @@ def discover_company(
         if token:
             for o in candidate.observations:
                 d = _usable_domain(o.url or "")
-                if d and token in d:
+                if d and _name_matches_domain(token, d):
                     yield o.url, "search_result"
         try:
             hits = search.search(f'"{name}" official site') or []
@@ -82,12 +103,13 @@ def discover_company(
         for h in hits[:10]:
             yield (h.get("url") or ""), "search"
 
+    seen: set = set()
     tried: List[str] = []
+    ignored: List[str] = []
     errors: List[str] = []
     fetches = 0
     extra: List[Tuple[str, str]] = []
     gen = raw_candidates()
-    supplied = _usable_domain(inp.website) if inp.website else ""
     while True:
         if extra:
             url, source = extra.pop(0)
@@ -98,32 +120,45 @@ def discover_company(
             url, source = nxt
         try:
             domain = _usable_domain(url)
-            if not domain or domain in tried:
+            if not domain or domain in seen:
                 continue
-            tried.append(domain)
+            seen.add(domain)
+            # A personal blog or news site that merely mentions the company is not its website.
+            name_ok = _name_matches_domain(token, domain)
+            harvest = bool(token) and source in _HARVEST_SOURCES
+            if not name_ok:
+                ignored.append(domain)
+                if not harvest:
+                    continue
             if fetches >= MAX_FETCHES:
                 break
+            tried.append(domain)
             fetches += 1
             target = f"https://{domain}/"
             page = fetch(target)
             if not getattr(page, "success", False):
                 continue
-            ok, why = is_company_corroborated(
-                name, target, getattr(page, "url", "") or target, page.title or "", page.meta_description or "",
-                page.extracted_text or "",
-            )
-            if ok:
-                return {"name": name, "domain": domain, "domain_source": source, "corroborated": True,
-                        "note": why or "Website content mentions the company.", "status": "verified"}
-            if token and domain == supplied and source == "website":
+            if name_ok:
+                ok, why = is_company_corroborated(
+                    name, target, getattr(page, "url", "") or target, page.title or "", page.meta_description or "",
+                    page.extracted_text or "",
+                )
+                if ok:
+                    return {"name": name, "domain": domain, "domain_source": source, "corroborated": True,
+                            "note": why or "Website content mentions the company.", "status": "verified"}
+            if harvest:  # a personal site often links to the employer's site
                 for href, _text in (getattr(page, "links", None) or []):
-                    if _usable_domain(href) and token in _usable_domain(href):
+                    d = _usable_domain(href)
+                    if d and _name_matches_domain(token, d):
                         extra.append((href, "website_link"))
         except Exception as e:  # noqa: BLE001 - discovery must never raise
             errors.append(f"{type(e).__name__}")
             continue
-    if tried:
-        note = f"Could not verify a company website for {name} (tried {', '.join(tried)})."
+    if tried or ignored:
+        note = f"Could not verify a company website for {name}"
+        note += f" (tried {', '.join(tried)})." if tried else "."
+        if ignored:
+            note += f" Not accepted because the domain is not named after the company: {', '.join(ignored[:5])}."
         if errors:
             note += f" {len(errors)} candidate(s) errored: {', '.join(sorted(set(errors)))}."
         return _unknown(name, note)
@@ -137,9 +172,19 @@ def _has(title: str, *patterns: str) -> bool:
 
 _AI_WORD = r"(?:\bai\b|\bml\b|machine learning|artificial intelligence|\bllm\b|deep learning|data science|generative)"
 _LEAD_WORD = r"(?:head|director|chief|vp|vice president|lead|principal|manager)"
+_EXECUTIVE = (r"(?<!vice )(?<!vice-)\bpresident\b", r"\b(?:coo|cpo|cfo|cmo|cro)\b", r"\bchief\b.*\bofficer\b",
+              r"\bmanaging director\b", r"(?<!product )\bowner\b")
 
 
 def classify_role(title: str) -> dict:
+    """Category per the rules below; President, C-suite, Managing Director and Owner titles get executive authority."""
+    role = _classify_role(title)
+    if role["authority"] != "executive" and _has((title or "").lower().strip(), *_EXECUTIVE):
+        role["authority"] = "executive"
+    return role
+
+
+def _classify_role(title: str) -> dict:
     t = (title or "").lower().strip()
 
     def out(cat: str, auth: str) -> dict:
@@ -305,7 +350,8 @@ JOB_ID_RE = re.compile(r"^ind_[0-9a-f]{16}$")
 KNOWN_LIMITS = [
     "DuckDuckGo Lite returns about 5 results per query and may throttle.",
     "JavaScript-rendered sites produce thin company findings.",
-    "GitHub unauthenticated search allows 10 requests/minute.",
+    "GitHub is queried without a token: the API allows 60 requests per hour per IP address, after which GitHub "
+    "results are skipped until the limit resets.",
 ]
 LINKEDIN_LIMIT = "LinkedIn data comes only from search snippets."
 
@@ -516,6 +562,8 @@ class IndividualPipeline:
         observations, sources, errors = collect_observations(self._inp(job), self.search, self.github, self.fetch)
         if gh_errors is not None:  # collect_observations appends the shared source's whole error list; keep this job's
             errors = errors[:len(errors) - len(gh_errors)] + list(gh_errors)[before:]
+        if SEARCH_EMPTY_MSG in errors and SEARCH_EMPTY_MSG not in job["limitations"]:
+            job["limitations"].append(SEARCH_EMPTY_MSG)
         ctx["observations"] = observations
         job["sources"] = list(sources)
         job["errors"].extend(f"discovery: {e}" for e in errors)

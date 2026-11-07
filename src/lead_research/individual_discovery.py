@@ -8,9 +8,9 @@ from urllib.parse import urlparse
 
 import httpx
 
-from .company_intel import normalize_company_name
+from .company_intel import normalize_company_name, normalize_domain
 from .identity import extract_domain, names_compatible
-from .scraper import ScrapeResult, ScraplingScraper
+from .scraper import ScrapeResult, ScraplingScraper, decode_ddg_url
 
 AUTO_SELECT_MIN = 0.75
 AUTO_SELECT_MARGIN = 0.25
@@ -18,6 +18,7 @@ CANDIDATE_MIN = 0.35
 MAX_TEXT = 300
 MAX_FIELD = 120
 MAX_QUERIES = 5
+MAX_GITHUB_LOOKUPS = 3  # /users/{login} calls per search; the unauthenticated core API allows 60 requests/hour
 
 _GITHUB_RESERVED = {
     "orgs", "topics", "search", "features", "pricing", "about", "login", "join", "explore", "marketplace",
@@ -27,6 +28,31 @@ _TITLE_SPLIT = re.compile(r"\s+[-–—|]\s+")
 _END = r"(?:[^,;|·•\n.]|\.(?=\S))+"
 _ROLE_VERB = re.compile(r"\b(?:is|as|was)\s+(?:an?\s+|the\s+)?(?P<role>[^,.;|·•\n]+?)\s+at\s+(?P<co>" + _END + ")", re.I)
 _ROLE_BARE = re.compile(r"(?:^|[·|•]\s*)(?P<role>[A-Z][\w&/ ]*?)\s+at\s+(?P<co>" + _END + ")")
+_SENIORITY = r"(?:(?:senior|sr\.?|staff|principal|lead|founding)\s+)?"
+_BIO_ROLE = re.compile(
+    r"\b(?:"
+    r"(?:co-?)?founder(?:\s*(?:&|and|/|,)\s*(?:ceo|cto|cpo|coo))?"
+    r"|chief(?:\s+[a-z&]+){1,3}?\s+officer"
+    r"|ceo|cto|ciso|coo|cpo|cfo"
+    r"|(?:vp|vice president|head|director)(?:\s+of)?(?:\s+(?!at\b)[a-z&/-]{2,}){1,2}"
+    r"|" + _SENIORITY + r"(?:(?!(?:a|an|the|and|i|im|i'm)\s)[a-z+#/-]{2,}\s+)?engineer"
+    r")\b",
+    re.I,
+)
+SEARCH_EMPTY_MSG = ("Web search returned no results for any query (DuckDuckGo may be blocking or throttling automated "
+                    "requests); results come from GitHub and supplied URLs only.")
+GITHUB_RATE_LIMIT_MSG = "GitHub API rate limit reached"
+_STOPWORDS = {
+    "a", "an", "and", "the", "of", "in", "on", "at", "for", "to", "with", "by", "from", "or", "as", "is", "was", "are",
+    "be", "who", "that", "this", "he", "she", "they", "his", "her", "their", "works", "worked", "working", "met",
+    "maybe", "possibly", "probably", "about", "some", "something", "someone", "person", "think", "know", "known",
+}
+# Hosting platforms whose subdomains belong to different owners, and two-part country suffixes.
+_HOSTED_SUFFIXES = ("vercel.app", "netlify.app", "github.io", "herokuapp.com", "pages.dev", "web.app",
+                    "firebaseapp.com", "azurewebsites.net", "wordpress.com", "blogspot.com")
+_MULTI_SUFFIXES = ("co.uk", "org.uk", "ac.uk", "com.au", "net.au", "org.au", "co.nz", "co.jp", "co.in", "com.br",
+                   "com.cn", "co.za", "com.sg", "com.mx", "co.kr", "com.tr", "co.il")
+_NOT_TLDS = {"js", "ts", "py", "rb", "rs"}  # "Next.js" is a product name, not a domain
 
 
 @dataclass
@@ -56,6 +82,7 @@ class Observation:
     github_login: str = ""
     website: str = ""
     query: str = ""
+    company_domain: str = ""  # domain from a GitHub company field such as "https://vercel.com"
 
 
 @dataclass
@@ -95,13 +122,38 @@ def _sha(text: str, n: int) -> str:
     return hashlib.sha1(text.encode("utf-8")).hexdigest()[:n]
 
 
+def registrable_label(domain: str) -> str:
+    """The label just left of the public suffix: vercel.com, blog.vercel.com, vercel.app -> "vercel"."""
+    d = normalize_domain(domain)
+    parts = d.split(".")
+    if len(parts) < 2:
+        return d
+    for suffix in _HOSTED_SUFFIXES + _MULTI_SUFFIXES:
+        if d.endswith("." + suffix):
+            return parts[-len(suffix.split(".")) - 1]
+    return parts[-2]
+
+
+def context_tokens(context: str, min_len: int = 2) -> List[str]:
+    """Distinct non-stopword tokens of the free-text context hint, in order."""
+    out: List[str] = []
+    for t in re.findall(r"[A-Za-z0-9][A-Za-z0-9+#.-]*[A-Za-z0-9+#]|[A-Za-z0-9]", (context or "")[:1000]):
+        low = t.lower()
+        if len(t) >= min_len and low not in _STOPWORDS and low not in {o.lower() for o in out}:
+            out.append(t)
+    return out
+
+
 def build_discovery_queries(inp: IndividualInput) -> List[str]:
     name = inp.name.strip()
-    queries = [f'"{name}"', f'"{name}" linkedin']
+    queries = [f'"{name}"', f'"{name}" linkedin', f'"{name}" (CEO OR CTO OR founder OR engineer)']
     if inp.company.strip():
         queries.append(f'"{name}" "{inp.company.strip()}"')
     if inp.location.strip():
         queries.append(f'"{name}" {inp.location.strip()}')
+    ctx = context_tokens(inp.context)[:3]
+    if ctx:
+        queries.append(f'"{name}" {" ".join(ctx)}')
     queries += [f'"{name}" github', f'"{name}" twitter OR x.com']
     out: List[str] = []
     for q in queries:
@@ -197,18 +249,47 @@ def parse_search_hit(hit: Dict[str, str], name: str, query: str) -> Optional[Obs
     )
 
 
+def parse_github_company(raw: str) -> Tuple[str, str]:
+    """GitHub's free-text company field -> (company name, company domain).
+
+    "https://vercel.com" / "vercel.com" -> ("Vercel", "vercel.com"); "@vercel @nextjs" -> ("vercel", "");
+    "@Acme AI" -> ("Acme AI", "").
+    """
+    raw = (raw or "").strip()
+    if not raw:
+        return "", ""
+    if " " not in raw:
+        explicit = bool(re.match(r"^(?:https?://|www\.)", raw, re.I))
+        looks_like = explicit or bool(re.match(r"^[\w-]+(?:\.[\w-]+)+(?:/\S*)?$", raw))
+        domain = normalize_domain(raw) if looks_like else ""
+        if domain and (explicit or domain.rsplit(".", 1)[-1] not in _NOT_TLDS):
+            label = registrable_label(domain)
+            return label[:1].upper() + label[1:], domain
+    orgs = re.findall(r"@([\w.-]+)", raw)
+    if len(orgs) >= 2:
+        return orgs[0], ""
+    return raw.lstrip("@").strip(), ""
+
+
+def title_from_bio(bio: str) -> str:
+    """A short role phrase from a GitHub bio ("@vercel CEO" -> "CEO"), or ""."""
+    m = _BIO_ROLE.search((bio or "")[:MAX_TEXT])
+    return _trunc(re.sub(r"\s+", " ", m.group(0)), MAX_FIELD) if m else ""
+
+
 def github_user_to_observation(user: dict) -> Optional[Observation]:
     name = (user.get("name") or "").strip()
     login = (user.get("login") or "").strip()
     if not name and not login:
         return None
-    company = (user.get("company") or "").strip().lstrip("@").strip()
+    company, company_domain = parse_github_company(user.get("company") or "")
+    bio = user.get("bio") or ""
     return Observation(
         source_id=f"github:{login or name}", source_type="github", url=user.get("html_url") or "",
-        name=_trunc(name or login, MAX_FIELD), company=_trunc(company, MAX_FIELD),
+        name=_trunc(name or login, MAX_FIELD), title=title_from_bio(bio), company=_trunc(company, MAX_FIELD),
         location=_trunc(user.get("location") or "", MAX_FIELD),
-        avatar_url=user.get("avatar_url") or "", snippet=_trunc(user.get("bio") or ""),
-        github_login=login.lower(), website=(user.get("blog") or "").strip(),
+        avatar_url=user.get("avatar_url") or "", snippet=_trunc(bio),
+        github_login=login.lower(), website=(user.get("blog") or "").strip(), company_domain=company_domain,
     )
 
 
@@ -342,6 +423,12 @@ def score_candidate(c: Candidate, inp: IndividualInput) -> Candidate:
     if loc_hint and (loc_hint in c.location.lower() or loc_hint in c.description.lower()):
         score += 0.10
         reasons.append("matches location hint (+0.10)")
+    blob = " ".join((c.title, c.company, c.description))
+    ctx_hit = next((t for t in context_tokens(inp.context, min_len=3)
+                    if re.search(r"(?<!\w)" + re.escape(t) + r"(?!\w)", blob, re.I)), "")
+    if ctx_hit:
+        score += 0.10
+        reasons.append(f"matches context hint '{_trunc(ctx_hit, 40)}' (+0.10)")
     score = min(score, 1.0)
     want_li = linkedin_slug(inp.linkedin_url) if inp.linkedin_url else ""
     want_gh = github_login_from_url(inp.github_url) if inp.github_url else ""
@@ -383,7 +470,9 @@ class DuckDuckGoSource:
         self.scraper = scraper or ScraplingScraper(use_browser=False, use_tor=False)
 
     def search(self, query: str) -> List[Dict[str, str]]:
-        return self.scraper.search_person("", "", custom_query=query)
+        hits = self.scraper.search_person("", "", custom_query=query) or []
+        # DuckDuckGo Lite may return redirect links (//duckduckgo.com/l/?uddg=...); keep the real destination.
+        return [{**h, "url": decode_ddg_url(h.get("url") or "")} for h in hits if isinstance(h, dict)]
 
 
 class GitHubSource:
@@ -393,12 +482,27 @@ class GitHubSource:
         self.client = client or httpx.Client(timeout=10.0)
         self.base_url = base_url.rstrip("/")
         self.errors: List[str] = []
+        self.rate_limited = False
+
+    @staticmethod
+    def _rate_limit_error(r: httpx.Response) -> str:
+        try:
+            reset = datetime.fromtimestamp(int(r.headers.get("X-RateLimit-Reset", "")), tz=timezone.utc)
+        except (TypeError, ValueError, OverflowError, OSError):
+            return GITHUB_RATE_LIMIT_MSG
+        return f"{GITHUB_RATE_LIMIT_MSG}; resets at {reset:%H:%M} UTC"
 
     def _get(self, path: str, params: Optional[dict] = None):
+        if self.rate_limited:  # quota exhausted: further calls would only fail and burn time
+            return None
         try:
             r = self.client.get(self.base_url + path, params=params, headers=self.HEADERS, timeout=10.0)
         except Exception as e:  # noqa: BLE001 - network errors must never propagate
             self.errors.append(f"github {path}: {type(e).__name__}")
+            return None
+        if r.status_code in (403, 429) and r.headers.get("X-RateLimit-Remaining") == "0":
+            self.rate_limited = True
+            self.errors.append(self._rate_limit_error(r))
             return None
         if r.status_code != 200:
             self.errors.append(f"github {path}: HTTP {r.status_code}")
@@ -462,22 +566,26 @@ def collect_observations(
         sources.append({"source_id": o.source_id, "url": o.url, "source_type": o.source_type,
                         "title": _trunc(title or o.name, MAX_FIELD), "retrieved_at": _now(), "query": o.query})
 
+    total_hits = 0
     for q in build_discovery_queries(inp):
         try:
             hits = search.search(q) or []
         except Exception as e:  # noqa: BLE001
             errors.append(f"search failed for {q}: {type(e).__name__}: {_trunc(str(e), 100)}")
             continue
+        total_hits += len(hits)
         for hit in hits:
             o = parse_search_hit(hit, inp.name, q)
             if o:
                 add(o, hit.get("title") or "")
+    if total_hits == 0:  # search_person swallows errors and bot challenges, so silence is the only signal
+        errors.append(SEARCH_EMPTY_MSG)
 
     supplied = github_login_from_url(inp.github_url) if inp.github_url else ""
     logins: List[Tuple[str, bool]] = []
     if supplied:
         logins.append((supplied, True))
-    for u in github.search_users(inp.name, limit=5)[:5]:
+    for u in github.search_users(inp.name, limit=MAX_GITHUB_LOOKUPS)[:MAX_GITHUB_LOOKUPS]:
         login = (u.get("login") or "").strip().lower()
         if login and login not in {l for l, _ in logins}:
             logins.append((login, False))
