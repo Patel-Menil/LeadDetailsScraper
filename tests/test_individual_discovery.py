@@ -1,4 +1,8 @@
+import httpx
+
+from src.lead_research.scraper import ScrapeResult
 from src.lead_research.individual_discovery import (
+    GitHubSource, collect_observations,
     IndividualInput, Observation, build_discovery_queries, github_login_from_url,
     github_user_to_observation, linkedin_slug, merge_observations, parse_linkedin_title,
     parse_role_at_company, parse_search_hit, resolve_identity, score_candidate,
@@ -169,3 +173,85 @@ def test_url_matched_candidate_ranks_first_even_if_other_scores_higher():
     assert other.confidence > 0.95
     assert d.candidates[0].linkedin_slug == "b" and d.mode == "auto"
     assert d.selected_id == d.candidates[0].candidate_id
+
+
+class FakeSearch:
+    def __init__(self, hits):
+        self.hits = hits
+
+    def search(self, query):
+        return self.hits.get(query, [])
+
+
+class RaisingSearch:
+    def search(self, query):
+        raise RuntimeError("boom")
+
+
+class FakeGitHub:
+    def __init__(self, users=(), profiles=None):
+        self.users, self.profiles, self.errors = list(users), profiles or {}, []
+
+    def search_users(self, name, limit=5):
+        return [{"login": u} for u in self.users]
+
+    def get_user(self, login):
+        return self.profiles.get(login)
+
+
+def page_result(url, text):
+    return ScrapeResult(url=url, success=True, title="Home", extracted_text=text)
+
+
+def no_fetch(url):
+    raise AssertionError("should not fetch")
+
+
+def test_github_source_maps_users_and_survives_rate_limit():
+    def handler(request):
+        if request.url.path == "/search/users":
+            return httpx.Response(200, json={"items": [{"login": "jdoe"}]})
+        if request.url.path == "/users/jdoe":
+            return httpx.Response(200, json={"login": "jdoe", "name": "Jane Doe"})
+        return httpx.Response(403, json={"message": "rate limited"})
+
+    gh = GitHubSource(client=httpx.Client(transport=httpx.MockTransport(handler)))
+    assert gh.search_users("Jane Doe")[0]["login"] == "jdoe"
+    assert gh.get_user("jdoe")["name"] == "Jane Doe"
+    assert gh.get_repos("other") == [] and gh.errors
+
+
+def test_collect_observations_never_fetches_linkedin_or_x():
+    fetched = []
+    obs, sources, errors = collect_observations(
+        IndividualInput(name="Jane Doe", linkedin_url="https://linkedin.com/in/janedoe", x_url="https://x.com/jd",
+                        website="https://janedoe.dev"),
+        FakeSearch({}), FakeGitHub(),
+        lambda url: fetched.append(url) or page_result(url, "Jane Doe CTO at Acme AI"))
+    assert fetched == ["https://janedoe.dev"]
+    web = [o for o in obs if o.source_type == "website"]
+    assert web and web[0].company == "Acme AI"
+    assert {s["source_id"] for s in sources} == {o.source_id for o in obs}
+
+
+def test_collect_observations_search_failure_is_recorded():
+    obs, sources, errors = collect_observations(IndividualInput(name="Jane Doe"), RaisingSearch(), FakeGitHub(), no_fetch)
+    assert obs == [] and errors
+
+
+def test_collect_observations_github_name_filter_and_supplied_url():
+    gh = FakeGitHub(users=["jdoe", "other"], profiles={
+        "jdoe": {"login": "jdoe", "name": "Jane Doe", "html_url": "https://github.com/jdoe"},
+        "other": {"login": "other", "name": "Bob Smith", "html_url": "https://github.com/other"},
+        "pinned": {"login": "pinned", "name": "J. Nickname", "html_url": "https://github.com/pinned"},
+    })
+    obs, sources, _ = collect_observations(
+        IndividualInput(name="Jane Doe", github_url="https://github.com/pinned"), FakeSearch({}), gh, no_fetch)
+    assert sorted(o.github_login for o in obs) == ["jdoe", "pinned"]
+
+
+def test_collect_observations_website_without_name_is_dropped():
+    obs, sources, errors = collect_observations(
+        IndividualInput(name="Jane Doe", website="https://x.example"), FakeSearch({}), FakeGitHub(),
+        lambda url: page_result(url, "Someone else entirely"))
+    assert obs == [] and sources == []

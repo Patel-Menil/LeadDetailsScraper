@@ -2,11 +2,15 @@
 import hashlib
 import re
 from dataclasses import asdict, dataclass, field
-from typing import Dict, List, Optional, Tuple
+from datetime import datetime, timezone
+from typing import Callable, Dict, List, Optional, Protocol, Tuple
 from urllib.parse import urlparse
+
+import httpx
 
 from .company_intel import normalize_company_name
 from .identity import extract_domain, names_compatible
+from .scraper import ScrapeResult, ScraplingScraper
 
 AUTO_SELECT_MIN = 0.75
 AUTO_SELECT_MARGIN = 0.25
@@ -368,3 +372,137 @@ def resolve_identity(observations: List[Observation], inp: IndividualInput) -> I
     if url_matched or (top.confidence >= AUTO_SELECT_MIN and top.confidence - runner_up >= AUTO_SELECT_MARGIN):
         return IdentityDecision("auto", top.candidate_id, plausible, f"Identified {top.name} with high confidence.")
     return IdentityDecision("select", "", plausible, f"Select which {inp.name} you mean.")
+
+
+class SearchSource(Protocol):
+    def search(self, query: str) -> List[Dict[str, str]]: ...
+
+
+class DuckDuckGoSource:
+    def __init__(self, scraper: Optional[ScraplingScraper] = None):
+        self.scraper = scraper or ScraplingScraper(use_browser=False, use_tor=False)
+
+    def search(self, query: str) -> List[Dict[str, str]]:
+        return self.scraper.search_person("", "", custom_query=query)
+
+
+class GitHubSource:
+    HEADERS = {"User-Agent": "SealAPIResearchBot/1.0", "Accept": "application/vnd.github+json"}
+
+    def __init__(self, client: Optional[httpx.Client] = None, base_url: str = "https://api.github.com"):
+        self.client = client or httpx.Client(timeout=10.0)
+        self.base_url = base_url.rstrip("/")
+        self.errors: List[str] = []
+
+    def _get(self, path: str, params: Optional[dict] = None):
+        try:
+            r = self.client.get(self.base_url + path, params=params, headers=self.HEADERS, timeout=10.0)
+        except Exception as e:  # noqa: BLE001 - network errors must never propagate
+            self.errors.append(f"github {path}: {type(e).__name__}")
+            return None
+        if r.status_code != 200:
+            self.errors.append(f"github {path}: HTTP {r.status_code}")
+            return None
+        try:
+            return r.json()
+        except ValueError:
+            self.errors.append(f"github {path}: invalid JSON")
+            return None
+
+    def search_users(self, name: str, limit: int = 5) -> List[dict]:
+        data = self._get("/search/users", {"q": f'"{name}" in:name type:user', "per_page": limit})
+        items = data.get("items") if isinstance(data, dict) else None
+        return [i for i in (items or []) if isinstance(i, dict)][:limit]
+
+    def get_user(self, login: str) -> Optional[dict]:
+        data = self._get(f"/users/{login}")
+        return data if isinstance(data, dict) else None
+
+    def get_repos(self, login: str, limit: int = 10) -> List[dict]:
+        data = self._get(f"/users/{login}/repos", {"sort": "pushed", "per_page": limit})
+        return [r for r in data if isinstance(r, dict)][:limit] if isinstance(data, list) else []
+
+
+def _now() -> str:
+    return datetime.now(timezone.utc).isoformat()
+
+
+def _is_social(url: str) -> bool:
+    d = extract_domain(url)
+    return d in ("linkedin.com", "x.com", "twitter.com") or d.endswith((".linkedin.com", ".x.com", ".twitter.com"))
+
+
+def website_to_observation(url: str, page: ScrapeResult, name: str) -> Optional[Observation]:
+    if not getattr(page, "success", False):
+        return None
+    text = page.extracted_text or ""
+    if not (_full_name_in(text, name) or _full_name_in(page.title or "", name)):
+        return None
+    blob = " ".join(x for x in (page.title, page.meta_description, text[:2000]) if x)
+    role, company = parse_role_at_company(blob)
+    return Observation(
+        source_id=f"website:{_sha(url, 10)}", source_type="website", url=url, name=_trunc(name, MAX_FIELD),
+        title=role, company=company, snippet=_trunc(page.meta_description or text), website=url,
+    )
+
+
+def collect_observations(
+    inp: IndividualInput, search: SearchSource, github: GitHubSource, fetch: Callable[[str], ScrapeResult],
+) -> Tuple[List[Observation], List[dict], List[str]]:
+    observations: List[Observation] = []
+    sources: List[dict] = []
+    errors: List[str] = []
+    seen_ids: set = set()
+
+    def add(o: Observation, title: str = "") -> None:
+        if o.source_id in seen_ids:
+            return
+        seen_ids.add(o.source_id)
+        observations.append(o)
+        sources.append({"source_id": o.source_id, "url": o.url, "source_type": o.source_type,
+                        "title": _trunc(title or o.name, MAX_FIELD), "retrieved_at": _now(), "query": o.query})
+
+    for q in build_discovery_queries(inp):
+        try:
+            hits = search.search(q) or []
+        except Exception as e:  # noqa: BLE001
+            errors.append(f"search failed for {q}: {type(e).__name__}: {_trunc(str(e), 100)}")
+            continue
+        for hit in hits:
+            o = parse_search_hit(hit, inp.name, q)
+            if o:
+                add(o, hit.get("title") or "")
+
+    supplied = github_login_from_url(inp.github_url) if inp.github_url else ""
+    logins: List[Tuple[str, bool]] = []
+    if supplied:
+        logins.append((supplied, True))
+    for u in github.search_users(inp.name, limit=5)[:5]:
+        login = (u.get("login") or "").strip().lower()
+        if login and login not in {l for l, _ in logins}:
+            logins.append((login, False))
+    for login, is_supplied in logins:
+        user = github.get_user(login)
+        if not user:
+            continue
+        if not is_supplied and not names_compatible(inp.name, (user.get("name") or ""))[0]:
+            continue
+        o = github_user_to_observation(user)
+        if o:
+            add(o)
+
+    site = (inp.website or "").strip()
+    if site and not _is_social(site):
+        try:
+            page = fetch(site)
+        except Exception as e:  # noqa: BLE001
+            errors.append(f"website fetch failed: {type(e).__name__}: {_trunc(str(e), 100)}")
+        else:
+            o = website_to_observation(site, page, inp.name)
+            if o:
+                add(o, page.title or "")
+            elif not page.success:
+                errors.append(f"website fetch failed: {_trunc(page.error, 100)}")
+
+    errors.extend(getattr(github, "errors", []))
+    return observations, sources, errors
