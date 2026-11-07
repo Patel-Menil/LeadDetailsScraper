@@ -12,6 +12,7 @@ AUTO_SELECT_MIN = 0.75
 AUTO_SELECT_MARGIN = 0.25
 CANDIDATE_MIN = 0.35
 MAX_TEXT = 300
+MAX_FIELD = 120
 MAX_QUERIES = 5
 
 _GITHUB_RESERVED = {
@@ -118,10 +119,11 @@ def parse_linkedin_title(title: str) -> Tuple[str, str, str]:
 
 
 def parse_role_at_company(text: str) -> Tuple[str, str]:
+    text = (text or "")[:MAX_TEXT]
     for rx in (_ROLE_VERB, _ROLE_BARE):
-        m = rx.search(text or "")
+        m = rx.search(text)
         if m:
-            return m.group("role").strip(), m.group("co").strip()
+            return _trunc(m.group("role"), MAX_FIELD), _trunc(m.group("co"), MAX_FIELD)
     return "", ""
 
 
@@ -176,6 +178,7 @@ def parse_search_hit(hit: Dict[str, str], name: str, query: str) -> Optional[Obs
         final_name = name.strip()
     else:
         return None
+    role, company = _trunc(role, MAX_FIELD), _trunc(company, MAX_FIELD)
     if not (role and company):
         r2, c2 = parse_role_at_company(snippet)
         role, company = role or r2, company or c2
@@ -184,8 +187,8 @@ def parse_search_hit(hit: Dict[str, str], name: str, query: str) -> Optional[Obs
         if first and " at " not in first and len(first) < 60:
             location = first
     return Observation(
-        source_id=f"search:{_sha(url, 10)}", source_type="search", url=url, name=final_name, title=role,
-        company=company, location=location, snippet=_trunc(snippet), linkedin_slug=slug, github_login=login,
+        source_id=f"search:{_sha(url, 10)}", source_type="search", url=url, name=_trunc(final_name, MAX_FIELD), title=role,
+        company=company, location=_trunc(location, MAX_FIELD), snippet=_trunc(snippet), linkedin_slug=slug, github_login=login,
         query=query,
     )
 
@@ -198,7 +201,8 @@ def github_user_to_observation(user: dict) -> Optional[Observation]:
     company = (user.get("company") or "").strip().lstrip("@").strip()
     return Observation(
         source_id=f"github:{login or name}", source_type="github", url=user.get("html_url") or "",
-        name=name or login, company=company, location=(user.get("location") or "").strip(),
+        name=_trunc(name or login, MAX_FIELD), company=_trunc(company, MAX_FIELD),
+        location=_trunc(user.get("location") or "", MAX_FIELD),
         avatar_url=user.get("avatar_url") or "", snippet=_trunc(user.get("bio") or ""),
         github_login=login.lower(), website=(user.get("blog") or "").strip(),
     )
@@ -289,10 +293,10 @@ def _build_candidate(obs: List[Observation], name: str) -> Candidate:
     best_name = max((o.name for o in ordered if o.name), key=len, default=name)
     return Candidate(
         candidate_id="cand_" + _sha(key, 10),
-        name=best_name,
-        title=_first(o.title for o in ordered),
-        company=_first(o.company for o in ordered),
-        location=_first(o.location for o in ordered),
+        name=_trunc(best_name, MAX_FIELD),
+        title=_trunc(_first(o.title for o in ordered), MAX_FIELD),
+        company=_trunc(_first(o.company for o in ordered), MAX_FIELD),
+        location=_trunc(_first(o.location for o in ordered), MAX_FIELD),
         avatar_url=_first(o.avatar_url for o in ordered),
         profile_url=profile,
         description=_trunc(_first(o.snippet for o in ordered)),
@@ -356,6 +360,7 @@ def resolve_identity(observations: List[Observation], inp: IndividualInput) -> I
                                 f"Only weak matches found for {inp.name}; add a company, location or profile URL.")
     top = plausible[0]
     runner_up = plausible[1].confidence if len(plausible) > 1 else 0.0
-    if top.confidence >= AUTO_SELECT_MIN and top.confidence - runner_up >= AUTO_SELECT_MARGIN:
+    url_matched = any(r.startswith("url_match") for r in top.confidence_reasons)
+    if url_matched or (top.confidence >= AUTO_SELECT_MIN and top.confidence - runner_up >= AUTO_SELECT_MARGIN):
         return IdentityDecision("auto", top.candidate_id, plausible, f"Identified {top.name} with high confidence.")
     return IdentityDecision("select", "", plausible, f"Select which {inp.name} you mean.")

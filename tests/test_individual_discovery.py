@@ -129,3 +129,32 @@ def test_hints_raise_score():
 def test_no_observations_low_confidence():
     d = resolve_identity([], IndividualInput(name="Jane Doe"))
     assert d.mode == "low_confidence" and d.selected_id == ""
+
+
+def test_url_match_auto_selects_despite_close_runner_up():
+    obs = [obs_li("Jane Doe", "CTO", "Acme", "a"), obs_li("Jane Doe", "VP Eng", "Beta", "b")]
+    inp = IndividualInput(name="Jane Doe", company="Acme", linkedin_url="https://linkedin.com/in/b/")
+    d = resolve_identity(obs, inp)
+    scores = sorted(c.confidence for c in d.candidates)
+    assert scores[-1] >= 0.95 and scores[-2] > 0.70
+    assert d.mode == "auto" and d.candidates[0].linkedin_slug == "b"
+    assert d.selected_id == d.candidates[0].candidate_id
+
+
+def test_github_url_match_auto_selects():
+    obs = [obs_gh("Jane Doe", "Acme", "jdoe"), obs_li("Jane Doe", "VP Eng", "Beta", "b")]
+    d = resolve_identity(obs, IndividualInput(name="Jane Doe", github_url="https://github.com/JDoe"))
+    assert d.mode == "auto" and d.candidates[0].github_login == "jdoe"
+
+
+def test_oversized_fields_are_capped():
+    hit = {"title": "Jane Doe - " + "T" * 500 + " - " + "C" * 500 + " | LinkedIn",
+           "url": "https://www.linkedin.com/in/janedoe", "snippet": "s" * 1000}
+    ob = parse_search_hit(hit, "Jane Doe", "q")
+    assert len(ob.title) == 120 and len(ob.company) == 120
+    big = Observation(source_id="x", source_type="search", url="https://e.com", name="Jane Doe",
+                      title="T" * 500, company="C" * 500, location="L" * 500)
+    c = merge_observations([big], "Jane Doe")[0]
+    assert len(c.title) == len(c.company) == len(c.location) == 120
+    role, co = parse_role_at_company("x" * 400 + " is the CTO at Acme")
+    assert (role, co) == ("", "")
