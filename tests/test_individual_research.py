@@ -318,7 +318,8 @@ def test_pipeline_stage_crash_is_partial_and_retryable():
     job = start(pipe, AUTO_INP)
     st = {s["name"]: s["status"] for s in job["stages"]}
     assert job["status"] == "partial" and pipe.retry_stage(job) == "company_research"
-    assert st["company_research"] == "failed" and st["verdict"] == "skipped" and st["professional_profile"] == "done"
+    assert st["company_research"] == "failed" and st["verdict"] == "done" and st["professional_profile"] == "done"
+    assert job["sealapi"]["relevance"] == "insufficient_evidence" and job["priority"]["label"] == "P2"
     assert any("company_research" in e for e in job["errors"])
     json.dumps(job)
 
@@ -338,6 +339,38 @@ def test_retry_runs_from_failed_stage():
     pipe.company_researcher = FakeResearcher
     pipe.run(job, pipe.retry_stage(job))
     assert job["status"] == "completed"
+    assert not any("company_research" in e for e in job["errors"])
+
+
+def test_shared_github_errors_do_not_leak_into_job():
+    gh = FakeGitHub(errors=["old"])
+    job = start(make_pipe(github=gh), AUTO_INP)
+    assert "old" not in json.dumps(job["errors"])
+    gh2 = FakeGitHub(errors=["old"])
+    gh2.get_repos = lambda login, limit=10: (gh2.errors.append("new repo error"), [])[1]
+    job = start(make_pipe(github=gh2), AUTO_INP)
+    assert any("new repo error" in e for e in job["errors"]) and "old" not in json.dumps(job["errors"])
+
+
+def test_company_slots_entered_once_around_research():
+    events = []
+
+    class Slots:
+        def __enter__(self):
+            events.append("enter")
+
+        def __exit__(self, *a):
+            events.append("exit")
+
+    class Rec(FakeResearcher):
+        def research(self, record):
+            events.append("research")
+            return super().research(record)
+
+    pipe = IndividualPipeline(AnySearch([LI_A]), FakeGitHub(), fetch_ok("https://acme.ai", "Acme AI - secure agents"),
+                              company_researcher=Rec, company_slots=Slots())
+    start(pipe, AUTO_INP)
+    assert events == ["enter", "research", "exit"]
 
 
 def test_memory_store_writes_nothing(tmp_path, monkeypatch):

@@ -397,8 +397,8 @@ def build_ai_usage(record: Optional[dict]) -> dict:
 
 
 _DEPENDENTS = {
-    "discovery": None, "identity_resolution": None, "company_discovery": ["company_research", "verdict"],
-    "company_research": ["verdict"], "professional_profile": [], "verdict": [],
+    "discovery": None, "identity_resolution": None, "company_discovery": ["company_research"],
+    "company_research": [], "professional_profile": [], "verdict": [],
 }
 
 
@@ -461,6 +461,8 @@ class IndividualPipeline:
             start_stage = "company_discovery"
         start = STAGES.index(start_stage)
         job["running"], job["status"] = True, "running"
+        stale = tuple(f"{n}: " for n in STAGES[start:])
+        job["errors"] = [e for e in job["errors"] if not e.startswith(stale)]
         for name in STAGES[start:]:
             self._stage(job, name).update(status="pending", message="", started_at=None, finished_at=None)
         ctx: Dict[str, Any] = {}
@@ -494,7 +496,7 @@ class IndividualPipeline:
             status, msg = getattr(self, "_do_" + name)(job, ctx)
         except Exception as e:  # noqa: BLE001 - nothing propagates out of run
             msg = f"{type(e).__name__}: {str(e)[:200]}"
-            job["errors"].append(f"{name} failed: {msg}")
+            job["errors"].append(f"{name}: failed: {msg}")
             self._set(job, name, "failed", msg)
             deps = _DEPENDENTS[name]
             for later in STAGES[STAGES.index(name) + 1:]:
@@ -509,10 +511,14 @@ class IndividualPipeline:
         job.update(sources=[], candidates=[], identity=None, person=None, selected_candidate_id="", company=None,
                    sealapi=None, priority=None, errors=[], limitations=list(KNOWN_LIMITS),
                    ai_usage=build_ai_usage(None))
+        gh_errors = getattr(self.github, "errors", None)
+        before = len(gh_errors) if gh_errors is not None else 0
         observations, sources, errors = collect_observations(self._inp(job), self.search, self.github, self.fetch)
+        if gh_errors is not None:  # collect_observations appends the shared source's whole error list; keep this job's
+            errors = errors[:len(errors) - len(gh_errors)] + list(gh_errors)[before:]
         ctx["observations"] = observations
         job["sources"] = list(sources)
-        job["errors"].extend(errors)
+        job["errors"].extend(f"discovery: {e}" for e in errors)
         return "done", f"{len(observations)} observation(s) from {len(sources)} source(s)."
 
     def _do_identity_resolution(self, job: dict, ctx: dict) -> Tuple[str, str]:
@@ -557,7 +563,7 @@ class IndividualPipeline:
         job["ai_usage"] = build_ai_usage(record)
         if record.get("research_status") == "failed":
             errs = "; ".join(str(e) for e in (record.get("errors") or [])[:3]) or "company research failed"
-            job["errors"].append(f"company_research failed: {errs}")
+            job["errors"].append(f"company_research: failed: {errs}")
             return "failed", errs
         return "done", f"Researched {comp['domain']} ({len(pages)} page(s))."
 
@@ -565,10 +571,10 @@ class IndividualPipeline:
         cand = self._candidate(job)
         if cand is None:
             raise RuntimeError("no candidate selected")
+        gh_errors = getattr(self.github, "errors", [])
+        before = len(gh_errors)
         repos: List[dict] = self.github.get_repos(cand.github_login, limit=10) if cand.github_login else []
-        for e in getattr(self.github, "errors", []):
-            if e not in job["errors"]:
-                job["errors"].append(e)
+        job["errors"].extend(f"professional_profile: {e}" for e in list(gh_errors)[before:])
         profile = build_professional_profile(cand, repos)
         job["person"] = {**profile, "candidate": cand.to_dict(), "identity_confidence": cand.confidence}
         return "done", f"Profile built for {cand.name}."
