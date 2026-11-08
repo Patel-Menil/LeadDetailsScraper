@@ -72,7 +72,7 @@ export default function BatchesHistoryPage() {
   return (
     <div className="space-y-6 max-w-7xl mx-auto">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#1c2438] pb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#1a3a5f] pb-4">
         <div>
           <h2 className="text-xl font-bold text-white tracking-tight flex items-center gap-2">
             <History className="w-5 h-5 text-blue-400" />
@@ -142,7 +142,7 @@ export default function BatchesHistoryPage() {
             </div>
           ) : (
             <table className="w-full text-left text-sm">
-              <thead className="bg-[#0e1320] border-b border-[#1c2438] text-xs uppercase font-semibold text-slate-400">
+              <thead className="bg-[#0b2545] border-b border-[#1a3a5f] text-xs uppercase font-semibold text-slate-400">
                 <tr>
                   <th className="py-3 px-5">Batch ID</th>
                   <th className="py-3 px-5">File & Context</th>
@@ -154,9 +154,9 @@ export default function BatchesHistoryPage() {
                   <th className="py-3 px-5 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#1c2438] text-slate-300">
+              <tbody className="divide-y divide-[#1a3a5f] text-slate-300">
                 {batches.map((batch) => (
-                  <tr key={batch.batch_id} className="hover:bg-[#131929] transition-colors">
+                  <tr key={batch.batch_id} className="hover:bg-[#0f2c50] transition-colors">
                     <td className="py-3.5 px-5 font-mono text-xs text-blue-400">
                       <Link href={`/batches/${batch.batch_id}`} className="hover:underline">
                         {batch.batch_id}

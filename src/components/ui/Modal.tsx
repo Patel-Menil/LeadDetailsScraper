@@ -55,11 +55,11 @@ export function Modal({
       {/* Modal Dialog */}
       <div
         className={cn(
-          "relative w-full rounded-xl border border-[#232c45] bg-[#101522] shadow-2xl transition-all z-10 max-h-[90vh] flex flex-col",
+          "relative w-full rounded-xl border border-[#234a73] bg-[#0c2747] shadow-2xl transition-all z-10 max-h-[90vh] flex flex-col",
           maxWidthStyles[maxWidth]
         )}
       >
-        <div className="flex items-center justify-between border-b border-[#1c2438] p-5">
+        <div className="flex items-center justify-between border-b border-[#1a3a5f] p-5">
           <div>
             <h3 className="text-base font-semibold text-white">{title}</h3>
             {description && <p className="text-xs text-slate-400 mt-1">{description}</p>}

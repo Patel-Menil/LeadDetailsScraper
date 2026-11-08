@@ -9,6 +9,8 @@ from dataclasses import asdict
 from datetime import datetime, timedelta, timezone
 from typing import Any, Callable, Dict, List, Optional, Tuple
 
+from .ai_usage import extract_ai_use_cases, summarize_ai_usage
+from .live_products import build_company_live_products, build_person_projects, product_name_map
 from .company_intel import (
     COMPANY_ID_RE, FIT_LABELS, FREE_MAIL_DOMAINS, CompanyResearcher, new_company_record, normalize_company_name,
     normalize_domain,
@@ -343,6 +345,11 @@ class MemoryCompanyStore:
         with self._lock:
             self._cache.setdefault(company_id, {})[page.get("normalized_url") or page.get("url", "")] = page
 
+    def pages(self, company_id: str) -> List[dict]:
+        """Copies of every page fetched for this company, with full text (kept in memory only)."""
+        with self._lock:
+            return [dict(p) for p in self._cache.get(company_id, {}).values()]
+
 
 STAGES: List[str] = ["discovery", "identity_resolution", "company_discovery", "company_research",
                      "professional_profile", "verdict"]
@@ -397,7 +404,8 @@ class IndividualJobStore:
                 "stages": [{"name": n, "status": "pending", "message": "", "started_at": None, "finished_at": None}
                            for n in STAGES],
                 "candidates": [], "selected_candidate_id": "", "identity": None, "person": None, "company": None,
-                "ai_usage": {"ai_findings": [], "providers": [], "ai_products": []}, "sealapi": None, "priority": None,
+                "ai_usage": build_ai_usage(None), "live_products": empty_live_products(), "sealapi": None,
+                "priority": None,
                 "sources": [], "errors": [], "limitations": list(KNOWN_LIMITS), "running": False,
             }
             self._jobs[job_id] = job
@@ -428,7 +436,11 @@ def company_id_for(domain: str) -> str:
     return "co_" + hashlib.sha1(domain.encode()).hexdigest()[:12]
 
 
-def build_ai_usage(record: Optional[dict]) -> dict:
+def empty_live_products() -> dict:
+    return {"live": [], "excluded": []}
+
+
+def build_ai_usage(record: Optional[dict], use_cases: Optional[List[dict]] = None) -> dict:
     findings = [f for f in (record or {}).get("findings") or []
                 if isinstance(f, dict) and f.get("category") in ("ai", "ai_provider")]
     ai_findings = [{"evidence": f.get("evidence", ""), "source_url": f.get("source_url", ""), "label": f.get("label", "")}
@@ -439,7 +451,18 @@ def build_ai_usage(record: Optional[dict]) -> dict:
     for p in (record or {}).get("products") or []:
         if isinstance(p, dict) and p.get("product_id") in pids and p.get("name") and p["name"] not in products:
             products.append(p["name"])
-    return {"ai_findings": ai_findings, "providers": providers, "ai_products": products}
+    use_cases = list(use_cases or [])
+    return {"ai_findings": ai_findings, "providers": providers, "ai_products": products, "use_cases": use_cases,
+            "summary": summarize_ai_usage(use_cases, providers)}
+
+
+def company_pages_with_categories(store: MemoryCompanyStore, record: dict) -> List[dict]:
+    """Fetched company pages with full text, each tagged with the category company research gave it."""
+    categories = {p.get("url"): p.get("category") or "" for p in record.get("pages") or [] if isinstance(p, dict)}
+    pages = store.pages(record.get("company_id") or "")
+    for p in pages:
+        p["category"] = categories.get(p.get("url")) or categories.get(p.get("requested_url")) or p.get("category") or ""
+    return pages
 
 
 _DEPENDENTS = {
@@ -556,7 +579,7 @@ class IndividualPipeline:
     def _do_discovery(self, job: dict, ctx: dict) -> Tuple[str, str]:
         job.update(sources=[], candidates=[], identity=None, person=None, selected_candidate_id="", company=None,
                    sealapi=None, priority=None, errors=[], limitations=list(KNOWN_LIMITS),
-                   ai_usage=build_ai_usage(None))
+                   ai_usage=build_ai_usage(None), live_products=empty_live_products())
         gh_errors = getattr(self.github, "errors", None)
         before = len(gh_errors) if gh_errors is not None else 0
         observations, sources, errors = collect_observations(self._inp(job), self.search, self.github, self.fetch)
@@ -586,7 +609,7 @@ class IndividualPipeline:
         if LINKEDIN_LIMIT not in job["limitations"] and any(
                 o.source_type == "search" and o.linkedin_slug for o in cand.observations):
             job["limitations"].append(LINKEDIN_LIMIT)
-        job["company"] = None
+        job.update(company=None, ai_usage=build_ai_usage(None), live_products=empty_live_products())
         comp = discover_company(cand, self._inp(job), self.search, self.fetch)
         job["company"] = {**comp, "company_id": company_id_for(comp["domain"]) if comp["domain"] else "", "intel": None}
         if comp["status"] == "verified":
@@ -599,8 +622,9 @@ class IndividualPipeline:
             return "skipped", "Company website could not be verified."
         record = new_company_record({"company_id": comp["company_id"], "name": comp["name"], "domain": comp["domain"],
                                      "domain_source": comp["domain_source"]})
+        store = MemoryCompanyStore()
         with self.company_slots:
-            record = self.company_researcher(MemoryCompanyStore()).research(record)
+            record = self.company_researcher(store).research(record)
         pages = [p for p in record.get("pages") or [] if isinstance(p, dict)]
         intel = {k: v for k, v in record.items() if k not in ("pages", "links")}
         intel["pages"] = [{k: v for k, v in p.items() if k not in ("text", "links")} for p in pages]
@@ -608,7 +632,11 @@ class IndividualPipeline:
         job["sources"] = [s for s in job["sources"] if s.get("source_type") != "company_site"] + [
             {"url": p.get("url", ""), "title": p.get("title", ""), "accessed_at": p.get("accessed_at", ""),
              "source_type": "company_site"} for p in pages if p.get("success")]
-        job["ai_usage"] = build_ai_usage(record)
+        full_pages = company_pages_with_categories(store, record)
+        products = [p for p in record.get("products") or [] if isinstance(p, dict)]
+        use_cases = extract_ai_use_cases(full_pages, product_names=product_name_map(products, full_pages))
+        job["ai_usage"] = build_ai_usage(record, use_cases)
+        job["live_products"] = build_company_live_products(products, full_pages, use_cases)
         if record.get("research_status") == "failed":
             errs = "; ".join(str(e) for e in (record.get("errors") or [])[:3]) or "company research failed"
             job["errors"].append(f"company_research: failed: {errs}")
@@ -624,6 +652,7 @@ class IndividualPipeline:
         repos: List[dict] = self.github.get_repos(cand.github_login, limit=10) if cand.github_login else []
         job["errors"].extend(f"professional_profile: {e}" for e in list(gh_errors)[before:])
         profile = build_professional_profile(cand, repos)
+        profile["projects"] = build_person_projects(repos, self.fetch, website=self._inp(job).website or "")
         job["person"] = {**profile, "candidate": cand.to_dict(), "identity_confidence": cand.confidence}
         return "done", f"Profile built for {cand.name}."
 

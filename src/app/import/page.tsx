@@ -145,7 +145,7 @@ export default function ImportPage() {
   return (
     <div className="space-y-8 max-w-5xl mx-auto">
       {/* Header Info */}
-      <div className="border-b border-[#1c2438] pb-4">
+      <div className="border-b border-[#1a3a5f] pb-4">
         <h2 className="text-xl font-bold text-white tracking-tight flex items-center gap-2">
           <UploadCloud className="w-5 h-5 text-blue-400" />
           <span>Upload & Scrape Leads</span>
@@ -168,7 +168,7 @@ export default function ImportPage() {
 
       {/* Upload Zone */}
       {!inspection && (
-        <Card className="border-dashed border-2 border-[#232c45] bg-[#0d121f]/50 hover:bg-[#0d121f] transition-all">
+        <Card className="border-dashed border-2 border-[#234a73] bg-[#0a2241]/50 hover:bg-[#0a2241] transition-all">
           <CardContent className="p-12 text-center">
             <input
               ref={fileInputRef}
@@ -192,7 +192,7 @@ export default function ImportPage() {
                 className={`w-16 h-16 rounded-2xl flex items-center justify-center transition-all ${
                   dragOver
                     ? "bg-blue-600/30 text-blue-400 border border-blue-500 scale-110"
-                    : "bg-[#141a29] text-slate-400 border border-[#232c45]"
+                    : "bg-[#0f2c50] text-slate-400 border border-[#234a73]"
                 }`}
               >
                 {uploading ? (
@@ -261,12 +261,12 @@ export default function ImportPage() {
 
             <CardContent>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
-                <div className="p-3 rounded-lg bg-[#0e1320] border border-[#1c2438]">
+                <div className="p-3 rounded-lg bg-[#0b2545] border border-[#1a3a5f]">
                   <span className="text-[11px] text-slate-400">Total Rows</span>
                   <div className="text-lg font-bold text-white font-mono">{inspection.total_rows}</div>
                 </div>
 
-                <div className="p-3 rounded-lg bg-[#0e1320] border border-[#1c2438]">
+                <div className="p-3 rounded-lg bg-[#0b2545] border border-[#1a3a5f]">
                   <span className="text-[11px] text-emerald-400 flex items-center gap-1">
                     <CheckCircle2 className="w-3 h-3" /> Valid Leads
                   </span>
@@ -275,7 +275,7 @@ export default function ImportPage() {
                   </div>
                 </div>
 
-                <div className="p-3 rounded-lg bg-[#0e1320] border border-[#1c2438]">
+                <div className="p-3 rounded-lg bg-[#0b2545] border border-[#1a3a5f]">
                   <span className="text-[11px] text-amber-400 flex items-center gap-1">
                     <AlertTriangle className="w-3 h-3" /> Duplicates Removed
                   </span>
@@ -284,7 +284,7 @@ export default function ImportPage() {
                   </div>
                 </div>
 
-                <div className="p-3 rounded-lg bg-[#0e1320] border border-[#1c2438]">
+                <div className="p-3 rounded-lg bg-[#0b2545] border border-[#1a3a5f]">
                   <span className="text-[11px] text-rose-400 flex items-center gap-1">
                     <XCircle className="w-3 h-3" /> Malformed Rows
                   </span>
@@ -311,7 +311,7 @@ export default function ImportPage() {
             <CardContent>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                 {TARGET_FIELDS.map((target) => (
-                  <div key={target.key} className="space-y-1.5 p-3 rounded-lg bg-[#0e1320] border border-[#1c2438]">
+                  <div key={target.key} className="space-y-1.5 p-3 rounded-lg bg-[#0b2545] border border-[#1a3a5f]">
                     <div className="flex items-center justify-between">
                       <label className="text-xs font-medium text-slate-300">
                         {target.label}
@@ -334,7 +334,7 @@ export default function ImportPage() {
                           [target.key]: e.target.value,
                         }))
                       }
-                      className="w-full bg-[#151b2c] border border-[#232c45] rounded-md px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-blue-500 font-mono"
+                      className="w-full bg-[#0e2a4d] border border-[#234a73] rounded-md px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-blue-500 font-mono"
                     >
                       <option value="">-- Unmapped --</option>
                       {inspection.headers.map((h) => (
@@ -363,7 +363,7 @@ export default function ImportPage() {
               <CardContent className="p-0 overflow-x-auto">
                 <table className="w-full text-left text-xs border-collapse">
                   <thead>
-                    <tr className="border-y border-[#1c2438] bg-[#0c101a] text-slate-400 font-semibold">
+                    <tr className="border-y border-[#1a3a5f] bg-[#0a2241] text-slate-400 font-semibold">
                       <th className="py-2.5 px-4 w-12 font-mono">#</th>
                       {inspection.headers.slice(0, 6).map((hdr) => (
                         <th key={hdr} className="py-2.5 px-4 font-mono truncate max-w-[150px]">
@@ -372,9 +372,9 @@ export default function ImportPage() {
                       ))}
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-[#1c2438] text-slate-300">
+                  <tbody className="divide-y divide-[#1a3a5f] text-slate-300">
                     {inspection.preview_rows.map((row, idx) => (
-                      <tr key={idx} className="hover:bg-[#131929]">
+                      <tr key={idx} className="hover:bg-[#0f2c50]">
                         <td className="py-2 px-4 font-mono text-slate-500">{idx + 1}</td>
                         {inspection.headers.slice(0, 6).map((hdr) => (
                           <td key={hdr} className="py-2 px-4 truncate max-w-[150px]">
@@ -390,7 +390,7 @@ export default function ImportPage() {
           )}
 
           {/* Scrapling Browser & Tor Scraping Controls */}
-          <Card className="border border-blue-500/30 bg-gradient-to-br from-[#0c101a] via-[#0d1322] to-[#0c101a]">
+          <Card className="border border-blue-500/30 bg-gradient-to-br from-[#0a2241] via-[#0a2241] to-[#0a2241]">
             <CardHeader>
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                 <div>
@@ -431,7 +431,7 @@ export default function ImportPage() {
             <CardContent className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
                 {/* Browser Engine Toggle */}
-                <div className="p-3.5 rounded-lg bg-[#0e1320] border border-[#1c2438] flex flex-col justify-between">
+                <div className="p-3.5 rounded-lg bg-[#0b2545] border border-[#1a3a5f] flex flex-col justify-between">
                   <div>
                     <label className="text-xs font-semibold text-white flex items-center gap-1.5">
                       <Globe className="w-3.5 h-3.5 text-blue-400" />
@@ -447,7 +447,7 @@ export default function ImportPage() {
                       id="useBrowser"
                       checked={useBrowser}
                       onChange={(e) => setUseBrowser(e.target.checked)}
-                      className="rounded bg-[#151b2c] border-[#232c45] text-emerald-500 focus:ring-0 w-4 h-4 cursor-pointer"
+                      className="rounded bg-[#0e2a4d] border-[#234a73] text-emerald-500 focus:ring-0 w-4 h-4 cursor-pointer"
                     />
                     <label htmlFor="useBrowser" className="text-xs text-emerald-400 font-medium cursor-pointer">
                       Stealth Chromium
@@ -456,7 +456,7 @@ export default function ImportPage() {
                 </div>
 
                 {/* Tor Proxy Toggle */}
-                <div className="p-3.5 rounded-lg bg-[#0e1320] border border-[#1c2438] flex flex-col justify-between">
+                <div className="p-3.5 rounded-lg bg-[#0b2545] border border-[#1a3a5f] flex flex-col justify-between">
                   <div>
                     <label className="text-xs font-semibold text-white flex items-center gap-1.5">
                       <ShieldCheck className="w-3.5 h-3.5 text-purple-400" />
@@ -472,7 +472,7 @@ export default function ImportPage() {
                       id="useTor"
                       checked={useTor}
                       onChange={(e) => setUseTor(e.target.checked)}
-                      className="rounded bg-[#151b2c] border-[#232c45] text-purple-500 focus:ring-0 w-4 h-4 cursor-pointer"
+                      className="rounded bg-[#0e2a4d] border-[#234a73] text-purple-500 focus:ring-0 w-4 h-4 cursor-pointer"
                     />
                     <label htmlFor="useTor" className="text-xs text-purple-300 font-medium cursor-pointer">
                       Enable Tor Routing
@@ -481,7 +481,7 @@ export default function ImportPage() {
                 </div>
 
                 {/* Concurrency Slider */}
-                <div className="p-3.5 rounded-lg bg-[#0e1320] border border-[#1c2438]">
+                <div className="p-3.5 rounded-lg bg-[#0b2545] border border-[#1a3a5f]">
                   <label className="text-xs font-semibold text-white block">Worker Concurrency</label>
                   <p className="text-[11px] text-slate-400 mt-1">
                     Simultaneous browser scraping threads (1 - 4).
@@ -500,7 +500,7 @@ export default function ImportPage() {
                 </div>
 
                 {/* Lead Processing Limit */}
-                <div className="p-3.5 rounded-lg bg-[#0e1320] border border-[#1c2438]">
+                <div className="p-3.5 rounded-lg bg-[#0b2545] border border-[#1a3a5f]">
                   <label className="text-xs font-semibold text-white block">Lead Limit (Optional)</label>
                   <p className="text-[11px] text-slate-400 mt-1">
                     Test subset of leads or leave blank for all.
@@ -511,13 +511,13 @@ export default function ImportPage() {
                     placeholder={`All (${inspection.valid_leads_count})`}
                     value={maxLeads || ""}
                     onChange={(e) => setMaxLeads(e.target.value ? Number(e.target.value) : undefined)}
-                    className="mt-2 w-full bg-[#151b2c] border border-[#232c45] rounded-md px-2.5 py-1 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 font-mono"
+                    className="mt-2 w-full bg-[#0e2a4d] border border-[#234a73] rounded-md px-2.5 py-1 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 font-mono"
                   />
                 </div>
               </div>
 
               {/* Start Scraping CTA Section */}
-              <div className="pt-4 border-t border-[#1c2438] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div className="pt-4 border-t border-[#1a3a5f] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div className="text-xs text-slate-400 space-y-1">
                   <div className="flex items-center gap-1.5 text-slate-300 font-medium">
                     <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
@@ -550,7 +550,7 @@ export default function ImportPage() {
             description="Scraping will begin immediately upon confirmation."
           >
             <div className="space-y-4 text-sm text-slate-300">
-              <div className="p-3.5 rounded-lg bg-[#0e1320] border border-[#1c2438] space-y-2.5 text-xs">
+              <div className="p-3.5 rounded-lg bg-[#0b2545] border border-[#1a3a5f] space-y-2.5 text-xs">
                 <div className="flex justify-between">
                   <span className="text-slate-400">Batch Identifier:</span>
                   <span className="font-mono text-blue-400 font-semibold">{inspection.batch_id}</span>
@@ -579,7 +579,7 @@ export default function ImportPage() {
                 </div>
               </div>
 
-              <div className="flex items-center justify-end gap-3 pt-3 border-t border-[#1c2438]">
+              <div className="flex items-center justify-end gap-3 pt-3 border-t border-[#1a3a5f]">
                 <Button
                   size="sm"
                   variant="outline"

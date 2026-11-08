@@ -480,3 +480,62 @@ def test_memory_store_writes_nothing(tmp_path, monkeypatch):
     s.cache_put("co_abcdef123456", {"url": "https://a.com/", "normalized_url": "a.com"})
     assert s.load("co_abcdef123456") and s.cache_get("co_abcdef123456", "https://a.com/")
     assert list(tmp_path.iterdir()) == []
+
+
+class CachingResearcher(FakeResearcher):
+    """Caches page text in the store the way CompanyResearcher does."""
+
+    def research(self, record):
+        record = super().research(record)
+        cid = record["company_id"]
+        self.store.cache_put(cid, {"url": "https://acme.ai/products/agent-cloud",
+                                   "normalized_url": "https://acme.ai/products/agent-cloud", "success": True,
+                                   "title": "Agent Cloud", "meta_description": "", "headings": ["Agent Cloud"],
+                                   "text": "Agent Cloud runs AI agents that take actions on your behalf. Start free trial.",
+                                   "links": []})
+        self.store.cache_put(cid, {"url": "https://acme.ai/next", "normalized_url": "https://acme.ai/next",
+                                   "success": True, "title": "Next", "headings": ["Acme Next"], "meta_description": "",
+                                   "text": "Acme Next is an AI copilot, coming soon. Join the waitlist.", "links": []})
+        record["pages"] = [{"url": "https://acme.ai/products/agent-cloud", "category": "products", "success": True},
+                           {"url": "https://acme.ai/next", "category": "ai", "success": True}]
+        record["products"] = [{"product_id": "p1", "name": "Agent Cloud",
+                               "url": "https://acme.ai/products/agent-cloud",
+                               "url_normalized": "https://acme.ai/products/agent-cloud", "features": []}]
+        return record
+
+
+def test_pipeline_adds_live_products_ai_use_cases_and_person_projects():
+    class GH(FakeGitHub):
+        def get_repos(self, login, limit=10):
+            return [{"name": "chatbot", "description": "An LLM chat assistant", "homepage": "https://bot.dev",
+                     "pushed_at": "2026-05-01T00:00:00Z", "html_url": "https://github.com/jane/chatbot"}]
+
+    base = fetch_ok("https://acme.ai", "Acme AI - secure agents")
+    calls = []
+
+    def fetch(u):
+        calls.append(u)
+        return base(u)
+
+    job = start(make_pipe(github=GH(), fetch=fetch, researcher=CachingResearcher), AUTO_INP)
+    assert job["status"] == "completed"
+    live = job["live_products"]
+    assert [p["name"] for p in live["live"]] == ["Agent Cloud"]
+    assert live["live"][0]["ai_types"] == ["agentic"]
+    assert [(p["name"], p["status"]) for p in live["excluded"]] == [("Acme Next", "not_live")]
+    usage = job["ai_usage"]
+    assert usage["providers"] == ["OpenAI"]
+    assert {c["product"] for c in usage["use_cases"]} == {"Agent Cloud", "Acme Next"}
+    assert usage["summary"]["type_counts"]["agentic"] == 1
+    projects = job["person"]["projects"]
+    assert [p["name"] for p in projects["live"]] == ["chatbot"]
+    assert "https://bot.dev" in calls
+
+
+def test_company_discovery_retry_resets_live_products():
+    job = start(make_pipe(researcher=CachingResearcher), AUTO_INP)
+    assert job["live_products"]["live"]
+    job["company"] = None
+    make_pipe(researcher=CrashResearcher).run(job, start_stage="company_discovery")
+    assert job["live_products"] == {"live": [], "excluded": []}
+    assert job["ai_usage"]["use_cases"] == []

@@ -80,9 +80,9 @@ export function Sidebar() {
   }, []);
 
   return (
-    <aside className="w-64 border-r border-[#232c45] bg-[#0c101b] flex flex-col h-screen sticky top-0 select-none z-30">
+    <aside className="w-64 border-r border-[#234a73] bg-[#0a2241] flex flex-col h-screen sticky top-0 select-none z-30">
       {/* Brand Header */}
-      <div className="p-5 border-b border-[#1c2438] flex items-center gap-3">
+      <div className="p-5 border-b border-[#1a3a5f] flex items-center gap-3">
         <div className="w-9 h-9 rounded-lg bg-blue-600/20 border border-blue-500/40 flex items-center justify-center text-blue-400">
           <ShieldCheck className="w-5 h-5" />
         </div>
@@ -117,7 +117,7 @@ export function Sidebar() {
                 "group flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-150",
                 isActive
                   ? "bg-blue-600 text-white shadow-sm shadow-blue-500/20"
-                  : "text-slate-400 hover:text-slate-100 hover:bg-[#151b2c]"
+                  : "text-slate-400 hover:text-slate-100 hover:bg-[#0e2a4d]"
               )}
             >
               <div className="flex items-center gap-3">
@@ -136,7 +136,7 @@ export function Sidebar() {
                     "text-[10px] px-1.5 py-0.2 rounded font-mono font-medium",
                     isActive
                       ? "bg-blue-700 text-blue-100"
-                      : "bg-[#1c2438] text-slate-400 group-hover:text-slate-300"
+                      : "bg-[#1a3a5f] text-slate-400 group-hover:text-slate-300"
                   )}
                 >
                   {item.badge}
@@ -148,7 +148,7 @@ export function Sidebar() {
       </div>
 
       {/* System Status Footer */}
-      <div className="p-4 border-t border-[#1c2438] bg-[#0a0d14]/70 space-y-3">
+      <div className="p-4 border-t border-[#1a3a5f] bg-[#061a33]/70 space-y-3">
         <div className="flex items-center justify-between text-xs">
           <div className="flex items-center gap-2">
             <span
@@ -172,7 +172,7 @@ export function Sidebar() {
           <span className="text-[10px] text-slate-500 font-mono">Port 8000</span>
         </div>
 
-        <div className="pt-2 border-t border-[#1c2438] flex items-center justify-between text-[11px] text-slate-500">
+        <div className="pt-2 border-t border-[#1a3a5f] flex items-center justify-between text-[11px] text-slate-500">
           <span>Engine: Scrapling v0.4+</span>
           <a
             href="https://github.com/D4Vinci/Scrapling"

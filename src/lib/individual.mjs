@@ -103,3 +103,66 @@ export function safeAvatarUrl(u) {
   const href = safeHttpUrl(u);
   return href.startsWith("https:") ? href : "";
 }
+
+export const AI_TYPE_LABELS = {
+  generative: "Generative",
+  agentic: "Agentic",
+  predictive: "Predictive / analytical ML",
+  retrieval: "Retrieval / search",
+  general: "General AI (type unclear)",
+};
+
+export const AI_PURPOSE_LABELS = {
+  customer_support: "Customer support",
+  coding: "Coding / developer tools",
+  content_marketing: "Content & marketing",
+  search_knowledge: "Search & knowledge",
+  analytics: "Analytics & insights",
+  security_fraud: "Security & fraud",
+  sales_crm: "Sales & CRM",
+  workflow_automation: "Workflow automation",
+  document_processing: "Document processing",
+  other: "Other",
+};
+
+const AI_CONTEXT_LABELS = { product: "In their product", hiring_internal: "Hiring / internal", company: "Company page" };
+const AI_STAGE_LABELS = { ga: "GA", beta: "Beta / preview", unspecified: "" };
+
+export function aiTypeLabel(t) {
+  return AI_TYPE_LABELS[t] || String(t ?? "");
+}
+
+export function aiPurposeLabel(p) {
+  return AI_PURPOSE_LABELS[p] || String(p ?? "");
+}
+
+export function aiContextLabel(c) {
+  return AI_CONTEXT_LABELS[c] || String(c ?? "");
+}
+
+export function aiStageLabel(s) {
+  return s in AI_STAGE_LABELS ? AI_STAGE_LABELS[s] : String(s ?? "");
+}
+
+const LIVE_STATUS = {
+  live: { label: "Live", variant: "success" },
+  beta: { label: "Live (beta)", variant: "warning" },
+  not_live: { label: "Not live", variant: "neutral" },
+  discontinued: { label: "Discontinued", variant: "danger" },
+  unknown: { label: "Could not confirm live", variant: "neutral" },
+  down: { label: "Site down", variant: "danger" },
+  code_only: { label: "Code only", variant: "neutral" },
+  not_checked: { label: "Not checked", variant: "neutral" },
+};
+
+export function liveStatusMeta(s) {
+  return { ...(LIVE_STATUS[s] || { label: String(s ?? ""), variant: "neutral" }) };
+}
+
+/** Non-zero AI type counts, most common first. */
+export function aiTypeChips(typeCounts) {
+  return Object.entries(typeCounts || {})
+    .filter(([, n]) => Number(n) > 0)
+    .sort((a, b) => Number(b[1]) - Number(a[1]))
+    .map(([type, count]) => ({ type, label: aiTypeLabel(type), count: Number(count) }));
+}

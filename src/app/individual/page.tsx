@@ -228,7 +228,7 @@ export default function IndividualResearchPage() {
 
   return (
     <div className="space-y-6 max-w-5xl mx-auto">
-      <div className="border-b border-[#1c2438] pb-4">
+      <div className="border-b border-[#1a3a5f] pb-4">
         <h1 className="text-2xl font-bold text-white tracking-tight flex items-center gap-3">
           <UserSearch className="w-6 h-6 text-blue-400" />
           Individual Research
@@ -253,7 +253,7 @@ export default function IndividualResearchPage() {
                 onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
                 placeholder="Jane Doe"
                 maxLength={120}
-                className="w-full bg-[#0a0d14] border border-[#232c45] rounded-lg px-3 py-2 text-sm text-slate-100 placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500/40"
+                className="w-full bg-[#061a33] border border-[#234a73] rounded-lg px-3 py-2 text-sm text-slate-100 placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500/40"
               />
             </div>
 
@@ -280,7 +280,7 @@ export default function IndividualResearchPage() {
                       value={form[f.key]}
                       onChange={(e) => setForm((s) => ({ ...s, [f.key]: e.target.value }))}
                       placeholder={f.placeholder}
-                      className="w-full bg-[#0a0d14] border border-[#232c45] rounded-lg px-3 py-2 text-sm text-slate-100 placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500/40"
+                      className="w-full bg-[#061a33] border border-[#234a73] rounded-lg px-3 py-2 text-sm text-slate-100 placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500/40"
                     />
                   </div>
                 ))}
@@ -376,7 +376,7 @@ export default function IndividualResearchPage() {
               const avatar = safeAvatarUrl(c.avatar_url);
               const profile = safeHttpUrl(c.profile_url);
               return (
-                <div key={c.candidate_id} className="rounded-lg border border-[#232c45] bg-[#0c101b] p-4 space-y-3">
+                <div key={c.candidate_id} className="rounded-lg border border-[#234a73] bg-[#0a2241] p-4 space-y-3">
                   <div className="flex items-start gap-3">
                     {avatar ? (
                       // eslint-disable-next-line @next/next/no-img-element
