@@ -4,6 +4,7 @@ import { readFileSync } from "node:fs";
 import {
   STAGE_LABELS, buildStartPayload, confidenceLabel, relevanceMeta, shouldPollJob, downloadFilename, safeHttpUrl, safeAvatarUrl,
   formatErrorDetail, isJobGoneError, JOB_GONE_MESSAGE,
+  aiTypeLabel, aiPurposeLabel, aiContextLabel, aiStageLabel, liveStatusMeta, aiTypeChips,
 } from "../src/lib/individual.mjs";
 
 describe("Individual research", () => {
@@ -76,6 +77,20 @@ describe("Individual research", () => {
   it("results page renders every required section", () => {
     const src = readFileSync(new URL("../src/components/IndividualResults.tsx", import.meta.url), "utf8");
     for (const t of ["Identity & Profile", "Professional Background", "Company Intelligence", "Products",
-      "AI Usage & SealAPI Relevance", "Sources & Evidence"]) assert.ok(src.includes(t), t);
+      "AI Usage & SealAPI Relevance", "Sources & Evidence", "Live Products", "Person's projects", "AI use cases"])
+      assert.ok(src.includes(t), t);
+  });
+  it("AI usage and live status labels", () => {
+    assert.equal(aiTypeLabel("agentic"), "Agentic");
+    assert.equal(aiPurposeLabel("customer_support"), "Customer support");
+    assert.equal(aiContextLabel("hiring_internal"), "Hiring / internal");
+    assert.equal(aiStageLabel("unspecified"), "");
+    assert.equal(aiStageLabel("beta"), "Beta / preview");
+    assert.deepEqual(liveStatusMeta("beta"), { label: "Live (beta)", variant: "warning" });
+    assert.equal(liveStatusMeta("weird").variant, "neutral");
+    assert.deepEqual(
+      aiTypeChips({ generative: 1, agentic: 3, predictive: 0 }).map((c) => [c.type, c.count]),
+      [["agentic", 3], ["generative", 1]],
+    );
   });
 });

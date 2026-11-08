@@ -545,8 +545,66 @@ export interface IndividualPerson {
   role: { category?: string; authority?: string; [key: string]: unknown } | null;
   facts: IndividualFact[];
   github: { login: string; public_repos: number; languages: string[]; ai_repos: unknown[] };
+  projects?: IndividualProjects;
   candidate: IndividualCandidate;
   identity_confidence: number;
+}
+
+export type LiveStatus = "live" | "beta" | "not_live" | "discontinued" | "unknown";
+
+export interface IndividualLiveProduct {
+  name: string;
+  url: string;
+  description: string;
+  features: string[];
+  source: "product_page" | "ai_page" | "company_level" | string;
+  status: LiveStatus;
+  status_label: string;
+  signal: string;
+  ai_types: string[];
+  ai_purposes: string[];
+  reason?: string;
+}
+
+export interface IndividualRepoProject {
+  name: string;
+  description: string;
+  language: string;
+  topics: string[];
+  stars: number;
+  pushed_at: string;
+  repo_url: string;
+  homepage: string;
+  status: "live" | "down" | "code_only" | "not_checked";
+  ai_types: string[];
+  ai_purposes: string[];
+}
+
+export interface IndividualProjects {
+  live: IndividualRepoProject[];
+  code_only: IndividualRepoProject[];
+  site: { name: string; url: string; status: "live" }[];
+  checks_used: number;
+}
+
+export interface IndividualAiUseCase {
+  evidence: string;
+  types: string[];
+  purposes: string[];
+  stage: "ga" | "beta" | "unspecified";
+  context: "product" | "hiring_internal" | "company";
+  product: string;
+  source_url: string;
+  page_title: string;
+}
+
+export interface IndividualAiSummary {
+  type_counts: Record<string, number>;
+  primary_type: string;
+  purposes: { purpose: string; label: string; count: number }[];
+  stage: "ga" | "beta" | "unspecified";
+  contexts: Record<string, number>;
+  providers: string[];
 }
 
 export interface IndividualCompany {
@@ -585,7 +643,10 @@ export interface IndividualJob {
     ai_findings: { evidence: string; source_url: string; label: string }[];
     providers: string[];
     ai_products: string[];
+    use_cases?: IndividualAiUseCase[];
+    summary?: IndividualAiSummary;
   };
+  live_products?: { live: IndividualLiveProduct[]; excluded: IndividualLiveProduct[] };
   sealapi: {
     relevance: string;
     fit_label: string;

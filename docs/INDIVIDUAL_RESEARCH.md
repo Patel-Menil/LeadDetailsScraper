@@ -112,6 +112,36 @@ methods, no file IO), so no company record or page cache is written under `DATA_
 (`ai`, `ai_provider` categories), providers and AI products populate `ai_usage`. Page text is untrusted and only
 pattern-matched.
 
+### Live products and AI usage detail
+
+Built from the company pages already fetched (full text stays in the job's in-memory store only), so this adds no
+company-site requests. Code: `ai_usage.py` and `live_products.py`.
+
+- **Live products** (`live_products.live` / `.excluded`): every product found by company research, plus AI pages
+  that are not already a product. A product counts as live only when its page loaded on the company domain and
+  offers a way to use or buy it now: sign-up, get started, free trial, pricing, buy, download, install, demo or
+  "talk to sales", or an app-store link. Site-wide "Log in" / "Subscribe" count only when nothing stronger is found.
+  "Beta", "early access" or "public preview" with such a route gives **Live (beta)**. "Coming soon", "join the
+  waitlist", "private beta" and similar give **Not live**; "discontinued", "deprecated", "sunset", "end of life"
+  in a sentence naming the product (or "this product/service") give **Discontinued**. A loaded page with none of
+  these is **Could not confirm live**. Only live and beta products are shown in the main list; the quoted text
+  that decided each status is kept as `signal`.
+- **Person's projects** (`person.projects`): the person's own GitHub repos (forks and archived repos excluded),
+  newest first. A repo is live only when its homepage loads; repos without one are "code only". With a supplied
+  personal website, its projects page (`/projects`, `/work`, `/portfolio`, `/apps`...) is read and external
+  project sites on it are listed only if they load. All of this is capped at 6 requests per job (at most 3 repo
+  homepage checks), through the same SSRF-safe fetcher.
+- **AI use cases** (`ai_usage.use_cases`, `ai_usage.summary`): every AI-related sentence on the fetched pages
+  (4 per page, 20 total; AI and product pages first), each tagged with:
+  - type: generative, agentic, predictive / analytical ML, retrieval / search (a sentence can have several; none
+    matched gives "general");
+  - purpose: customer support, coding / developer tools, content & marketing, search & knowledge, analytics &
+    insights, security & fraud, sales & CRM, workflow automation, document processing, or other;
+  - stage: GA, beta / preview, or unspecified; context: in their product, hiring / internal (careers pages), or
+    company page; and the live product whose page it came from, if any.
+  The summary counts types and purposes and gives the main type and overall stage. Tags are keyword rules, shown
+  with the quoted sentence so they can be checked.
+
 ## Analysis rules
 
 - **Role** (inferred from title text only): Founder / Co-founder, CTO, CISO, CEO (authority executive); chief
@@ -147,8 +177,8 @@ Status codes: 400 invalid job id (must match `ind_<16 hex>`); 404 job not found 
 request validation (for example name too short or a field too long).
 
 The result has `job_id`, `status` (`running`, `needs_input`, `partial`, `completed`, `failed`), `input`, `stages`,
-`candidates`, `selected_candidate_id`, `identity`, `person`, `company`, `ai_usage`, `sealapi`, `priority`,
-`sources`, `errors` and `limitations`.
+`candidates`, `selected_candidate_id`, `identity`, `person` (including `projects`), `company`, `ai_usage`
+(including `use_cases` and `summary`), `live_products`, `sealapi`, `priority`, `sources`, `errors` and `limitations`.
 
 ## Jobs and concurrency
 
@@ -185,5 +215,10 @@ existing `COMPANY_RESEARCH_*` settings (see `docs/COMPANY_INTELLIGENCE.md`) and 
   "GitHub API rate limit reached; resets at HH:MM UTC" and skips GitHub for the rest of that run.
 - Extraction is pattern-based: titles, companies and findings can be imperfectly parsed. Common names produce
   multiple candidates, and a person with no public footprint yields low confidence rather than a guess.
+- "Live" means the page loaded and offered a sign-up or purchase route when checked; it does not prove usage.
+  Sites that block bots or render their buttons with JavaScript can be marked "Could not confirm live" or
+  "Site down". Company pages keep only links on the company's own domain, so app-store buttons are usually
+  detected from page text.
+- AI tagging is keyword-based and can miss unusual wording; each tag is shown with its sentence.
 - Job state is in-process: a restart loses all jobs, and results cannot be reopened after an hour.
 - No pitch strategy, outreach drafts, PDF, or "add to Prioritized Leads" in this feature.
