@@ -13,6 +13,7 @@ import {
   Activity,
   ChevronRight,
   ExternalLink,
+  UserSearch,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { api } from "@/lib/api";
@@ -23,6 +24,12 @@ const NAV_ITEMS = [
     href: "/",
     icon: LayoutDashboard,
     badge: null,
+  },
+  {
+    name: "Individual Research",
+    href: "/individual",
+    icon: UserSearch,
+    badge: "NEW",
   },
   {
     name: "Prioritized Leads",

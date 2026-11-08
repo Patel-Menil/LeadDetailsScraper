@@ -472,3 +472,131 @@ export interface CompanyOutreach {
   variants: OutreachVariant[];
   auto_send: false;
 }
+
+// ---- Individual research (name-only person research) ----
+
+export type IndividualStageName =
+  | "discovery"
+  | "identity_resolution"
+  | "company_discovery"
+  | "company_research"
+  | "professional_profile"
+  | "verdict";
+
+export interface IndividualStage {
+  name: IndividualStageName;
+  status: "pending" | "running" | "done" | "failed" | "skipped" | "needs_input" | string;
+  message: string;
+  started_at: string | null;
+  finished_at: string | null;
+}
+
+export interface IndividualResearchInput {
+  name: string;
+  company?: string;
+  linkedin_url?: string;
+  x_url?: string;
+  github_url?: string;
+  website?: string;
+  location?: string;
+  context?: string;
+}
+
+export interface IndividualObservation {
+  source_id: string;
+  source_type: string;
+  url: string;
+  name: string;
+  title: string;
+  company: string;
+  location: string;
+  snippet: string;
+  /** Domain from a GitHub company field such as "https://vercel.com"; "" otherwise. */
+  company_domain?: string;
+}
+
+export interface IndividualCandidate {
+  candidate_id: string;
+  name: string;
+  title: string;
+  company: string;
+  location: string;
+  avatar_url: string;
+  profile_url: string;
+  description: string;
+  linkedin_slug: string;
+  github_login: string;
+  website: string;
+  observations: IndividualObservation[];
+  confidence: number;
+  confidence_reasons: string[];
+}
+
+export interface IndividualFact {
+  text: string;
+  basis: "verified" | "inferred" | string;
+  source_ids: string[];
+}
+
+export interface IndividualPerson {
+  current_title: string;
+  current_company: string;
+  location: string;
+  role: { category?: string; authority?: string; [key: string]: unknown } | null;
+  facts: IndividualFact[];
+  github: { login: string; public_repos: number; languages: string[]; ai_repos: unknown[] };
+  candidate: IndividualCandidate;
+  identity_confidence: number;
+}
+
+export interface IndividualCompany {
+  name: string;
+  domain: string;
+  domain_source: string;
+  corroborated: boolean | null;
+  note: string;
+  status: string;
+  company_id: string;
+  intel: CompanyRecord | null;
+}
+
+export interface IndividualSource {
+  source_id: string;
+  url: string;
+  source_type: string;
+  title: string;
+  retrieved_at: string;
+  query?: string;
+}
+
+export interface IndividualJob {
+  job_id: string;
+  status: "running" | "needs_input" | "completed" | "partial" | "failed";
+  created_at: string;
+  updated_at: string;
+  input: IndividualResearchInput;
+  stages: IndividualStage[];
+  candidates: IndividualCandidate[];
+  selected_candidate_id: string;
+  identity: { mode: string; message: string; confidence: number } | null;
+  person: IndividualPerson | null;
+  company: IndividualCompany | null;
+  ai_usage: {
+    ai_findings: { evidence: string; source_url: string; label: string }[];
+    providers: string[];
+    ai_products: string[];
+  };
+  sealapi: {
+    relevance: string;
+    fit_label: string;
+    reasoning: string;
+    opportunities: CompanyOpportunity[];
+    discovery_questions: string[];
+    scope_note: string;
+  } | null;
+  priority: { level: number; label: string; reasons: string[] } | null;
+  sources: IndividualSource[];
+  errors: string[];
+  limitations: string[];
+  running: boolean;
+}

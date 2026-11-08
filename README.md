@@ -37,11 +37,15 @@ Included is a **single-container Docker setup** and an enterprise localhost **we
 
 5. **Enterprise Localhost Web Application**
    - **Dashboard**: High-level metrics (total leads, P0/P1/P2 breakdown, recent batches).
+   - **Individual Research**: Sidebar page that researches one person by name (see [docs/INDIVIDUAL_RESEARCH.md](docs/INDIVIDUAL_RESEARCH.md)).
    - **Import Leads**: Drag-and-drop file upload, column mapping overrides, validation report, dry-run mode.
    - **Prioritized Leads**: Filterable table (by priority, status, search, pagination) reading directly from the enriched CSV.
    - **Profile Detail Modal**: 5 tabs (Overview, Professional Research, Source Evidence, Cold Email Context, Raw JSON with copy & download).
    - **Batch Progress**: Live progress bar, counters, and real-time execution logs.
    - **Export Center**: Instant downloads for CSV, Errors CSV, and complete batch ZIP archive.
+
+6. **Individual Research (name-only)**
+   - Enter a person's name; discovers identity from DuckDuckGo and GitHub, finds their company, researches its AI usage and states SealAPI relevance with a P0/P1/P2 priority. Nothing is stored. See [docs/INDIVIDUAL_RESEARCH.md](docs/INDIVIDUAL_RESEARCH.md).
 
 ---
 

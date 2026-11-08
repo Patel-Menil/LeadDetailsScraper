@@ -14,8 +14,11 @@ import {
   CompanyView,
   CompanyOutreach,
   ReviewStatus,
+  IndividualJob,
+  IndividualResearchInput,
 } from "@/types";
 import { UNAUTHORIZED_EVENT } from "@/lib/session.mjs";
+import { formatErrorDetail } from "@/lib/individual.mjs";
 
 const API_BASE = "";
 
@@ -53,7 +56,7 @@ async function request<T>(path: string, options?: RequestInit): Promise<T> {
     let errorDetail = `Request failed with status ${response.status}`;
     try {
       const errorJson = await response.json();
-      errorDetail = errorJson.detail || errorJson.message || errorDetail;
+      errorDetail = formatErrorDetail(errorJson, errorDetail);
     } catch {
       // ignore json parse error on response
     }
@@ -103,7 +106,7 @@ export const api = {
       let errorDetail = `Upload failed with status ${response.status}`;
       try {
         const errorJson = await response.json();
-        errorDetail = errorJson.detail || errorJson.message || errorDetail;
+        errorDetail = formatErrorDetail(errorJson, errorDetail);
       } catch {
         // ignore
       }
@@ -275,5 +278,30 @@ export const api = {
 
   getCompanyIntelligenceJsonUrl(batchId: string): string {
     return `/api/batches/${encodeURIComponent(batchId)}/exports/company_intelligence.json`;
+  },
+
+  // Individual research (name-only person research)
+  async startIndividualResearch(input: IndividualResearchInput): Promise<{ job_id: string }> {
+    return request("/api/individual/research", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(input),
+    });
+  },
+
+  async getIndividualResearch(jobId: string): Promise<IndividualJob> {
+    return request(`/api/individual/research/${encodeURIComponent(jobId)}`);
+  },
+
+  async selectIndividualCandidate(jobId: string, candidateId: string): Promise<IndividualJob> {
+    return request(`/api/individual/research/${encodeURIComponent(jobId)}/select`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ candidate_id: candidateId }),
+    });
+  },
+
+  async retryIndividualResearch(jobId: string): Promise<IndividualJob> {
+    return request(`/api/individual/research/${encodeURIComponent(jobId)}/retry`, { method: "POST" });
   },
 };
