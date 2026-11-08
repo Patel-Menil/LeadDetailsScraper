@@ -166,3 +166,40 @@ export function aiTypeChips(typeCounts) {
     .sort((a, b) => Number(b[1]) - Number(a[1]))
     .map(([type, count]) => ({ type, label: aiTypeLabel(type), count: Number(count) }));
 }
+
+/** The job as pretty-printed JSON: the same text for Copy JSON and Download JSON. */
+export function jobJson(job) {
+  return JSON.stringify(job ?? null, null, 2);
+}
+
+/**
+ * Copy text to the clipboard. Uses the Clipboard API where the page allows it (localhost counts as secure),
+ * otherwise a hidden textarea with execCommand("copy"). Resolves true when the copy worked.
+ */
+export async function copyText(text, env = globalThis) {
+  try {
+    if (env.navigator?.clipboard?.writeText && env.isSecureContext !== false) {
+      await env.navigator.clipboard.writeText(text);
+      return true;
+    }
+  } catch {
+    // fall through to the textarea fallback
+  }
+  const doc = env.document;
+  if (!doc?.createElement || !doc.body) return false;
+  const area = doc.createElement("textarea");
+  area.value = text;
+  area.setAttribute("readonly", "");
+  area.style.position = "fixed";
+  area.style.opacity = "0";
+  doc.body.appendChild(area);
+  area.select();
+  let ok = false;
+  try {
+    ok = Boolean(doc.execCommand && doc.execCommand("copy"));
+  } catch {
+    ok = false;
+  }
+  area.remove();
+  return ok;
+}

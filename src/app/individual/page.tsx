@@ -3,10 +3,12 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
   AlertTriangle,
+  Check,
   CheckCircle2,
   ChevronDown,
   ChevronUp,
   Circle,
+  Copy,
   Download,
   Loader2,
   MinusCircle,
@@ -24,8 +26,10 @@ import {
   STAGE_LABELS,
   buildStartPayload,
   confidenceLabel,
+  copyText,
   downloadFilename,
   isJobGoneError,
+  jobJson,
   safeAvatarUrl,
   safeHttpUrl,
   shouldPollJob,
@@ -208,9 +212,23 @@ export default function IndividualResearchPage() {
     setBusy(false);
   };
 
+  const [copyState, setCopyState] = useState<"idle" | "copied" | "failed">("idle");
+  const copyTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(() => () => {
+    if (copyTimer.current) clearTimeout(copyTimer.current);
+  }, []);
+
+  const handleCopy = async () => {
+    if (!job) return;
+    const ok = await copyText(jobJson(job));
+    setCopyState(ok ? "copied" : "failed");
+    if (copyTimer.current) clearTimeout(copyTimer.current);
+    copyTimer.current = setTimeout(() => setCopyState("idle"), 2000);
+  };
+
   const handleDownload = () => {
     if (!job) return;
-    const blob = new Blob([JSON.stringify(job, null, 2)], { type: "application/json" });
+    const blob = new Blob([jobJson(job)], { type: "application/json" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
@@ -274,14 +292,25 @@ export default function IndividualResearchPage() {
                     <label htmlFor={`ind-${f.key}`} className="block text-xs font-medium text-slate-400 mb-1.5">
                       {f.label}
                     </label>
-                    <input
-                      id={`ind-${f.key}`}
-                      type="text"
-                      value={form[f.key]}
-                      onChange={(e) => setForm((s) => ({ ...s, [f.key]: e.target.value }))}
-                      placeholder={f.placeholder}
-                      className="w-full bg-[#061a33] border border-[#234a73] rounded-lg px-3 py-2 text-sm text-slate-100 placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500/40"
-                    />
+                    {f.key === "context" ? (
+                      <textarea
+                        id={`ind-${f.key}`}
+                        rows={4}
+                        value={form[f.key]}
+                        onChange={(e) => setForm((s) => ({ ...s, [f.key]: e.target.value }))}
+                        placeholder={f.placeholder}
+                        className="w-full resize-y bg-[#061a33] border border-[#234a73] rounded-lg px-3 py-2 text-sm text-slate-100 placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500/40"
+                      />
+                    ) : (
+                      <input
+                        id={`ind-${f.key}`}
+                        type="text"
+                        value={form[f.key]}
+                        onChange={(e) => setForm((s) => ({ ...s, [f.key]: e.target.value }))}
+                        placeholder={f.placeholder}
+                        className="w-full bg-[#061a33] border border-[#234a73] rounded-lg px-3 py-2 text-sm text-slate-100 placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500/40"
+                      />
+                    )}
                   </div>
                 ))}
               </div>
@@ -346,6 +375,22 @@ export default function IndividualResearchPage() {
                 <Button size="sm" variant="secondary" onClick={handleRetry} disabled={busy}>
                   <RefreshCw className="w-3.5 h-3.5" />
                   Retry
+                </Button>
+              )}
+              {job.person && (
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={handleCopy}
+                  aria-live="polite"
+                  title="Copy the full research result as JSON"
+                >
+                  {copyState === "copied" ? (
+                    <Check className="w-3.5 h-3.5 text-emerald-400" />
+                  ) : (
+                    <Copy className="w-3.5 h-3.5" />
+                  )}
+                  {copyState === "copied" ? "Copied!" : copyState === "failed" ? "Copy failed" : "Copy JSON"}
                 </Button>
               )}
               {job.person && (

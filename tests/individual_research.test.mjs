@@ -4,7 +4,7 @@ import { readFileSync } from "node:fs";
 import {
   STAGE_LABELS, buildStartPayload, confidenceLabel, relevanceMeta, shouldPollJob, downloadFilename, safeHttpUrl, safeAvatarUrl,
   formatErrorDetail, isJobGoneError, JOB_GONE_MESSAGE,
-  aiTypeLabel, aiPurposeLabel, aiContextLabel, aiStageLabel, liveStatusMeta, aiTypeChips,
+  aiTypeLabel, aiPurposeLabel, aiContextLabel, aiStageLabel, liveStatusMeta, aiTypeChips, jobJson, copyText,
 } from "../src/lib/individual.mjs";
 
 describe("Individual research", () => {
@@ -92,5 +92,25 @@ describe("Individual research", () => {
       aiTypeChips({ generative: 1, agentic: 3, predictive: 0 }).map((c) => [c.type, c.count]),
       [["agentic", 3], ["generative", 1]],
     );
+  });
+  it("copy JSON uses the clipboard, falls back, and reports failure", async () => {
+    const job = { job_id: "ind_1", person: { name: "A" } };
+    assert.equal(jobJson(job), JSON.stringify(job, null, 2));
+    let written = "";
+    const ok = await copyText("hello", { isSecureContext: true, navigator: { clipboard: { writeText: async (t) => { written = t; } } } });
+    assert.equal(ok, true);
+    assert.equal(written, "hello");
+    const appended = [];
+    const area = { value: "", style: {}, setAttribute() {}, select() {}, remove() { appended.pop(); } };
+    const doc = { createElement: () => area, body: { appendChild: (el) => appended.push(el) }, execCommand: (c) => c === "copy" };
+    const denied = { navigator: { clipboard: { writeText: async () => { throw new Error("denied"); } } }, document: doc };
+    assert.equal(await copyText("x", denied), true);
+    assert.equal(area.value, "x");
+    assert.equal(appended.length, 0);
+    assert.equal(await copyText("x", {}), false);
+  });
+  it("results page offers Copy JSON next to Download JSON", () => {
+    const src = readFileSync(new URL("../src/app/individual/page.tsx", import.meta.url), "utf8");
+    assert.ok(src.includes("Copy JSON") && src.includes("Download JSON"));
   });
 });
