@@ -32,6 +32,7 @@ services:
       - APP_ENV=${APP_ENV:-production}
       - API_SECRET_KEY=${API_SECRET_KEY:-}
       - SESSION_SECRET=${SESSION_SECRET:-}
+      - AUTH_DISABLED=${AUTH_DISABLED:-false}
       - CONCURRENCY=${CONCURRENCY:-2}
       - SCRAPER_TIMEOUT=${SCRAPER_TIMEOUT:-25}
       - TOR_PROXY=${TOR_PROXY:-socks5://tor:9050}

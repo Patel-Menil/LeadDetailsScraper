@@ -343,3 +343,18 @@ def test_api_responses_never_leak_secret_key(client: TestClient):
         assert secret_token not in res_health.text
 
 
+
+
+def test_auth_disabled_skips_api_key_even_in_production(client: TestClient):
+    with pytest.MonkeyPatch.context() as mp:
+        mp.setattr("src.lead_research.server.APP_ENV", "production")
+        mp.setattr("src.lead_research.server.API_SECRET_KEY", "local_secret_123")
+        mp.setattr("src.lead_research.server.AUTH_DISABLED", True)
+
+        with patch.object(TorManager, "is_port_open", return_value=True):
+            with patch.object(TorManager, "is_socks5_functional", return_value=True):
+                res = client.get("/api/tor/status")
+        assert res.status_code == 200
+
+        mp.setattr("src.lead_research.server.AUTH_DISABLED", False)
+        assert client.get("/api/tor/status").status_code == 401

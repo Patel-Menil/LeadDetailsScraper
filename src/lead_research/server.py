@@ -88,6 +88,10 @@ app.add_middleware(
 # API Secret Key Authorization for Destructive/Mutation Operations
 API_SECRET_KEY = os.getenv("API_SECRET_KEY", "").strip()
 APP_ENV = os.getenv("APP_ENV", os.getenv("NODE_ENV", "development")).strip().lower()
+# Local single-user mode: skip the API key check entirely. Only for a machine you run yourself.
+AUTH_DISABLED = os.getenv("AUTH_DISABLED", "").strip().lower() in ("1", "true", "yes")
+if AUTH_DISABLED:
+    logger.warning("AUTH_DISABLED is set: API key checks are off. Use only on a local machine.")
 
 
 def is_production() -> bool:
@@ -103,7 +107,10 @@ def verify_api_key(
     Enforce API key on sensitive/destructive mutations.
     - In production/staging: Fails closed. If API_SECRET_KEY is not configured or key is invalid, reject.
     - In local development mode (APP_ENV=development): Allow permissive access only if API_SECRET_KEY is unset.
+    - AUTH_DISABLED=true: always allow (local single-user mode).
     """
+    if AUTH_DISABLED:
+        return True
     if is_production():
         if not API_SECRET_KEY:
             raise HTTPException(

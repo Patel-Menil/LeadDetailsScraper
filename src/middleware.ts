@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { getSessionSecret, verifySessionToken } from "@/lib/auth";
+import { isAuthDisabled } from "@/lib/authMode";
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -15,6 +16,7 @@ export async function middleware(request: NextRequest) {
       process.env.NODE_ENV === "production" ||
       process.env.APP_ENV === "production";
     const serverApiKey = process.env.API_SECRET_KEY || "";
+    const authDisabled = isAuthDisabled();
     const sessionSecret = getSessionSecret();
 
     // Operator session check via HttpOnly cookie
@@ -29,7 +31,7 @@ export async function middleware(request: NextRequest) {
     );
 
     // In production, unauthenticated requests (reads and mutations) through the proxy must fail closed
-    if (isProduction && !isSessionValid && !isClientKeyValid) {
+    if (isProduction && !authDisabled && !isSessionValid && !isClientKeyValid) {
       return NextResponse.json(
         {
           detail:
@@ -39,9 +41,10 @@ export async function middleware(request: NextRequest) {
       );
     }
 
-    // CSRF protection for cookie-authenticated mutation requests
+    // CSRF protection for cookie-authenticated mutation requests. With auth disabled every browser
+    // request is trusted, so the same check stops other websites from posting to localhost.
     const isMutation = ["POST", "PUT", "DELETE", "PATCH"].includes(request.method);
-    if (isMutation && isSessionValid && !isClientKeyValid) {
+    if (isMutation && (isSessionValid || authDisabled) && !isClientKeyValid) {
       const origin = request.headers.get("origin");
       const host = request.headers.get("host");
       const secFetchSite = request.headers.get("sec-fetch-site");
@@ -71,7 +74,7 @@ export async function middleware(request: NextRequest) {
 
     // Inject server-side API key when forwarding to backend if session is valid or in local dev
     const requestHeaders = new Headers(request.headers);
-    if (serverApiKey && (isSessionValid || !isProduction)) {
+    if (serverApiKey && (isSessionValid || !isProduction || authDisabled)) {
       requestHeaders.set("x-api-key", serverApiKey);
     }
 

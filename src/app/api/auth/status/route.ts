@@ -1,7 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSessionSecret, verifySessionToken } from "@/lib/auth";
+import { isAuthDisabled } from "@/lib/authMode";
 
 export async function GET(request: NextRequest) {
+  if (isAuthDisabled()) {
+    return NextResponse.json({ authenticated: true, mode: "auth_disabled" });
+  }
+
   const serverApiKey = process.env.API_SECRET_KEY || "";
   const isProduction =
     process.env.NODE_ENV === "production" ||
