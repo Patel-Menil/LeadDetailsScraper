@@ -97,15 +97,14 @@ export async function verifySessionToken(token: string | undefined | null, secre
       ["verify"]
     );
 
+    // Pass the Uint8Array itself: on Node 20, Next's edge sandbox rejects an
+    // ArrayBuffer sliced from it, which made every middleware session check fail.
+    // The cast is type-only; base64UrlDecode always allocates a plain ArrayBuffer.
     const sigBytes = base64UrlDecode(signatureB64);
-    const sigBuffer = sigBytes.buffer.slice(
-      sigBytes.byteOffset,
-      sigBytes.byteOffset + sigBytes.byteLength
-    ) as ArrayBuffer;
     const validSig = await crypto.subtle.verify(
       "HMAC",
       key,
-      sigBuffer,
+      sigBytes as BufferSource,
       encoder.encode(payloadB64)
     );
 
