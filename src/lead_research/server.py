@@ -43,7 +43,7 @@ from .importer import LeadImporter
 from .individual_discovery import DuckDuckGoSource, GitHubSource, IndividualInput
 from .individual_research import IndividualJobStore, IndividualPipeline
 from .pipeline import ResearchPipeline
-from .scraper import ScraplingScraper
+from .scraper import HAS_STEALTHY_FETCHER, ScraplingScraper
 from .schemas import BatchProgress, LeadProfile
 from .tor_manager import TorManager
 
@@ -1285,8 +1285,11 @@ class IndividualResearchRequest(BaseModel):
     github_url: str = Field("", max_length=300)
     website: str = Field("", max_length=300)
     location: str = Field("", max_length=300)
-    # No length limit: free text, used only for keyword matching (searches use at most its first 3 keywords).
-    context: str = ""
+    # Free text, used only for keyword matching (searches use at most its first 3 keywords).
+    context: str = Field("", max_length=1000)
+    # Same search technique as bulk lead research: DuckDuckGo through the stealth browser, routed via Tor.
+    use_browser: bool = True
+    use_tor: bool = True
 
     @field_validator("name")
     @classmethod
@@ -1301,11 +1304,17 @@ class IndividualSelectRequest(BaseModel):
     candidate_id: str = Field(min_length=1, max_length=100)
 
 
-def make_individual_pipeline() -> IndividualPipeline:
-    """A fresh pipeline (and sources) per job: GitHubSource keeps instance-level state."""
-    scraper = ScraplingScraper(use_browser=False, use_tor=False)
+def make_individual_pipeline(options: Optional[dict] = None) -> IndividualPipeline:
+    """A fresh pipeline (and sources) per job: GitHubSource keeps instance-level state.
+
+    Searches use the job's options, like a bulk batch: the stealth browser and Tor when enabled. Page fetches
+    always go direct through the SSRF-safe, IP-pinned fetcher (the scraper never sends them through the proxy).
+    """
+    opts = {"use_browser": True, "use_tor": True, **(options or {})}
+    search_scraper = ScraplingScraper(use_browser=bool(opts["use_browser"]), use_tor=bool(opts["use_tor"]))
+    fetcher = ScraplingScraper(use_browser=False, use_tor=False)
     return IndividualPipeline(
-        DuckDuckGoSource(), GitHubSource(), scraper.fetch_url, company_slots=company_research_slots,
+        DuckDuckGoSource(search_scraper), GitHubSource(), fetcher.fetch_url, company_slots=company_research_slots,
     )
 
 
@@ -1338,7 +1347,7 @@ def _individual_snapshot(job_id: str) -> dict:
 
 def _individual_worker(job_id: str, job: dict, start_stage: str, pipeline=None) -> None:
     try:
-        (pipeline or make_individual_pipeline()).run(job, start_stage)
+        (pipeline or make_individual_pipeline(job.get("search_options"))).run(job, start_stage)
     except Exception as e:  # noqa: BLE001 - never leave a job stuck in running
         logger.exception("Individual research worker failed")
         with individual_jobs.lock(job_id):
@@ -1369,7 +1378,8 @@ def _launch_individual(job_id: str, job: dict, start_stage: str, pipeline=None) 
 
 @app.post("/api/individual/research", dependencies=[Depends(verify_api_key)])
 def start_individual_research(req: IndividualResearchRequest):
-    job = individual_jobs.create(IndividualInput(**req.model_dump()))
+    job = individual_jobs.create(IndividualInput(**req.model_dump(exclude={"use_browser", "use_tor"})))
+    job["search_options"] = {"use_browser": req.use_browser, "use_tor": req.use_tor}
     job_id = job["job_id"]
     with individual_jobs.lock(job_id):
         _active_individual_jobs.add(job_id)
@@ -1386,7 +1396,7 @@ def get_individual_research(job_id: str):
 @app.post("/api/individual/research/{job_id}/select", dependencies=[Depends(verify_api_key)])
 def select_individual_candidate(job_id: str, req: IndividualSelectRequest):
     job = _individual_job_or_404(job_id)
-    pipeline = make_individual_pipeline()
+    pipeline = make_individual_pipeline(job.get("search_options"))
     with individual_jobs.lock(job_id):
         if job_id in _active_individual_jobs:
             raise HTTPException(status_code=409, detail="Job is already running")
@@ -1406,7 +1416,7 @@ def select_individual_candidate(job_id: str, req: IndividualSelectRequest):
 @app.post("/api/individual/research/{job_id}/retry", dependencies=[Depends(verify_api_key)])
 def retry_individual_research(job_id: str):
     job = _individual_job_or_404(job_id)
-    pipeline = make_individual_pipeline()
+    pipeline = make_individual_pipeline(job.get("search_options"))
     with individual_jobs.lock(job_id):
         if job_id in _active_individual_jobs:
             raise HTTPException(status_code=409, detail="Job is already running")

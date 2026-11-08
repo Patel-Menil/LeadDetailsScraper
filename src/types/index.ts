@@ -500,6 +500,8 @@ export interface IndividualResearchInput {
   website?: string;
   location?: string;
   context?: string;
+  use_browser?: boolean;
+  use_tor?: boolean;
 }
 
 export interface IndividualObservation {
@@ -647,6 +649,7 @@ export interface IndividualJob {
     summary?: IndividualAiSummary;
   };
   live_products?: { live: IndividualLiveProduct[]; excluded: IndividualLiveProduct[] };
+  search_options?: { use_browser: boolean; use_tor: boolean };
   sealapi: {
     relevance: string;
     fit_label: string;

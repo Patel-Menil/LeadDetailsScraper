@@ -41,8 +41,12 @@ job; partial results are always returned.
 
 ### Discovery sources
 
-- **DuckDuckGo Lite**, direct HTTP (`ScraplingScraper(use_browser=False, use_tor=False)`): no stealth browser,
-  no Tor. Result titles are parsed (LinkedIn titles as `Name - Title - Company | LinkedIn`; GitHub titles) and
+- **DuckDuckGo**, searched the same way as bulk lead research. The request's `use_browser` and `use_tor`
+  (both default `true`, shown on the form as "Stealth Chromium" and "Enable Tor Routing", kept per job in
+  `search_options` and reused for select and retry) build `ScraplingScraper(use_browser=..., use_tor=...)`:
+  the stealth Chromium browser on `html.duckduckgo.com` routed through Tor when it is reachable, falling back to
+  DuckDuckGo Lite over direct HTTP when that finds nothing. Only searches use Tor; company and personal pages are
+  always fetched directly through the SSRF-safe, IP-pinned fetcher. Result titles are parsed (LinkedIn titles as `Name - Title - Company | LinkedIn`; GitHub titles) and
   snippets are pattern-matched for `<Title> at <Company>`. DuckDuckGo redirect links (`//duckduckgo.com/l/?uddg=`)
   are decoded to the real destination first. A hit is dropped unless its name is compatible with the searched
   name. The scraper swallows request errors and bot challenges (for example HTTP 202) and returns no results, so
@@ -197,7 +201,7 @@ The result has `job_id`, `status` (`running`, `needs_input`, `partial`, `complet
 
 None. Nothing is written to `data/` or `DATA_DIR`; jobs, the company record and its page cache exist only in
 process memory and are lost on restart or after expiry. The "Download JSON" button builds the file in the browser
-from the job already on screen.
+from the job already on screen; "Copy JSON" copies the same JSON to the clipboard.
 
 ## Configuration
 
@@ -206,7 +210,9 @@ existing `COMPANY_RESEARCH_*` settings (see `docs/COMPANY_INTELLIGENCE.md`) and 
 
 ## Known limitations
 
-- DuckDuckGo Lite returns about 5 results per query and may throttle or serve a bot challenge. The scraper turns
+- DuckDuckGo returns about 5-6 results per query and may still throttle or serve a bot challenge, especially
+  with the stealth browser or Tor turned off, or when Tor is offline (the form shows Tor's status and a
+  "Start Tor" button). The stealth browser makes each search slower (several seconds per query). The scraper turns
   those into empty results, so they are not recorded per query; only when every query comes back empty does the
   job record a "Web search returned no results" error and limitation.
 - LinkedIn data comes only from search-result titles and snippets; LinkedIn and X pages are never fetched.

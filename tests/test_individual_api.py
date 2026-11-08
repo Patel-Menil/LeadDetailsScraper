@@ -12,7 +12,7 @@ from tests.test_individual_research import (
 
 def _install(monkeypatch, search, github_factory=FakeGitHub, spawn=None):
     monkeypatch.setattr(server, "individual_jobs", IndividualJobStore())
-    monkeypatch.setattr(server, "make_individual_pipeline", lambda: IndividualPipeline(
+    monkeypatch.setattr(server, "make_individual_pipeline", lambda *_a, **_k: IndividualPipeline(
         search, github_factory(), fetch_ok("https://acme.ai", "Acme AI - secure agents"),
         company_researcher=FakeResearcher))
     monkeypatch.setattr(server, "_spawn", spawn or (lambda fn, *a: fn(*a)))
@@ -94,8 +94,8 @@ def test_retry_failed_stage(monkeypatch):
     pipes = []
     orig = server.make_individual_pipeline
 
-    def mk():
-        p = orig()
+    def mk(*a, **k):
+        p = orig(*a, **k)
         p.company_researcher = Crash if not pipes else FakeResearcher
         pipes.append(p)
         return p
@@ -138,7 +138,7 @@ def test_get_returns_snapshot_not_live_dict(client):
 def test_worker_clears_running_when_pipeline_factory_fails(monkeypatch):
     c = _install(monkeypatch, AnySearch([LI_A]))
 
-    def boom():
+    def boom(*_a, **_k):
         raise RuntimeError("no pipeline")
 
     monkeypatch.setattr(server, "make_individual_pipeline", boom)
@@ -148,7 +148,8 @@ def test_worker_clears_running_when_pipeline_factory_fails(monkeypatch):
 
 
 def test_make_pipeline_is_fresh_and_uses_company_slots():
-    a, b = server.make_individual_pipeline(), server.make_individual_pipeline()
+    direct = {"use_browser": False, "use_tor": False}  # no Tor probing in unit tests
+    a, b = server.make_individual_pipeline(direct), server.make_individual_pipeline(direct)
     assert a.github is not b.github and a.search is not b.search
     assert a.company_slots is server.company_research_slots
 
@@ -179,7 +180,7 @@ def test_no_second_worker_between_pipeline_clear_and_worker_finally(monkeypatch)
     c = _install(monkeypatch, AnySearch([LI_A]))
     base_factory = server.make_individual_pipeline
 
-    def crash_factory():
+    def crash_factory(*_a, **_k):
         p = base_factory()
         p.company_researcher = Crash
         return p
@@ -201,7 +202,7 @@ def test_no_second_worker_between_pipeline_clear_and_worker_finally(monkeypatch)
         def retry_stage(self, job):
             return self.inner.retry_stage(job)
 
-    monkeypatch.setattr(server, "make_individual_pipeline", lambda: Gated(crash_factory()))
+    monkeypatch.setattr(server, "make_individual_pipeline", lambda *_a, **_k: Gated(crash_factory()))
 
     def spawn(fn, *a):
         spawned.append(a)
@@ -245,8 +246,40 @@ def test_spawn_failure_after_select_leaves_job_failed_and_retryable(client_ambig
     assert c.get(f"{BASE}/{jid}").json()["status"] in ("completed", "partial")
 
 
-def test_long_context_is_accepted_without_length_limit(client):
-    long_context = "Works on AI agent security at Acme. " * 300  # about 11,000 characters
-    jid = start(client, context=long_context)
-    job = client.get(f"{BASE}/{jid}").json()
-    assert job["input"]["context"] == long_context
+def test_context_is_limited_to_1000_characters(client):
+    jid = start(client, context="x" * 1000)
+    assert client.get(f"{BASE}/{jid}").json()["input"]["context"] == "x" * 1000
+    r = client.post(BASE, json={"name": "Jane Doe", "context": "x" * 1001})
+    assert r.status_code == 422
+
+
+def test_search_options_default_on_and_are_reused_for_select_and_retry(monkeypatch):
+    seen = []
+    c = _install(monkeypatch, AnySearch([LI_A]))
+    inner = server.make_individual_pipeline
+
+    def mk(options=None):
+        seen.append(options)
+        return inner(options)
+
+    monkeypatch.setattr(server, "make_individual_pipeline", mk)
+    jid = start(c)
+    job = c.get(f"{BASE}/{jid}").json()
+    assert job["search_options"] == {"use_browser": True, "use_tor": True}
+    assert "use_browser" not in job["input"] and "use_tor" not in job["input"]
+    assert seen[-1] == {"use_browser": True, "use_tor": True}
+
+    jid2 = start(c, use_browser=False, use_tor=False)
+    assert c.get(f"{BASE}/{jid2}").json()["search_options"] == {"use_browser": False, "use_tor": False}
+    assert seen[-1] == {"use_browser": False, "use_tor": False}
+
+
+def test_pipeline_factory_routes_search_through_stealth_browser_and_tor(monkeypatch):
+    from src.lead_research.tor_manager import TorManager
+    monkeypatch.setattr(TorManager, "get_proxy_url", lambda self, require_reachable=True: "socks5://tor:9050")
+    p = server.make_individual_pipeline({"use_browser": True, "use_tor": True})
+    scraper = p.search.scraper
+    assert scraper.use_tor is True and scraper.proxy == "socks5://tor:9050"
+    assert scraper.use_browser == server.HAS_STEALTHY_FETCHER
+    direct = server.make_individual_pipeline({"use_browser": False, "use_tor": False}).search.scraper
+    assert direct.use_tor is False and direct.proxy is None and direct.use_browser is False

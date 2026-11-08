@@ -69,13 +69,20 @@ export function relevanceMeta(r) {
   return { ...m };
 }
 
-/** Trim all fields and drop empty optional ones; `name` is always kept. */
-export function buildStartPayload(form) {
+/**
+ * Trim all fields and drop empty optional ones; `name` is always kept. `options` (the search technique:
+ * stealth browser and Tor) is added as booleans when given.
+ */
+export function buildStartPayload(form, options) {
   const f = form || {};
   const out = { name: String(f.name ?? "").trim() };
   for (const k of OPTIONAL_FIELDS) {
     const v = String(f[k] ?? "").trim();
     if (v) out[k] = v;
+  }
+  if (options) {
+    out.use_browser = Boolean(options.use_browser);
+    out.use_tor = Boolean(options.use_tor);
   }
   return out;
 }

@@ -364,3 +364,12 @@ def test_context_tokens_read_the_whole_context():
     from src.lead_research.individual_discovery import context_tokens
     text = "filler " * 300 + "kubernetes"
     assert "kubernetes" in context_tokens(text)
+
+
+def test_linkedin_title_with_role_at_company():
+    from src.lead_research.individual_discovery import parse_linkedin_title
+    assert parse_linkedin_title("Guillermo Rauch - CEO at Vercel | LinkedIn") == ("Guillermo Rauch", "CEO", "Vercel")
+    assert parse_linkedin_title("Guillermo Rauch - Chief Executive Officer at Vercel | LinkedIn") == (
+        "Guillermo Rauch", "Chief Executive Officer", "Vercel")
+    assert parse_linkedin_title("Jane Doe - CTO - Acme AI | LinkedIn") == ("Jane Doe", "CTO", "Acme AI")
+    assert parse_linkedin_title("Jane Doe - Acme AI | LinkedIn") == ("Jane Doe", "", "Acme AI")

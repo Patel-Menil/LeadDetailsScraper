@@ -170,6 +170,10 @@ def parse_linkedin_title(title: str) -> Tuple[str, str, str]:
     if len(parts) == 1:
         return parts[0], "", ""
     if len(parts) == 2:
+        # "Name - CEO at Vercel | LinkedIn": the middle part is "<role> at <company>"
+        role, sep, company = parts[1].partition(" at ")
+        if sep and role.strip() and company.strip():
+            return parts[0], role.strip(), company.strip()
         return parts[0], "", parts[1]
     return parts[0], parts[1], " - ".join(parts[2:])
 

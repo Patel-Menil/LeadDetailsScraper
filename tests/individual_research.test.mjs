@@ -21,6 +21,8 @@ describe("Individual research", () => {
   });
   it("buildStartPayload keeps only filled fields", () => {
     assert.deepEqual(buildStartPayload({ name: " Jane Doe ", company: "", location: " Berlin " }), { name: "Jane Doe", location: "Berlin" });
+    assert.deepEqual(buildStartPayload({ name: "Jane Doe" }, { use_browser: true, use_tor: false }),
+      { name: "Jane Doe", use_browser: true, use_tor: false });
   });
   it("confidence and relevance labels", () => {
     assert.equal(confidenceLabel(0.8), "High"); assert.equal(confidenceLabel(0.5), "Medium"); assert.equal(confidenceLabel(0.1), "Low");

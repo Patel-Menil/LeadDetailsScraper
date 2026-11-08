@@ -10,17 +10,19 @@ import {
   Circle,
   Copy,
   Download,
+  Globe,
   Loader2,
   MinusCircle,
   RefreshCw,
   Search,
+  ShieldCheck,
   UserCheck,
   UserSearch,
   XCircle,
   HelpCircle,
 } from "lucide-react";
 import { api } from "@/lib/api";
-import { IndividualJob, IndividualResearchInput, IndividualStage } from "@/types";
+import { IndividualJob, IndividualResearchInput, IndividualStage, TorStatus } from "@/types";
 import {
   JOB_GONE_MESSAGE,
   STAGE_LABELS,
@@ -40,6 +42,7 @@ import { Badge } from "@/components/ui/Badge";
 import { IndividualResults } from "@/components/IndividualResults";
 
 const POLL_MS = 1500;
+const CONTEXT_MAX = 1000; // matches the API limit on the context hint
 
 const EMPTY_FORM: Record<string, string> = {
   name: "",
@@ -105,6 +108,35 @@ export default function IndividualResearchPage() {
   const [busy, setBusy] = useState(false);
   // Set when polling gets a 404 (job evicted or server restarted): polling stops for good.
   const [jobGone, setJobGone] = useState(false);
+  // Search technique, same as bulk lead research: DuckDuckGo through the stealth browser, routed via Tor.
+  const [useBrowser, setUseBrowser] = useState(true);
+  const [useTor, setUseTor] = useState(true);
+  const [torStatus, setTorStatus] = useState<TorStatus | null>(null);
+  const [startingTor, setStartingTor] = useState(false);
+
+  const checkTorStatus = useCallback(async () => {
+    try {
+      setTorStatus(await api.getTorStatus());
+    } catch {
+      setTorStatus(null);
+    }
+  }, []);
+
+  useEffect(() => {
+    checkTorStatus();
+  }, [checkTorStatus]);
+
+  const handleStartTor = async () => {
+    setStartingTor(true);
+    try {
+      await api.startTor();
+    } catch {
+      // the status check below shows the outcome
+    } finally {
+      await checkTorStatus();
+      setStartingTor(false);
+    }
+  };
 
   // Bumped on Clear/unmount so late responses and ticks from an old job are ignored.
   const generation = useRef(0);
@@ -161,7 +193,7 @@ export default function IndividualResearchPage() {
     setJob(null);
     setJobGone(false);
     try {
-      const payload = buildStartPayload(form) as IndividualResearchInput;
+      const payload = buildStartPayload(form, { use_browser: useBrowser, use_tor: useTor }) as IndividualResearchInput;
       const { job_id } = await api.startIndividualResearch(payload);
       const first = await api.getIndividualResearch(job_id);
       if (generation.current === gen) setJob(first);
@@ -296,11 +328,17 @@ export default function IndividualResearchPage() {
                       <textarea
                         id={`ind-${f.key}`}
                         rows={4}
+                        maxLength={CONTEXT_MAX}
                         value={form[f.key]}
                         onChange={(e) => setForm((s) => ({ ...s, [f.key]: e.target.value }))}
                         placeholder={f.placeholder}
                         className="w-full resize-y bg-[#061a33] border border-[#234a73] rounded-lg px-3 py-2 text-sm text-slate-100 placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500/40"
                       />
+                    ) : null}
+                    {f.key === "context" ? (
+                      <p className="mt-1 text-right text-[11px] text-slate-500">
+                        {form.context.length}/{CONTEXT_MAX}
+                      </p>
                     ) : (
                       <input
                         id={`ind-${f.key}`}
@@ -315,6 +353,67 @@ export default function IndividualResearchPage() {
                 ))}
               </div>
             )}
+
+            <div className="rounded-lg border border-[#1a3a5f] bg-[#0b2545] p-3.5 space-y-3">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <span className="text-xs font-semibold text-white">Search technique</span>
+                {useTor &&
+                  (torStatus?.is_running ? (
+                    <span className="flex items-center gap-1.5 text-xs text-emerald-400">
+                      <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                      Tor active{torStatus.port ? ` (port ${torStatus.port})` : ""}
+                    </span>
+                  ) : (
+                    <span className="flex items-center gap-2">
+                      <span className="text-xs text-amber-400">Tor offline</span>
+                      <Button
+                        type="button"
+                        size="sm"
+                        variant="outline"
+                        onClick={handleStartTor}
+                        isLoading={startingTor}
+                        className="text-[11px] h-6 px-2 text-amber-300 border-amber-500/30 hover:bg-amber-500/10"
+                      >
+                        Start Tor
+                      </Button>
+                    </span>
+                  ))}
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <label htmlFor="ind-use-browser" className="flex items-start gap-2 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    id="ind-use-browser"
+                    checked={useBrowser}
+                    onChange={(e) => setUseBrowser(e.target.checked)}
+                    className="mt-0.5 rounded bg-[#0e2a4d] border-[#234a73] text-emerald-500 focus:ring-0 w-4 h-4 cursor-pointer"
+                  />
+                  <span>
+                    <span className="flex items-center gap-1.5 text-xs font-medium text-emerald-400">
+                      <Globe className="w-3.5 h-3.5" /> Stealth Chromium
+                    </span>
+                    <span className="block text-[11px] text-slate-400">Searches DuckDuckGo with the stealth browser.</span>
+                  </span>
+                </label>
+                <label htmlFor="ind-use-tor" className="flex items-start gap-2 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    id="ind-use-tor"
+                    checked={useTor}
+                    onChange={(e) => setUseTor(e.target.checked)}
+                    className="mt-0.5 rounded bg-[#0e2a4d] border-[#234a73] text-emerald-500 focus:ring-0 w-4 h-4 cursor-pointer"
+                  />
+                  <span>
+                    <span className="flex items-center gap-1.5 text-xs font-medium text-sky-400">
+                      <ShieldCheck className="w-3.5 h-3.5" /> Enable Tor Routing
+                    </span>
+                    <span className="block text-[11px] text-slate-400">
+                      Routes searches through Tor. Company pages are still fetched directly.
+                    </span>
+                  </span>
+                </label>
+              </div>
+            </div>
 
             <div className="flex items-center gap-3">
               <Button type="submit" disabled={!nameOk || polling} isLoading={busy && !job}>
