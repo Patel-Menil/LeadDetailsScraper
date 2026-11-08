@@ -137,7 +137,7 @@ function PrioritizedLeadsContent() {
   return (
     <div className="space-y-6 max-w-7xl mx-auto">
       {/* Top Header & Actions */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#1c2438] pb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#1a3a5f] pb-4">
         <div>
           <h2 className="text-xl font-bold text-white tracking-tight flex items-center gap-2">
             <Users className="w-5 h-5 text-blue-400" />
@@ -191,7 +191,7 @@ function PrioritizedLeadsContent() {
                   setSelectedBatchId(e.target.value);
                   setPage(1);
                 }}
-                className="w-full bg-[#0e1320] border border-[#232c45] rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-blue-500"
+                className="w-full bg-[#0b2545] border border-[#234a73] rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-blue-500"
               >
                 {batches.length === 0 ? (
                   <option value="">No batches found</option>
@@ -216,7 +216,7 @@ function PrioritizedLeadsContent() {
                   setPriorityFilter(e.target.value);
                   setPage(1);
                 }}
-                className="w-full bg-[#0e1320] border border-[#232c45] rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-blue-500"
+                className="w-full bg-[#0b2545] border border-[#234a73] rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-blue-500"
               >
                 <option value="all">All Priorities</option>
                 <option value="0">Priority 0 (High - CISO, AI Sec)</option>
@@ -236,7 +236,7 @@ function PrioritizedLeadsContent() {
                   setStatusFilter(e.target.value);
                   setPage(1);
                 }}
-                className="w-full bg-[#0e1320] border border-[#232c45] rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-blue-500"
+                className="w-full bg-[#0b2545] border border-[#234a73] rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-blue-500"
               >
                 <option value="all">All Statuses</option>
                 <option value="completed">Completed</option>
@@ -258,7 +258,7 @@ function PrioritizedLeadsContent() {
                     placeholder="Search name, title, company..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full bg-[#0e1320] border border-[#232c45] rounded-lg pl-8 pr-3 py-1.5 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-blue-500"
+                    className="w-full bg-[#0b2545] border border-[#234a73] rounded-lg pl-8 pr-3 py-1.5 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-blue-500"
                   />
                 </div>
                 <Button size="sm" variant="secondary" type="submit" className="text-xs px-2.5">
@@ -299,7 +299,7 @@ function PrioritizedLeadsContent() {
                 setPageSize(Number(e.target.value));
                 setPage(1);
               }}
-              className="bg-[#0e1320] border border-[#232c45] rounded px-2 py-1 text-xs text-slate-300"
+              className="bg-[#0b2545] border border-[#234a73] rounded px-2 py-1 text-xs text-slate-300"
             >
               <option value={10}>10</option>
               <option value={25}>25</option>
@@ -320,7 +320,7 @@ function PrioritizedLeadsContent() {
             </div>
           ) : (
             <table className="w-full text-left text-sm">
-              <thead className="bg-[#0e1320] border-b border-[#1c2438] text-xs uppercase font-semibold text-slate-400">
+              <thead className="bg-[#0b2545] border-b border-[#1a3a5f] text-xs uppercase font-semibold text-slate-400">
                 <tr>
                   <th
                     className="py-3 px-4 cursor-pointer hover:text-white"
@@ -363,11 +363,11 @@ function PrioritizedLeadsContent() {
                   <th className="py-3 px-4 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#1c2438] text-slate-300">
+              <tbody className="divide-y divide-[#1a3a5f] text-slate-300">
                 {sortedLeads.map((lead) => {
                   const leadUrl = `/leads/${lead.lead_id}${selectedBatchId ? `?batch_id=${selectedBatchId}` : ""}`;
                   return (
-                    <tr key={lead.lead_id} className="hover:bg-[#131929] transition-colors">
+                    <tr key={lead.lead_id} className="hover:bg-[#0f2c50] transition-colors">
                       <td className="py-3 px-4 whitespace-nowrap">
                         <PriorityBadge priority={lead.priority} />
                       </td>
@@ -418,7 +418,7 @@ function PrioritizedLeadsContent() {
         </CardContent>
 
         {/* Pagination Bar */}
-        <div className="p-4 border-t border-[#1c2438] flex items-center justify-between">
+        <div className="p-4 border-t border-[#1a3a5f] flex items-center justify-between">
           <div className="text-xs text-slate-400">
             Page <span className="font-semibold text-white">{page}</span> of{" "}
             <span className="font-semibold text-white">{totalPages}</span>

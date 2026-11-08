@@ -125,7 +125,7 @@ export default function BatchDetailsPage() {
   return (
     <div className="space-y-6 max-w-6xl mx-auto">
       {/* Header and Back Link */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#1c2438] pb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#1a3a5f] pb-4">
         <div className="flex items-center gap-3">
           <Link href="/batches">
             <Button size="sm" variant="outline" className="gap-1.5 text-xs">
@@ -199,7 +199,7 @@ export default function BatchDetailsPage() {
           </div>
 
           {/* Animated Progress Bar */}
-          <div className="h-3 w-full bg-[#1c2438] rounded-full overflow-hidden">
+          <div className="h-3 w-full bg-[#1a3a5f] rounded-full overflow-hidden">
             <div
               style={{ width: `${progressPct}%` }}
               className={`h-full transition-all duration-300 rounded-full ${
@@ -223,7 +223,7 @@ export default function BatchDetailsPage() {
 
       {/* Metrics Row */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-        <div className="p-4 rounded-xl bg-[#101522] border border-[#232c45]">
+        <div className="p-4 rounded-xl bg-[#0c2747] border border-[#234a73]">
           <div className="text-xs font-semibold text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
             <CheckCircle2 className="w-3.5 h-3.5" />
             <span>Completed</span>
@@ -231,7 +231,7 @@ export default function BatchDetailsPage() {
           <div className="text-2xl font-bold text-white mt-2">{batch.completed_count ?? 0}</div>
         </div>
 
-        <div className="p-4 rounded-xl bg-[#101522] border border-[#232c45]">
+        <div className="p-4 rounded-xl bg-[#0c2747] border border-[#234a73]">
           <div className="text-xs font-semibold text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
             <AlertTriangle className="w-3.5 h-3.5" />
             <span>Review Required</span>
@@ -239,7 +239,7 @@ export default function BatchDetailsPage() {
           <div className="text-2xl font-bold text-white mt-2">{batch.partial_count ?? 0}</div>
         </div>
 
-        <div className="p-4 rounded-xl bg-[#101522] border border-[#232c45]">
+        <div className="p-4 rounded-xl bg-[#0c2747] border border-[#234a73]">
           <div className="text-xs font-semibold text-rose-400 uppercase tracking-wider flex items-center gap-1.5">
             <XCircle className="w-3.5 h-3.5" />
             <span>Failed</span>
@@ -247,7 +247,7 @@ export default function BatchDetailsPage() {
           <div className="text-2xl font-bold text-white mt-2">{batch.failed_count ?? 0}</div>
         </div>
 
-        <div className="p-4 rounded-xl bg-[#101522] border border-[#232c45]">
+        <div className="p-4 rounded-xl bg-[#0c2747] border border-[#234a73]">
           <div className="text-xs font-semibold text-emerald-400 uppercase tracking-wider font-mono">
             Outreach Ready
           </div>
@@ -256,7 +256,7 @@ export default function BatchDetailsPage() {
           </div>
         </div>
 
-        <div className="p-4 rounded-xl bg-[#101522] border border-[#232c45]">
+        <div className="p-4 rounded-xl bg-[#0c2747] border border-[#234a73]">
           <div className="text-xs font-semibold text-amber-400 uppercase tracking-wider font-mono">
             Needs Review
           </div>
@@ -265,7 +265,7 @@ export default function BatchDetailsPage() {
           </div>
         </div>
 
-        <div className="p-4 rounded-xl bg-[#101522] border border-[#232c45]">
+        <div className="p-4 rounded-xl bg-[#0c2747] border border-[#234a73]">
           <div className="text-xs font-semibold text-blue-400 uppercase tracking-wider font-mono">
             Priority Tiers
           </div>
@@ -309,7 +309,7 @@ export default function BatchDetailsPage() {
                 placeholder="Filter logs..."
                 value={logSearch}
                 onChange={(e) => setLogSearch(e.target.value)}
-                className="pl-8 pr-2.5 py-1 text-xs bg-[#0a0d14] border border-[#1c2438] rounded-md text-slate-200 placeholder-slate-500 focus:outline-none focus:border-blue-500 w-36 sm:w-44"
+                className="pl-8 pr-2.5 py-1 text-xs bg-[#061a33] border border-[#1a3a5f] rounded-md text-slate-200 placeholder-slate-500 focus:outline-none focus:border-blue-500 w-36 sm:w-44"
               />
             </div>
 
@@ -317,7 +317,7 @@ export default function BatchDetailsPage() {
               size="sm"
               variant="outline"
               onClick={() => setIsExpanded(!isExpanded)}
-              className="text-xs h-7 px-2.5 border-[#1c2438] text-slate-300 hover:text-white"
+              className="text-xs h-7 px-2.5 border-[#1a3a5f] text-slate-300 hover:text-white"
               title={isExpanded ? "Collapse view" : "Expand view"}
             >
               {isExpanded ? (
@@ -344,7 +344,7 @@ export default function BatchDetailsPage() {
 
         <CardContent className="p-0">
           <div
-            className={`p-4 bg-[#0a0d14] font-mono text-xs text-slate-300 overflow-y-auto space-y-2 border-t border-[#1c2438] rounded-b-xl transition-all duration-200 ${
+            className={`p-4 bg-[#061a33] font-mono text-xs text-slate-300 overflow-y-auto space-y-2 border-t border-[#1a3a5f] rounded-b-xl transition-all duration-200 ${
               isExpanded ? "max-h-[600px]" : "max-h-80"
             }`}
           >
@@ -395,7 +395,7 @@ export default function BatchDetailsPage() {
           <a
             href={api.getOutreachReadyCsvUrl(batch.batch_id)}
             download
-            className="p-4 rounded-lg bg-[#0e1320] border border-emerald-500/40 hover:border-emerald-500 hover:bg-[#131929] transition block space-y-2 group"
+            className="p-4 rounded-lg bg-[#0b2545] border border-emerald-500/40 hover:border-emerald-500 hover:bg-[#0f2c50] transition block space-y-2 group"
           >
             <div className="flex items-center justify-between text-xs font-semibold text-white">
               <span className="flex items-center gap-1.5">
@@ -412,7 +412,7 @@ export default function BatchDetailsPage() {
           <a
             href={api.getNeedsReviewCsvUrl(batch.batch_id)}
             download
-            className="p-4 rounded-lg bg-[#0e1320] border border-amber-500/40 hover:border-amber-500 hover:bg-[#131929] transition block space-y-2 group"
+            className="p-4 rounded-lg bg-[#0b2545] border border-amber-500/40 hover:border-amber-500 hover:bg-[#0f2c50] transition block space-y-2 group"
           >
             <div className="flex items-center justify-between text-xs font-semibold text-white">
               <span className="flex items-center gap-1.5">
@@ -429,7 +429,7 @@ export default function BatchDetailsPage() {
           <a
             href={api.getPrioritizedCsvUrl(batch.batch_id)}
             download
-            className="p-4 rounded-lg bg-[#0e1320] border border-[#1c2438] hover:border-blue-500/40 hover:bg-[#131929] transition block space-y-2 group"
+            className="p-4 rounded-lg bg-[#0b2545] border border-[#1a3a5f] hover:border-blue-500/40 hover:bg-[#0f2c50] transition block space-y-2 group"
           >
             <div className="flex items-center justify-between text-xs font-semibold text-white">
               <span className="flex items-center gap-1.5">
@@ -446,7 +446,7 @@ export default function BatchDetailsPage() {
           <a
             href={api.getBatchZipUrl(batch.batch_id)}
             download
-            className="p-4 rounded-lg bg-[#0e1320] border border-[#1c2438] hover:border-purple-500/40 hover:bg-[#131929] transition block space-y-2 group"
+            className="p-4 rounded-lg bg-[#0b2545] border border-[#1a3a5f] hover:border-purple-500/40 hover:bg-[#0f2c50] transition block space-y-2 group"
           >
             <div className="flex items-center justify-between text-xs font-semibold text-white">
               <span className="flex items-center gap-1.5">
@@ -463,7 +463,7 @@ export default function BatchDetailsPage() {
           <a
             href={api.getSummaryUrl(batch.batch_id)}
             download
-            className="p-4 rounded-lg bg-[#0e1320] border border-[#1c2438] hover:border-sky-500/40 hover:bg-[#131929] transition block space-y-2 group"
+            className="p-4 rounded-lg bg-[#0b2545] border border-[#1a3a5f] hover:border-sky-500/40 hover:bg-[#0f2c50] transition block space-y-2 group"
           >
             <div className="flex items-center justify-between text-xs font-semibold text-white">
               <span className="flex items-center gap-1.5">
@@ -480,7 +480,7 @@ export default function BatchDetailsPage() {
           <a
             href={api.getErrorsCsvUrl(batch.batch_id)}
             download
-            className="p-4 rounded-lg bg-[#0e1320] border border-[#1c2438] hover:border-rose-500/40 hover:bg-[#131929] transition block space-y-2 group"
+            className="p-4 rounded-lg bg-[#0b2545] border border-[#1a3a5f] hover:border-rose-500/40 hover:bg-[#0f2c50] transition block space-y-2 group"
           >
             <div className="flex items-center justify-between text-xs font-semibold text-white">
               <span className="flex items-center gap-1.5">

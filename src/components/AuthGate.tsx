@@ -74,7 +74,7 @@ function LoginScreen({ onSuccess }: { onSuccess: () => void }) {
                 autoFocus
                 value={key}
                 onChange={(e) => setKey(e.target.value)}
-                className="w-full rounded-lg border border-slate-700 bg-[#0a0d14] px-3 py-2 text-sm text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500/40"
+                className="w-full rounded-lg border border-slate-700 bg-[#061a33] px-3 py-2 text-sm text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500/40"
               />
             </div>
 

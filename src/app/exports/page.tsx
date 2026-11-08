@@ -82,7 +82,7 @@ export default function ExportCenterPage() {
   return (
     <div className="space-y-6 max-w-6xl mx-auto">
       {/* Header */}
-      <div className="border-b border-[#1c2438] pb-4">
+      <div className="border-b border-[#1a3a5f] pb-4">
         <h2 className="text-xl font-bold text-white tracking-tight flex items-center gap-2">
           <Download className="w-5 h-5 text-blue-400" />
           <span>Export Center</span>
@@ -102,7 +102,7 @@ export default function ExportCenterPage() {
             <select
               value={selectedBatchId}
               onChange={(e) => setSelectedBatchId(e.target.value)}
-              className="w-full bg-[#0e1320] border border-[#232c45] rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500"
+              className="w-full bg-[#0b2545] border border-[#234a73] rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500"
             >
               {batches.length === 0 ? (
                 <option value="">No batches available</option>
@@ -400,7 +400,7 @@ export default function ExportCenterPage() {
 
           <CardContent className="p-0 overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-[#0e1320] border-b border-[#1c2438] uppercase font-semibold text-slate-400">
+              <thead className="bg-[#0b2545] border-b border-[#1a3a5f] uppercase font-semibold text-slate-400">
                 <tr>
                   <th className="py-2.5 px-4">Person Name</th>
                   <th className="py-2.5 px-4">Company</th>
@@ -409,9 +409,9 @@ export default function ExportCenterPage() {
                   <th className="py-2.5 px-4 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#1c2438] text-slate-300">
+              <tbody className="divide-y divide-[#1a3a5f] text-slate-300">
                 {leads.slice(0, 15).map((l) => (
-                  <tr key={l.lead_id} className="hover:bg-[#131929]">
+                  <tr key={l.lead_id} className="hover:bg-[#0f2c50]">
                     <td className="py-2 px-4 font-medium text-white">{l.name}</td>
                     <td className="py-2 px-4 text-slate-400">{l.company}</td>
                     <td className="py-2 px-4 font-mono">P{l.priority}</td>

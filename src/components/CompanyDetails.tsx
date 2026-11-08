@@ -94,7 +94,7 @@ function Section({
     <Card>
       <CardHeader>
         <CardTitle className="text-white flex items-center gap-2">
-          <span className="text-[10px] font-mono text-slate-500 border border-[#1c2438] rounded px-1.5 py-0.5">{letter}</span>
+          <span className="text-[10px] font-mono text-slate-500 border border-[#1a3a5f] rounded px-1.5 py-0.5">{letter}</span>
           {icon}
           <span>{title}</span>
         </CardTitle>
@@ -146,7 +146,7 @@ function ReviewButtons({
           disabled={disabled || finding.verification_status === o.status}
           onClick={() => onReview(finding.finding_id, o.status)}
           aria-label={`${o.label}: ${finding.label}`}
-          className="inline-flex items-center gap-1 px-2 py-1 rounded border border-[#1c2438] text-[10px] text-slate-300 hover:border-blue-500/50 hover:text-white disabled:opacity-40 disabled:cursor-not-allowed transition"
+          className="inline-flex items-center gap-1 px-2 py-1 rounded border border-[#1a3a5f] text-[10px] text-slate-300 hover:border-blue-500/50 hover:text-white disabled:opacity-40 disabled:cursor-not-allowed transition"
         >
           {o.icon}
           <span>{o.label}</span>
@@ -158,7 +158,7 @@ function ReviewButtons({
 
 function FindingLine({ f }: { f: CompanyFinding }) {
   return (
-    <li className="p-2.5 rounded-lg bg-[#0a0d14] border border-[#1c2438]/80 space-y-1.5">
+    <li className="p-2.5 rounded-lg bg-[#061a33] border border-[#1a3a5f]/80 space-y-1.5">
       <div className="flex flex-wrap items-center gap-2">
         <span className="text-xs font-semibold text-white">{f.label}</span>
         <span className="text-[10px] font-mono text-slate-400">confidence {pct(f.confidence)}</span>
@@ -176,7 +176,7 @@ function ArchitectureView({ product }: { product: CompanyProduct }) {
   if (!arch) return null;
   const names = Object.fromEntries(arch.components.map((c) => [c.id, c.name]));
   return (
-    <div className="p-4 rounded-xl bg-[#0e1320] border border-[#1c2438] space-y-3">
+    <div className="p-4 rounded-xl bg-[#0b2545] border border-[#1a3a5f] space-y-3">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <span className="text-sm font-semibold text-white">{product.name}</span>
         <Badge variant={arch.status === "documented" ? "success" : arch.status === "partial" ? "warning" : "neutral"}>
@@ -335,10 +335,10 @@ export function CompanyDetails({ leadId, batchId, jobTitle }: { leadId: string; 
                 <img
                   src={company.overview.logo_url}
                   alt={`${company.overview.official_name || company.canonical_name} logo`}
-                  className="w-12 h-12 rounded-lg object-contain bg-white/5 border border-[#1c2438]"
+                  className="w-12 h-12 rounded-lg object-contain bg-white/5 border border-[#1a3a5f]"
                 />
               ) : (
-                <div className="w-12 h-12 rounded-lg bg-[#0e1320] border border-[#1c2438] flex items-center justify-center">
+                <div className="w-12 h-12 rounded-lg bg-[#0b2545] border border-[#1a3a5f] flex items-center justify-center">
                   <Building className="w-5 h-5 text-slate-500" />
                 </div>
               )}
@@ -411,7 +411,7 @@ export function CompanyDetails({ leadId, batchId, jobTitle }: { leadId: string; 
                   {progress.pages_done}/{progress.pages_planned || "?"} pages
                 </span>
               </div>
-              <div className="h-1.5 rounded bg-[#0e1320] overflow-hidden">
+              <div className="h-1.5 rounded bg-[#0b2545] overflow-hidden">
                 <div
                   className="h-full bg-blue-500 transition-all"
                   style={{
@@ -458,7 +458,7 @@ export function CompanyDetails({ leadId, batchId, jobTitle }: { leadId: string; 
                 value={domainInput}
                 onChange={(e) => setDomainInput(e.target.value)}
                 placeholder="Set the official domain, e.g. example.com"
-                className="flex-1 px-3 py-2 rounded-lg bg-[#0a0d14] border border-[#1c2438] text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-blue-500"
+                className="flex-1 px-3 py-2 rounded-lg bg-[#061a33] border border-[#1a3a5f] text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-blue-500"
               />
               <Button size="sm" type="submit" disabled={acting || !domainInput.trim()}>Save domain</Button>
             </form>
@@ -467,7 +467,7 @@ export function CompanyDetails({ leadId, batchId, jobTitle }: { leadId: string; 
       </Card>
 
       {!showResults && !meta.busy && (
-        <div className="p-8 rounded-xl border border-dashed border-[#1c2438] text-center space-y-2">
+        <div className="p-8 rounded-xl border border-dashed border-[#1a3a5f] text-center space-y-2">
           <FileSearch className="w-6 h-6 text-slate-500 mx-auto" />
           <p className="text-sm text-slate-300">No company research yet.</p>
           <p className="text-xs text-slate-500 max-w-lg mx-auto">
@@ -559,7 +559,7 @@ export function CompanyDetails({ leadId, batchId, jobTitle }: { leadId: string; 
           >
             {company.products.length === 0 && <Empty>No products could be identified.</Empty>}
             {company.products.map((p) => (
-              <div key={p.product_id} className="p-4 rounded-xl bg-[#0e1320] border border-[#1c2438] space-y-3">
+              <div key={p.product_id} className="p-4 rounded-xl bg-[#0b2545] border border-[#1a3a5f] space-y-3">
                 <div className="flex flex-wrap items-center gap-2">
                   {p.rank && <span className="text-[10px] font-mono text-slate-500">#{p.rank}</span>}
                   <span className="text-sm font-semibold text-white">{p.name}</span>
@@ -620,7 +620,7 @@ export function CompanyDetails({ leadId, batchId, jobTitle }: { leadId: string; 
           >
             {company.gaps.length === 0 && <Empty>No potential gaps could be derived from the available evidence.</Empty>}
             {company.gaps.map((g) => (
-              <div key={g.gap_id} className="p-4 rounded-xl bg-[#0e1320] border border-[#1c2438] space-y-3">
+              <div key={g.gap_id} className="p-4 rounded-xl bg-[#0b2545] border border-[#1a3a5f] space-y-3">
                 <div className="flex flex-wrap items-center gap-2">
                   <span className="text-sm font-semibold text-white">{g.title}</span>
                   <Badge variant="warning">Potential risk — not a verified vulnerability</Badge>
@@ -663,7 +663,7 @@ export function CompanyDetails({ leadId, batchId, jobTitle }: { leadId: string; 
               return (
                 <div
                   key={o.opportunity_id}
-                  className={`p-4 rounded-xl border space-y-3 ${unsupported ? "border-[#1c2438] bg-[#0a0d14] opacity-80" : "border-purple-500/30 bg-purple-500/5"}`}
+                  className={`p-4 rounded-xl border space-y-3 ${unsupported ? "border-[#1a3a5f] bg-[#061a33] opacity-80" : "border-purple-500/30 bg-purple-500/5"}`}
                 >
                   <div className="flex flex-wrap items-center gap-2">
                     <span className="text-sm font-semibold text-white">{o.product_name} · {o.feature}</span>
@@ -696,7 +696,7 @@ export function CompanyDetails({ leadId, batchId, jobTitle }: { leadId: string; 
           <Section letter="G" title="Necessity and Product Fit" icon={<CheckCircle2 className="w-4 h-4 text-emerald-400" />}>
             {company.products.map((p) =>
               p.fit ? (
-                <div key={p.product_id} className="p-4 rounded-xl bg-[#0e1320] border border-[#1c2438] space-y-3">
+                <div key={p.product_id} className="p-4 rounded-xl bg-[#0b2545] border border-[#1a3a5f] space-y-3">
                   <div className="flex flex-wrap items-center gap-2">
                     <span className="text-sm font-semibold text-white">{p.name}</span>
                     <Badge variant={FIT_TONE[p.fit.classification] as Tone}>{p.fit.label}</Badge>
@@ -719,7 +719,7 @@ export function CompanyDetails({ leadId, batchId, jobTitle }: { leadId: string; 
                   {p.score && (
                     <div className="overflow-x-auto">
                       <table className="w-full text-xs text-left">
-                        <thead className="text-slate-400 uppercase font-mono border-b border-[#1c2438]">
+                        <thead className="text-slate-400 uppercase font-mono border-b border-[#1a3a5f]">
                           <tr>
                             <th className="py-1.5 pr-3">Factor</th>
                             <th className="py-1.5 pr-3">Value</th>
@@ -728,7 +728,7 @@ export function CompanyDetails({ leadId, batchId, jobTitle }: { leadId: string; 
                             <th className="py-1.5">Explanation</th>
                           </tr>
                         </thead>
-                        <tbody className="divide-y divide-[#1c2438]">
+                        <tbody className="divide-y divide-[#1a3a5f]">
                           {p.score.factors.map((f) => (
                             <tr key={f.factor}>
                               <td className="py-1.5 pr-3 font-mono text-slate-300">{f.factor}</td>
@@ -799,7 +799,7 @@ export function CompanyDetails({ leadId, batchId, jobTitle }: { leadId: string; 
                 {company.findings.map((f) => {
                   const page = company.pages.find((p) => p.source_id === f.source_id);
                   return (
-                    <li key={f.finding_id} className="p-3 rounded-lg bg-[#0e1320] border border-[#1c2438] space-y-2">
+                    <li key={f.finding_id} className="p-3 rounded-lg bg-[#0b2545] border border-[#1a3a5f] space-y-2">
                       <div className="flex flex-wrap items-center gap-2">
                         <span className="text-xs font-semibold text-white">{f.label}</span>
                         <span className="text-[10px] font-mono text-slate-500">{f.category}</span>
@@ -928,7 +928,7 @@ export function CompanyOutreachCard({ leadId, batchId }: { leadId: string; batch
               value={drafts[v.variant_id] || ""}
               onChange={(e) => setDrafts((d) => ({ ...d, [v.variant_id]: e.target.value }))}
               rows={14}
-              className="w-full p-3 rounded-xl bg-[#0a0d14] border border-[#1c2438] text-slate-200 text-xs font-mono leading-relaxed focus:outline-none focus:border-blue-500"
+              className="w-full p-3 rounded-xl bg-[#061a33] border border-[#1a3a5f] text-slate-200 text-xs font-mono leading-relaxed focus:outline-none focus:border-blue-500"
             />
             {v.observation_source_url && (
               <div className="text-[11px] text-slate-400 flex items-center gap-2">

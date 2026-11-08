@@ -56,7 +56,7 @@ export default function DashboardPage() {
   return (
     <div className="space-y-8 max-w-7xl mx-auto">
       {/* Top Welcome & Refresh Banner */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#1c2438]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#1a3a5f]">
         <div>
           <h2 className="text-xl font-bold text-white tracking-tight flex items-center gap-2">
             <span>Enterprise Intelligence Overview</span>
@@ -220,7 +220,7 @@ export default function DashboardPage() {
 
         <CardContent className="space-y-6">
           {/* Progress Bar Visualizer */}
-          <div className="h-3 w-full bg-[#1c2438] rounded-full overflow-hidden flex">
+          <div className="h-3 w-full bg-[#1a3a5f] rounded-full overflow-hidden flex">
             <div
               style={{ width: `${p0Pct}%` }}
               className="bg-red-500 transition-all duration-500 hover:opacity-90"
@@ -316,7 +316,7 @@ export default function DashboardPage() {
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full text-left text-sm">
-                <thead className="bg-[#0e1320] border-b border-[#1c2438] text-xs uppercase font-semibold text-slate-400">
+                <thead className="bg-[#0b2545] border-b border-[#1a3a5f] text-xs uppercase font-semibold text-slate-400">
                   <tr>
                     <th className="py-3 px-5">Batch ID</th>
                     <th className="py-3 px-5">Input File</th>
@@ -327,9 +327,9 @@ export default function DashboardPage() {
                     <th className="py-3 px-5 text-right">Actions</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-[#1c2438] text-slate-300">
+                <tbody className="divide-y divide-[#1a3a5f] text-slate-300">
                   {stats.recent_batches.map((batch) => (
-                    <tr key={batch.batch_id} className="hover:bg-[#131929] transition-colors">
+                    <tr key={batch.batch_id} className="hover:bg-[#0f2c50] transition-colors">
                       <td className="py-3.5 px-5 font-mono text-xs text-blue-400">
                         <Link href={`/batches/${batch.batch_id}`} className="hover:underline">
                           {batch.batch_id}

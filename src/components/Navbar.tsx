@@ -32,6 +32,12 @@ export function Navbar() {
       { label: "Dashboard", href: "/" },
       { label: "Prioritized Leads", href: "/leads" },
     ];
+  } else if (pathname === "/individual") {
+    pageTitle = "Individual Research";
+    breadcrumbs = [
+      { label: "Dashboard", href: "/" },
+      { label: "Individual Research", href: "/individual" },
+    ];
   } else if (pathname === "/import") {
     pageTitle = "Import & Research Pipeline";
     breadcrumbs = [
@@ -60,7 +66,7 @@ export function Navbar() {
   }
 
   return (
-    <header className="h-16 border-b border-[#232c45] bg-[#0c101b]/80 backdrop-blur-md px-8 flex items-center justify-between sticky top-0 z-20">
+    <header className="h-16 border-b border-[#234a73] bg-[#0a2241]/80 backdrop-blur-md px-8 flex items-center justify-between sticky top-0 z-20">
       {/* Left: Breadcrumbs & Page Title */}
       <div className="flex flex-col">
         <div className="flex items-center gap-1.5 text-xs text-slate-400">

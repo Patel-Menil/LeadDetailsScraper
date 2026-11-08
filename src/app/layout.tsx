@@ -16,7 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="dark">
-      <body className="bg-[#0a0d14] text-slate-100 min-h-screen flex antialiased">
+      <body className="bg-[#061a33] text-slate-100 min-h-screen flex antialiased">
         <AuthGate>
           <Sidebar />
           <div className="flex-1 flex flex-col min-w-0 min-h-screen">

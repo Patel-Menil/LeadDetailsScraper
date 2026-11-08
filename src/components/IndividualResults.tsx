@@ -70,7 +70,7 @@ function StatusBadge({ status }: { status: string }) {
 
 function LiveProductCard({ p }: { p: IndividualLiveProduct }) {
   return (
-    <li className="rounded-lg border border-[#1c2438] bg-[#0c101b] p-3">
+    <li className="rounded-lg border border-[#1a3a5f] bg-[#0a2241] p-3">
       <div className="flex items-center justify-between gap-2">
         <span className="text-sm font-medium text-white break-words">{p.name}</span>
         <div className="flex items-center gap-2 shrink-0">
@@ -96,7 +96,7 @@ function LiveProductCard({ p }: { p: IndividualLiveProduct }) {
 
 function RepoProjectRow({ r }: { r: IndividualRepoProject }) {
   return (
-    <li className="rounded-lg border border-[#1c2438] bg-[#0c101b] p-3">
+    <li className="rounded-lg border border-[#1a3a5f] bg-[#0a2241] p-3">
       <div className="flex items-center justify-between gap-2">
         <span className="text-sm font-medium text-white break-words">{r.name}</span>
         <StatusBadge status={r.status} />
@@ -200,7 +200,7 @@ export function IndividualResults({ job }: { job: IndividualJob }) {
             !person.current_title && <p className="text-sm text-slate-500">No professional facts were found.</p>
           )}
 
-          <div className="pt-3 border-t border-[#1c2438]">
+          <div className="pt-3 border-t border-[#1a3a5f]">
             <h4 className="text-sm font-semibold text-white mb-1">{"Person's projects"}</h4>
             <p className="text-xs text-slate-500 mb-2">
               Their own GitHub repositories and personal-site projects. Live means the project&apos;s website loaded
@@ -218,7 +218,7 @@ export function IndividualResults({ job }: { job: IndividualJob }) {
                     {projects.site.map((s) => (
                       <li
                         key={`site-${s.url}`}
-                        className="rounded-lg border border-[#1c2438] bg-[#0c101b] p-3 flex items-center justify-between gap-2"
+                        className="rounded-lg border border-[#1a3a5f] bg-[#0a2241] p-3 flex items-center justify-between gap-2"
                       >
                         <span className="text-sm text-white min-w-0 break-words">
                           {s.name} <span className="text-xs text-slate-500">(personal site)</span>
@@ -295,7 +295,7 @@ export function IndividualResults({ job }: { job: IndividualJob }) {
           ) : null}
           {intel?.errors?.length ? <p className="text-xs text-amber-400">{intel.errors.join(" · ")}</p> : null}
 
-          <div className="pt-3 border-t border-[#1c2438]">
+          <div className="pt-3 border-t border-[#1a3a5f]">
             <h4 className="text-sm font-semibold text-white mb-1 flex items-center gap-2">
               <Building className="w-4 h-4 text-slate-400" />
               Live Products
@@ -422,7 +422,7 @@ export function IndividualResults({ job }: { job: IndividualJob }) {
                     </h5>
                     <ul className="space-y-2">
                       {useCases.map((u, i) => (
-                        <li key={i} className="rounded-lg border border-[#1c2438] bg-[#0c101b] p-2.5">
+                        <li key={i} className="rounded-lg border border-[#1a3a5f] bg-[#0a2241] p-2.5">
                           <p className="text-xs text-slate-300 break-words">“{u.evidence}”</p>
                           <AiChips types={u.types} purposes={u.purposes} />
                           <p className="text-xs text-slate-500 mt-1 flex flex-wrap gap-x-2">

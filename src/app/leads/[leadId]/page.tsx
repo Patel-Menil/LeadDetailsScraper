@@ -174,7 +174,7 @@ function LeadProfileContent() {
   return (
     <div className="space-y-6 max-w-6xl mx-auto">
       {/* Back button and quick actions */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#1c2438] pb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#1a3a5f] pb-4">
         <div className="flex items-center gap-3">
           <Link href={`/leads${batchId ? `?batch_id=${batchId}` : ""}`}>
             <Button size="sm" variant="outline" className="gap-1.5 text-xs">
@@ -258,7 +258,7 @@ function LeadProfileContent() {
             </div>
 
             {/* Decoupled Score, Confidence & Readiness Widget */}
-            <div className="p-4 rounded-xl bg-[#0e1320] border border-[#1c2438] min-w-[220px] text-right space-y-2.5">
+            <div className="p-4 rounded-xl bg-[#0b2545] border border-[#1a3a5f] min-w-[220px] text-right space-y-2.5">
               <div>
                 <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">
                   Lead-Fit Score
@@ -267,7 +267,7 @@ function LeadProfileContent() {
                   {leadFitScore.toFixed(1)} <span className="text-xs text-slate-500">/ 100</span>
                 </div>
               </div>
-              <div className="pt-2 border-t border-[#1c2438]/80 text-xs text-slate-400 flex justify-between items-center">
+              <div className="pt-2 border-t border-[#1a3a5f]/80 text-xs text-slate-400 flex justify-between items-center">
                 <span>Verification Conf:</span>
                 <span className="font-semibold text-emerald-400 font-mono">
                   {(verificationConfidence * 100).toFixed(0)}%
@@ -300,7 +300,7 @@ function LeadProfileContent() {
       </Card>
 
       {/* Tabs Navigation */}
-      <div className="flex border-b border-[#1c2438] gap-6 text-sm font-medium overflow-x-auto" role="tablist">
+      <div className="flex border-b border-[#1a3a5f] gap-6 text-sm font-medium overflow-x-auto" role="tablist">
         {LEAD_PROFILE_TABS.map((tab) => (
           <button
             key={tab.id}
@@ -340,7 +340,7 @@ function LeadProfileContent() {
                   : prio.reason || "No scoring explanation recorded."}
               </p>
               {prio.supporting_evidence && prio.supporting_evidence.length > 0 && (
-                <ul className="space-y-1.5 pt-2 border-t border-[#1c2438]">
+                <ul className="space-y-1.5 pt-2 border-t border-[#1a3a5f]">
                   {prio.supporting_evidence.map((ev, i) => (
                     <li key={i} className="text-xs text-slate-400 flex items-start gap-2">
                       <span className="text-blue-400 font-bold">&bull;</span>
@@ -493,7 +493,7 @@ function LeadProfileContent() {
             </CardHeader>
 
             <CardContent className="space-y-4">
-              <div className="p-4 rounded-xl bg-[#0e1320] border border-[#1c2438] space-y-3">
+              <div className="p-4 rounded-xl bg-[#0b2545] border border-[#1a3a5f] space-y-3">
                 <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
                   Conversation Opener
                 </div>
@@ -504,7 +504,7 @@ function LeadProfileContent() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {/* Why It Matters */}
-                <div className="p-3.5 rounded-lg bg-[#0e1320] border border-[#1c2438] space-y-1.5">
+                <div className="p-3.5 rounded-lg bg-[#0b2545] border border-[#1a3a5f] space-y-1.5">
                   <span className="text-[11px] font-semibold text-blue-400 uppercase tracking-wider block">
                     Strategic Context
                   </span>
@@ -514,7 +514,7 @@ function LeadProfileContent() {
                 </div>
 
                 {/* Potential Pain Point Hypothesis */}
-                <div className="p-3.5 rounded-lg bg-[#0e1320] border border-[#1c2438] space-y-1.5">
+                <div className="p-3.5 rounded-lg bg-[#0b2545] border border-[#1a3a5f] space-y-1.5">
                   <div className="flex items-center justify-between">
                     <span className="text-[11px] font-semibold text-amber-400 uppercase tracking-wider">
                       Pain Point Hypothesis
@@ -573,13 +573,13 @@ function LeadProfileContent() {
 
             <CardContent className="space-y-4">
               {icebreaker?.outreach_draft?.subject && (
-                <div className="p-3 rounded-lg bg-[#0e1320] border border-[#1c2438] flex items-center gap-2">
+                <div className="p-3 rounded-lg bg-[#0b2545] border border-[#1a3a5f] flex items-center gap-2">
                   <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Subject:</span>
                   <span className="text-xs text-white font-medium">{icebreaker.outreach_draft.subject}</span>
                 </div>
               )}
 
-              <div className="p-4 rounded-xl bg-[#0a0d14] border border-[#1c2438] text-slate-200 text-xs font-mono leading-relaxed whitespace-pre-line">
+              <div className="p-4 rounded-xl bg-[#061a33] border border-[#1a3a5f] text-slate-200 text-xs font-mono leading-relaxed whitespace-pre-line">
                 {draftBody}
               </div>
             </CardContent>
@@ -635,7 +635,7 @@ function LeadProfileContent() {
               ) : (
                 <div className="overflow-x-auto">
                   <table className="w-full text-xs text-left">
-                    <thead className="bg-[#0e1320] text-slate-400 uppercase font-mono border-b border-[#1c2438]">
+                    <thead className="bg-[#0b2545] text-slate-400 uppercase font-mono border-b border-[#1a3a5f]">
                       <tr>
                         <th className="py-2.5 px-3">Field</th>
                         <th className="py-2.5 px-3">Value</th>
@@ -645,9 +645,9 @@ function LeadProfileContent() {
                         <th className="py-2.5 px-3">Review Notes</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-[#1c2438]">
+                    <tbody className="divide-y divide-[#1a3a5f]">
                       {claims.map((claim, idx) => (
-                        <tr key={idx} className="hover:bg-[#0e1320]/50 transition">
+                        <tr key={idx} className="hover:bg-[#0b2545]/50 transition">
                           <td className="py-2.5 px-3 font-semibold text-white font-mono">{claim.field}</td>
                           <td className="py-2.5 px-3 text-slate-300 max-w-xs truncate">{claim.value || "-"}</td>
                           <td className="py-2.5 px-3">
@@ -709,7 +709,7 @@ function LeadProfileContent() {
                 sources.map((src, idx) => (
                   <div
                     key={idx}
-                    className="p-4 rounded-lg bg-[#0e1320] border border-[#1c2438] space-y-3"
+                    className="p-4 rounded-lg bg-[#0b2545] border border-[#1a3a5f] space-y-3"
                   >
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                       <div className="flex items-center gap-2">
@@ -742,13 +742,13 @@ function LeadProfileContent() {
                     )}
 
                     {src.relevant_excerpt && (
-                      <div className="p-2.5 rounded bg-[#0a0d14] border border-[#1c2438]/80 text-xs text-slate-300 italic">
+                      <div className="p-2.5 rounded bg-[#061a33] border border-[#1a3a5f]/80 text-xs text-slate-300 italic">
                         "{src.relevant_excerpt}"
                       </div>
                     )}
 
                     {src.facts_supported && src.facts_supported.length > 0 && (
-                      <div className="pt-2 border-t border-[#1c2438]/60 space-y-1">
+                      <div className="pt-2 border-t border-[#1a3a5f]/60 space-y-1">
                         <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block">
                           Verified Signals Supported:
                         </span>
@@ -795,7 +795,7 @@ function LeadProfileContent() {
           </CardHeader>
 
           <CardContent className="p-0">
-            <pre className="p-5 bg-[#0a0d14] text-slate-300 font-mono text-xs overflow-x-auto max-h-[600px] border-t border-[#1c2438] rounded-b-xl leading-relaxed">
+            <pre className="p-5 bg-[#061a33] text-slate-300 font-mono text-xs overflow-x-auto max-h-[600px] border-t border-[#1a3a5f] rounded-b-xl leading-relaxed">
               {JSON.stringify(profile, null, 2)}
             </pre>
           </CardContent>

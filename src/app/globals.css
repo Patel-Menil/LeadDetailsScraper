@@ -3,15 +3,19 @@
 @tailwind utilities;
 
 :root {
-  --background: #0a0d14;
-  --surface: #101522;
-  --card: #151b2c;
-  --border: #232c45;
-  --foreground: #f1f5f9;
+  --background: #061a33;
+  --surface: #0c2747;
+  --card: #0e2a4d;
+  --border: #234a73;
+  --foreground: #f2f3e8;
 }
 
 body {
   background-color: var(--background);
+  /* BAVRIX: a soft navy glow toward the top right, as on the landing page */
+  background-image: radial-gradient(ellipse 80% 60% at 75% 10%, rgba(19, 60, 110, 0.55) 0%, rgba(6, 26, 51, 0) 70%),
+    linear-gradient(180deg, #08233f 0%, #061a33 100%);
+  background-attachment: fixed;
   color: var(--foreground);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   overflow-x: hidden;
@@ -24,16 +28,16 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #0d111c;
+  background: #0a2241;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #232c45;
+  background: #234a73;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #334155;
+  background: #2f5781;
 }
 
 /* Glassmorphism utility */
@@ -42,4 +46,9 @@ body {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(35, 44, 69, 0.8);
+}
+
+::selection {
+  background: rgba(220, 228, 80, 0.35);
+  color: #f2f3e8;
 }
