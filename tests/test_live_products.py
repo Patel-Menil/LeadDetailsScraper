@@ -196,3 +196,44 @@ def test_fetch_exceptions_are_contained():
     out = build_person_projects([repo("a", homepage="https://a.dev")], boom, website="https://me.dev")
     assert out["live"] == []
     assert out["code_only"][0]["status"] == "down"
+
+
+def test_waitlist_in_code_snippet_is_not_a_not_live_signal():
+    r = classify_liveness(page("https://acme.com/p/sites", "Example request: POST /api/waitlist. Get started free."))
+    assert r["status"] == "live"
+
+
+def test_page_text_cta_preferred_over_nav_link():
+    r = classify_liveness(page("https://acme.com/p/desk", "Deploy in seconds. Get started for free today.",
+                               links=[["https://acme.com/pricing", "Pricing"]]))
+    assert "get started" in r["signal"].lower()
+
+
+def test_ai_page_named_from_title_before_site_suffix():
+    pages = [page("https://acme.com/ai-sdk", "Get started.", category="ai", title="AI SDK - Acme",
+                  headings=["The AI layer for building agents on Acme"])]
+    out = build_company_live_products([], pages, [])
+    assert out["live"][0]["name"] == "AI SDK"
+
+
+def test_site_wide_footer_text_is_not_used_as_live_proof():
+    footer = "Download Brand Assets."
+    pages = [page(f"https://acme.com/p/{i}", f"Product {i} description. {footer}") for i in range(3)]
+    pages.append(page("https://acme.com/p/desk", f"Acme Desk. Start free trial today. {footer}"))
+    products = [{"name": f"P{i}", "url": f"https://acme.com/p/{i}", "url_normalized": f"https://acme.com/p/{i}",
+                 "features": []} for i in range(3)]
+    products.append({"name": "Desk", "url": "https://acme.com/p/desk", "url_normalized": "https://acme.com/p/desk",
+                     "features": []})
+    out = build_company_live_products(products, pages, [])
+    by = {p["name"]: p for p in out["live"] + out["excluded"]}
+    assert "free trial" in by["Desk"]["signal"].lower()
+    assert by["P0"]["status"] == "live" and by["P0"]["signal"].endswith("(site-wide)")
+
+
+def test_site_wide_coming_soon_banner_does_not_hide_products():
+    banner = "Our new mobile app is coming soon."
+    pages = [page(f"https://acme.com/p/{i}", f"Product {i}. Get started now. {banner}") for i in range(3)]
+    products = [{"name": f"P{i}", "url": f"https://acme.com/p/{i}", "url_normalized": f"https://acme.com/p/{i}",
+                 "features": []} for i in range(3)]
+    out = build_company_live_products(products, pages, [])
+    assert [p["status"] for p in out["live"]] == ["live", "live", "live"]

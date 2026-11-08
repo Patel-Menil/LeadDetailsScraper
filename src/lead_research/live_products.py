@@ -37,8 +37,9 @@ _LIVE = re.compile(
 _WEAK_LIVE = re.compile(r"\b(log ?in|sign in|subscribe)\b", re.I)
 _BETA = re.compile(r"\b(beta|early access|public preview|in preview)\b", re.I)
 _NOT_LIVE = re.compile(
-    r"\b(coming soon|join (?:the |our )?wait ?list|wait ?list|waiting list|launching soon|request early access|"
-    r"private beta|notify me|sign up to be notified|get notified)\b",
+    # A bare "waitlist" also appears in code samples ("POST /api/waitlist"), so only invitations count.
+    r"\b(coming soon|join (?:the |our )?(?:wait ?list|waiting list)|(?:get on|sign up for) (?:the |our )?wait ?list|"
+    r"launching soon|request early access|private beta|notify me|sign up to be notified|get notified)\b",
     re.I,
 )
 _DISCONTINUED = re.compile(
@@ -68,12 +69,40 @@ def _quote(text: str, limit: int = 200) -> str:
 
 
 # ---------------------------------------------------------------- liveness
-def classify_liveness(page: Optional[dict], product_name: str = "") -> Dict[str, str]:
-    """Live / beta / not_live / discontinued / unknown, with the quoted text that decided it."""
+def _sentences(page: dict) -> List[str]:
+    text = f"{page.get('meta_description') or ''}\n{page.get('text') or ''}"
+    return [s.strip() for s in _SENTENCE_SPLIT.split(text) if s.strip()]
+
+
+def _norm(text: str) -> str:
+    return re.sub(r"[^a-z0-9]+", " ", (text or "").lower()).strip()
+
+
+def site_wide_text(pages: Iterable[dict]) -> set:
+    """Sentences and link texts repeated on at least half of the loaded pages (and at least 3): headers, footers, nav."""
+    loaded = [p for p in pages or [] if isinstance(p, dict) and p.get("success")]
+    if len(loaded) < 3:
+        return set()
+    counts: Dict[str, int] = {}
+    for p in loaded:
+        keys = {_norm(s) for s in _sentences(p)} | {_norm(t) for _, t in _links(p) if t}
+        for k in keys - {""}:
+            counts[k] = counts.get(k, 0) + 1
+    threshold = max(3, (len(loaded) + 1) // 2)
+    return {k for k, n in counts.items() if n >= threshold}
+
+
+def classify_liveness(page: Optional[dict], product_name: str = "", site_wide: Optional[set] = None) -> Dict[str, str]:
+    """Live / beta / not_live / discontinued / unknown, with the quoted text that decided it.
+
+    Text repeated across the whole site (site_wide) never decides "not live" or "discontinued", and is used as
+    live proof only when the page has nothing specific, labelled "(site-wide)".
+    """
     if not page or not page.get("success"):
         return {"status": "unknown", "signal": "Product page could not be loaded"}
-    text = f"{page.get('meta_description') or ''}\n{page.get('text') or ''}"
-    sentences = [s.strip() for s in _SENTENCE_SPLIT.split(text) if s.strip()]
+    site_wide = site_wide or set()
+    all_sentences = _sentences(page)
+    sentences = [s for s in all_sentences if _norm(s) not in site_wide]
     name = (product_name or "").strip().lower()
 
     for s in sentences:
@@ -83,20 +112,32 @@ def classify_liveness(page: Optional[dict], product_name: str = "") -> Dict[str,
         if _NOT_LIVE.search(s):
             return {"status": "not_live", "signal": _quote(s)}
 
-    signal = _find_signal(page, sentences, _LIVE, app_stores=True) or _find_signal(page, sentences, _WEAK_LIVE)
+    specific = lambda text: _norm(text) not in site_wide  # noqa: E731
+    signal = (_find_signal(page, sentences, _LIVE, specific, app_stores=True, text_first=True)
+              or _find_signal(page, sentences, _WEAK_LIVE, specific))
+    if not signal:
+        anywhere = lambda text: True  # noqa: E731
+        fallback = (_find_signal(page, all_sentences, _LIVE, anywhere, app_stores=True, text_first=True)
+                    or _find_signal(page, all_sentences, _WEAK_LIVE, anywhere))
+        signal = f"{fallback} (site-wide)" if fallback else ""
     if not signal:
         return {"status": "unknown", "signal": _REASONS["unknown"]}
     beta = any(_BETA.search(s) for s in sentences)
     return {"status": "beta" if beta else "live", "signal": signal}
 
 
-def _find_signal(page: dict, sentences: List[str], rx: "re.Pattern[str]", app_stores: bool = False) -> str:
+def _find_signal(page: dict, sentences: List[str], rx: "re.Pattern[str]", allowed: Callable[[str], bool],
+                 app_stores: bool = False, text_first: bool = False) -> str:
+    """Page text is specific to the product; links are often site-wide navigation, so text can be checked first."""
+    in_text = next((_quote(s) for s in sentences if rx.search(s)), "")
+    if text_first and in_text:
+        return in_text
     for href, link_text in _links(page):
         if app_stores and any(store in href.lower() for store in _APP_STORES):
             return f"App store link: {_quote(href, 120)}"
-        if link_text and len(link_text) <= 60 and rx.search(link_text):
+        if link_text and len(link_text) <= 60 and rx.search(link_text) and allowed(link_text):
             return f'Link: "{_quote(link_text, 60)}"'
-    return next((_quote(s) for s in sentences if rx.search(s)), "")
+    return in_text
 
 
 def _links(page: dict) -> Iterable[Tuple[str, str]]:
@@ -110,6 +151,17 @@ def _first_sentence(page: dict) -> str:
     text = page.get("meta_description") or next(
         (s for s in _SENTENCE_SPLIT.split(page.get("text") or "") if len(s.strip()) > 20), "")
     return _quote(text, 400)
+
+
+_TITLE_SEPARATOR = re.compile(r"\s+[-|–—:]\s+")
+
+
+def _ai_page_name(page: dict) -> str:
+    """'AI SDK - Vercel' -> 'AI SDK'. Titles name the product; first headings are often taglines."""
+    parts = _TITLE_SEPARATOR.split(page.get("title") or "", maxsplit=1)
+    if len(parts) == 2 and 2 <= len(parts[0].strip()) <= 60:
+        return parts[0].strip()
+    return _quote(((page.get("headings") or [""])[0] or page.get("title") or ""), 100)
 
 
 def _candidates(products: List[dict], pages: List[dict]) -> List[dict]:
@@ -134,7 +186,7 @@ def _candidates(products: List[dict], pages: List[dict]) -> List[dict]:
         if not isinstance(p, dict) or p.get("category") != "ai" or not p.get("success"):
             continue
         url = p.get("normalized_url") or p.get("url") or ""
-        name = _quote(((p.get("headings") or [""])[0] or p.get("title") or ""), 100)
+        name = _ai_page_name(p)
         if not name or url in seen_urls or (p.get("url") or "") in seen_urls or name.lower() in seen_names:
             continue
         out.append({"name": name, "url": p.get("url") or url, "page": p, "source": "ai_page",
@@ -164,8 +216,9 @@ def _ordered_union(lists: Iterable[List[str]], order: List[str]) -> List[str]:
 def build_company_live_products(products: List[dict], pages: List[dict], use_cases: List[dict]) -> dict:
     live: List[dict] = []
     excluded: List[dict] = []
+    site_wide = site_wide_text(pages)
     for c in _candidates(products, pages):
-        verdict = classify_liveness(c["page"], c["name"])
+        verdict = classify_liveness(c["page"], c["name"], site_wide)
         mine = [u for u in use_cases or [] if u.get("product") == c["name"]]
         item = {
             "name": c["name"], "url": c["url"], "description": c["description"], "features": c["features"],

@@ -128,3 +128,22 @@ def test_summary_empty():
     assert s["primary_type"] == ""
     assert s["purposes"] == []
     assert s["stage"] == "unspecified"
+
+
+def test_sdk_api_and_gateway_wording_counts_as_developer_tooling():
+    assert "coding" in tag_ai_text("Build AI applications and agents with the AI SDK, the TypeScript toolkit.")["purposes"]
+    assert "coding" in tag_ai_text("Use 400+ AI models without managing rate limits and API keys.")["purposes"]
+
+
+def test_short_headlines_are_not_use_cases():
+    cases = extract_ai_use_cases([page("https://acme.com/ai", "AI Gateway pricing docs\nWorks with your AI stack")])
+    assert cases == []
+
+
+def test_singular_product_category_is_product_context_and_prioritised():
+    pages = [page("https://acme.com/careers", "We hire engineers to build LLM evaluation tools.", category="careers"),
+             page("https://acme.com/products/x", "Our AI assistant drafts replies for your customers.",
+                  category="product")]
+    cases = extract_ai_use_cases(pages, total=1)
+    assert cases[0]["source_url"] == "https://acme.com/products/x"
+    assert cases[0]["context"] == "product"

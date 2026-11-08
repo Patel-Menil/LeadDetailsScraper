@@ -60,7 +60,9 @@ _PURPOSE_RULES = {
     "customer_support": r"\bcustomer (support|service|success|experience)\b|\bhelp ?desk\b|\bsupport tickets?\b|"
                         r"\btickets?\b|\bcontact cent(er|re)s?\b|\bcall cent(er|re)s?\b",
     "coding": r"\bcod(e|es|ing)\b|\bdevelopers?\b|\bsoftware engineer\w*|\bpull requests?\b|\bides?\b|\bdebug\w*|"
-              r"\bprogramming\b",
+              r"\bprogramming\b|\bsdks?\b|\bapis?\b|\bapi keys?\b|\btypescript\b|\bjavascript\b|\btoolkits?\b|"
+              r"\bframeworks?\b|\bmodel providers?\b|\bgateways?\b|\bdeploy\w*|\binfrastructure\b|"
+              r"\bbuild(ing)? (ai )?(apps|applications|agents)\b",
     "content_marketing": r"\bmarketing\b|\bcontent\b|\bcopywriting\b|\bblog posts?\b|\bsocial media\b|\bcampaigns?\b|"
                          r"\bseo\b|\bad (copy|creative)s?\b|\bbrand\w*",
     "search_knowledge": r"\bsearch\w*|\bknowledge\b|\bdocumentation\b|\bdocs\b|\banswers?\b|\bwiki\b|\bq&a\b",
@@ -83,8 +85,10 @@ _GA = re.compile(r"\b(generally available|general availability|now available|ava
                  r"now live|is live|launched|now shipping)\b", re.I)
 
 CONTEXT_KEYS = ["product", "hiring_internal", "company"]
-_PRODUCT_CATEGORIES = {"products", "ai", "developer", "integrations", "homepage"}
-_PAGE_PRIORITY = ["ai", "products", "homepage", "developer", "integrations", "news", "about", "security", "careers"]
+# Company research labels product pages "product"; its link categories use "products". Treat both the same.
+_PRODUCT_CATEGORIES = {"product", "products", "ai", "developer", "integrations", "homepage"}
+_PAGE_PRIORITY = ["ai", "product", "homepage", "developer", "integrations", "news", "about", "security", "careers"]
+MIN_WORDS = 7  # shorter lines are headings and nav labels, not statements about AI use
 
 _SENTENCE_SPLIT = re.compile(r"(?<=[.!?])\s+|\n+")
 MAX_EVIDENCE = 280
@@ -120,6 +124,7 @@ def _key(sentence: str) -> str:
 
 def _priority(page: dict) -> int:
     cat = page.get("category") or ""
+    cat = "product" if cat == "products" else cat
     return _PAGE_PRIORITY.index(cat) if cat in _PAGE_PRIORITY else len(_PAGE_PRIORITY)
 
 
@@ -143,7 +148,7 @@ def extract_ai_use_cases(
         taken = 0
         for raw in _SENTENCE_SPLIT.split(text):
             sentence = raw.strip()
-            if len(sentence) < 20 or not is_ai_sentence(sentence):
+            if len(sentence.split()) < MIN_WORDS or not is_ai_sentence(sentence):
                 continue
             key = _key(sentence)
             if key in seen:
