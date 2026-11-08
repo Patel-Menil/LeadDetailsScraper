@@ -137,7 +137,7 @@ def registrable_label(domain: str) -> str:
 def context_tokens(context: str, min_len: int = 2) -> List[str]:
     """Distinct non-stopword tokens of the free-text context hint, in order."""
     out: List[str] = []
-    for t in re.findall(r"[A-Za-z0-9][A-Za-z0-9+#.-]*[A-Za-z0-9+#]|[A-Za-z0-9]", (context or "")[:1000]):
+    for t in re.findall(r"[A-Za-z0-9][A-Za-z0-9+#.-]*[A-Za-z0-9+#]|[A-Za-z0-9]", context or ""):
         low = t.lower()
         if len(t) >= min_len and low not in _STOPWORDS and low not in {o.lower() for o in out}:
             out.append(t)

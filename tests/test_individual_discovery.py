@@ -358,3 +358,9 @@ def test_collect_observations_website_without_name_is_dropped():
         IndividualInput(name="Jane Doe", website="https://x.example"), FakeSearch({}), FakeGitHub(),
         lambda url: page_result(url, "Someone else entirely"))
     assert obs == [] and sources == []
+
+
+def test_context_tokens_read_the_whole_context():
+    from src.lead_research.individual_discovery import context_tokens
+    text = "filler " * 300 + "kubernetes"
+    assert "kubernetes" in context_tokens(text)

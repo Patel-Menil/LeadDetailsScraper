@@ -1285,7 +1285,8 @@ class IndividualResearchRequest(BaseModel):
     github_url: str = Field("", max_length=300)
     website: str = Field("", max_length=300)
     location: str = Field("", max_length=300)
-    context: str = Field("", max_length=1000)
+    # No length limit: free text, used only for keyword matching (searches use at most its first 3 keywords).
+    context: str = ""
 
     @field_validator("name")
     @classmethod

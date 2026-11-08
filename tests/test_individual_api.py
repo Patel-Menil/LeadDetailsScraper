@@ -243,3 +243,10 @@ def test_spawn_failure_after_select_leaves_job_failed_and_retryable(client_ambig
     monkeypatch.setattr(server, "_spawn", lambda fn, *a: fn(*a))
     assert c.post(f"{BASE}/{jid}/retry").status_code == 200
     assert c.get(f"{BASE}/{jid}").json()["status"] in ("completed", "partial")
+
+
+def test_long_context_is_accepted_without_length_limit(client):
+    long_context = "Works on AI agent security at Acme. " * 300  # about 11,000 characters
+    jid = start(client, context=long_context)
+    job = client.get(f"{BASE}/{jid}").json()
+    assert job["input"]["context"] == long_context
